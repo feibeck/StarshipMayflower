@@ -1,0 +1,9 @@
+{
+    "name":"StarshipMayflower",
+    "version":"0.0.1",
+    "private":false,
+    "dependencies":{
+        "pomelo":"0.8.7"
+    }
+}
+
