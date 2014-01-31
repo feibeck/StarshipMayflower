@@ -9,4 +9,6 @@ atlassian-ide-plugin.xml
 
 game-server/node_modules
 game-server/logs
+
 web-server/node_modules
+web-server/public/components

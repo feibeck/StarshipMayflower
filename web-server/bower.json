@@ -1,0 +1,6 @@
+{
+    "name": "Starship Mayflower",
+    "dependencies": {
+        "bootstrap-assets": "latest"
+    }
+}
