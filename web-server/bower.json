@@ -1,6 +1,8 @@
 {
     "name": "Starship Mayflower",
     "dependencies": {
-        "bootstrap-assets": "latest"
+        "bootstrap-assets": "latest",
+        "angular": "latest",
+        "angular-route": "latest"
     }
 }
