@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,10 +22,12 @@
 
     <script type="text/javascript" src="./components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="./components/bootstrap-assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./js/basicCtrl.js"></script>
 </head>
 
 
-<body>
+<body ng-controller="BasicCtrl">
 
 <div class="container">
 
@@ -49,17 +51,48 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Mayflower 1</td>
-                    <td>Torben</td>
-                    <td>Flo</td>
-                    <td>Chris</td>
-                    <td>
+                <tr ng-repeat="ship in list">
+
+                    <td ng-show="ship.name">{{ ship.name }}</td>
+                    <td ng-show="!ship.name">
                         <button class="btn btn-info btn-xs">my challenge</button>
                     </td>
-                    <td>Michael</td>
-                    <td>Ilja</td>
-                    <td>Björn</td>
+
+                    <td ng-show="ship.helm">{{ ship.helm }}</td>
+                    <td ng-show="!ship.helm">
+                        <button class="btn btn-info btn-xs">my challenge</button>
+                    </td>
+
+                    <td ng-show="ship.science">{{ ship.science }}</td>
+                    <td ng-show="!ship.science">
+                        <button class="btn btn-info btn-xs">my challenge</button>
+                    </td>
+
+                    <td ng-show="ship.weapons">{{ ship.weapons }}</td>
+                    <td ng-show="!ship.weapons">
+                        <button class="btn btn-info btn-xs">my challenge</button>
+                    </td>
+
+                    <td ng-show="ship.engineering">{{ ship.engineering }}</td>
+                    <td ng-show="!ship.engineering">
+                        <button class="btn btn-info btn-xs">my challenge</button>
+                    </td>
+
+                    <td ng-show="ship.comm">{{ ship.comm }}</td>
+                    <td ng-show="!ship.comm">
+                        <button class="btn btn-info btn-xs">my challenge</button>
+                    </td>
+
+                    <td ng-show="ship.captain">{{ ship.captain }}</td>
+                    <td ng-show="!ship.captain">
+                        <button class="btn btn-info btn-xs">my challenge</button>
+                    </td>
+
+                    <td ng-show="ship.mainScreen">{{ ship.mainScreen }}</td>
+                    <td ng-show="!ship.mainScreen">
+                        <button class="btn btn-info btn-xs">my challenge</button>
+                    </td>
+
                 </tr>
                 </tbody>
             </table>
@@ -68,31 +101,31 @@
     </div>
 
     <div class="">
-        <button class="btn btn-success" data-toggle="modal" data-target="#myModal">create new ship</button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#createShipModal">create new ship</button>
     </div>
 
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="createShipModal" tabindex="-1" role="dialog" aria-labelledby="createShipModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">create new ship</h4>
+                <h4 class="modal-title" id="createShipModalLabel">create new ship</h4>
             </div>
-            <div class="modal-body">
-                <form class="createShip" role="form">
-                    <h2 class="form-signin-heading">Please sign in</h2>
-                    <input name="name" type="text" class="form-control" placeholder="ship name" required autofocus>
-                    <br/>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-                <button type="button" class="btn btn-primary">create</button>
-            </div>
+            <form class="createShip" role="form">
+                <div class="modal-body">
+                    <label for="shipName">name of you new ship</label>
+                    <input ng-model="shipName" name="shipName" id="shipName" class="form-control"
+                           placeholder="ship name" required autofocus>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                    <button type="submit" class="btn btn-primary" ng-click="create()">create</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
