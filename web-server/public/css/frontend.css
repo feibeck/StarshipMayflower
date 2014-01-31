@@ -1,0 +1,35 @@
+.tab-pane
+{
+    padding: 0 15px;
+}
+
+.panel
+{
+    border: 1px solid grey;
+    padding: 3px;
+    margin: 3px;
+}
+
+.panel h1
+{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.panel h2
+{
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.panel,
+.panel td,
+.panel th,
+.panel li
+{
+    font-size: 10px;
+}
+
+.left-panel
+{
+}

@@ -8,11 +8,316 @@
     <title>Starship Mayflower</title>
 
     <link href="/components/bootstrap-assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/frontend.css" rel="stylesheet">
 
 </head>
 <body>
 
-    <h1>Starship Mayflower!</h1>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#helm" data-toggle="tab">Helm</a></li>
+        <li><a href="#science" data-toggle="tab">Science</a></li>
+        <li><a href="#weapons" data-toggle="tab">Weapons</a></li>
+        <li><a href="#engineering" data-toggle="tab">Engineering</a></li>
+        <li><a href="#comm" data-toggle="tab">Comm</a></li>
+        <li><a href="#star-map" data-toggle="tab">Star-Map</a></li>
+        <li><a href="#add" data-toggle="tab">+</a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <!-- Helm panel -->
+        <div class="tab-pane active" id="helm">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-left">
+
+                        <!-- Ship system status -->
+                        <div>
+                            <h1>Ship system status</h1>
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Energy</th>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <th>Front Shield</th>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <th>Rear Shield</th>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <th>Beam Weapons</th>
+                                    <td>AUTO</td>
+                                </tr>
+                                <tr>
+                                    <th>Weapon Lock</th>
+                                    <td>IDLE</td>
+                                </tr>
+                                <tr>
+                                    <th>Shields</th>
+                                    <td>--</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Engines -->
+                        <div >
+
+                            <h1>Warp</h1>
+
+                            <button>-</button>
+                            <input type="text" value="0">
+                            <button>+</button>
+
+                            <h1>Impulse</h1>
+
+                            <button>-</button>
+                            <input type="text" value="40">
+                            <button>+</button>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="panel panel-center" style="height: 500px;">
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="panel panel-right">
+
+                        <!-- Main screen control -->
+                        <div>
+                            <h1>Main screen</h1>
+                            <ul>
+                                <li>Front</li>
+                                <li>Rear</li>
+                                <li>Left</li>
+                                <li>Right</li>
+                                <li>Tactical</li>
+                                <li>Star-Map</li>
+                                <li>Status</li>
+                            </ul>
+                        </div>
+
+                        <!-- Dock control -->
+                        <div>
+                            <h1>Dock control</h1>
+                            <button>Request Dock</button>
+                        </div>
+
+                        <!-- Shield control -->
+                        <div>
+                            <h1>Shield control</h1>
+                            <input type="checkbox"> Shields
+                        </div>
+
+                        <div>
+                            <h1>Ship damage report</h1>
+                            All well
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Science panel -->
+        <div class="tab-pane" id="science">
+            Science
+        </div>
+
+        <!-- Weapons panel -->
+        <div class="tab-pane" id="weapons">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-left">
+
+                        <!-- Ship system status -->
+                        <div>
+                            <h1>Ship system status</h1>
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Energy</th>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <th>Front Shield</th>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <th>Rear Shield</th>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <th>Beam Weapons</th>
+                                    <td>AUTO</td>
+                                </tr>
+                                <tr>
+                                    <th>Weapon Lock</th>
+                                    <td>IDLE</td>
+                                </tr>
+                                <tr>
+                                    <th>Shields</th>
+                                    <td>--</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Ammunition -->
+                        <div>
+                            <h1>Ammunition</h1>
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Homing Missile</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Nuke</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Mine</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>EMP Missile</td>
+                                    <td>10</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Torpedo tubes -->
+                        <div>
+                            <h1>Torpedo tubes</h1>
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td><button>Unload</button></td>
+                                    <td>Tube 1</td>
+                                    <td>Homing Missile</td>
+                                    <td><button>Fire</button></td>
+                                </tr>
+                                <tr>
+                                    <td><button>Load</button></td>
+                                    <td>Tube 2</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="panel panel-center" style="height: 500px;">
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="panel panel-right">
+
+                        <!-- Main screen control -->
+                        <div>
+                            <h1>Main screen</h1>
+                            <ul>
+                                <li>Front</li>
+                                <li>Rear</li>
+                                <li>Left</li>
+                                <li>Right</li>
+                                <li>Tactical</li>
+                                <li>Star-Map</li>
+                                <li>Status</li>
+                            </ul>
+                        </div>
+
+                        <!-- Beam control -->
+                        <div>
+                            <h1>Beam control</h1>
+                            <input type="checkbox"> Auto Beams
+                            <h2>Frequency</h2>
+                            <ul>
+                                <li><input type="checkbox"> A</li>
+                                <li><input type="checkbox"> B</li>
+                                <li><input type="checkbox"> C</li>
+                                <li><input type="checkbox"> D</li>
+                                <li><input type="checkbox"> E</li>
+                                <li><input type="checkbox"> F</li>
+                            </ul>
+                        </div>
+
+                        <!-- Shield control -->
+                        <div>
+                            <h1>Shield control</h1>
+                            <input type="checkbox"> Shields
+                        </div>
+
+                        <!-- Torpedos to energy -->
+                        <div>
+                            <h1>Production</h1>
+                            <button>Build Missile</button>
+                            <button>Missile to Energy</button>
+                        </div>
+
+                        <div>
+                            <h1>Ship damage report</h1>
+                            All well
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Engineering panel -->
+        <div class="tab-pane" id="engineering">
+            Engineering
+        </div>
+
+        <!-- Communications panel -->
+        <div class="tab-pane" id="comm">
+            Comm
+        </div>
+
+        <!-- Star map panel -->
+        <div class="tab-pane" id="star-map">
+            Map
+        </div>
+
+        <div class="tab-pane" id="add">
+            Take another station
+        </div>
+    </div>
 
     <script src="/components/jquery/jquery.min.js"></script>
     <script src="/components/bootstrap-assets/js/bootstrap.min.js"></script>
