@@ -1,40 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" ng-app>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<div ng-controller="ShipListCtrl">
 
-    <title>Starship Mayflower</title>
-
-    <link href="./components/bootstrap-assets/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            padding-top: 50px;
-        }
-
-        .starter-template {
-            padding: 40px 15px;
-            text-align: center;
-        }
-    </style>
-
-    <script type="text/javascript" src="./components/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="./components/bootstrap-assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="./js/basicCtrl.js"></script>
-</head>
-
-
-<body ng-controller="BasicCtrl">
-
-<div class="container">
-
-    <h1>Starship Mayflower</h1>
-
-    <div>
-
+    <div class="container">
 
         <div class="table-responsive">
             <table class="table table-bordered table-">
@@ -98,37 +64,34 @@
             </table>
         </div>
 
+        <div class="">
+            <button class="btn btn-success" data-toggle="modal" data-target="#createShipModal">create new ship</button>
+        </div>
+
     </div>
 
-    <div class="">
-        <button class="btn btn-success" data-toggle="modal" data-target="#createShipModal">create new ship</button>
-    </div>
-
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="createShipModal" tabindex="-1" role="dialog" aria-labelledby="createShipModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="createShipModalLabel">create new ship</h4>
+    <!-- Modal -->
+    <div class="modal fade" id="createShipModal" tabindex="-1" role="dialog" aria-labelledby="createShipModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="createShipModalLabel">create new ship</h4>
+                </div>
+                <form class="createShip" role="form">
+                    <div class="modal-body">
+                        <label for="shipName">name of you new ship</label>
+                        <input ng-model="shipName" name="shipName" id="shipName" class="form-control"
+                               placeholder="ship name" required autofocus>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" ng-click="create()">create</button>
+                    </div>
+                </form>
             </div>
-            <form class="createShip" role="form">
-                <div class="modal-body">
-                    <label for="shipName">name of you new ship</label>
-                    <input ng-model="shipName" name="shipName" id="shipName" class="form-control"
-                           placeholder="ship name" required autofocus>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-                    <button type="submit" class="btn btn-primary" ng-click="create()">create</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
-</body>
-</html>
+</div>
