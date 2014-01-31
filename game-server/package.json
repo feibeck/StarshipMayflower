@@ -3,7 +3,8 @@
     "version":"0.0.1",
     "private":false,
     "dependencies":{
-        "pomelo":"0.8.7"
+        "pomelo":"0.8.7",
+        "lodash": "2.4.1"
     }
 }
 
