@@ -26,9 +26,11 @@
           port: port,
           log: true
         }, function() {
-        pomelo.request("connector.entryHandler.entry", "hello pomelo", function(data) {
-            alert(data.msg);
+
+        pomelo.request("world.statusHandler.listAvailableShips", "", function(data) {
+            debugger;
           });
+
         });
       }
     </script>
