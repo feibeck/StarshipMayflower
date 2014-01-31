@@ -27,10 +27,13 @@
           log: true
         }, function() {
 
-        pomelo.request("world.statusHandler.listAvailableShips", "", function(data) {
-            debugger;
-          });
+            pomelo.request("world.rosterHandler.addNewShip", "HMS DirtyHairy", function(data) {
+                console.log('new ship', data.payload.ship);
 
+                pomelo.request("world.rosterHandler.listAvailableShips", "", function(data) {
+                  console.log('ships', data.payload.ships)
+                });
+            });
         });
       }
     </script>

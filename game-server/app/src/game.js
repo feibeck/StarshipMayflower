@@ -6,4 +6,4 @@ module.exports = {
     getShipRoster: function() {
         return shipRoster;
     }
-}
+};
