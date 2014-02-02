@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="StarshipMayflower">
+<html lang="en" ng-app="StarshipMayflowerApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,38 +20,21 @@
         }
     </style>
 
+    <script src="js/lib/socket.io.js"></script>
+    <script src="js/lib/pomeloclient.js"></script>
+
+    <script type="text/javascript">
+    </script>
+
     <script type="text/javascript" src="./components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="./components/bootstrap-assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="./components/angular/angular.min.js"></script>
     <script type="text/javascript" src="./components/angular-route/angular-route.js"></script>
-    <script type="text/javascript" src="./src/app.js"></script>
     <script type="text/javascript" src="./src/controller/shipList.js"></script>
-
-    <script src="js/lib/socket.io.js">
-    </script>
-    <script src="js/lib/pomeloclient.js">
-    </script>
-    <script type="text/javascript">
-        var pomelo = window.pomelo;
-        var host = "127.0.0.1";
-        var port = "3010";
-        function show() {
-            pomelo.init({
-                host: host,
-                port: port,
-                log: true
-            }, function() {
-
-                pomelo.request("world.statusHandler.listAvailableShips", "", function(data) {
-                    debugger;
-                });
-
-            });
-        }
-    </script>
+    <script type="text/javascript" src="./src/services.js"></script>
+    <script type="text/javascript" src="./src/app.js"></script>
 
 </head>
-
 
 <body>
 
@@ -60,6 +43,7 @@
     <h1>Starship Mayflower</h1>
 
     <div ng-view id="app-container"></div>
+
 </div>
 </body>
 </html>

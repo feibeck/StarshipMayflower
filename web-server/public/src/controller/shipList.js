@@ -1,38 +1,27 @@
+'use strict';
 
-angular.module('StarshipMayflower')
-    .controller('ShipListCtrl', function ($scope) {
-        "use strict";
+var StarshipMayflowerControllers = angular.module('StarshipMayflowerControllers', []);
 
-        $scope.list = [
-            {
-                "name": "Mayflower 1",
-                "helm": "Torben",
-                "science": "Michael",
-                "weapons": "Flo",
-                "engineering": null,
-                "comm": "Björn",
-                "captain": "Alex",
-                "mainScreen": null
-            }
-        ];
+StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', 'Pomelo',
+    function ($scope, Pomelo) {
+
+        var promise = Pomelo.request("world.rosterHandler.listAvailableShips", "");
+        promise.then(function(data) {
+            $scope.list = data;
+        });
 
         $scope.create = function () {
 
-            $scope.list.push({
-                "name": $scope.shipName,
-                "helm": null,
-                "science": null,
-                "weapons": null,
-                "engineering": null,
-                "comm": null,
-                "captain": null,
-                "mainScreen": null
+            var promise = Pomelo.request(
+                "world.rosterHandler.addNewShip",
+                $scope.shipName
+            );
+            promise.then(function (ship) {
+                $scope.list.push(ship);
+                $('#createShipModal').modal('hide');
+                $scope.shipName = "";
             });
 
-            $('#createShipModal').modal('hide');
-
-            $scope.shipName = "";
         }
 
-
-    }).$inject = ['$scope'];
+    }]);

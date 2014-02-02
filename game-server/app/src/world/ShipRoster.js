@@ -8,14 +8,7 @@ function newIndex() {
 
 var ShipRoster = function() {
     var me = this;
-
     me._ships = {};
-
-    me.addShip(new models.Ship('Artemis'));
-    me.addShip(new models.Ship('Titanic'));
-    me.addShip(new models.Ship('Enterprise'));
-    me.addShip(new models.Ship('Firefly'));
-    me.addShip(new models.Ship('Nebukadnezar'));
 };
 
 _.extend(ShipRoster.prototype, {

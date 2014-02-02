@@ -1,7 +1,13 @@
-angular.module('StarshipMayflower', ['ngRoute'])
-    .config(function ($routeProvider) {
-        "use strict";
+'use strict';
 
+var StarshipMayflowerApp = angular.module('StarshipMayflowerApp', [
+    'ngRoute',
+    'StarshipMayflowerControllers',
+    'StarshipMayflowerServices'
+]);
+
+StarshipMayflowerApp.config(['$routeProvider',
+    function ($routeProvider) {
         $routeProvider
             .when('/shipList', {
                 templateUrl: 'src/view/shipList.html',
@@ -10,4 +16,4 @@ angular.module('StarshipMayflower', ['ngRoute'])
             .otherwise({
                 redirectTo: '/shipList'
             });
-    });
+    }]);

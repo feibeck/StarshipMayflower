@@ -18,23 +18,13 @@ _.extend(Handler.prototype, {
                 return ship.serialize();
             });
 
-        next(null, {
-            code: 200,
-            payload: {
-                ships: shipList
-            }
-        })
+        next(null, shipList)
     },
 
     addNewShip: function(msg, session, next) {
         var shipRoster = game.getShipRoster(),
             ship = shipRoster.addShip(new models.Ship(msg));
 
-        next(null, {
-            code: 200,
-            payload: {
-                ship: ship.serialize()
-            }
-        });
+        next(null, ship.serialize());
     }
 });
