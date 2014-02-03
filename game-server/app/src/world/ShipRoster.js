@@ -28,6 +28,9 @@ _.extend(ShipRoster.prototype, {
         ship.setId(index);
         me._ships[index] = ship;
 
+        var channel = me.getChannel();
+        channel.pushMessage('ShipAdded', ship.serialize());
+
         return ship;
     },
 

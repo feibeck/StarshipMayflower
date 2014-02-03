@@ -12,8 +12,14 @@ StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', 'Pomelo',
             $scope.list = data;
         });
 
-        Pomelo.on('PlayerAdded', function(data) {
-            console.log("Player added: " + data.name);
+        Pomelo.on('PlayerAdded', function(player) {
+            console.log("Player added: " + player.name);
+        });
+
+        Pomelo.on('ShipAdded', function(ship) {
+            console.log("Ship added: " + ship.name);
+            $scope.list.push(ship);
+            $scope.$apply()
         });
 
         $scope.create = function () {
@@ -23,7 +29,6 @@ StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', 'Pomelo',
                 $scope.shipName
             );
             promise.then(function (ship) {
-                $scope.list.push(ship);
                 $('#createShipModal').modal('hide');
                 $scope.shipName = "";
             });
