@@ -47,6 +47,18 @@ _.extend(ShipRoster.prototype, {
         return true;
     },
 
+    removePlayer: function(playerId)
+    {
+        var me = this;
+        var player = me._players[playerId];
+
+        var channel = me.getChannel();
+        channel.leave(player.getId(), player.getServerId());
+        channel.pushMessage('PlayerLeft', player.serialize());
+
+        delete me._players[playerId];
+    },
+
     getChannel: function() {
         return pomelo.app.get('channelService').getChannel('lobby', true)
     }

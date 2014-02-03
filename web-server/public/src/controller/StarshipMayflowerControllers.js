@@ -13,7 +13,11 @@ StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', 'Pomelo',
         });
 
         Pomelo.on('PlayerAdded', function(player) {
-            console.log("Player added: " + player.name);
+            console.log("Player joined: " + player.name);
+        });
+
+        Pomelo.on('PlayerLeft', function(player) {
+            console.log("Player left: " + player.name);
         });
 
         Pomelo.on('ShipAdded', function(ship) {
