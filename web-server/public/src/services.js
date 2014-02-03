@@ -21,17 +21,22 @@ StarshipMayflowerServices.factory('Pomelo', ['$rootScope', '$q',
             return deferred.promise;
         };
 
-        var promise = initPomelo("127.0.0.1", "3010");
+        var pomeloInitialized = initPomelo("127.0.0.1", "3010");
 
         return {
-            request: function (route, routeArguments) {
+            request: function(route, routeArguments) {
                 var deferred = $q.defer();
-                promise.then(function() {
+                pomeloInitialized.then(function() {
                     pomelo.request(route, routeArguments, function(data) {
                         deferred.resolve(data);
                     });
                 });
                 return deferred.promise;
+            },
+            on: function(route, callback) {
+                pomeloInitialized.then(function() {
+                    pomelo.on(route, callback);
+                });
             }
         };
 
