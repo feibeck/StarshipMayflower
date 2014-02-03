@@ -26,5 +26,21 @@ _.extend(Handler.prototype, {
             ship = shipRoster.addShip(new models.Ship(msg));
 
         next(null, ship.serialize());
+    },
+
+    addPlayer: function(msg, session, next) {
+
+        var shipRoster = game.getShipRoster();
+        var player = new models.Player(msg.playerId, msg.name, session.frontendId);
+
+        shipRoster.addPlayer(player);
+
+        console.log("Player " + player.getName() + " with id " + player.getId() + " added to ShipRoster");
+
+        next(null, {
+            code: "OK",
+            data: {}
+        });
     }
+
 });
