@@ -35,8 +35,6 @@ _.extend(Handler.prototype, {
 
         shipRoster.addPlayer(player);
 
-        console.log("Player " + player.getName() + " with id " + player.getId() + " added to ShipRoster");
-
         next(null, {
             code: "OK",
             data: {}
