@@ -17,6 +17,15 @@ StarshipMayflowerApp.config(['$routeProvider',
                 templateUrl: 'src/view/shipList.html',
                 controller: 'ShipListCtrl'
             })
+            .when('/ship/:id', {
+                templateUrl: 'src/view/ship.html',
+                controller: 'ShipCtrl',
+                resolve: {
+                    shipId: function($route) {
+                        return $route.current.params.id;
+                    }
+                }
+            })
             .otherwise({
                 redirectTo: '/login'
             });

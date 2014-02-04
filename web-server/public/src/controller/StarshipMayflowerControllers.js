@@ -41,8 +41,8 @@ StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', '$location', 
 
     }]);
 
-StarshipMayflowerControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo',
-    function ($scope, $location, Pomelo) {
+StarshipMayflowerControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
+    function ($scope, $location, Pomelo, Player) {
         $scope.login = function() {
             Pomelo.request(
                 "connector.entryHandler.entry",
@@ -50,12 +50,75 @@ StarshipMayflowerControllers.controller('LoginCtrl', ['$scope', '$location', 'Po
                     username: $scope.username
                 }
             ).then(function(playerId) {
+
+                Player.setId(playerId);
+                Player.setName($scope.username);
+
                 Pomelo.request(
                     "world.rosterHandler.addPlayer",
                     {name: $scope.username, playerId: playerId}
                 ).then(function(data) {
                     $location.path('/shipList')
                 });
+
             });
         }
+    }]);
+
+StarshipMayflowerControllers.controller('ShipCtrl', ['$scope', '$location', 'Pomelo', 'Player', 'shipId',
+    function ($scope, $location, Pomelo, Player, shipId) {
+        Pomelo.request(
+            'world.rosterHandler.joinShip',
+            {shipId: shipId}
+        ).then(function(ship) {
+
+            console.debug(ship);
+            $scope.ship = ship;
+
+        }, function(reason) {
+            $location.path('/shipList')
+        });
+
+        Pomelo.on('StationTaken', function(ship) {
+            $scope.ship = ship;
+            console.debug(ship);
+            $scope.$apply();
+        });
+
+        Pomelo.on('StationReleased', function(ship) {
+            $scope.ship = ship;
+            console.debug(ship);
+            $scope.$apply();
+        });
+
+        $scope.isTaken = function(station) {
+            if (!$scope.ship) {
+                return false;
+            }
+            if ($scope.ship.stations[station] && $scope.ship.stations[station] != Player.getName()) {
+                return true;
+            }
+            return false;
+        };
+
+        $scope.takeStation = function (station, value) {
+
+            var route = 'world.rosterHandler.';
+            if (value == true) {
+                route = route + 'takeStation';
+            } else {
+                route = route + 'releaseStation';
+            }
+
+            Pomelo.request(
+                route,
+                {position: station}
+            ).then(function(ship) {
+
+                $scope.ship = ship;
+
+            });
+
+        };
+
     }]);

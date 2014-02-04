@@ -1,0 +1,58 @@
+<div>
+
+    <div class="container">
+
+        <h2 ng-show="ship.name">{{ ship.name }}</h2>
+        <p ng-show="ship.creator.name">Created by {{ ship.creator.name }}</p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Station</th>
+                        <th>Player</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="checkbox" ng-disabled="isTaken('helm')" ng-model="helmChecked" ng-change="takeStation('helm', helmChecked)"></td>
+                    <td>Helm</td>
+                    <td>{{ ship.stations.helm }}</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" ng-disabled="isTaken('weapons')" ng-model="weaponsChecked" ng-change="takeStation('weapons', weaponsChecked)"></td>
+                    <td>Weapons</td>
+                    <td>{{ ship.stations.weapons }}</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" ng-disabled="isTaken('science')" ng-model="scienceChecked" ng-change="takeStation('science', scienceChecked)"></td>
+                    <td>Science</td>
+                    <td>{{ ship.stations.science }}</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" ng-disabled="isTaken('comm')" ng-model="commChecked" ng-change="takeStation('comm', commChecked)"></td>
+                    <td>Comm</td>
+                    <td>{{ ship.stations.comm }}</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" ng-disabled="isTaken('engineering')" ng-model="engineeringChecked" ng-change="takeStation('engineering', engineeringChecked)"></td>
+                    <td>Engineering</td>
+                    <td>{{ ship.stations.engineering }}</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" ng-disabled="isTaken('mainscreen')" ng-model="mainscreenChecked" ng-change="takeStation('mainscreen', mainscreenChecked)"></td>
+                    <td>Main Display</td>
+                    <td>{{ ship.stations.mainscreen }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="">
+            <button class="btn btn-success">Ready to play</button>
+        </div>
+
+    </div>
+
+</div>

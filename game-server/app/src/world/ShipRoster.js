@@ -2,7 +2,7 @@ var _ = require('lodash'),
     pomelo = require('pomelo'),
     models = require('../models');
 
-var INDEX = 0;
+var INDEX = 1;
 function newIndex() {
     return INDEX++;
 }
@@ -19,6 +19,13 @@ _.extend(ShipRoster.prototype, {
 
     getAllShips: function() {
         return _.values(this._ships);
+    },
+
+    getShip: function(shipId)
+    {
+        var me = this;
+        var ship = me._ships[shipId];
+        return ship;
     },
 
     addShip: function(ship, player) {
@@ -61,11 +68,56 @@ _.extend(ShipRoster.prototype, {
         var me = this;
         var player = me._players[playerId];
 
+        var ship = player.getShip();
+        if (ship) {
+            player.setShip(null);
+            ship.removePlayer(player);
+
+            var shipChannel = me.getShipChannel(ship);
+            shipChannel.pushMessage('StationReleased', ship.serialize());
+        }
+
         var channel = me.getChannel();
         channel.leave(player.getId(), player.getServerId());
         channel.pushMessage('PlayerLeft', player.serialize());
 
         delete me._players[playerId];
+    },
+
+    addPlayerToShip: function(ship, player)
+    {
+        ship.addPlayer(player);
+        player.setShip(ship);
+
+        var channel = this.getShipChannel(ship);
+        channel.add(player.getId(), player.getServerId());
+
+        channel.pushMessage('PlayerAddedToShip', player.serialize());
+    },
+
+    takeStation: function(ship, player, position)
+    {
+        var success = ship.takeStation(position, player);
+        if (success) {
+            var channel = this.getShipChannel(ship);
+            channel.pushMessage('StationTaken', ship.serialize());
+        }
+        return success;
+    },
+
+    releaseStation: function(ship, player, position)
+    {
+        var success = ship.releaseStation(position, player);
+        if (success) {
+            var channel = this.getShipChannel(ship);
+            channel.pushMessage('StationReleased', ship.serialize());
+        }
+        return success;
+    },
+
+    getShipChannel: function(ship)
+    {
+        return pomelo.app.get('channelService').getChannel('ship-' + ship.getId(), true)
     },
 
     getChannel: function() {

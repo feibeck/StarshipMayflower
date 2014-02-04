@@ -8,13 +8,15 @@
                 <tr>
                     <th>Ship</th>
                     <th>Created by</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="ship in list">
 
                     <td ng-show="ship.name">{{ ship.name }}</td>
-                    <td ng-show="ship.creator">{{ ship.creator.name }}</td>
+                    <td ng-show="ship.creator.name">{{ ship.creator.name }}</td>
+                    <td><a href="/#/ship/{{ ship.id }}" class="btn btn-primary btn-xs">Join</a></td>
 
                 </tr>
                 </tbody>

@@ -2,6 +2,45 @@
 
 var StarshipMayflowerServices = angular.module('StarshipMayflowerServices', []);
 
+var myApp = angular.module('myApp',[]);
+myApp.factory('UserService', function() {
+    return {
+        name : 'anonymous'
+    };
+});
+
+StarshipMayflowerServices.factory('Player', [
+    function()
+    {
+        var player = {
+            id: null,
+            name: null
+        };
+
+        return {
+            getId: function()
+            {
+                return player.id;
+            },
+
+            setId: function(id)
+            {
+                player.id = id;
+            },
+
+            getName: function()
+            {
+                return player.name;
+            },
+
+            setName: function(name)
+            {
+                player.name = name;
+            }
+        }
+    }
+]);
+
 StarshipMayflowerServices.factory('Pomelo', ['$rootScope', '$q',
     function($rootScope, $q){
 
