@@ -7,21 +7,26 @@
 
     <title>Starship Mayflower</title>
 
-    <link href="./components/bootstrap-assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
 
     <style>
-        body {
-            padding-top: 50px;
+
+        body{
+            background: url('image/background.jpg');
+            background-color: #444;
+            background: url('image/background_layer1.png'),url(image/background_layer2.png),url('image/background.jpg');
         }
 
-        .starter-template {
-            padding: 40px 15px;
-            text-align: center;
+        .vertical-offset-100{
+            padding-top:50px;
         }
+
     </style>
 
     <script src="js/lib/socket.io.js"></script>
     <script src="js/lib/pomeloclient.js"></script>
+
+    <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
 
     <script type="text/javascript" src="./components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="./components/bootstrap-assets/js/bootstrap.min.js"></script>
@@ -33,14 +38,20 @@
 
 </head>
 
-<body>
-
-<div class="container">
-
-    <h1>Starship Mayflower</h1>
-
-    <div ng-view id="app-container"></div>
-
-</div>
+<body ng-view id="app-container">
+<script>
+    $(document).ready(function(){
+        $(document).mousemove(function(e){
+            TweenLite.to($('body'),
+                    .5,
+                    { css:
+                    {
+                        'background-position':parseInt(event.pageX/16) + "px "+parseInt(event.pageY/24)+"px, "+parseInt(event.pageX/30)+"px "+parseInt(event.pageY/30)+"px, "+parseInt(event.pageX/50)+"px "+parseInt(event.pageY/50)+"px"
+                    }
+                    });
+        });
+    });
+</script>
 </body>
+
 </html>

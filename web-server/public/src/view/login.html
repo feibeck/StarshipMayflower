@@ -1,10 +1,24 @@
-<div>
-    <div class="container">
-        <form class="form-signin" role="form">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <input name="username" ng-model="username" type="login" class="form-control" placeholder="Your name" required autofocus>
-            <br/>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">Sign in</button>
-        </form>
+<div class="container">
+    <div class="row vertical-offset-100">
+        <div class="col-md-4 col-md-offset-4">
+
+            <h1>Starship Mayflower</h1>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Join game</h3>
+                </div>
+                <div class="panel-body">
+                    <form accept-charset="UTF-8" role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Your name" name="username" ng-model="username" type="text" required autofocus>
+                            </div>
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Join game" ng-click="login()">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
