@@ -8,8 +8,8 @@ StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', 'Pomelo',
         console.log("Controller called");
 
         var promise = Pomelo.request("world.rosterHandler.listAvailableShips", "");
-        promise.then(function(data) {
-            $scope.list = data;
+        promise.then(function(shiplist) {
+            $scope.list = shiplist;
         });
 
         Pomelo.on('PlayerAdded', function(player) {
@@ -49,14 +49,12 @@ StarshipMayflowerControllers.controller('LoginCtrl', ['$scope', '$location', 'Po
                 {
                     username: $scope.username
                 }
-            ).then(function(data) {
+            ).then(function(playerId) {
                 Pomelo.request(
                     "world.rosterHandler.addPlayer",
-                    {name: $scope.username, playerId: data.playerId}
+                    {name: $scope.username, playerId: playerId}
                 ).then(function(data) {
-                    if (data.code == "OK") {
-                        $location.path('/shipList')
-                    }
+                    $location.path('/shipList')
                 });
             });
         }

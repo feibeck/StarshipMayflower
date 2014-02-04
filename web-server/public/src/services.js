@@ -28,7 +28,11 @@ StarshipMayflowerServices.factory('Pomelo', ['$rootScope', '$q',
                 var deferred = $q.defer();
                 pomeloInitialized.then(function() {
                     pomelo.request(route, routeArguments, function(data) {
-                        deferred.resolve(data);
+                        if (data.code == 'OK') {
+                            deferred.resolve(data.payload);
+                        } else {
+                            deferred.reject(data.payload);
+                        }
                     });
                 });
                 return deferred.promise;

@@ -31,7 +31,7 @@ _.extend(Handler.prototype, {
 
         console.log("Session for player " + msg.username + " with id " + playerId + " set");
 
-        next(null, {code: "OK", playerId: playerId});
+        next(null, {code: "OK", payload: playerId});
     }
 
 });

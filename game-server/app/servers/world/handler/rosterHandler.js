@@ -18,14 +18,14 @@ _.extend(Handler.prototype, {
                 return ship.serialize();
             });
 
-        next(null, shipList)
+        next(null, {code: 'OK', payload: shipList});
     },
 
     addNewShip: function(msg, session, next) {
         var shipRoster = game.getShipRoster(),
             ship = shipRoster.addShip(new models.Ship(msg));
 
-        next(null, ship.serialize());
+        next(null, {code: 'OK', payload: ship.serialize()});
     },
 
     addPlayer: function(msg, session, next) {
@@ -37,7 +37,7 @@ _.extend(Handler.prototype, {
 
         next(null, {
             code: "OK",
-            data: {}
+            payload: {}
         });
     }
 
