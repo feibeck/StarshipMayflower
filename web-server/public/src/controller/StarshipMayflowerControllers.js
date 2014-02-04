@@ -2,14 +2,14 @@
 
 var StarshipMayflowerControllers = angular.module('StarshipMayflowerControllers', []);
 
-StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', 'Pomelo',
-    function ($scope, Pomelo) {
-
-        console.log("Controller called");
+StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', '$location', 'Pomelo',
+    function ($scope, $location, Pomelo) {
 
         var promise = Pomelo.request("world.rosterHandler.listAvailableShips", "");
         promise.then(function(shiplist) {
             $scope.list = shiplist;
+        }, function(reason) {
+            $location.path('/login')
         });
 
         Pomelo.on('PlayerAdded', function(player) {

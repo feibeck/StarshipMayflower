@@ -12,7 +12,14 @@ var Handler = function(app) {
 };
 
 _.extend(Handler.prototype, {
-    listAvailableShips: function(msg, session, next) {
+
+    listAvailableShips: function(msg, session, next)
+    {
+        if (!session.get('playerId')) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
         var shipRoster = game.getShipRoster(),
             shipList = _.map(shipRoster.getAllShips(), function(ship) {
                 return ship.serialize();
@@ -21,15 +28,21 @@ _.extend(Handler.prototype, {
         next(null, {code: 'OK', payload: shipList});
     },
 
-    addNewShip: function(msg, session, next) {
+    addNewShip: function(msg, session, next)
+    {
+        if (!session.get('playerId')) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
         var shipRoster = game.getShipRoster(),
             ship = shipRoster.addShip(new models.Ship(msg));
 
         next(null, {code: 'OK', payload: ship.serialize()});
     },
 
-    addPlayer: function(msg, session, next) {
-
+    addPlayer: function(msg, session, next)
+    {
         var shipRoster = game.getShipRoster();
         var player = new models.Player(msg.playerId, msg.name, session.frontendId);
 
