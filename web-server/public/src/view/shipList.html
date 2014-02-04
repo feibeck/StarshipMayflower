@@ -7,57 +7,14 @@
                 <thead>
                 <tr>
                     <th>Ship</th>
-                    <th>Helm</th>
-                    <th>Science</th>
-                    <th>Weapons</th>
-                    <th>Engineering</th>
-                    <th>Comm</th>
-                    <th>Captain</th>
-                    <th>Main Screen</th>
+                    <th>Created by</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="ship in list">
 
                     <td ng-show="ship.name">{{ ship.name }}</td>
-                    <td ng-show="!ship.name">
-                        <button class="btn btn-info btn-xs">my challenge</button>
-                    </td>
-
-                    <td ng-show="ship.helm">{{ ship.helm }}</td>
-                    <td ng-show="!ship.helm">
-                        <button class="btn btn-info btn-xs">my challenge</button>
-                    </td>
-
-                    <td ng-show="ship.science">{{ ship.science }}</td>
-                    <td ng-show="!ship.science">
-                        <button class="btn btn-info btn-xs">my challenge</button>
-                    </td>
-
-                    <td ng-show="ship.weapons">{{ ship.weapons }}</td>
-                    <td ng-show="!ship.weapons">
-                        <button class="btn btn-info btn-xs">my challenge</button>
-                    </td>
-
-                    <td ng-show="ship.engineering">{{ ship.engineering }}</td>
-                    <td ng-show="!ship.engineering">
-                        <button class="btn btn-info btn-xs">my challenge</button>
-                    </td>
-
-                    <td ng-show="ship.comm">{{ ship.comm }}</td>
-                    <td ng-show="!ship.comm">
-                        <button class="btn btn-info btn-xs">my challenge</button>
-                    </td>
-
-                    <td ng-show="ship.captain">{{ ship.captain }}</td>
-                    <td ng-show="!ship.captain">
-                        <button class="btn btn-info btn-xs">my challenge</button>
-                    </td>
-
-                    <td ng-show="ship.mainScreen">{{ ship.mainScreen }}</td>
-                    <td ng-show="!ship.mainScreen">
-                        <button class="btn btn-info btn-xs">my challenge</button>
-                    </td>
+                    <td ng-show="ship.creator">{{ ship.creator.name }}</td>
 
                 </tr>
                 </tbody>

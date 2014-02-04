@@ -30,13 +30,16 @@ _.extend(Handler.prototype, {
 
     addNewShip: function(msg, session, next)
     {
-        if (!session.get('playerId')) {
+        var playerId = session.get('playerId');
+
+        if (!playerId) {
             next(new Error('User not logged in'), {code: 'ERR', payload: {}});
             return;
         }
 
-        var shipRoster = game.getShipRoster(),
-            ship = shipRoster.addShip(new models.Ship(msg));
+        var shipRoster = game.getShipRoster();
+        var player = shipRoster.getPlayer(playerId);
+        var ship = shipRoster.addShip(new models.Ship(msg), player);
 
         next(null, {code: 'OK', payload: ship.serialize()});
     },

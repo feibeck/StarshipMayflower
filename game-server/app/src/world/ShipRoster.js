@@ -21,11 +21,13 @@ _.extend(ShipRoster.prototype, {
         return _.values(this._ships);
     },
 
-    addShip: function(ship) {
+    addShip: function(ship, player) {
         var me = this,
             index = newIndex();
 
         ship.setId(index);
+        ship.setCreator(player);
+
         me._ships[index] = ship;
 
         var channel = me.getChannel();
@@ -45,6 +47,13 @@ _.extend(ShipRoster.prototype, {
         channel.pushMessage('PlayerAdded', player.serialize());
 
         return true;
+    },
+
+    getPlayer: function(playerId)
+    {
+        var me = this;
+        var player = me._players[playerId];
+        return player;
     },
 
     removePlayer: function(playerId)
