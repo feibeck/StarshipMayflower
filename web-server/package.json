@@ -4,5 +4,9 @@
   "private": false,
   "dependencies": {
     "express": "2.5.2"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-jshint": "latest"
   }
 }

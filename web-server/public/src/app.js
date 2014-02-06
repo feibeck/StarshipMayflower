@@ -1,32 +1,35 @@
-'use strict';
+(function() {
+    'use strict';
 
-var StarshipMayflowerApp = angular.module('StarshipMayflowerApp', [
-    'ngRoute',
-    'StarshipMayflowerControllers',
-    'StarshipMayflowerServices'
-]);
+    var StarshipMayflowerApp = angular.module('StarshipMayflowerApp', [
+        'ngRoute',
+        'StarshipMayflowerControllers',
+        'StarshipMayflowerServices'
+    ]);
 
-StarshipMayflowerApp.config(['$routeProvider',
-    function ($routeProvider) {
-        $routeProvider
-            .when('/login', {
-                templateUrl: 'src/view/login.html',
-                controller: 'LoginCtrl'
-            })
-            .when('/shipList', {
-                templateUrl: 'src/view/shipList.html',
-                controller: 'ShipListCtrl'
-            })
-            .when('/ship/:id', {
-                templateUrl: 'src/view/ship.html',
-                controller: 'ShipCtrl',
-                resolve: {
-                    shipId: function($route) {
-                        return $route.current.params.id;
+    StarshipMayflowerApp.config(['$routeProvider',
+        function ($routeProvider) {
+            $routeProvider
+                .when('/login', {
+                    templateUrl: 'src/view/login.html',
+                    controller: 'LoginCtrl'
+                })
+                .when('/shipList', {
+                    templateUrl: 'src/view/shipList.html',
+                    controller: 'ShipListCtrl'
+                })
+                .when('/ship/:id', {
+                    templateUrl: 'src/view/ship.html',
+                    controller: 'ShipCtrl',
+                    resolve: {
+                        shipId: function($route) {
+                            return $route.current.params.id;
+                        }
                     }
-                }
-            })
-            .otherwise({
-                redirectTo: '/login'
-            });
-    }]);
+                })
+                .otherwise({
+                    redirectTo: '/login'
+                });
+        }]);
+
+})();
