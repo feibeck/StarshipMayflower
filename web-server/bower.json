@@ -3,6 +3,7 @@
     "dependencies": {
         "bootstrap-assets": "latest",
         "angular": "latest",
-        "angular-route": "latest"
+        "angular-route": "latest",
+        "parallax": "latest"
     }
 }

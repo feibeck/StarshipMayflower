@@ -1,0 +1,50 @@
+.parallax {
+    min-height: 460px;
+    position: absolute;
+    overflow: hidden;
+    display: table;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.scene,
+.layer {
+    display: block;
+    height: 105%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.scene {
+    min-height: 460px;
+    position: relative;
+    overflow: hidden;
+}
+
+.layer {
+    position: absolute;
+}
+
+.background {
+    bottom: 0px;
+    background-size: cover;
+    position: absolute;
+    width: 110%;
+    left: -5%;
+    top: -5%;
+}
+
+.background-0 {
+    background: url(../image/background.jpg) repeat;
+}
+
+.background-1 {
+    background-image: url('../image/background_layer1.png');
+}
+
+.background-2 {
+    background-image: url('../image/background_layer2.png');
+}

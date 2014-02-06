@@ -7,26 +7,11 @@
 
     <title>Starship Mayflower</title>
 
-    <link href="/css/bootstrap.css" rel="stylesheet">
-
-    <style>
-
-        body{
-            background: url('image/background.jpg');
-            background-color: #444;
-            background: url('image/background_layer1.png'),url(image/background_layer2.png),url('image/background.jpg');
-        }
-
-        .vertical-offset-100{
-            padding-top:50px;
-        }
-
-    </style>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/parallax.css" rel="stylesheet">
 
     <script src="js/lib/socket.io.js"></script>
     <script src="js/lib/pomeloclient.js"></script>
-
-    <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
 
     <script type="text/javascript" src="./components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="./components/bootstrap-assets/js/bootstrap.min.js"></script>
@@ -36,22 +21,32 @@
     <script type="text/javascript" src="./src/services.js"></script>
     <script type="text/javascript" src="./src/app.js"></script>
 
+    <style>
+        .vertical-offset-100{
+            padding-top:50px;
+        }
+    </style>
+
 </head>
 
-<body ng-view id="app-container">
-<script>
-    $(document).ready(function(){
-        $(document).mousemove(function(e){
-            TweenLite.to($('body'),
-                    .5,
-                    { css:
-                    {
-                        'background-position':parseInt(event.pageX/16) + "px "+parseInt(event.pageY/24)+"px, "+parseInt(event.pageX/30)+"px "+parseInt(event.pageY/30)+"px, "+parseInt(event.pageX/50)+"px "+parseInt(event.pageY/50)+"px"
-                    }
-                    });
-        });
-    });
-</script>
+<body>
+
+    <div class="parallax">
+        <ul id="scene" class="scene" style="padding: 0; margin: 0;">
+            <li class="layer" data-depth="0.05"><div class="background background-0"></div></li>
+            <li class="layer" data-depth="0.15"><div class="background background-1"></div></li>
+            <li class="layer" data-depth="0.30"><div class="background background-2"></div></li>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="./components/parallax/deploy/parallax.js"></script>
+    <script>
+        var scene = document.getElementById('scene');
+        var parallax = new Parallax(scene);
+    </script>
+
+    <div ng-view id="app-container"></div>
+
 </body>
 
 </html>
