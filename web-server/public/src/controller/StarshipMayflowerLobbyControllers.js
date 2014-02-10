@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    var StarshipMayflowerControllers = angular.module('StarshipMayflowerControllers', []);
+    var StarshipMayflowerLobbyControllers = angular.module('StarshipMayflowerLobbyControllers', []);
 
-    StarshipMayflowerControllers.controller('ShipListCtrl', ['$scope', '$location', 'Pomelo',
+    StarshipMayflowerLobbyControllers.controller('ShipListCtrl', ['$scope', '$location', 'Pomelo',
         function ($scope, $location, Pomelo) {
 
             var promise = Pomelo.request("world.rosterHandler.listAvailableShips", "");
@@ -42,7 +42,7 @@
 
         }]);
 
-    StarshipMayflowerControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
+    StarshipMayflowerLobbyControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
         function ($scope, $location, Pomelo, Player) {
             $scope.login = function() {
                 Pomelo.request(
@@ -66,7 +66,7 @@
             };
         }]);
 
-    StarshipMayflowerControllers.controller('ShipCtrl', ['$scope', '$location', 'Pomelo', 'Player', 'shipId',
+    StarshipMayflowerLobbyControllers.controller('ShipCtrl', ['$scope', '$location', 'Pomelo', 'Player', 'shipId',
         function ($scope, $location, Pomelo, Player, shipId) {
             Pomelo.request(
                 'world.rosterHandler.joinShip',
@@ -121,6 +121,12 @@
                 });
 
             };
+
+            $scope.ready = function()
+            {
+                Pomelo.notify('world.rosterHandler.start');
+                $location.path('/game');
+            }
 
         }]);
 

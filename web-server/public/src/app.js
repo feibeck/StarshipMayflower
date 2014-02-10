@@ -3,7 +3,8 @@
 
     var StarshipMayflowerApp = angular.module('StarshipMayflowerApp', [
         'ngRoute',
-        'StarshipMayflowerControllers',
+        'StarshipMayflowerLobbyControllers',
+        'StarshipMayflowerGameControllers',
         'StarshipMayflowerServices'
     ]);
 
@@ -26,6 +27,10 @@
                             return $route.current.params.id;
                         }
                     }
+                })
+                .when('/game', {
+                    templateUrl: 'src/view/game.html',
+                    controller: 'GameCtrl'
                 })
                 .otherwise({
                     redirectTo: '/login'

@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var sylvester = require('sylvester');
 
 var Ship = function(name) {
     var me = this;
@@ -15,11 +16,18 @@ var Ship = function(name) {
         engineering: null,
         mainscreen: null
     };
+
+    me._position = sylvester.Vector.create([0, 0, 0]);
+    me._velocity = sylvester.Vector.create([0, 0, 0]);
+    me._heading = sylvester.Vector.create([0, 0, -1]);
+
+    me._lastMove = 0;
 };
 
 _.extend(Ship.prototype, {
 
     _id: null,
+
     _name: null,
 
     _creator: null,
@@ -27,6 +35,14 @@ _.extend(Ship.prototype, {
     _stations: null,
 
     _players: null,
+
+    _position: null,
+
+    _velocity: null,
+
+    _heading: null,
+
+    _lastMove: null,
 
     getName: function()
     {
@@ -58,6 +74,38 @@ _.extend(Ship.prototype, {
         this.releaseStation('science', player);
         this.releaseStation('mainscreen', player);
         this.releaseStation('comm', player);
+    },
+
+    setVelocity: function(velocity) {
+        this._velocity = velocity;
+    },
+
+    getVelocity: function() {
+        return this._velocity;
+    },
+
+    getHeading: function() {
+        return this._heading;
+    },
+
+    setHeading: function(heading) {
+        this._heading = heading;
+    },
+
+    setPosition: function(position) {
+        this._position = position;
+    },
+
+    getPosition: function() {
+        return this._position;
+    },
+
+    setLastMove: function(lastMove) {
+        this._lastMove = lastMove;
+    },
+
+    getLastMove: function() {
+        return this._lastMove;
     },
 
     setCreator: function(player)
@@ -108,8 +156,14 @@ _.extend(Ship.prototype, {
                 engineering: (me._stations.engineering ? me._stations.engineering.getName() : ''),
                 comm: (me._stations.comm ? me._stations.comm.getName() : null),
                 mainscreen: (me._stations.mainscreen ? me._stations.mainscreen.getName() : '')
-            }
-        }
+            },
+            position: {
+                x: me._position.e(1),
+                y: me._position.e(2),
+                z: me._position.e(3)
+            },
+            speed: me.getVelocity().modulus()
+        };
     }
 });
 

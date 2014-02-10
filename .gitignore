@@ -12,3 +12,4 @@ game-server/logs
 
 web-server/node_modules
 web-server/public/components
+web-server/public/css/StarshipMayflower.css

@@ -2,8 +2,12 @@
     "name": "Starship Mayflower",
     "dependencies": {
         "bootstrap-assets": "latest",
+        "bootstrap": "latest",
         "angular": "latest",
         "angular-route": "latest",
-        "parallax": "latest"
+        "angular-bootstrap": "latest",
+        "parallax": "latest",
+        "bootswatch": "latest",
+        "bower-bootstrap-slider": "latest"
     }
 }

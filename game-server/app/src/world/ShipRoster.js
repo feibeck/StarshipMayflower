@@ -117,11 +117,11 @@ _.extend(ShipRoster.prototype, {
 
     getShipChannel: function(ship)
     {
-        return pomelo.app.get('channelService').getChannel('ship-' + ship.getId(), true)
+        return pomelo.app.get('channelService').getChannel('ship-' + ship.getId(), true);
     },
 
     getChannel: function() {
-        return pomelo.app.get('channelService').getChannel('lobby', true)
+        return pomelo.app.get('channelService').getChannel('lobby', true);
     }
 
 });

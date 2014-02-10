@@ -42,7 +42,7 @@ _.extend(Player.prototype, {
         return {
             id: me.getId(),
             name: me.getName()
-        }
+        };
     }
 });
 

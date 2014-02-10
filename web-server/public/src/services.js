@@ -45,29 +45,25 @@
     StarshipMayflowerServices.factory('Pomelo', ['$rootScope', '$q',
         function($rootScope, $q){
 
-            var initPomelo = function(host, port) {
+            var pomelo = window.pomelo;
+            var deferred = $q.defer();
 
-                var pomelo = window.pomelo;
-                var deferred = $q.defer();
+            pomelo.init({
+                host: "127.0.0.1",
+                port: "3010",
+                log: true
+            }, function() {
+                deferred.resolve();
+            });
 
-                pomelo.init({
-                    host: host,
-                    port: port,
-                    log: true
-                }, function() {
-                    deferred.resolve();
-                });
-
-                return deferred.promise;
-            };
-
-            var pomeloInitialized = initPomelo("127.0.0.1", "3010");
+            var pomeloInitialized = deferred.promise;
 
             return {
-                request: function(route, routeArguments) {
+
+                request: function(route, parameters) {
                     var deferred = $q.defer();
                     pomeloInitialized.then(function() {
-                        pomelo.request(route, routeArguments, function(data) {
+                        pomelo.request(route, parameters, function(data) {
                             if (data.code == 'OK') {
                                 deferred.resolve(data.payload);
                             } else {
@@ -77,11 +73,20 @@
                     });
                     return deferred.promise;
                 },
+
+                notify: function(route, parameters) {
+                    var deferred = $q.defer();
+                    pomeloInitialized.then(function() {
+                        pomelo.notify(route, parameters);
+                    });
+                },
+
                 on: function(route, callback) {
                     pomeloInitialized.then(function() {
                         pomelo.on(route, callback);
                     });
                 }
+
             };
 
         }]);

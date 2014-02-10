@@ -8,6 +8,10 @@ Install
 
 This project is build using node.js and the Pomelo game server framework. You need to install all dependencies by running the script npm-install.sh (or npm-install.bat) in you working copy.
 
+The webserver uses bower for frontend dependencies: Run bower install in the web-server directory
+
+The frontend uses LESS for generating CSS files. There is a grunt target for building the CSS file: Run grunt less to generate the CSS file.
+
 Run server
 ==========
 

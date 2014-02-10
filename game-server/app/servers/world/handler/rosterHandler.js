@@ -1,7 +1,8 @@
 var _ = require('lodash'),
     game = require('../../../src/game'),
-    models = require('../../../src/models');
-
+    models = require('../../../src/models'),
+    sylvester = require('sylvester'),
+    Accelerate = require('../../../src/action/accelerate');
 
 module.exports = function(app) {
   return new Handler(app);
@@ -40,7 +41,7 @@ _.extend(Handler.prototype, {
         var shipRoster = game.getShipRoster();
 
         var player = shipRoster.getPlayer(playerId);
-        var ship = shipRoster.getShip(msg.shipId)
+        var ship = shipRoster.getShip(msg.shipId);
 
         if (!ship) {
             next(new Error('Unknown ship'), {code: 'ERR', payload: {}});
@@ -123,6 +124,34 @@ _.extend(Handler.prototype, {
         } else {
             next(new Error('Position not taken by player'), {code: 'ERR', payload: {}});
         }
+    },
+
+    start: function(msg, session, next)
+    {
+        game.start();
+    },
+
+    setImpulseSpeed: function(msg, session, next)
+    {
+        var playerId = session.get('playerId');
+
+        if (!playerId) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
+        var shipRoster = game.getShipRoster();
+        var player = shipRoster.getPlayer(playerId);
+        var ship = shipRoster.getShip(player.getShip().getId());
+
+        var targetSpeed = msg.targetSpeed;
+
+        var action = new Accelerate({
+            ship: ship,
+            targetSpeed: targetSpeed,
+        });
+
+        game.timer().addAction(action);
     }
 
 });

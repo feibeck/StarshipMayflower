@@ -7,6 +7,8 @@
   },
   "devDependencies": {
     "grunt": "latest",
-    "grunt-contrib-jshint": "latest"
+    "grunt-cli": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-less": "latest"
   }
 }
