@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
-
+        NODE_ENV: 'development',
         jshint: {
             all: ['Gruntfile.js', 'public/src/**/*.js'],
             options: {
