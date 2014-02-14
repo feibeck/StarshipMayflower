@@ -45,24 +45,27 @@
     StarshipMayflowerLobbyControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
         function ($scope, $location, Pomelo, Player) {
             $scope.login = function() {
-                Pomelo.request(
-                    "connector.entryHandler.entry",
-                    {
-                        username: $scope.username
-                    }
-                ).then(function(playerId) {
-
-                    Player.setId(playerId);
-                    Player.setName($scope.username);
-
+                var $username = $scope.username;
+                if ($username !== undefined) {
                     Pomelo.request(
-                        "world.rosterHandler.addPlayer",
-                        {name: $scope.username, playerId: playerId}
-                    ).then(function(data) {
-                        $location.path('/shipList');
-                    });
+                        "connector.entryHandler.entry",
+                        {
+                            username: $username
+                        }
+                    ).then(function(playerId) {
 
-                });
+                            Player.setId(playerId);
+                            Player.setName($username);
+
+                            Pomelo.request(
+                                "world.rosterHandler.addPlayer",
+                                {name: $username, playerId: playerId}
+                            ).then(function(data) {
+                                    $location.path('/shipList');
+                                });
+
+                    });
+                }
             };
         }]);
 

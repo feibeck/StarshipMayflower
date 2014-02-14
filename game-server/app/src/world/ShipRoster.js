@@ -45,15 +45,20 @@ _.extend(ShipRoster.prototype, {
 
     addPlayer: function(player)
     {
-        var me = this;
-        me._players[player.getId()] = player;
+        if (player.length > 0) {
 
-        var channel = me.getChannel();
-        channel.add(player.getId(), player.getServerId());
+            var me = this;
+            me._players[player.getId()] = player;
 
-        channel.pushMessage('PlayerAdded', player.serialize());
+            var channel = me.getChannel();
+            channel.add(player.getId(), player.getServerId());
 
-        return true;
+            channel.pushMessage('PlayerAdded', player.serialize());
+
+            return true;
+        }
+
+        return false;
     },
 
     getPlayer: function(playerId)
