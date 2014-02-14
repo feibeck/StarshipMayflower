@@ -12,6 +12,7 @@ var Turn = function(opts) {
 	this.time = Date.now();
 	this.ship = opts.ship;
     this.arc = opts.arc;
+    this.axis = opts.axis;
 };
 
 util.inherits(Turn, Action);
@@ -34,7 +35,12 @@ Turn.prototype.update = function() {
 
     var turnDegrees = this.arc * seconds;
 
-    var axis = sylvester.Line.create(position, sylvester.Vector.create([0, 1, 0]));
+    if (this.axis == 'Y') {
+        var axis = sylvester.Line.create(position, sylvester.Vector.create([0, 1, 0]));
+    } else {
+        var axis = sylvester.Line.create(position, sylvester.Vector.create([1, 0, 0]));
+    }
+
     var newDirection = direction.rotate(this.radians(turnDegrees), axis);
 
     newDirection = newDirection.toUnitVector();

@@ -149,7 +149,7 @@ _.extend(Handler.prototype, {
 
         var action = new Accelerate({
             ship: ship,
-            targetSpeed: targetSpeed,
+            targetSpeed: targetSpeed
         });
 
         game.timer().addAction(action);
@@ -170,7 +170,7 @@ _.extend(Handler.prototype, {
 
         var arc = msg.arc;
 
-        var action = new Turn({ship: ship, arc: arc});
+        var action = new Turn({ship: ship, arc: arc, axis: msg.axis});
         game.timer().addAction(action);
     }
 

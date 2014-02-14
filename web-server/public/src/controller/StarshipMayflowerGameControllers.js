@@ -8,12 +8,22 @@
         function ($scope, $location, Pomelo) {
 
             function getAngle(x, y) {
+                var theta;
 
-                var theta = Math.asin(y / Math.sqrt(x*x + y*y));
+                if (Math.abs(y) > Math.abs(x)) {
+                    theta = Math.asin(y / Math.sqrt(x*x + y*y));
 
-                if (x < 0) {
-                    theta = Math.PI - theta;
+                    if (x < 0) {
+                        theta = Math.PI - theta;
+                    }
+                } else {
+                    theta = Math.acos(x / Math.sqrt(x*x + y*y));
+
+                    if (y < 0) {
+                        theta *= -1;
+                    }
                 }
+
                 if (theta < 0) {
                     theta = 2 * Math.PI + theta;
                 }
@@ -23,11 +33,8 @@
 
             Pomelo.on('ShipUpdate', function(ship) {
                 $scope.ship = ship;
-
-
                 $scope.angleZX = getAngle(-ship.heading.z, ship.heading.x);
-
-
+                $scope.angleYZ = getAngle(-ship.heading.z, ship.heading.y);
                 $scope.$apply();
             });
 
@@ -51,9 +58,12 @@
                 Pomelo.notify('world.rosterHandler.setImpulseSpeed', {targetSpeed: impuls});
             };
 
-            $scope.turn = function(arc) {
-                console.log("Turn: ", arc);
-                Pomelo.notify('world.rosterHandler.turn', {arc: arc});
+            $scope.yaw = function(arc) {
+                Pomelo.notify('world.rosterHandler.turn', {arc: arc, axis: 'Y'});
+            };
+
+            $scope.pitch = function(arc) {
+                Pomelo.notify('world.rosterHandler.turn', {arc: arc, axis: 'X'});
             };
 
         }]);
