@@ -162,7 +162,12 @@ _.extend(Ship.prototype, {
                 y: me._position.e(2),
                 z: me._position.e(3)
             },
-            speed: me.getVelocity().modulus()
+            speed: me.getVelocity().modulus(),
+            heading: {
+                x: me._heading.e(1),
+                y: me._heading.e(2),
+                z: me._heading.e(3)
+            }
         };
     }
 });

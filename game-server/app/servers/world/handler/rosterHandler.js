@@ -2,7 +2,8 @@ var _ = require('lodash'),
     game = require('../../../src/game'),
     models = require('../../../src/models'),
     sylvester = require('sylvester'),
-    Accelerate = require('../../../src/action/accelerate');
+    Accelerate = require('../../../src/action/accelerate'),
+    Turn = require('../../../src/action/turn');
 
 module.exports = function(app) {
   return new Handler(app);
@@ -151,6 +152,25 @@ _.extend(Handler.prototype, {
             targetSpeed: targetSpeed,
         });
 
+        game.timer().addAction(action);
+    },
+
+    turn: function(msg, session, next)
+    {
+        var playerId = session.get('playerId');
+
+        if (!playerId) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
+        var shipRoster = game.getShipRoster();
+        var player = shipRoster.getPlayer(playerId);
+        var ship = shipRoster.getShip(player.getShip().getId());
+
+        var arc = msg.arc;
+
+        var action = new Turn({ship: ship, arc: arc});
         game.timer().addAction(action);
     }
 
