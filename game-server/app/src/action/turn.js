@@ -35,10 +35,12 @@ Turn.prototype.update = function() {
 
     var turnDegrees = this.arc * seconds;
 
+    var axis;
+
     if (this.axis == 'Y') {
-        var axis = sylvester.Line.create(position, sylvester.Vector.create([0, 1, 0]));
+        axis = sylvester.Line.create(position, sylvester.Vector.create([0, 1, 0]));
     } else {
-        var axis = sylvester.Line.create(position, sylvester.Vector.create([1, 0, 0]));
+        axis = sylvester.Line.create(position, sylvester.Vector.create([1, 0, 0]));
     }
 
     var newDirection = direction.rotate(this.radians(turnDegrees), axis);
