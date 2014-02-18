@@ -6,6 +6,8 @@
     StarshipMayflowerLobbyControllers.controller('ShipListCtrl', ['$scope', '$location', 'Pomelo',
         function ($scope, $location, Pomelo) {
 
+            $scope.list = [];
+
             var promise = Pomelo.request("world.lobby.listAvailableShips", "");
             promise.then(function(shiplist) {
                 $scope.list = shiplist;
