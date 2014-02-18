@@ -7,13 +7,13 @@ function newIndex() {
     return INDEX++;
 }
 
-var ShipRoster = function() {
+var ShipRegistry = function() {
     var me = this;
     me._ships = {};
     me._players = {};
 };
 
-_.extend(ShipRoster.prototype, {
+_.extend(ShipRegistry.prototype, {
     _ships: null,
     _players: null,
 
@@ -126,4 +126,4 @@ _.extend(ShipRoster.prototype, {
 
 });
 
-module.exports = ShipRoster;
+module.exports = ShipRegistry;

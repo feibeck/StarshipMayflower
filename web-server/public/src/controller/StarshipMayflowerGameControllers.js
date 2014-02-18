@@ -46,7 +46,7 @@
                     impuls = 100;
                 }
                 $scope.impuls = impuls;
-                Pomelo.notify('world.rosterHandler.setImpulseSpeed', {targetSpeed: impuls});
+                Pomelo.notify('world.navigation.setImpulseSpeed', {targetSpeed: impuls});
             };
 
             $scope.decelerate = function() {
@@ -55,15 +55,15 @@
                     impuls = 0;
                 }
                 $scope.impuls = impuls;
-                Pomelo.notify('world.rosterHandler.setImpulseSpeed', {targetSpeed: impuls});
+                Pomelo.notify('world.navigation.setImpulseSpeed', {targetSpeed: impuls});
             };
 
             $scope.yaw = function(arc) {
-                Pomelo.notify('world.rosterHandler.turn', {arc: arc, axis: 'Y'});
+                Pomelo.notify('world.navigation.turn', {arc: arc, axis: 'Y'});
             };
 
             $scope.pitch = function(arc) {
-                Pomelo.notify('world.rosterHandler.turn', {arc: arc, axis: 'X'});
+                Pomelo.notify('world.navigation.turn', {arc: arc, axis: 'X'});
             };
 
         }]);

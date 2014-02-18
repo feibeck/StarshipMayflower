@@ -6,7 +6,7 @@
     StarshipMayflowerLobbyControllers.controller('ShipListCtrl', ['$scope', '$location', 'Pomelo',
         function ($scope, $location, Pomelo) {
 
-            var promise = Pomelo.request("world.rosterHandler.listAvailableShips", "");
+            var promise = Pomelo.request("world.lobby.listAvailableShips", "");
             promise.then(function(shiplist) {
                 $scope.list = shiplist;
             }, function(reason) {
@@ -30,7 +30,7 @@
             $scope.create = function () {
 
                 var promise = Pomelo.request(
-                    "world.rosterHandler.addNewShip",
+                    "world.lobby.addNewShip",
                     $scope.shipName
                 );
                 promise.then(function (ship) {
@@ -46,7 +46,7 @@
         function ($scope, $location, Pomelo, Player) {
             $scope.login = function() {
                 Pomelo.request(
-                    "connector.entryHandler.entry",
+                    "connector.entry.entry",
                     {
                         username: $scope.username
                     }
@@ -56,7 +56,7 @@
                     Player.setName($scope.username);
 
                     Pomelo.request(
-                        "world.rosterHandler.addPlayer",
+                        "world.lobby.addPlayer",
                         {name: $scope.username, playerId: playerId}
                     ).then(function(data) {
                         $location.path('/shipList');
@@ -69,7 +69,7 @@
     StarshipMayflowerLobbyControllers.controller('ShipCtrl', ['$scope', '$location', 'Pomelo', 'Player', 'shipId',
         function ($scope, $location, Pomelo, Player, shipId) {
             Pomelo.request(
-                'world.rosterHandler.joinShip',
+                'world.lobby.joinShip',
                 {shipId: shipId}
             ).then(function(ship) {
 
@@ -104,7 +104,7 @@
 
             $scope.takeStation = function (station, value) {
 
-                var route = 'world.rosterHandler.';
+                var route = 'world.lobby.';
                 if (value === true) {
                     route = route + 'takeStation';
                 } else {
@@ -124,7 +124,7 @@
 
             $scope.ready = function()
             {
-                Pomelo.notify('world.rosterHandler.start');
+                Pomelo.notify('world.game.start');
                 $location.path('/game');
             }
 

@@ -13,7 +13,7 @@ var id = 1;
 
 var onUserLeave = function (app, session, reason) {
     if (session && session.uid) {
-        app.rpc.world.playerRemote.playerLeave(session, {playerId: session.get('playerId')}, null);
+        app.rpc.world.player.playerLeave(session, {playerId: session.get('playerId')}, null);
     }
 };
 

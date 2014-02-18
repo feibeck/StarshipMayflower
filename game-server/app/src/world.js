@@ -1,3 +1,3 @@
 module.exports = {
-    ShipRoster: require('./world/ShipRoster')
+    ShipRegistry: require('./world/ShipRegistry')
 };

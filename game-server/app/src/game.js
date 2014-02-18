@@ -4,13 +4,13 @@ var world = require('./world'),
     _ = require('lodash'),
     pomelo = require('pomelo');
 
-var shipRoster = new world.ShipRoster();
+var shipRegistry = new world.ShipRegistry();
 var actionManager = new ActionManager();
 
 var exp = module.exports;
 
-exp.getShipRoster = function() {
-    return shipRoster;
+exp.getShipRegistry = function() {
+    return shipRegistry;
 };
 
 exp.start = function() {
@@ -23,7 +23,7 @@ exp.getActionManager = function() {
 
 exp.moveShips = function() {
     var me = this;
-    _.forEach(shipRoster.getAllShips(), function(ship) {
+    _.forEach(shipRegistry.getAllShips(), function(ship) {
         me.moveShip(ship);
     });
 };
