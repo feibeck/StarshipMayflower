@@ -84,6 +84,9 @@ _.extend(ShipRegistry.prototype, {
     addPlayer: function(player)
     {
         var me = this;
+        if (!player) {
+            return false;
+        }
         me._players[player.getId()] = player;
         channel.addPlayerToLobby(player);
         return true;

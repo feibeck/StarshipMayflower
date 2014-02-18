@@ -72,12 +72,12 @@ _.extend(Handler.prototype, {
         var shipRegistry = game.getShipRegistry();
         var player = new models.Player(msg.playerId, msg.name, session.frontendId);
 
-        shipRegistry.addPlayer(player);
-
-        next(null, {
-            code: "OK",
-            payload: {}
-        });
+        if (shipRegistry.addPlayer(player)) {
+            next(null, {
+                code: "OK",
+                payload: {}
+            });
+        }
     },
 
     takeStation: function(msg, session, next)
