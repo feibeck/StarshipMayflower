@@ -10,7 +10,6 @@
                 </div>
                 <div class="panel-body">
 
-
                     <div class="table-responsive">
                         <table class="table table-bordered table-">
                             <thead>
@@ -32,7 +31,7 @@
                         </table>
                     </div>
 
-                    <button class="btn btn-success" data-toggle="modal" data-target="#createShipModal">create new ship</button>
+                    <button class="btn btn-success" ng-click="open()">create new ship</button>
 
                 </div>
             </div>
@@ -40,28 +39,20 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="createShipModal" tabindex="-1" role="dialog" aria-labelledby="createShipModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <div class="panel-heading">
-                    <h3 class="panel-title">New ship</h3>
-                </div>
-            </div>
-            <form class="createShip" role="form">
-                <div class="modal-body">
-                    <input ng-model="shipName" name="shipName" id="shipName" class="form-control"
-                           placeholder="Ship name" required autofocus>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" ng-click="create()">Create Ship</button>
-                </div>
-            </form>
+<script type="text/ng-template" id="new-ship.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+        <div class="panel-heading">
+            <h3 class="panel-title">New ship</h3>
         </div>
     </div>
-</div>
-
+    <form class="createShip" role="form" ng-submit="submit()">
+        <div class="modal-body">
+            <input ng-model="ship.name" id="shipname" class="form-control" placeholder="Ship name" required autofocus>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary" >Create Ship</button>
+        </div>
+    </form>
+</script>

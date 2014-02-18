@@ -1,10 +1,10 @@
 (function() {
     'use strict';
 
-    var StarshipMayflowerLobbyControllers = angular.module('StarshipMayflowerLobbyControllers', []);
+    var StarshipMayflowerLobbyControllers = angular.module('StarshipMayflowerLobbyControllers', ['ui.bootstrap']);
 
-    StarshipMayflowerLobbyControllers.controller('ShipListCtrl', ['$scope', '$location', 'Pomelo',
-        function ($scope, $location, Pomelo) {
+    StarshipMayflowerLobbyControllers.controller('ShipListCtrl', ['$scope', '$location', '$modal', 'Pomelo',
+        function ($scope, $location, $modal, Pomelo) {
 
             $scope.list = [];
 
@@ -29,18 +29,29 @@
                 $scope.$apply();
             });
 
-            $scope.create = function () {
-
-                var promise = Pomelo.request(
-                    "world.lobby.addNewShip",
-                    $scope.shipName
-                );
-                promise.then(function (ship) {
-                    $('#createShipModal').modal('hide');
-                    $scope.shipName = "";
+            $scope.open = function()
+            {
+                $modal.open({
+                    templateUrl: 'new-ship.html',
+                    backdrop: true,
+                    windowClass: 'modal',
+                    controller: function ($scope, $modalInstance) {
+                        var ship = {name: ""};
+                        $scope.ship = ship;
+                        $scope.submit = function () {
+                            Pomelo.request(
+                                "world.lobby.addNewShip",
+                                $scope.ship.name
+                            ).then(function (ship) {
+                                $modalInstance.dismiss('cancel');
+                            });
+                        }
+                        $scope.cancel = function () {
+                            $modalInstance.dismiss('cancel');
+                        };
+                    }
                 });
-
-            };
+            }
 
         }]);
 
