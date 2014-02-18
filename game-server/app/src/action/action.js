@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 var id = 1;
 
 /**
@@ -13,11 +15,15 @@ var Action = function(opts) {
     this.singleton = false || opts.singleton;
 };
 
-/**
- * Update interface, default update will do nothing, every tick the update will be invoked
- * @api public
- */
-Action.prototype.update = function() {
-};
+_.extend(Action.prototype, {
+
+    /**
+     * Update interface, default update will do nothing, every tick the update will be invoked
+     */
+    update: function()
+    {
+    }
+
+});
 
 module.exports = Action;
