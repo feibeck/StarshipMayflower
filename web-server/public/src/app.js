@@ -2,39 +2,39 @@
     'use strict';
 
     var StarshipMayflowerApp = angular.module('StarshipMayflowerApp', [
-        'ngRoute',
+        'ui.router',
         'StarshipMayflowerLobbyControllers',
         'StarshipMayflowerGameControllers',
         'StarshipMayflowerServices'
     ]);
 
-    StarshipMayflowerApp.config(['$routeProvider',
-        function ($routeProvider) {
-            $routeProvider
-                .when('/login', {
-                    templateUrl: 'src/view/login.html',
-                    controller: 'LoginCtrl'
-                })
-                .when('/shipList', {
-                    templateUrl: 'src/view/shipList.html',
-                    controller: 'ShipListCtrl'
-                })
-                .when('/ship/:id', {
-                    templateUrl: 'src/view/ship.html',
-                    controller: 'ShipCtrl',
-                    resolve: {
-                        shipId: function($route) {
-                            return $route.current.params.id;
-                        }
-                    }
-                })
-                .when('/game', {
-                    templateUrl: 'src/view/game.html',
-                    controller: 'GameCtrl'
-                })
-                .otherwise({
-                    redirectTo: '/login'
-                });
-        }]);
+    StarshipMayflowerApp.config(['$stateProvider', '$urlRouterProvider',
+
+        function($stateProvider, $urlRouterProvider) {
+
+            $urlRouterProvider.otherwise('/lobby/login')
+
+            $stateProvider.state('lobby', {
+                url: '/lobby',
+                templateUrl: 'src/view/lobby.html',
+            }).state('lobby.login', {
+                url: '/login',
+                templateUrl: 'src/view/login.html',
+                controller: 'LoginCtrl'
+            }).state('lobby.shiplist', {
+                url: '/ships',
+                templateUrl: 'src/view/shipList.html',
+                controller: 'ShipListCtrl'
+            }).state('lobby.ship', {
+                url: '/ship/:shipId',
+                templateUrl: 'src/view/ship.html',
+                controller: 'ShipCtrl'
+            }).state('game', {
+                url: '/play',
+                templateUrl: 'src/view/game.html',
+                controller: 'GameCtrl'
+            });
+        }
+    ]);
 
 })();

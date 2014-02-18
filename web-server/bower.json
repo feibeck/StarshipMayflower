@@ -4,8 +4,8 @@
         "bootstrap-assets": "latest",
         "bootstrap": "latest",
         "angular": "latest",
-        "angular-route": "latest",
         "angular-bootstrap": "latest",
+        "angular-ui-router": "0.2.8-bowratic-tedium",
         "parallax": "latest",
         "bootswatch": "latest"
     }

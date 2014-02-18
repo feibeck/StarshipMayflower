@@ -12,7 +12,7 @@
             promise.then(function(shiplist) {
                 $scope.list = shiplist;
             }, function(reason) {
-                $location.path('/login');
+                $location.path('/lobby/login');
             });
 
             Pomelo.on('PlayerAdded', function(player) {
@@ -74,7 +74,7 @@
                             "world.lobby.addPlayer",
                             {name: username, playerId: playerId}
                         ).then(function(data) {
-                                $location.path('/shipList');
+                            $location.path('/lobby/ships');
                         });
 
                     });
@@ -82,8 +82,11 @@
             };
         }]);
 
-    StarshipMayflowerLobbyControllers.controller('ShipCtrl', ['$scope', '$location', 'Pomelo', 'Player', 'shipId',
-        function ($scope, $location, Pomelo, Player, shipId) {
+    StarshipMayflowerLobbyControllers.controller('ShipCtrl', ['$scope', '$location', 'Pomelo', 'Player', '$stateParams',
+        function ($scope, $location, Pomelo, Player, $stateParams) {
+
+            var shipId = $stateParams.shipId;
+
             Pomelo.request(
                 'world.lobby.joinShip',
                 {shipId: shipId}
@@ -93,7 +96,7 @@
                 $scope.ship = ship;
 
             }, function(reason) {
-                $location.path('/shipList');
+                $location.path('/lobby/ships');
             });
 
             Pomelo.on('StationTaken', function(ship) {
@@ -141,7 +144,7 @@
             $scope.ready = function()
             {
                 Pomelo.notify('world.game.start');
-                $location.path('/game');
+                $location.path('/play');
             }
 
         }]);
