@@ -36,7 +36,7 @@ _.extend(Accelerate.prototype, {
         var direction = this.ship.getHeading();
 
         var speed = velocity.modulus();
-        var accelSpeed = 2;
+        var accelSpeed = 10;
 
         if (this.targetSpeed > speed) {
 

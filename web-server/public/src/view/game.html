@@ -21,7 +21,7 @@
 
                         <!-- Ship system status -->
                         <div>
-                            <h1>Ship system status</h1>
+                            <p>Ship system status</p>
                             <table class="table">
                                 <tbody>
                                 <tr>
@@ -55,17 +55,16 @@
                         <!-- Engines -->
                         <div >
 
-                            <h1>Warp</h1>
-
-                            <button>-</button>
-                            <input type="text" value="0">
-                            <button>+</button>
-
-                            <h1>Impulse</h1>
-
-                            <button ng-click="decelerate()">-</button>
-                            <input type="text" ng-model="impuls">
-                            <button ng-click="accelerate()">+</button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Impulse</p>
+                                    <input type="text" id="impulseSlider" data-slider-id="impulseSliderC">
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Warp</p>
+                                    <input type="text" id="warpSlider" data-slider-id="warpSliderC">
+                                </div>
+                            </div>
 
                         </div>
 

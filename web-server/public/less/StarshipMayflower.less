@@ -2,3 +2,43 @@
 @import "../components/bootswatch/cyborg/variables.less";
 @import "../components/bootswatch/cyborg/bootswatch.less";
 @import "../components/bootstrap/less/utilities.less";
+
+@baseLineHeight: 20px;// @border-radius-base;
+@baseBorderRadius: @border-radius-base;
+
+.border-radius(@radius) {
+  .border-top-radius(@radius);
+  .border-right-radius(@radius);
+  .border-bottom-radius(@radius);
+  .border-left-radius(@radius);
+}
+
+@import "slider.less";
+
+#impulseSliderC .slider-selection
+{
+    background: lime;
+}
+
+#impulseSliderC,
+#warpSliderC
+{
+  margin-left: 30px;
+  margin-top: 20px;
+  height: 200px;
+}
+
+#impulseSliderC .slider-track,
+#warpSliderC .slider-track
+{
+  width: 40px;
+}
+
+#impulseSliderC .slider-handle.triangle,
+#warpSliderC .slider-handle.triangle
+{
+  border-width: 20px 0 20px 40px;
+  margin-top: -20px;
+  border-left-color: #858585;
+  opacity: 1;
+}

@@ -7,6 +7,40 @@
 
         function ($scope, $location, Pomelo) {
 
+            var sliderImpulse = $('#impulseSlider').slider({
+                min: 0,
+                max: 100,
+                value: 0,
+                handle: 'triangle',
+                tooltip: false,
+                orientation: 'vertical',
+                selection: 'after'
+            });
+
+            var sliderWarp = $('#warpSlider').slider({
+                min: 0,
+                max: 4,
+                value: 0,
+                handle: 'triangle',
+                tooltip: false,
+                orientation: 'vertical',
+                selection: 'after'
+            });
+
+            sliderImpulse.on('slide', function(ev) {
+                Pomelo.notify(
+                    'world.navigation.setImpulseSpeed',
+                    {targetSpeed: ev.value}
+                );
+            });
+
+            sliderImpulse.on('slideStop', function(ev) {
+                Pomelo.notify(
+                    'world.navigation.setImpulseSpeed',
+                    {targetSpeed: ev.value}
+                );
+            });
+
             function getAngle(x, y) {
                 var theta;
 
@@ -36,27 +70,12 @@
                 $scope.angleZX = getAngle(-ship.heading.z, ship.heading.x);
                 $scope.angleYZ = getAngle(-ship.heading.z, ship.heading.y);
                 $scope.$apply();
+
+                sliderImpulse.slider('setCurrentValue', ship.speed);
+                sliderImpulse.slider('setValue', ship.targetSpeed);
             });
 
             $scope.impuls = 0;
-
-            $scope.accelerate = function() {
-                var impuls = $scope.impuls + 1;
-                if (impuls > 100) {
-                    impuls = 100;
-                }
-                $scope.impuls = impuls;
-                Pomelo.notify('world.navigation.setImpulseSpeed', {targetSpeed: impuls});
-            };
-
-            $scope.decelerate = function() {
-                var impuls = $scope.impuls - 1;
-                if (impuls < 0) {
-                    impuls = 0;
-                }
-                $scope.impuls = impuls;
-                Pomelo.notify('world.navigation.setImpulseSpeed', {targetSpeed: impuls});
-            };
 
             $scope.yaw = function(arc) {
                 Pomelo.notify('world.navigation.turn', {arc: arc, axis: 'Y'});

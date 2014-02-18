@@ -31,6 +31,8 @@ var Ship = function(name) {
 
     me._lastMove = 0;
 
+    me._targetSpeed = 0;
+
 };
 
 _.extend(Ship.prototype, {
@@ -44,6 +46,7 @@ _.extend(Ship.prototype, {
     _velocity: null,
     _heading: null,
     _lastMove: null,
+    _targetSpeed: 0,
 
     /**
      * Returns the ships name
@@ -201,6 +204,16 @@ _.extend(Ship.prototype, {
     },
 
     /**
+     * Set the ships target speed
+     *
+     * @param {Integer} targetSpeed
+     */
+    setTargetSpeed: function(targetSpeed)
+    {
+        this._targetSpeed = targetSpeed;
+    },
+
+    /**
      * Register a player with a station
      *
      * @param {String} station
@@ -280,6 +293,7 @@ _.extend(Ship.prototype, {
                 z: me._position.e(3)
             },
             speed: me.getVelocity().modulus(),
+            targetSpeed: me._targetSpeed,
             heading: {
                 x: me._heading.e(1),
                 y: me._heading.e(2),

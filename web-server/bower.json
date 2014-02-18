@@ -7,7 +7,6 @@
         "angular-route": "latest",
         "angular-bootstrap": "latest",
         "parallax": "latest",
-        "bootswatch": "latest",
-        "bower-bootstrap-slider": "latest"
+        "bootswatch": "latest"
     }
 }
