@@ -1,7 +1,15 @@
 var _ = require('lodash');
 var sylvester = require('sylvester');
 
+/**
+ * Ship model
+ *
+ * @param {String}  name
+ *
+ * @constructor
+ */
 var Ship = function(name) {
+
     var me = this;
 
     me._name = name;
@@ -22,48 +30,69 @@ var Ship = function(name) {
     me._heading = sylvester.Vector.create([0, 0, -1]);
 
     me._lastMove = 0;
+
 };
 
 _.extend(Ship.prototype, {
 
     _id: null,
-
     _name: null,
-
     _creator: null,
-
     _stations: null,
-
     _players: null,
-
     _position: null,
-
     _velocity: null,
-
     _heading: null,
-
     _lastMove: null,
 
+    /**
+     * Returns the ships name
+     *
+     * @returns {String}
+     */
     getName: function()
     {
         return this._name;
     },
 
+    /**
+     * Set the ships id
+     *
+     * @param {Integer} id
+     *
+     * @returns {Ship}
+     */
     setId: function(id)
     {
         this._id = id;
         return this;
     },
 
+    /**
+     *
+     * Returns the ships id
+     *
+     * @returns {Integer}
+     */
     getId: function() {
         return this._id;
     },
 
+    /**
+     * Registeres a player with the ship
+     *
+     * @param {Player} player
+     */
     addPlayer: function(player)
     {
         this._players[player.getId()] = player;
     },
 
+    /**
+     * Removes a player from the ship
+     *
+     * @param {Player} player
+     */
     removePlayer: function(player)
     {
         delete this._players[player.getId()];
@@ -76,49 +105,109 @@ _.extend(Ship.prototype, {
         this.releaseStation('comm', player);
     },
 
+    /**
+     * Sets the ships velocity vector
+     *
+     * @param {sylvester.Vector} velocity
+     */
     setVelocity: function(velocity) {
         this._velocity = velocity;
     },
 
+    /**
+     * Returns the ships velocity vector
+     *
+     * @returns {sylvester.Vector}
+     */
     getVelocity: function() {
         return this._velocity;
     },
 
+    /**
+     * Returns the heading vector of the ship
+     *
+     * @returns {sylvester.Vector}
+     */
     getHeading: function() {
         return this._heading;
     },
 
+    /**
+     * Sets the heading vector of the ship
+     *
+     * @param {sylvester.Vector} heading
+     */
     setHeading: function(heading) {
         this._heading = heading;
     },
 
+    /**
+     * Sets the position of the ship
+     *
+     * @param {sylvester.Vector} position
+     */
     setPosition: function(position) {
         this._position = position;
     },
 
+    /**
+     * Returns the position of the ship
+     *
+     * @returns {sylvester.Vector}
+     */
     getPosition: function() {
         return this._position;
     },
 
+    /**
+     * Sets the timestamp of the last movement
+     *
+     * @param {Integer} lastMove
+     */
     setLastMove: function(lastMove) {
         this._lastMove = lastMove;
     },
 
+    /**
+     * Returns the timestamp of the last movement
+     *
+     * @returns {Integer}
+     */
     getLastMove: function() {
         return this._lastMove;
     },
 
+    /**
+     * Sets the creator of the ship
+     *
+     * @param {Player} player
+     *
+     * @returns {Ship}
+     */
     setCreator: function(player)
     {
         this._creator = player;
         return this;
     },
 
+    /**
+     * Returns the creator of the ship
+     *
+     * @returns {Player}
+     */
     getCreator: function()
     {
         return this._creator;
     },
 
+    /**
+     * Register a player with a station
+     *
+     * @param {String} station
+     * @param {Player} player
+     *
+     * @returns {boolean}
+     */
     takeStation: function(station, player)
     {
         if (this._stations[station]) {
@@ -128,6 +217,14 @@ _.extend(Ship.prototype, {
         return true;
     },
 
+    /**
+     * Releases a station from a player
+     *
+     * @param {String} station
+     * @param {Player} player
+     *
+     * @returns {boolean}
+     */
     releaseStation: function(station, player)
     {
         if (this._stations[station] != player) {
@@ -137,6 +234,26 @@ _.extend(Ship.prototype, {
         return true;
     },
 
+    /**
+     * Returns a JSON representation of the ship
+     *
+     * @returns {{
+     *     name: String,
+     *     id: Integer,
+     *     creator: Player,
+     *     stations: {
+     *         helm: String,
+     *         weapons: String,
+     *         science: String,
+     *         engineering: String,
+     *         comm: String,
+     *         mainscreen: String
+     *     },
+     *     position: {x: Float, y: Float, z: Float},
+     *     speed: Float,
+     *     heading: {x: Float, y: Float, z: Float}
+     * }}
+     */
     serialize: function() {
         var me = this;
 
@@ -170,6 +287,7 @@ _.extend(Ship.prototype, {
             }
         };
     }
+
 });
 
 module.exports = Ship;
