@@ -2,7 +2,10 @@ var world = require('./world'),
     ActionManager = require('./action/actionManager'),
     timer = require('./timer'),
     _ = require('lodash'),
-    pomelo = require('pomelo');
+    pomelo = require('pomelo'),
+    Channel = require('./channel');
+
+var channel = new Channel();
 
 var shipRegistry = new world.ShipRegistry();
 var actionManager = new ActionManager();
@@ -29,7 +32,6 @@ exp.moveShips = function() {
 };
 
 exp.moveShip = function(ship) {
-
     var lastMove = ship.getLastMove();
     var seconds = (Date.now() - lastMove) / 1000;
 
@@ -39,16 +41,9 @@ exp.moveShip = function(ship) {
     var movement = velocity.multiply(seconds);
 
     ship.setPosition(position.add(movement));
-
     ship.setLastMove(Date.now());
 
-    var channel = this.getShipChannel(ship);
-    channel.pushMessage('ShipUpdate', ship.serialize());
-};
-
-exp.getShipChannel = function(ship)
-{
-    return pomelo.app.get('channelService').getChannel('ship-' + ship.getId(), true);
+    channel.pushToShip(ship, 'ShipUpdate', ship.serialize());
 };
 
 exp.timer = function() {

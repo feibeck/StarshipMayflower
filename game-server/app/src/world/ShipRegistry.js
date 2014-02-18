@@ -1,26 +1,49 @@
 var _ = require('lodash'),
     pomelo = require('pomelo'),
-    models = require('../models');
+    models = require('../models'),
+    Channel = require('../channel');
 
 var INDEX = 1;
 function newIndex() {
     return INDEX++;
 }
 
-var ShipRegistry = function() {
+var channel = new Channel();
+
+/**
+ * Registry of all ships
+ *
+ * @constructor
+ */
+var ShipRegistry = function()
+{
     var me = this;
     me._ships = {};
     me._players = {};
 };
 
 _.extend(ShipRegistry.prototype, {
+
     _ships: null,
     _players: null,
 
-    getAllShips: function() {
+    /**
+     * Returns a list of all ships
+     *
+     * @returns {Array}
+     */
+    getAllShips: function()
+    {
         return _.values(this._ships);
     },
 
+    /**
+     * Returns a ship by id
+     *
+     * @param {Integer} shipId
+     *
+     * @returns {Ship}
+     */
     getShip: function(shipId)
     {
         var me = this;
@@ -28,7 +51,16 @@ _.extend(ShipRegistry.prototype, {
         return ship;
     },
 
-    addShip: function(ship, player) {
+    /**
+     * Adds a ship
+     *
+     * @param {Ship} ship
+     * @param {Player} player
+     *
+     * @returns {Ship}
+     */
+    addShip: function(ship, player)
+    {
         var me = this,
             index = newIndex();
 
@@ -37,25 +69,33 @@ _.extend(ShipRegistry.prototype, {
 
         me._ships[index] = ship;
 
-        var channel = me.getChannel();
-        channel.pushMessage('ShipAdded', ship.serialize());
+        channel.pushToLobby('ShipAdded', ship.serialize());
 
         return ship;
     },
 
+    /**
+     * Adds a player
+     *
+     * @param {Player} player
+     *
+     * @returns {boolean}
+     */
     addPlayer: function(player)
     {
         var me = this;
         me._players[player.getId()] = player;
-
-        var channel = me.getChannel();
-        channel.add(player.getId(), player.getServerId());
-
-        channel.pushMessage('PlayerAdded', player.serialize());
-
+        channel.addPlayerToLobby(player);
         return true;
     },
 
+    /**
+     * Returns a player by its id property
+     *
+     * @param {Integer} playerId
+     *
+     * @returns {Player}
+     */
     getPlayer: function(playerId)
     {
         var me = this;
@@ -63,6 +103,11 @@ _.extend(ShipRegistry.prototype, {
         return player;
     },
 
+    /**
+     * Removes a player
+     *
+     * @param {Integer} playerId
+     */
     removePlayer: function(playerId)
     {
         var me = this;
@@ -72,56 +117,62 @@ _.extend(ShipRegistry.prototype, {
         if (ship) {
             player.setShip(null);
             ship.removePlayer(player);
-
-            var shipChannel = me.getShipChannel(ship);
-            shipChannel.pushMessage('StationReleased', ship.serialize());
+            console.log("Pushing to ship");
+            channel.pushToShip(ship, 'StationReleased', ship.serialize());
         }
 
-        var channel = me.getChannel();
-        channel.leave(player.getId(), player.getServerId());
-        channel.pushMessage('PlayerLeft', player.serialize());
+        channel.removePlayerFromLobby(player);
 
         delete me._players[playerId];
     },
 
+    /**
+     * Registers a player with a ship
+     *
+     * @param {Ship} ship
+     * @param {Player} player
+     */
     addPlayerToShip: function(ship, player)
     {
         ship.addPlayer(player);
         player.setShip(ship);
-
-        var channel = this.getShipChannel(ship);
-        channel.add(player.getId(), player.getServerId());
-
-        channel.pushMessage('PlayerAddedToShip', player.serialize());
+        channel.addPlayerToShip(ship, player);
     },
 
+    /**
+     * Register a player to a station of a ship
+     *
+     * @param {Ship} ship
+     * @param {Player} player
+     * @param {String} position
+     *
+     * @returns {boolean}
+     */
     takeStation: function(ship, player, position)
     {
         var success = ship.takeStation(position, player);
         if (success) {
-            var channel = this.getShipChannel(ship);
-            channel.pushMessage('StationTaken', ship.serialize());
+            channel.pushToShip(ship, 'StationTaken', ship.serialize());
         }
         return success;
     },
 
+    /**
+     * Releases a player from a station of a ship
+     *
+     * @param {Ship} ship
+     * @param {Player} player
+     * @param {String} position
+     *
+     * @returns {boolean}
+     */
     releaseStation: function(ship, player, position)
     {
         var success = ship.releaseStation(position, player);
         if (success) {
-            var channel = this.getShipChannel(ship);
-            channel.pushMessage('StationReleased', ship.serialize());
+            channel.pushToShip(ship, 'StationReleased', ship.serialize());
         }
         return success;
-    },
-
-    getShipChannel: function(ship)
-    {
-        return pomelo.app.get('channelService').getChannel('ship-' + ship.getId(), true);
-    },
-
-    getChannel: function() {
-        return pomelo.app.get('channelService').getChannel('lobby', true);
     }
 
 });
