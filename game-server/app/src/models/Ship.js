@@ -248,6 +248,24 @@ _.extend(Ship.prototype, {
     },
 
     /**
+     * Returns all stations a player is stationed on
+     *
+     * @param player
+     *
+     * @returns {Array}
+     */
+    stationsForPlayer: function(player)
+    {
+        var stations = [];
+        _(this._stations).each(function (playerOnStation, station) {
+            if (playerOnStation && playerOnStation.getId() == player.getId()) {
+                stations.push(station);
+            }
+        });
+        return stations;
+    },
+
+    /**
      * Returns a JSON representation of the ship
      *
      * @returns {{

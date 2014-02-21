@@ -1,6 +1,9 @@
 var _ = require('lodash'),
     game = require('../../../src/game'),
-    models = require('../../../src/models');
+    models = require('../../../src/models'),
+    Channel = require('../../../src/channel');
+
+var channel = new Channel();
 
 module.exports = function(app) {
   return new Handler(app);
@@ -122,6 +125,35 @@ _.extend(Handler.prototype, {
         } else {
             next(new Error('Position not taken by player'), {code: 'ERR', payload: {}});
         }
+    },
+
+    readyToPlay: function(msg, session, next)
+    {
+        var playerId = session.get('playerId');
+
+        if (!playerId) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
+        var shipRegistry = game.getShipRegistry();
+        var player = shipRegistry.getPlayer(playerId);
+
+        player.setReadyToPlay(msg);
+
+        var allReady = true;
+        _(shipRegistry.getPlayers()).each(function(player) {
+            if (!player.getReadyToPlay()) {
+                allReady = false;
+            }
+        });
+
+        if (allReady && !game.isRunning()) {
+            game.start();
+            channel.pushToLobby('GameStarted', {});
+        }
+
+        next(null, {code: 'OK', payload: game.isRunning()});
     }
 
 });

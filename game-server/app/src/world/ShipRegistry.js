@@ -107,6 +107,16 @@ _.extend(ShipRegistry.prototype, {
     },
 
     /**
+     * Returns all players
+     *
+     * @returns {Array}
+     */
+    getPlayers: function()
+    {
+        return this._players;
+    },
+
+    /**
      * Removes a player
      *
      * @param {Integer} playerId
@@ -120,7 +130,6 @@ _.extend(ShipRegistry.prototype, {
         if (ship) {
             player.setShip(null);
             ship.removePlayer(player);
-            console.log("Pushing to ship");
             channel.pushToShip(ship, 'StationReleased', ship.serialize());
         }
 

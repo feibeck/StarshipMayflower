@@ -21,6 +21,7 @@ _.extend(Player.prototype, {
     _name: null,
     _serverId: null,
     _ship: null,
+    _readyToPlay: false,
 
     /**
      * Returns the players id
@@ -67,6 +68,26 @@ _.extend(Player.prototype, {
     getShip: function()
     {
         return this._ship;
+    },
+
+    /**
+     * Sets the readyToPlay property
+     *
+     * @param {boolean}
+     */
+    setReadyToPlay: function(readyToPlay)
+    {
+        this._readyToPlay = readyToPlay;
+    },
+
+    /**
+     * Returns the readyToPlay property
+     *
+     * @returns {boolean}
+     */
+    getReadyToPlay: function()
+    {
+        return this._readyToPlay;
     },
 
     /**

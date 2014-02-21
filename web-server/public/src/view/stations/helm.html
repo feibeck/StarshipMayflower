@@ -1,0 +1,147 @@
+<div ng-controller="HelmCtrl" id="helm">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-left">
+
+                <!-- Ship system status -->
+                <div>
+                    <p>Ship system status</p>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Energy</th>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <th>Front Shield</th>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <th>Rear Shield</th>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <th>Beam Weapons</th>
+                            <td>AUTO</td>
+                        </tr>
+                        <tr>
+                            <th>Weapon Lock</th>
+                            <td>IDLE</td>
+                        </tr>
+                        <tr>
+                            <th>Shields</th>
+                            <td>--</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Engines -->
+                <div >
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Impulse</p>
+                            <input type="text" id="impulseSlider" data-slider-id="impulseSliderC">
+                        </div>
+                        <div class="col-md-6">
+                            <p>Warp</p>
+                            <input type="text" id="warpSlider" data-slider-id="warpSliderC">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="panel panel-center" style="height: 500px;">
+
+                <p>Position</p>
+                <dl class="dl-horizontal">
+                    <dt>X</dt>
+                    <dd>{{ ship.position.x | number:4 }}</dd>
+                    <dt>Y</dt>
+                    <dd>{{ ship.position.y | number:4 }}</dd>
+                    <dt>Z</dt>
+                    <dd>{{ ship.position.z | number:4 }}</dd>
+                </dl>
+
+                <p>Heading</p>
+                <dl class="dl-horizontal">
+                    <dt>X</dt>
+                    <dd>{{ ship.heading.x | number:4 }}</dd>
+                    <dt>Y</dt>
+                    <dd>{{ ship.heading.y | number:4 }}</dd>
+                    <dt>Z</dt>
+                    <dd>{{ ship.heading.z | number:4 }}</dd>
+                    <dt>Angle Z-X</dt>
+                    <dd>{{ angleZX | number:4 }}</dd>
+                    <dt>Angle Y-Z</dt>
+                    <dd>{{ angleYZ | number:4 }}</dd>
+
+                </dl>
+
+                <p>Movement</p>
+                <dl class="dl-horizontal">
+                    <dt>Current Speed</dt>
+                    <dd>{{ ship.speed | number:4 }}</dd>
+                </dl>
+
+                <p>Yaw</p>
+                <button id="turnleft" ng-mousedown="yaw(10)" ng-mouseup="yaw(0)">Left</button>
+                <button id="turnRight" ng-mousedown="yaw(-10)" ng-mouseup="yaw(0)">Right</button>
+
+                <p>Pitch</p>
+                <button id="pitchUp" ng-mousedown="pitch(10)" ng-mouseup="pitch(0)">Up</button>
+                <button id="pitchDown" ng-mousedown="pitch(-10)" ng-mouseup="pitch(0)">Down</button>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="panel panel-right">
+
+                <!-- Main screen control -->
+                <div>
+                    <h1>Main screen</h1>
+                    <ul>
+                        <li>Front</li>
+                        <li>Rear</li>
+                        <li>Left</li>
+                        <li>Right</li>
+                        <li>Tactical</li>
+                        <li>Star-Map</li>
+                        <li>Status</li>
+                    </ul>
+                </div>
+
+                <!-- Dock control -->
+                <div>
+                    <h1>Dock control</h1>
+                    <button>Request Dock</button>
+                </div>
+
+                <!-- Shield control -->
+                <div>
+                    <h1>Shield control</h1>
+                    <input type="checkbox"> Shields
+                </div>
+
+                <div>
+                    <h1>Ship damage report</h1>
+                    All well
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -12,11 +12,11 @@
 
         function($stateProvider, $urlRouterProvider) {
 
-            $urlRouterProvider.otherwise('/lobby/login')
+            $urlRouterProvider.otherwise('/lobby/login');
 
             $stateProvider.state('lobby', {
                 url: '/lobby',
-                templateUrl: 'src/view/lobby.html',
+                templateUrl: 'src/view/lobby.html'
             }).state('lobby.login', {
                 url: '/login',
                 templateUrl: 'src/view/login.html',

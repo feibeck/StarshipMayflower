@@ -7,6 +7,8 @@ var world = require('./world'),
 
 var channel = new Channel();
 
+var running = false;
+
 var shipRegistry = new world.ShipRegistry();
 var actionManager = new ActionManager();
 
@@ -17,7 +19,15 @@ exp.getShipRegistry = function() {
 };
 
 exp.start = function() {
-    timer.run(actionManager);
+    if (!running) {
+        timer.run(actionManager);
+        running = true;
+    }
+};
+
+exp.isRunning = function()
+{
+    return running;
 };
 
 exp.getActionManager = function() {

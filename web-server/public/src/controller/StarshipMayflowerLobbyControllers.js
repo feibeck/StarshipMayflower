@@ -45,13 +45,13 @@
                             ).then(function (ship) {
                                 $modalInstance.dismiss('cancel');
                             });
-                        }
+                        };
                         $scope.cancel = function () {
                             $modalInstance.dismiss('cancel');
                         };
                     }
                 });
-            }
+            };
 
         }]);
 
@@ -91,23 +91,23 @@
                 'world.lobby.joinShip',
                 {shipId: shipId}
             ).then(function(ship) {
-
-                console.debug(ship);
                 $scope.ship = ship;
-
             }, function(reason) {
                 $location.path('/lobby/ships');
             });
 
             Pomelo.on('StationTaken', function(ship) {
                 $scope.ship = ship;
-                console.debug(ship);
                 $scope.$apply();
             });
 
             Pomelo.on('StationReleased', function(ship) {
                 $scope.ship = ship;
-                console.debug(ship);
+                $scope.$apply();
+            });
+
+            Pomelo.on('GameStarted', function() {
+                $location.path('/play');
                 $scope.$apply();
             });
 
@@ -141,11 +141,29 @@
 
             };
 
-            $scope.ready = function()
-            {
-                Pomelo.notify('world.game.start');
-                $location.path('/play');
-            }
+            $scope.$watch('readyToPlay', function(newValue) {
+
+                if (newValue) {
+                    $scope.buttonText = 'Waiting for game to start';
+                } else {
+                    $scope.buttonText = 'Ready to play';
+                }
+
+                if (newValue === undefined) {
+                    return;
+                }
+
+                Pomelo.request(
+                    'world.lobby.readyToPlay',
+                    newValue
+                ).then(function(started) {
+                    if (started) {
+                        $location.path('/play');
+                        $scope.$apply();
+                    }
+                });
+
+            });
 
         }]);
 

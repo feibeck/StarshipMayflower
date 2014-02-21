@@ -79,7 +79,9 @@
                         </table>
                     </div>
 
-                    <button class="btn btn-success" ng-click="ready()">Ready to play</button>
+                    <button type="button" class="btn btn-success" ng-model="readyToPlay" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                        {{ buttonText }}
+                    </button>
 
                 </div>
             </div>

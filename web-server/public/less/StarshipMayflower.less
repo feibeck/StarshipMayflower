@@ -3,9 +3,6 @@
 @import "../components/bootswatch/cyborg/bootswatch.less";
 @import "../components/bootstrap/less/utilities.less";
 
-// Because of angular bootstrap (see http://angular-ui.github.io/bootstrap/)
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-
 @baseLineHeight: 20px;// @border-radius-base;
 @baseBorderRadius: @border-radius-base;
 
@@ -15,6 +12,9 @@
   .border-bottom-radius(@radius);
   .border-left-radius(@radius);
 }
+
+// Because of angular bootstrap (see http://angular-ui.github.io/bootstrap/)
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 @import "slider.less";
 

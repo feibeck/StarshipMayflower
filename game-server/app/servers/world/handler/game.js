@@ -13,7 +13,19 @@ _.extend(Handler.prototype, {
 
     start: function(msg, session, next)
     {
-        game.start();
+        var playerId = session.get('playerId');
+        if (!playerId) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
+        var shipRegistry = game.getShipRegistry();
+        var player = shipRegistry.getPlayer(playerId);
+        var ship = player.getShip();
+
+        var stations = ship.stationsForPlayer(player);
+
+        next(null, {code: 'OK', payload: stations});
     }
 
 });
