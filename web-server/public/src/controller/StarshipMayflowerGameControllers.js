@@ -54,6 +54,10 @@ StarshipMayflowerGameControllers.controller('GameCtrl', ['$scope', '$location', 
                 }
                 $scope.panes.push(pane);
             });
+	    $scope.panes.push({
+		title: 'Map',
+		content: 'src/view/stations/map.html'
+	    });
         });
 
     }
@@ -148,6 +152,17 @@ StarshipMayflowerGameControllers.controller('HelmCtrl', ['$scope', '$location', 
 StarshipMayflowerGameControllers.controller('WeaponsCtrl', ['$scope', '$location', 'Pomelo',
 
     function ($scope, $location, Pomelo) {
+    }
+
+]);
+
+StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', '$location', 'Pomelo', 'Map',
+
+    function ($scope, $location, Pomelo, Map) {
+	Map.init('map-container');
+	Pomelo.on('ShipUpdate', function(ship) {
+	    Map.update(ship);
+	});
     }
 
 ]);

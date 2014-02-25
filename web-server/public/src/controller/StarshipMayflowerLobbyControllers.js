@@ -159,7 +159,6 @@
                 ).then(function(started) {
                     if (started) {
                         $location.path('/play');
-                        $scope.$apply();
                     }
                 });
 
