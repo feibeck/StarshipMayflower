@@ -26,7 +26,7 @@ _.extend(Handler.prototype, {
         var player = shipRegistry.getPlayer(playerId);
         var ship = shipRegistry.getShip(player.getShip().getId());
 
-        ship.setTargetSpeed(msg.targetSpeed);
+	ship.setTargetImpulse(msg.targetSpeed);
 
         var targetSpeed = msg.targetSpeed;
 

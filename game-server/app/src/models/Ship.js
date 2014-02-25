@@ -27,11 +27,12 @@ var Ship = function(name) {
 
     me._position = sylvester.Vector.create([0, 0, 0]);
     me._velocity = sylvester.Vector.create([0, 0, 0]);
-    me._heading = sylvester.Vector.create([0, 0, -1]);
+    me._heading = sylvester.Vector.create([0, 0, 1]);
 
     me._lastMove = 0;
 
-    me._targetSpeed = 0;
+    me._targetImpulse = 0;
+    me._currentImpulse = 0;
 
 };
 
@@ -46,7 +47,8 @@ _.extend(Ship.prototype, {
     _velocity: null,
     _heading: null,
     _lastMove: null,
-    _targetSpeed: 0,
+    _targetImpulse: 0,
+    _currentImpulse: 0,
 
     /**
      * Returns the ships name
@@ -208,9 +210,29 @@ _.extend(Ship.prototype, {
      *
      * @param {Integer} targetSpeed
      */
-    setTargetSpeed: function(targetSpeed)
+    setTargetImpulse: function(targetImpulse)
     {
-        this._targetSpeed = targetSpeed;
+	this._targetImpulse = targetImpulse;
+    },
+
+    /**
+     * Sets the current impulse speed
+     *
+     * @param {Integer} currentImpulse
+     */
+    setCurrentImpulse: function(currentImpulse)
+    {
+	this._currentImpulse = currentImpulse;
+    },
+
+    /**
+     * Returns the current impulse speed
+     *
+     * @return {Integer}
+     */
+    getCurrentImpulse: function()
+    {
+	return this._currentImpulse;
     },
 
     /**
@@ -311,7 +333,8 @@ _.extend(Ship.prototype, {
                 z: me._position.e(3)
             },
             speed: me.getVelocity().modulus(),
-            targetSpeed: me._targetSpeed,
+	    targetImpulse: me._targetImpulse,
+	    currentImpulse: me._currentImpulse,
             heading: {
                 x: me._heading.e(1),
                 y: me._heading.e(2),

@@ -127,8 +127,8 @@ StarshipMayflowerGameControllers.controller('HelmCtrl', ['$scope', '$location', 
             $scope.angleYZ = getAngle(-ship.heading.z, ship.heading.y);
             $scope.$apply();
 
-            sliderImpulse.slider('setCurrentValue', ship.speed);
-            sliderImpulse.slider('setValue', ship.targetSpeed);
+	    sliderImpulse.slider('setCurrentValue', ship.currentImpulse);
+	    sliderImpulse.slider('setValue', ship.targetImpulse);
         });
 
         $scope.impuls = 0;

@@ -2,7 +2,8 @@ var Action = require('./action'),
     util = require('util'),
     game = require('../game'),
     sylvester = require('sylvester'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    world = require('../world');
 
 /**
  * Accelerates a ship
@@ -35,29 +36,32 @@ _.extend(Accelerate.prototype, {
         var velocity = this.ship.getVelocity();
         var direction = this.ship.getHeading();
 
-        var speed = velocity.modulus();
+	var impulse = this.ship.getCurrentImpulse();
         var accelSpeed = 10;
 
-        if (this.targetSpeed > speed) {
+	if (this.targetSpeed > impulse) {
 
-            speed = (accelSpeed * seconds) + speed;
-            if (speed > this.targetSpeed) {
-                speed = this.targetSpeed;
+	    impulse = (accelSpeed * seconds) + impulse;
+	    if (impulse > this.targetSpeed) {
+		impulse = this.targetSpeed;
                 this.finished = true;
             }
 
-        } else if (this.targetSpeed < speed) {
+	} else if (this.targetSpeed < impulse) {
 
-            speed = speed - (accelSpeed * seconds);
-            if (speed < this.targetSpeed) {
-                speed = this.targetSpeed;
+	    impulse = impulse - (accelSpeed * seconds);
+	    if (impulse < this.targetSpeed) {
+		impulse = this.targetSpeed;
                 this.finished = true;
             }
 
         }
 
+	var speed = (impulse / 100) * world.IMPULSE;
+
         var newVelocity = direction.multiply(speed);
         this.ship.setVelocity(newVelocity);
+	this.ship.setCurrentImpulse(impulse);
 
         this.time = Date.now();
     }
