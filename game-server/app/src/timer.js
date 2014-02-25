@@ -12,6 +12,7 @@ exp.run = function(actionManager) {
 function tick() {
     gameActionManager.update();
     game.moveShips();
+    game.sendUpdates();
 }
 
 /**

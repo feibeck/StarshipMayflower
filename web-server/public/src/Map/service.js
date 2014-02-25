@@ -63,11 +63,15 @@
     MapService.factory('MapObject', ['THREE', 'MapScene',
         function(THREE, MapScene)
         {
-            function MapObject()
+            function MapObject(color)
             {
+                if (!color) {
+                    color = 'lime';
+                }
+
                 this.mesh = new THREE.Mesh(
                     new THREE.CubeGeometry(5, 5, 5),
-                    new THREE.MeshBasicMaterial({color: "lime"})
+                    new THREE.MeshBasicMaterial({color: color})
                 );
 
                 this.headingArrow = new THREE.ArrowHelper(
@@ -83,7 +87,7 @@
                 this.objectProjectionLine = new THREE.Line(
                     geometry,
                     new THREE.LineBasicMaterial({
-                        color: "lime"
+                        color: color
                     })
                 );
                 this.objectProjectionLine.geometry.dynamic = true;
@@ -190,6 +194,8 @@
 
             var shipMapObject;
 
+            var otherShipMapObjects = [];
+
             function cameraMove()
             {
                 scaleModels();
@@ -205,6 +211,10 @@
                 var shipSize = distance * 0.002;
 
                 shipMapObject.scale(shipSize);
+
+                angular.forEach(otherShipMapObjects, function(othership) {
+                    othership.scale(shipSize);
+                });
             }
 
             function onWindowResize()
@@ -215,31 +225,47 @@
                 MapScene.render();
             }
 
+            function updateOthership(ship)
+            {
+                if (!otherShipMapObjects[ship.id]) {
+                    otherShipMapObjects[ship.id] = new MapObject('grey');
+                    scaleModels();
+                }
+
+                otherShipMapObjects[ship.id].setPosition(ship.position.x, ship.position.y, ship.position.z);
+                otherShipMapObjects[ship.id].setHeading(ship.heading.x, ship.heading.y, ship.heading.z);
+            }
+
             return {
 
-            init: function(selector)
-            {
-                var controls = new THREE.OrbitControls(MapScene.camera);
-                controls.addEventListener('change', cameraMove);
+                init: function(selector)
+                {
+                    var controls = new THREE.OrbitControls(MapScene.camera);
+                    controls.addEventListener('change', cameraMove);
 
-                MapGrid.render();
+                    MapGrid.render();
 
-                shipMapObject = new MapObject();
+                    shipMapObject = new MapObject();
 
-                scaleModels();
+                    scaleModels();
 
-                var container = document.getElementById(selector);
-                container.appendChild(MapScene.renderer.domElement);
+                    var container = document.getElementById(selector);
+                    container.appendChild(MapScene.renderer.domElement);
 
-                angular.element($window).bind('resize', onWindowResize);
-            },
+                    angular.element($window).bind('resize', onWindowResize);
+                },
 
-            update: function(ship)
-            {
-                shipMapObject.setPosition(ship.position.x, ship.position.y, ship.position.z);
-                shipMapObject.setHeading(ship.heading.x, ship.heading.y, ship.heading.z);
-                MapScene.render();
-            }
+                update: function(ship, otherships)
+                {
+                    shipMapObject.setPosition(ship.position.x, ship.position.y, ship.position.z);
+                    shipMapObject.setHeading(ship.heading.x, ship.heading.y, ship.heading.z);
+
+                    angular.forEach(otherships, function(othership) {
+                        updateOthership(othership);
+                    });
+
+                    MapScene.render();
+                }
 
             };
 

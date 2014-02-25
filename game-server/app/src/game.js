@@ -78,6 +78,26 @@ exp.moveShip = function(ship) {
     channel.pushToShip(ship, 'ShipUpdate', ship.serialize());
 };
 
+exp.sendUpdates = function()
+{
+    var me = this;
+    _.forEach(shipRegistry.getAllShips(), function(ship) {
+        me.sendKnownWorld(ship);
+    });
+};
+
+exp.sendKnownWorld = function(ship)
+{
+    var ships = [];
+    _.forEach(shipRegistry.getAllShips(), function(othership) {
+        if (ship != othership) {
+            ships.push(othership.serializeMapData());
+        }
+    });
+
+    channel.pushToShip(ship, 'WorldUpdate', {ship: ship.serialize(), ships: ships});
+}
+
 exp.timer = function() {
     return timer;
 };

@@ -160,8 +160,8 @@ StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', '$location', '
 
     function ($scope, $location, Pomelo, Map) {
         Map.init('map-container');
-        Pomelo.on('ShipUpdate', function(ship) {
-            Map.update(ship);
+        Pomelo.on('WorldUpdate', function(world) {
+            Map.update(world.ship, world.ships);
         });
     }
 
