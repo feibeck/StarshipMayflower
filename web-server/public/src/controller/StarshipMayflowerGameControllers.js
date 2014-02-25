@@ -54,10 +54,10 @@ StarshipMayflowerGameControllers.controller('GameCtrl', ['$scope', '$location', 
                 }
                 $scope.panes.push(pane);
             });
-	    $scope.panes.push({
-		title: 'Map',
-		content: 'src/view/stations/map.html'
-	    });
+            $scope.panes.push({
+                title: 'Map',
+                content: 'src/view/stations/map.html'
+            });
         });
 
     }
@@ -131,8 +131,8 @@ StarshipMayflowerGameControllers.controller('HelmCtrl', ['$scope', '$location', 
             $scope.angleYZ = getAngle(-ship.heading.z, ship.heading.y);
             $scope.$apply();
 
-	    sliderImpulse.slider('setCurrentValue', ship.currentImpulse);
-	    sliderImpulse.slider('setValue', ship.targetImpulse);
+            sliderImpulse.slider('setCurrentValue', ship.currentImpulse);
+            sliderImpulse.slider('setValue', ship.targetImpulse);
         });
 
         $scope.impuls = 0;
@@ -159,10 +159,10 @@ StarshipMayflowerGameControllers.controller('WeaponsCtrl', ['$scope', '$location
 StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', '$location', 'Pomelo', 'Map',
 
     function ($scope, $location, Pomelo, Map) {
-	Map.init('map-container');
-	Pomelo.on('ShipUpdate', function(ship) {
-	    Map.update(ship);
-	});
+        Map.init('map-container');
+        Pomelo.on('ShipUpdate', function(ship) {
+            Map.update(ship);
+        });
     }
 
 ]);

@@ -4,10 +4,10 @@
     var ThreeService = angular.module('ThreeService', []);
 
     ThreeService.factory('THREE', [
-	function()
-	{
-	    return THREE;
-	}
+        function()
+        {
+            return THREE;
+        }
     ]);
 
 })();

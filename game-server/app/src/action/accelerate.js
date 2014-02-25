@@ -36,32 +36,32 @@ _.extend(Accelerate.prototype, {
         var velocity = this.ship.getVelocity();
         var direction = this.ship.getHeading();
 
-	var impulse = this.ship.getCurrentImpulse();
+        var impulse = this.ship.getCurrentImpulse();
         var accelSpeed = 10;
 
-	if (this.targetSpeed > impulse) {
+        if (this.targetSpeed > impulse) {
 
-	    impulse = (accelSpeed * seconds) + impulse;
-	    if (impulse > this.targetSpeed) {
-		impulse = this.targetSpeed;
+            impulse = (accelSpeed * seconds) + impulse;
+            if (impulse > this.targetSpeed) {
+                impulse = this.targetSpeed;
                 this.finished = true;
             }
 
-	} else if (this.targetSpeed < impulse) {
+        } else if (this.targetSpeed < impulse) {
 
-	    impulse = impulse - (accelSpeed * seconds);
-	    if (impulse < this.targetSpeed) {
-		impulse = this.targetSpeed;
+            impulse = impulse - (accelSpeed * seconds);
+            if (impulse < this.targetSpeed) {
+                impulse = this.targetSpeed;
                 this.finished = true;
             }
 
         }
 
-	var speed = (impulse / 100) * world.IMPULSE;
+        var speed = (impulse / 100) * world.IMPULSE;
 
         var newVelocity = direction.multiply(speed);
         this.ship.setVelocity(newVelocity);
-	this.ship.setCurrentImpulse(impulse);
+        this.ship.setCurrentImpulse(impulse);
 
         this.time = Date.now();
     }

@@ -212,7 +212,7 @@ _.extend(Ship.prototype, {
      */
     setTargetImpulse: function(targetImpulse)
     {
-	this._targetImpulse = targetImpulse;
+        this._targetImpulse = targetImpulse;
     },
 
     /**
@@ -222,7 +222,7 @@ _.extend(Ship.prototype, {
      */
     setCurrentImpulse: function(currentImpulse)
     {
-	this._currentImpulse = currentImpulse;
+        this._currentImpulse = currentImpulse;
     },
 
     /**
@@ -232,7 +232,7 @@ _.extend(Ship.prototype, {
      */
     getCurrentImpulse: function()
     {
-	return this._currentImpulse;
+        return this._currentImpulse;
     },
 
     /**
@@ -333,8 +333,8 @@ _.extend(Ship.prototype, {
                 z: me._position.e(3)
             },
             speed: me.getVelocity().modulus(),
-	    targetImpulse: me._targetImpulse,
-	    currentImpulse: me._currentImpulse,
+            targetImpulse: me._targetImpulse,
+            currentImpulse: me._currentImpulse,
             heading: {
                 x: me._heading.e(1),
                 y: me._heading.e(2),
