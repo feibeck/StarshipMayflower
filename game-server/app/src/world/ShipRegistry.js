@@ -84,12 +84,15 @@ _.extend(ShipRegistry.prototype, {
     addPlayer: function(player)
     {
         var me = this;
-        if (!player) {
-            return false;
+        var playerList = me.getPlayers();
+
+        if (player && !me.isPlayerNameTaken(player.getName())) {
+            me._players[player.getId()] = player;
+            channel.addPlayerToLobby(player);
+            return true
         }
-        me._players[player.getId()] = player;
-        channel.addPlayerToLobby(player);
-        return true;
+
+        return false;
     },
 
     /**
@@ -104,6 +107,26 @@ _.extend(ShipRegistry.prototype, {
         var me = this;
         var player = me._players[playerId];
         return player;
+    },
+
+    /**
+     * Checks if a player name is already taken
+     *
+     * @param {String} playerName
+     * @returns {boolean}
+     */
+    isPlayerNameTaken: function(playerName) {
+        var me = this;
+        var playerList = me.getPlayers();
+
+        _(playerList).forEach(function(player) {
+            if (player.getName() == playerName) {
+                return true;
+            }
+        });
+
+        return false;
+
     },
 
     /**
