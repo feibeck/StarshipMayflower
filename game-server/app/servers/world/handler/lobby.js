@@ -66,8 +66,16 @@ _.extend(Handler.prototype, {
         var shipRegistry = game.getShipRegistry();
         var player = shipRegistry.getPlayer(playerId);
         var ship = shipRegistry.addShip(new models.Ship(msg), player);
-
-        next(null, {code: 'OK', payload: ship.serialize()});
+        if (ship) {
+            next(null, {code: 'OK', payload: ship.serialize()});
+        } else {
+            next(null, {
+                code: "ERR",
+                payload: {
+                    error: "Unable to add ship"
+                }
+            });
+        }
     },
 
     addPlayer: function(msg, session, next)
@@ -79,6 +87,13 @@ _.extend(Handler.prototype, {
             next(null, {
                 code: "OK",
                 payload: {}
+            });
+        } else {
+            next(null, {
+                code: "ERR",
+                payload: {
+                    error: "Unable to add player!"
+                }
             });
         }
     },
@@ -142,7 +157,7 @@ _.extend(Handler.prototype, {
         player.setReadyToPlay(msg);
 
         var allReady = true;
-        _(shipRegistry.getPlayers()).each(function(player) {
+        _(shipRegistry.getAllPlayers()).each(function(player) {
             if (!player.getReadyToPlay()) {
                 allReady = false;
             }
