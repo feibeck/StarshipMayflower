@@ -53,37 +53,6 @@
 
             <div class="panel panel-center" style="height: 500px;">
 
-                <p>Position</p>
-                <dl class="dl-horizontal">
-                    <dt>X</dt>
-                    <dd>{{ ship.position.x | number:4 }}</dd>
-                    <dt>Y</dt>
-                    <dd>{{ ship.position.y | number:4 }}</dd>
-                    <dt>Z</dt>
-                    <dd>{{ ship.position.z | number:4 }}</dd>
-                </dl>
-
-                <p>Heading</p>
-                <dl class="dl-horizontal">
-                    <dt>X</dt>
-                    <dd>{{ ship.heading.x | number:4 }}</dd>
-                    <dt>Y</dt>
-                    <dd>{{ ship.heading.y | number:4 }}</dd>
-                    <dt>Z</dt>
-                    <dd>{{ ship.heading.z | number:4 }}</dd>
-                    <dt>Angle Z-X</dt>
-                    <dd>{{ angleZX | number:4 }}</dd>
-                    <dt>Angle Y-Z</dt>
-                    <dd>{{ angleYZ | number:4 }}</dd>
-
-                </dl>
-
-                <p>Movement</p>
-                <dl class="dl-horizontal">
-                    <dt>Current Speed</dt>
-		    <dd>{{ ship.speed | number:4 }} km/s</dd>
-                </dl>
-
                 <p>Yaw</p>
                 <button id="turnleft" ng-mousedown="yaw(10)" ng-mouseup="yaw(0)">Left</button>
                 <button id="turnRight" ng-mousedown="yaw(-10)" ng-mouseup="yaw(0)">Right</button>
