@@ -329,7 +329,8 @@ _.extend(Ship.prototype, {
      * }}
      */
     serialize: function() {
-        var me = this;
+        var me = this,
+            heading = me.getHeading();
 
         var creator;
         if (me._creator) {
@@ -353,13 +354,13 @@ _.extend(Ship.prototype, {
                 y: me._position.e(2),
                 z: me._position.e(3)
             },
-            speed: me.getVelocity().modulus(),
+            speed: me.getVelocity(),
             targetImpulse: me._targetImpulse,
             currentImpulse: me._currentImpulse,
             heading: {
-                x: me._heading.e(1),
-                y: me._heading.e(2),
-                z: me._heading.e(3)
+                x: heading.e(1),
+                y: heading.e(2),
+                z: heading.e(3)
             }
         };
     },
