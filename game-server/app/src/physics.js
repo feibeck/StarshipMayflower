@@ -16,13 +16,26 @@ function deg2rad(angle) {
 /**
  * Ensure that a matrix remains orthonormal in the face of rounding errors.
  *
- * TODO: implement.
- *
  * @param {sylvester.Matrix} matrix
  * @returns {sylvester.Matrix}
  */
-function project2Orthonormal(matrix) {
-    return matrix;
+function orthonormalizeMatrix(matrix) {
+    var c1 = matrix.col(1), c2 = matrix.col(2), c3 = matrix.col(3);
+
+    c1 = c1.toUnitVector();
+    c2 = c2
+        .subtract(c1.multiply(c2.dot(c1)))
+        .toUnitVector();
+    c3 = c3
+        .subtract(c2.multiply(c3.dot(c2)))
+        .subtract(c1.multiply(c3.dot(c1)))
+        .toUnitVector();
+
+    return sylvester.Matrix.create([
+        [c1.e(1), c2.e(1), c3.e(1)],
+        [c1.e(2), c2.e(2), c3.e(2)],
+        [c1.e(3), c2.e(3), c3.e(3)]
+    ]);
 }
 
 /**
@@ -73,7 +86,7 @@ function turnRoll(ship, angle) {
     var orientation = ship.getOrientation();
     var rotation = sylvester.Matrix.RotationZ(deg2rad(angle));
 
-    return ship.setOrientation(project2Orthonormal(orientation.multiply(rotation)));
+    return ship.setOrientation(orthonormalizeMatrix(orientation.multiply(rotation)));
 }
 
 /**
@@ -86,7 +99,7 @@ function turnRoll(ship, angle) {
     var orientation = ship.getOrientation();
     var rotation = sylvester.Matrix.RotationY(deg2rad(angle));
 
-    return ship.setOrientation(project2Orthonormal(orientation.multiply(rotation)));
+    return ship.setOrientation(orthonormalizeMatrix(orientation.multiply(rotation)));
 }
 
 /**
@@ -99,7 +112,7 @@ function turnRoll(ship, angle) {
     var orientation = ship.getOrientation();
     var rotation = sylvester.Matrix.RotationX(deg2rad(angle));
 
-    return ship.setOrientation(project2Orthonormal(orientation.multiply(rotation)));
+    return ship.setOrientation(orthonormalizeMatrix(orientation.multiply(rotation)));
 }
 
 /**
@@ -147,5 +160,6 @@ module.exports = {
     turnYaw: turnYaw,
     turnPitch: turnPitch,
     turn: turn,
-    moveShip: moveShip
+    moveShip: moveShip,
+    orthonormalizeMatrix: orthonormalizeMatrix
 };
