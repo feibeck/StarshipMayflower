@@ -7,6 +7,7 @@
         function ($scope, $location, $modal, Pomelo) {
 
             $scope.list = [];
+            $scope.alerts = [];
 
             var promise = Pomelo.request("world.lobby.listAvailableShips", "");
             promise.then(function(shiplist) {
@@ -57,6 +58,7 @@
 
     StarshipMayflowerLobbyControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
         function ($scope, $location, Pomelo, Player) {
+            $scope.alerts = [];
             $scope.login = function() {
                 var username = $scope.username;
                 if (username !== undefined) {
@@ -76,7 +78,10 @@
                         ).then(function(data) {
                             $location.path('/lobby/ships');
                         }, function(data) {
-                            alert("An error occured:\n" + data.error);
+                                $scope.alerts.push({
+                                    type: 'danger',
+                                    msg: 'username already taken - please choose another username'
+                                });
                         });
 
                     });

@@ -62,16 +62,19 @@ _.extend(ShipRegistry.prototype, {
     addShip: function(ship, player)
     {
         var me = this,
-            index = newIndex();
+            index = newIndex(),
+            inShipList = me.checkForNameDuplicate(ship.getName(), me.getAllShips());
 
-        ship.setId(index);
-        ship.setCreator(player);
+        if (ship && !inShipList) {
+            ship.setId(index);
+            ship.setCreator(player);
 
-        me._ships[index] = ship;
+            me._ships[index] = ship;
 
-        channel.pushToLobby('ShipAdded', ship.serialize());
+            channel.pushToLobby('ShipAdded', ship.serialize());
 
-        return ship;
+            return ship;
+        }
     },
 
     /**
@@ -83,13 +86,13 @@ _.extend(ShipRegistry.prototype, {
      */
     addPlayer: function(player)
     {
-        var me = this;
-        var playerList = me.getPlayers();
+        var me = this,
+            inPlayerList = me.checkForNameDuplicate(player.getName(), me.getAllPlayers());
 
-        if (player && !me.isPlayerNameTaken(player.getName())) {
+        if (player && !inPlayerList) {
             me._players[player.getId()] = player;
             channel.addPlayerToLobby(player);
-            return true
+            return true;
         }
 
         return false;
@@ -110,31 +113,11 @@ _.extend(ShipRegistry.prototype, {
     },
 
     /**
-     * Checks if a player name is already taken
-     *
-     * @param {String} playerName
-     * @returns {boolean}
-     */
-    isPlayerNameTaken: function(playerName) {
-        var me = this;
-        var playerList = me.getPlayers();
-
-        _(playerList).forEach(function(player) {
-            if (player.getName() == playerName) {
-                return true;
-            }
-        });
-
-        return false;
-
-    },
-
-    /**
      * Returns all players
      *
      * @returns {Array}
      */
-    getPlayers: function()
+    getAllPlayers: function()
     {
         return this._players;
     },
@@ -208,6 +191,45 @@ _.extend(ShipRegistry.prototype, {
             channel.pushToShip(ship, 'StationReleased', ship.serialize());
         }
         return success;
+    },
+
+    /**
+     * Checks if current playername is already used by another player
+     *
+     * @param {Player} player
+     * @returns {boolean} inList
+     */
+    checkForPlayerInList: function(player) {
+        var me = this;
+        var newPlayerName = player.getName();
+        var playerList = me.getAllPlayers();
+        var inList = false;
+
+        _.forEach(playerList, function(playerInList) {
+            playerName = playerInList.getName();
+            if (newPlayerName == playerName && !inList) {
+                inList = true;
+            }
+        })
+
+        return inList;
+
+    },
+
+    /**
+     * Checks for duplicated name in the collections.
+     * @param {string} name
+     * @param {array} collection
+     * @returns {boolean} hasDuplicatedEntry
+     */
+    checkForNameDuplicate: function(name, collection) {
+        var hasDuplicatedEntry = false;
+        _.forEach(collection, function(entry) {
+            if (name == entry.getName()) {
+                hasDuplicatedEntry = true;
+            }
+        });
+        return hasDuplicatedEntry;
     }
 
 });
