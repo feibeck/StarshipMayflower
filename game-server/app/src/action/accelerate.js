@@ -33,9 +33,6 @@ _.extend(Accelerate.prototype, {
     {
         var seconds = (Date.now() - this.time) / 1000;
 
-        var velocity = this.ship.getVelocity();
-        var direction = this.ship.getHeading();
-
         var impulse = this.ship.getCurrentImpulse();
         var accelSpeed = 10;
 
@@ -57,9 +54,7 @@ _.extend(Accelerate.prototype, {
 
         }
 
-        var speed = (impulse / 100) * world.IMPULSE;
-
-        var newVelocity = direction.multiply(speed);
+        var newVelocity = (impulse / 100) * world.IMPULSE;
         this.ship.setVelocity(newVelocity);
         this.ship.setCurrentImpulse(impulse);
 
