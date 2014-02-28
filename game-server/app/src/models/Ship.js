@@ -27,7 +27,7 @@ var Ship = function(name) {
 
     me._position = sylvester.Vector.create([0, 0, 0]);
     me._velocity = 0;
-    me._orientation = sylvester.Matrix.I(3)
+    me._orientation = sylvester.Matrix.I(3);
 
     me.INITIAL_HEADING = sylvester.Vector.create([0, 0, 1]);
 
@@ -393,7 +393,7 @@ _.extend(Ship.prototype, {
                 y: me._heading.e(2),
                 z: me._heading.e(3)
             }
-        }
+        };
     }
 
 });

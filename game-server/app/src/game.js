@@ -70,7 +70,7 @@ exp.sendKnownWorld = function(ship)
     });
 
     channel.pushToShip(ship, 'WorldUpdate', {ship: ship.serialize(), ships: ships});
-}
+};
 
 exp.timer = function() {
     return timer;
