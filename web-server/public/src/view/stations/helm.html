@@ -1,12 +1,13 @@
 <div ng-controller="HelmCtrl" id="helm">
 
     <div class="row">
-        <div class="col-md-3">
-            <div class="panel panel-left">
+        <div class="col-md-2">
 
                 <!-- Ship system status -->
-                <div>
-                    <p>Ship system status</p>
+                <div style="margin: 15px;">
+
+                    <p style="font-weight: bold; color: white;">Ship system status</p>
+
                     <table class="table">
                         <tbody>
                         <tr>
@@ -20,14 +21,6 @@
                         <tr>
                             <th>Rear Shield</th>
                             <td>100</td>
-                        </tr>
-                        <tr>
-                            <th>Beam Weapons</th>
-                            <td>AUTO</td>
-                        </tr>
-                        <tr>
-                            <th>Weapon Lock</th>
-                            <td>IDLE</td>
                         </tr>
                         <tr>
                             <th>Shields</th>
@@ -53,12 +46,10 @@
 
                 </div>
 
-            </div>
-
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-8">
 
             <div class="panel panel-center" style="height: 500px;">
 
@@ -105,43 +96,43 @@
 
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
 
-            <div class="panel panel-right">
+            <!-- Main screen control -->
+            <div style="margin: 15px;">
+                <p style="font-weight: bold; color: white">Main screen</p>
 
-                <!-- Main screen control -->
-                <div>
-                    <h1>Main screen</h1>
-                    <ul>
-                        <li>Front</li>
-                        <li>Rear</li>
-                        <li>Left</li>
-                        <li>Right</li>
-                        <li>Tactical</li>
-                        <li>Star-Map</li>
-                        <li>Status</li>
-                    </ul>
-                </div>
-
-                <!-- Dock control -->
-                <div>
-                    <h1>Dock control</h1>
-                    <button>Request Dock</button>
-                </div>
-
-                <!-- Shield control -->
-                <div>
-                    <h1>Shield control</h1>
-                    <input type="checkbox"> Shields
-                </div>
-
-                <div>
-                    <h1>Ship damage report</h1>
-                    All well
+                <div class="btn-group-vertical">
+                    <button type="button" class="btn btn-default btn-sm">Front</button>
+                    <button type="button" class="btn btn-default btn-sm">Rear</button>
+                    <button type="button" class="btn btn-default btn-sm">Left</button>
+                    <button type="button" class="btn btn-default btn-sm">Right</button>
+                    <button type="button" class="btn btn-default btn-sm">Tactical</button>
+                    <button type="button" class="btn btn-default btn-sm">Map</button>
+                    <button type="button" class="btn btn-default btn-sm">Status</button>
                 </div>
 
             </div>
+
+            <!-- Dock control -->
+            <div style="margin: 15px;">
+                <p style="font-weight: bold; color: white">Dock control</p>
+                <button type="button" class="btn btn-default btn-sm">Request Dock</button>
+            </div>
+
+            <!-- Shield control -->
+            <div style="margin: 15px;">
+                <p style="font-weight: bold; color: white">Shield control</p>
+                <button type="button" class="btn btn-default btn-sm">Shields</button>
+            </div>
+
+            <div style="margin: 15px;">
+                <p style="font-weight: bold; color: white">Ship damage</p>
+                All well
+            </div>
+
         </div>
+
     </div>
 
 </div>
