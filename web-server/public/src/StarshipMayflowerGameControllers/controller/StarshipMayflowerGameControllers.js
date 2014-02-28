@@ -58,10 +58,10 @@ StarshipMayflowerGameControllers.controller('GameCtrl', ['$scope', '$location', 
                 title: 'Map',
                 content: 'src/StarshipMayflowerGameControllers/view/stations/map.html'
             });
-	    $scope.panes.push({
-		title: 'Debug',
-		content: 'src/StarshipMayflowerGameControllers/view/stations/debug.html'
-	    });
+            $scope.panes.push({
+                title: 'Debug',
+                content: 'src/StarshipMayflowerGameControllers/view/stations/debug.html'
+            });
         });
 
     }
@@ -106,7 +106,33 @@ StarshipMayflowerGameControllers.controller('HelmCtrl', ['$scope', '$location', 
             );
         });
 
+        function getAngle(x, y) {
+            var theta;
+
+            if (Math.abs(y) > Math.abs(x)) {
+                theta = Math.asin(y / Math.sqrt(x*x + y*y));
+
+                if (x < 0) {
+                    theta = Math.PI - theta;
+                }
+            } else {
+                theta = Math.acos(x / Math.sqrt(x*x + y*y));
+
+                if (y < 0) {
+                    theta *= -1;
+                }
+            }
+
+            if (theta < 0) {
+                theta = 2 * Math.PI + theta;
+            }
+
+            return theta / Math.PI * 180;
+        }
+
         Pomelo.on('ShipUpdate', function(ship) {
+            $scope.angleZX = getAngle(-ship.heading.z, ship.heading.x);
+            $scope.angleYZ = getAngle(-ship.heading.z, ship.heading.y);
             $scope.$apply();
 
             sliderImpulse.slider('setCurrentValue', ship.currentImpulse);
@@ -149,27 +175,27 @@ StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', '$location', '
 	function ($scope, $location, Pomelo, Map) {
 
 	    function getAngle(x, y) {
-		var theta;
+            var theta;
 
-		if (Math.abs(y) > Math.abs(x)) {
-		    theta = Math.asin(y / Math.sqrt(x*x + y*y));
+            if (Math.abs(y) > Math.abs(x)) {
+                theta = Math.asin(y / Math.sqrt(x*x + y*y));
 
-		    if (x < 0) {
-			theta = Math.PI - theta;
-		    }
-		} else {
-		    theta = Math.acos(x / Math.sqrt(x*x + y*y));
+                if (x < 0) {
+                theta = Math.PI - theta;
+                }
+            } else {
+                theta = Math.acos(x / Math.sqrt(x*x + y*y));
 
-		    if (y < 0) {
-			theta *= -1;
-		    }
-		}
+                if (y < 0) {
+                theta *= -1;
+                }
+            }
 
-		if (theta < 0) {
-		    theta = 2 * Math.PI + theta;
-		}
+            if (theta < 0) {
+                theta = 2 * Math.PI + theta;
+            }
 
-		return theta / Math.PI * 180;
+            return theta / Math.PI * 180;
 	    }
 
 	    Pomelo.on('ShipUpdate', function(ship) {
