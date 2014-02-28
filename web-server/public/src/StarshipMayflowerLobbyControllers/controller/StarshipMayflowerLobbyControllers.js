@@ -75,6 +75,8 @@
                             {name: username, playerId: playerId}
                         ).then(function(data) {
                             $location.path('/lobby/ships');
+                        }, function(data) {
+                            alert("An error occured:\n" + data.error);
                         });
 
                     });

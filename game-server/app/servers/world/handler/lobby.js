@@ -80,6 +80,13 @@ _.extend(Handler.prototype, {
                 code: "OK",
                 payload: {}
             });
+        } else {
+            next(null, {
+                code: "ERR",
+                payload: {
+                    error: "Unable to add player!"
+                }
+            })
         }
     },
 
