@@ -26,8 +26,10 @@ var Ship = function(name) {
     };
 
     me._position = sylvester.Vector.create([0, 0, 0]);
-    me._velocity = sylvester.Vector.create([0, 0, 0]);
-    me._heading = sylvester.Vector.create([0, 0, 1]);
+    me._velocity = 0;
+    me._orientation = sylvester.Matrix.I(3)
+
+    me.INITIAL_HEADING = sylvester.Vector.create([0, 0, 1]);
 
     me._lastMove = 0;
 
@@ -113,16 +115,18 @@ _.extend(Ship.prototype, {
     /**
      * Sets the ships velocity vector
      *
-     * @param {sylvester.Vector} velocity
+     * @param {float}
+     * @returns {Ship}
      */
     setVelocity: function(velocity) {
         this._velocity = velocity;
+        return this;
     },
 
     /**
      * Returns the ships velocity vector
      *
-     * @returns {sylvester.Vector}
+     * @returns {float}
      */
     getVelocity: function() {
         return this._velocity;
@@ -134,25 +138,38 @@ _.extend(Ship.prototype, {
      * @returns {sylvester.Vector}
      */
     getHeading: function() {
-        return this._heading;
+        return this._orientation.multiply(this.INITIAL_HEADING);
     },
 
     /**
-     * Sets the heading vector of the ship
+     * Set orientation.
      *
-     * @param {sylvester.Vector} heading
+     * @param orientation
+     * @returns {Ship}
      */
-    setHeading: function(heading) {
-        this._heading = heading;
+    setOrientation: function(orientation) {
+        this._orientation = orientation;
+        return this;
+    },
+
+    /**
+     * Get orientation
+     *
+     * @returns {sylvester.Matrix}
+     */
+    getOrientation: function() {
+        return this._orientation;
     },
 
     /**
      * Sets the position of the ship
      *
      * @param {sylvester.Vector} position
+     * @return {Ship}
      */
     setPosition: function(position) {
         this._position = position;
+        return this;
     },
 
     /**
@@ -168,9 +185,11 @@ _.extend(Ship.prototype, {
      * Sets the timestamp of the last movement
      *
      * @param {Integer} lastMove
+     * @return {Ship}
      */
     setLastMove: function(lastMove) {
         this._lastMove = lastMove;
+        return this;
     },
 
     /**
@@ -213,6 +232,7 @@ _.extend(Ship.prototype, {
     setTargetImpulse: function(targetImpulse)
     {
         this._targetImpulse = targetImpulse;
+        return this;
     },
 
     /**
@@ -223,6 +243,7 @@ _.extend(Ship.prototype, {
     setCurrentImpulse: function(currentImpulse)
     {
         this._currentImpulse = currentImpulse;
+        return this;
     },
 
     /**
