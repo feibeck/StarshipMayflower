@@ -15,27 +15,27 @@ StarshipMayflowerGameControllers.controller('GameCtrl', ['$scope', '$location', 
         var stationPanes = {
             helm: {
                 title: 'Helm',
-                content: 'src/view/stations/helm.html'
+                content: 'src/StarshipMayflowerGameControllers/view/stations/helm.html'
             },
             science: {
                 title: 'Science',
-                content: 'src/view/stations/science.html'
+                content: 'src/StarshipMayflowerGameControllers/view/stations/science.html'
             },
             weapons: {
                 title: 'Weapons',
-                content: 'src/view/stations/weapons.html'
+                content: 'src/StarshipMayflowerGameControllers/view/stations/weapons.html'
             },
             engineering: {
                 title: 'Engineering',
-                content: 'src/view/stations/engineering.html'
+                content: 'src/StarshipMayflowerGameControllers/view/stations/engineering.html'
             },
             comm: {
                 title: 'Comm',
-                content: 'src/view/stations/comm.html'
+                content: 'src/StarshipMayflowerGameControllers/view/stations/comm.html'
             },
             mainscreen: {
                 title: 'Mainscreen',
-                content: 'src/view/stations/mainscreen.html'
+                content: 'src/StarshipMayflowerGameControllers/view/stations/mainscreen.html'
             }
         };
 
@@ -56,7 +56,7 @@ StarshipMayflowerGameControllers.controller('GameCtrl', ['$scope', '$location', 
             });
             $scope.panes.push({
                 title: 'Map',
-                content: 'src/view/stations/map.html'
+                content: 'src/StarshipMayflowerGameControllers/view/stations/map.html'
             });
         });
 
