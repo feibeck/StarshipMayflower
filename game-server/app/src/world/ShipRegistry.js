@@ -75,6 +75,8 @@ _.extend(ShipRegistry.prototype, {
 
             return ship;
         }
+
+        return null;
     },
 
     /**

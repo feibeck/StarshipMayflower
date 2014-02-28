@@ -7,7 +7,6 @@
         function ($scope, $location, $modal, Pomelo) {
 
             $scope.list = [];
-            $scope.alerts = [];
 
             var promise = Pomelo.request("world.lobby.listAvailableShips", "");
             promise.then(function(shiplist) {
@@ -37,6 +36,7 @@
                     backdrop: true,
                     windowClass: 'modal',
                     controller: function ($scope, $modalInstance) {
+                        $scope.alerts = [];
                         var ship = {name: ""};
                         $scope.ship = ship;
                         $scope.submit = function () {
@@ -45,7 +45,13 @@
                                 $scope.ship.name
                             ).then(function (ship) {
                                 $modalInstance.dismiss('cancel');
-                            });
+                            }, function(data) {
+                                    console.log(data);
+                                    $scope.alerts[0] = {
+                                        type: 'danger',
+                                        msg: 'shipname already taken - please choose another shipname'
+                                    };
+                                });
                         };
                         $scope.cancel = function () {
                             $modalInstance.dismiss('cancel');

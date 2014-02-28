@@ -40,6 +40,7 @@
 </div>
 
 <script type="text/ng-template" id="new-ship.html">
+    <alert ng-repeat="alert in alerts" type="alert.type">{{alert.msg}}</alert>
     <div class="modal-header">
         <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
         <div class="panel-heading">

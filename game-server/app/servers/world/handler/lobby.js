@@ -66,8 +66,16 @@ _.extend(Handler.prototype, {
         var shipRegistry = game.getShipRegistry();
         var player = shipRegistry.getPlayer(playerId);
         var ship = shipRegistry.addShip(new models.Ship(msg), player);
-
-        next(null, {code: 'OK', payload: ship.serialize()});
+        if (ship) {
+            next(null, {code: 'OK', payload: ship.serialize()});
+        } else {
+            next(null, {
+                code: "ERR",
+                payload: {
+                    error: "Unable to add ship"
+                }
+            });
+        }
     },
 
     addPlayer: function(msg, session, next)
