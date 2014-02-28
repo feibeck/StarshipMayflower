@@ -78,10 +78,10 @@
                         ).then(function(data) {
                             $location.path('/lobby/ships');
                         }, function(data) {
-                                $scope.alerts.push({
+                                $scope.alerts[0] = {
                                     type: 'danger',
                                     msg: 'username already taken - please choose another username'
-                                });
+                                };
                         });
 
                     });
