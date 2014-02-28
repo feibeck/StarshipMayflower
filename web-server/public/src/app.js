@@ -5,8 +5,8 @@
         'ui.router',
         'StarshipMayflowerLobbyControllers',
         'StarshipMayflowerGameControllers',
-	'StarshipMayflowerServices',
-	'MapService'
+        'StarshipMayflowerServices',
+        'MapService'
     ]);
 
     StarshipMayflowerApp.config(['$stateProvider', '$urlRouterProvider',

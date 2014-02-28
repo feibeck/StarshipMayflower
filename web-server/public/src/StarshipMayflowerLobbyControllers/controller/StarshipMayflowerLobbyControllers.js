@@ -36,6 +36,7 @@
                     backdrop: true,
                     windowClass: 'modal',
                     controller: function ($scope, $modalInstance) {
+                        $scope.alerts = [];
                         var ship = {name: ""};
                         $scope.ship = ship;
                         $scope.submit = function () {
@@ -44,7 +45,13 @@
                                 $scope.ship.name
                             ).then(function (ship) {
                                 $modalInstance.dismiss('cancel');
-                            });
+                            }, function(data) {
+                                    console.log(data);
+                                    $scope.alerts[0] = {
+                                        type: 'danger',
+                                        msg: 'shipname already taken - please choose another shipname'
+                                    };
+                                });
                         };
                         $scope.cancel = function () {
                             $modalInstance.dismiss('cancel');
@@ -57,6 +64,7 @@
 
     StarshipMayflowerLobbyControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
         function ($scope, $location, Pomelo, Player) {
+            $scope.alerts = [];
             $scope.login = function() {
                 var username = $scope.username;
                 if (username !== undefined) {
@@ -75,6 +83,11 @@
                             {name: username, playerId: playerId}
                         ).then(function(data) {
                             $location.path('/lobby/ships');
+                        }, function(data) {
+                                $scope.alerts[0] = {
+                                    type: 'danger',
+                                    msg: 'username already taken - please choose another username'
+                                };
                         });
 
                     });
