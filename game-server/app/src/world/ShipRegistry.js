@@ -147,7 +147,7 @@ _.extend(ShipRegistry.prototype, {
      */
     getPlayerByName: function(playerName) {
         var me = this,
-            playerList = me.getPlayers(),
+            playerList = me.getAllPlayers(),
             result = null;
 
         _.forEach(playerList, function(player) {
