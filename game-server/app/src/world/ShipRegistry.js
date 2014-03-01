@@ -165,7 +165,7 @@ _.extend(ShipRegistry.prototype, {
      *
      * @returns {Array}
      */
-    getPlayers: function()
+    getAllPlayers: function()
     {
         return this._players;
     },

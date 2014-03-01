@@ -1,4 +1,4 @@
-<div ng-controller="HelmCtrl" id="helm">
+<div ng-controller="HelmCtrl" id="helm" class="station-pane">
 
     <div class="row">
         <div class="col-md-2">
@@ -51,46 +51,31 @@
 
         <div class="col-md-8">
 
-            <div class="panel panel-center" style="height: 500px;">
+            <div class="" style="height: 100%; position: relative;">
 
-                <p>Position</p>
-                <dl class="dl-horizontal">
-                    <dt>X</dt>
-                    <dd>{{ ship.position.x | number:4 }}</dd>
-                    <dt>Y</dt>
-                    <dd>{{ ship.position.y | number:4 }}</dd>
-                    <dt>Z</dt>
-                    <dd>{{ ship.position.z | number:4 }}</dd>
-                </dl>
+                <button id="pitchUp" class="btn btn-primary" ng-mousedown="pitch(-10)" ng-mouseup="pitch(0)" style="position: absolute; top: 0; left: 0;">
+                    <span class="glyphicon glyphicon-arrow-up"></span>
+                </button>
 
-                <p>Heading</p>
-                <dl class="dl-horizontal">
-                    <dt>X</dt>
-                    <dd>{{ ship.heading.x | number:4 }}</dd>
-                    <dt>Y</dt>
-                    <dd>{{ ship.heading.y | number:4 }}</dd>
-                    <dt>Z</dt>
-                    <dd>{{ ship.heading.z | number:4 }}</dd>
-                    <dt>Angle Z-X</dt>
-                    <dd>{{ angleZX | number:4 }}</dd>
-                    <dt>Angle Y-Z</dt>
-                    <dd>{{ angleYZ | number:4 }}</dd>
+                <div style="position: absolute; margin-top: -10px; top: 50%; left: 0; font-weight: bold; color: white; padding-left: 10px;">
+                    <span>{{ angleYZ | number:0 }}</span>°
+                </div>
 
-                </dl>
+                <button id="pitchDown" class="btn btn-primary" ng-mousedown="pitch(10)" ng-mouseup="pitch(0)" style="position: absolute; bottom: 40px; left: 0;">
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                </button>
 
-                <p>Movement</p>
-                <dl class="dl-horizontal">
-                    <dt>Current Speed</dt>
-		    <dd>{{ ship.speed | number:4 }} km/s</dd>
-                </dl>
+                <button id="turnleft" class="btn btn-primary" ng-mousedown="yaw(10)" ng-mouseup="yaw(0)" style="position: absolute; bottom: 0; left: 40px;">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </button>
 
-                <p>Yaw</p>
-                <button id="turnleft" ng-mousedown="yaw(10)" ng-mouseup="yaw(0)">Left</button>
-                <button id="turnRight" ng-mousedown="yaw(-10)" ng-mouseup="yaw(0)">Right</button>
+                <div style="position: absolute; margin-left: -15px; width: 30px; text-align: center; bottom: 0; left: 50%; font-weight: bold; color: white;">
+                    <span>{{ angleZX | number:0 }}</span>°
+                </div>
 
-                <p>Pitch</p>
-                <button id="pitchUp" ng-mousedown="pitch(10)" ng-mouseup="pitch(0)">Up</button>
-                <button id="pitchDown" ng-mousedown="pitch(-10)" ng-mouseup="pitch(0)">Down</button>
+                <button id="turnRight" class="btn btn-primary" ng-mousedown="yaw(-10)" ng-mouseup="yaw(0)" style="position: absolute; bottom: 0; right: 0;">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
 
             </div>
 

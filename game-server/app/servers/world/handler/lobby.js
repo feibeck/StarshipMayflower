@@ -173,7 +173,7 @@ _.extend(Handler.prototype, {
         player.setReadyToPlay(msg);
 
         var allReady = true;
-        _(shipRegistry.getPlayers()).each(function(player) {
+        _(shipRegistry.getAllPlayers()).each(function(player) {
             if (!player.getReadyToPlay()) {
                 allReady = false;
             }

@@ -36,6 +36,7 @@
                     backdrop: true,
                     windowClass: 'modal',
                     controller: function ($scope, $modalInstance) {
+                        $scope.alerts = [];
                         var ship = {name: ""};
                         $scope.ship = ship;
                         $scope.submit = function () {
@@ -48,8 +49,12 @@
                                     $modalInstance.dismiss('cancel');
                                 },
                                 // failure
-                                function (ship) {
-                                    alert("An error occured:\n" + ship.error);
+                                function(ship) {
+                                    console.log(ship);
+                                    $scope.alerts[0] = {
+                                        type: 'danger',
+                                        msg: ship.error
+                                    };
                                 }
                             );
                         };
@@ -64,6 +69,7 @@
 
     StarshipMayflowerLobbyControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
         function ($scope, $location, Pomelo, Player) {
+            $scope.alerts = [];
             $scope.login = function() {
                 var username = $scope.username;
                 if (username !== undefined) {
@@ -87,7 +93,10 @@
                             },
                             // failure
                             function(player) {
-                                alert("An error occured:\n" + player.error);
+                                $scope.alerts[0] = {
+                                    type: 'danger',
+                                    msg: player.error
+                                };
                             }
                         );
 

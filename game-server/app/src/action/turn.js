@@ -2,6 +2,7 @@ var Action = require('./action'),
     util = require('util'),
     game = require('../game'),
     sylvester = require('sylvester'),
+    physics = require('../physics'),
     _ = require('lodash');
 
 /**
@@ -35,37 +36,15 @@ _.extend(Turn.prototype, {
      */
     update: function()
     {
-
         if (this.arc === 0) {
             this.finished = true;
             return;
         }
 
         var seconds = (Date.now() - this.time) / 1000;
-
-        var velocity = this.ship.getVelocity();
-        var direction = this.ship.getHeading();
-        var position = this.ship.getPosition();
-
         var turnDegrees = this.arc * seconds;
 
-        var axis;
-
-        if (this.axis == 'Y') {
-            axis = sylvester.Line.create(position, sylvester.Vector.create([0, 1, 0]));
-        } else {
-            axis = sylvester.Line.create(position, sylvester.Vector.create([1, 0, 0]));
-        }
-
-        var newDirection = direction.rotate(this.toRadians(turnDegrees), axis);
-
-        newDirection = newDirection.toUnitVector();
-        this.ship.setHeading(newDirection);
-
-        var speed = velocity.modulus();
-
-        var newVelocity = newDirection.multiply(speed);
-        this.ship.setVelocity(newVelocity);
+        physics.turn(this.ship, turnDegrees, this.axis);
 
         this.time = Date.now();
 

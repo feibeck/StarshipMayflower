@@ -12,6 +12,12 @@ module.exports = {
     AU: 149597870.7,
 
     // playing field length in au
-    PlayingFieldLength: 2 * 149597870.7
+    PlayingFieldLength: 2 * 149597870.7,
+
+    TURN_YAW: 'yaw',
+
+    TURN_PITCH: 'pitch',
+
+    TURN_ROLL: 'roll'
 
 };

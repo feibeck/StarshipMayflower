@@ -120,9 +120,9 @@
 
             MapObject.prototype.scale = function(size)
             {
-                this.mesh.scale.x = size;
-                this.mesh.scale.y = size;
-                this.mesh.scale.z = size;
+                this.mesh.scale.x = this.headingArrow.scale.x = size;
+                this.mesh.scale.y = this.headingArrow.scale.y = size;
+                this.mesh.scale.z = this.headingArrow.scale.z = size;
             };
 
             return MapObject;
