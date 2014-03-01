@@ -42,9 +42,16 @@
                             Pomelo.request(
                                 "world.lobby.addNewShip",
                                 $scope.ship.name
-                            ).then(function (ship) {
-                                $modalInstance.dismiss('cancel');
-                            });
+                            ).then(
+                                // success
+                                function (ship) {
+                                    $modalInstance.dismiss('cancel');
+                                },
+                                // failure
+                                function (ship) {
+                                    alert("An error occured:\n" + ship.error);
+                                }
+                            );
                         };
                         $scope.cancel = function () {
                             $modalInstance.dismiss('cancel');
@@ -73,11 +80,16 @@
                         Pomelo.request(
                             "world.lobby.addPlayer",
                             {name: username, playerId: playerId}
-                        ).then(function(data) {
-                            $location.path('/lobby/ships');
-                        }, function(data) {
-                            alert("An error occured:\n" + data.error);
-                        });
+                        ).then(
+                            // success
+                            function(player) {
+                                $location.path('/lobby/ships');
+                            },
+                            // failure
+                            function(player) {
+                                alert("An error occured:\n" + player.error);
+                            }
+                        );
 
                     });
                 }

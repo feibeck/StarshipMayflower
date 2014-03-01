@@ -1,7 +1,8 @@
 var _ = require('lodash'),
     pomelo = require('pomelo'),
     models = require('../models'),
-    Channel = require('../channel');
+    Channel = require('../channel'),
+    MyError = require('../myError');
 
 var INDEX = 1;
 function newIndex() {
@@ -64,6 +65,12 @@ _.extend(ShipRegistry.prototype, {
         var me = this,
             index = newIndex();
 
+        if (!ship) {
+            return new MyError('Ship must not be empty');
+        } else if (me.getShipByName(ship.getName())) {
+            return new MyError('Ship already exists')
+        }
+
         ship.setId(index);
         ship.setCreator(player);
 
@@ -75,24 +82,47 @@ _.extend(ShipRegistry.prototype, {
     },
 
     /**
+     * Gets a ship by its name.
+     *
+     * @param {String} shipName
+     * @returns {(Ship|null)}
+     */
+    getShipByName: function(shipName) {
+        var me = this,
+            shipList = me.getAllShips(),
+            result = null;
+
+        _.forEach(shipList, function(ship) {
+            if (ship.getName() == shipName) {
+                result = ship;
+                return false; // break forEach
+            }
+        });
+
+        return result;
+    },
+
+    /**
      * Adds a player
      *
      * @param {Player} player
      *
-     * @returns {boolean}
+     * @returns {(Player|MyError)}
      */
     addPlayer: function(player)
     {
         var me = this;
-        var playerList = me.getPlayers();
 
-        if (player && !me.isPlayerNameTaken(player.getName())) {
-            me._players[player.getId()] = player;
-            channel.addPlayerToLobby(player);
-            return true
+        if (!player) {
+            return new MyError('Player must not be empty');
+        } else if (me.getPlayerByName(player.getName())) {
+            return new MyError('Player already exists');
         }
 
-        return false;
+        me._players[player.getId()] = player;
+        channel.addPlayerToLobby(player);
+
+        return player;
     },
 
     /**
@@ -110,24 +140,24 @@ _.extend(ShipRegistry.prototype, {
     },
 
     /**
-     * Checks if a player name is already taken
+     * Gets a player by its name.
      *
      * @param {String} playerName
-     * @returns {boolean}
+     * @returns {(Player|null)}
      */
-    isPlayerNameTaken: function(playerName) {
-        var me = this;
-        var playerList = me.getPlayers();
-        var result = false;
+    getPlayerByName: function(playerName) {
+        var me = this,
+            playerList = me.getPlayers(),
+            result = null;
 
         _.forEach(playerList, function(player) {
             if (player.getName() == playerName) {
-                result = true;
+                result = player;
+                return false; // break forEach
             }
         });
 
         return result;
-
     },
 
     /**
