@@ -56,23 +56,36 @@ _.extend(Handler.prototype, {
 
     addNewShip: function(msg, session, next)
     {
-        var playerId = session.get('playerId');
+        var shipRegistry = game.getShipRegistry(),
+            playerId = session.get('playerId'),
+            player,
+            ship;
 
         if (!playerId) {
-            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            error = new Error('User not logged in');
+            next(error, {
+                code: 'ERR',
+                payload: {
+                    error: error.message
+                }
+            });
             return;
         }
 
-        var shipRegistry = game.getShipRegistry();
-        var player = shipRegistry.getPlayer(playerId);
-        var ship = shipRegistry.addShip(new models.Ship(msg), player);
-        if (ship) {
-            next(null, {code: 'OK', payload: ship.serialize()});
-        } else {
+        player = shipRegistry.getPlayer(playerId);
+        ship = shipRegistry.addShip(new models.Ship(msg), player);
+
+        if (!ship.isError) {
             next(null, {
+                    code: 'OK',
+                    payload: ship.serialize()
+            });
+        } else {
+            var error = ship;
+            next(error, {
                 code: "ERR",
                 payload: {
-                    error: "Unable to add ship"
+                    error: error.message
                 }
             });
         }
@@ -83,16 +96,19 @@ _.extend(Handler.prototype, {
         var shipRegistry = game.getShipRegistry();
         var player = new models.Player(msg.playerId, msg.name, session.frontendId);
 
-        if (shipRegistry.addPlayer(player)) {
+        player = shipRegistry.addPlayer(player);
+
+        if (!player.isError) {
             next(null, {
                 code: "OK",
                 payload: {}
             });
         } else {
-            next(null, {
+            var error = player;
+            next(error, {
                 code: "ERR",
                 payload: {
-                    error: "Unable to add player!"
+                    error: error.message
                 }
             });
         }

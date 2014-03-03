@@ -1,7 +1,8 @@
 var _ = require('lodash'),
     pomelo = require('pomelo'),
     models = require('../models'),
-    Channel = require('../channel');
+    Channel = require('../channel'),
+    MyError = require('../myError');
 
 var INDEX = 1;
 function newIndex() {
@@ -62,21 +63,43 @@ _.extend(ShipRegistry.prototype, {
     addShip: function(ship, player)
     {
         var me = this,
-            index = newIndex(),
-            inShipList = me.checkForNameDuplicate(ship.getName(), me.getAllShips());
+            index = newIndex();
 
-        if (ship && !inShipList) {
-            ship.setId(index);
-            ship.setCreator(player);
-
-            me._ships[index] = ship;
-
-            channel.pushToLobby('ShipAdded', ship.serialize());
-
-            return ship;
+        if (!ship) {
+            return new MyError('Ship must not be empty');
+        } else if (me.getShipByName(ship.getName())) {
+            return new MyError('Ship already exists')
         }
 
-        return null;
+        ship.setId(index);
+        ship.setCreator(player);
+
+        me._ships[index] = ship;
+
+        channel.pushToLobby('ShipAdded', ship.serialize());
+
+        return ship;
+    },
+
+    /**
+     * Gets a ship by its name.
+     *
+     * @param {String} shipName
+     * @returns {(Ship|null)}
+     */
+    getShipByName: function(shipName) {
+        var me = this,
+            shipList = me.getAllShips(),
+            result = null;
+
+        _.forEach(shipList, function(ship) {
+            if (ship.getName() == shipName) {
+                result = ship;
+                return false; // break forEach
+            }
+        });
+
+        return result;
     },
 
     /**
@@ -84,20 +107,22 @@ _.extend(ShipRegistry.prototype, {
      *
      * @param {Player} player
      *
-     * @returns {boolean}
+     * @returns {(Player|MyError)}
      */
     addPlayer: function(player)
     {
-        var me = this,
-            inPlayerList = me.checkForNameDuplicate(player.getName(), me.getAllPlayers());
+        var me = this;
 
-        if (player && !inPlayerList) {
-            me._players[player.getId()] = player;
-            channel.addPlayerToLobby(player);
-            return true;
+        if (!player) {
+            return new MyError('Player must not be empty');
+        } else if (me.getPlayerByName(player.getName())) {
+            return new MyError('Player already exists');
         }
 
-        return false;
+        me._players[player.getId()] = player;
+        channel.addPlayerToLobby(player);
+
+        return player;
     },
 
     /**
@@ -112,6 +137,27 @@ _.extend(ShipRegistry.prototype, {
         var me = this;
         var player = me._players[playerId];
         return player;
+    },
+
+    /**
+     * Gets a player by its name.
+     *
+     * @param {String} playerName
+     * @returns {(Player|null)}
+     */
+    getPlayerByName: function(playerName) {
+        var me = this,
+            playerList = me.getAllPlayers(),
+            result = null;
+
+        _.forEach(playerList, function(player) {
+            if (player.getName() == playerName) {
+                result = player;
+                return false; // break forEach
+            }
+        });
+
+        return result;
     },
 
     /**
@@ -193,45 +239,6 @@ _.extend(ShipRegistry.prototype, {
             channel.pushToShip(ship, 'StationReleased', ship.serialize());
         }
         return success;
-    },
-
-    /**
-     * Checks if current playername is already used by another player
-     *
-     * @param {Player} player
-     * @returns {boolean} inList
-     */
-    checkForPlayerInList: function(player) {
-        var me = this;
-        var newPlayerName = player.getName();
-        var playerList = me.getAllPlayers();
-        var inList = false;
-
-        _.forEach(playerList, function(playerInList) {
-            playerName = playerInList.getName();
-            if (newPlayerName == playerName && !inList) {
-                inList = true;
-            }
-        })
-
-        return inList;
-
-    },
-
-    /**
-     * Checks for duplicated name in the collections.
-     * @param {string} name
-     * @param {array} collection
-     * @returns {boolean} hasDuplicatedEntry
-     */
-    checkForNameDuplicate: function(name, collection) {
-        var hasDuplicatedEntry = false;
-        _.forEach(collection, function(entry) {
-            if (name == entry.getName()) {
-                hasDuplicatedEntry = true;
-            }
-        });
-        return hasDuplicatedEntry;
     }
 
 });

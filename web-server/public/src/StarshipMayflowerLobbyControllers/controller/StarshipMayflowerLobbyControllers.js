@@ -43,15 +43,20 @@
                             Pomelo.request(
                                 "world.lobby.addNewShip",
                                 $scope.ship.name
-                            ).then(function (ship) {
-                                $modalInstance.dismiss('cancel');
-                            }, function(data) {
-                                    console.log(data);
+                            ).then(
+                                // success
+                                function (ship) {
+                                    $modalInstance.dismiss('cancel');
+                                },
+                                // failure
+                                function(ship) {
+                                    console.log(ship);
                                     $scope.alerts[0] = {
                                         type: 'danger',
-                                        msg: 'shipname already taken - please choose another shipname'
+                                        msg: ship.error
                                     };
-                                });
+                                }
+                            );
                         };
                         $scope.cancel = function () {
                             $modalInstance.dismiss('cancel');
@@ -81,14 +86,19 @@
                         Pomelo.request(
                             "world.lobby.addPlayer",
                             {name: username, playerId: playerId}
-                        ).then(function(data) {
-                            $location.path('/lobby/ships');
-                        }, function(data) {
+                        ).then(
+                            // success
+                            function(player) {
+                                $location.path('/lobby/ships');
+                            },
+                            // failure
+                            function(player) {
                                 $scope.alerts[0] = {
                                     type: 'danger',
-                                    msg: 'username already taken - please choose another username'
+                                    msg: player.error
                                 };
-                        });
+                            }
+                        );
 
                     });
                 }
