@@ -19,11 +19,18 @@ var Accelerate = function(opts) {
     this.ship = opts.ship;
     this.targetSpeed = opts.targetSpeed;
 
+    this._burnRate = 3;
+
 };
 
 util.inherits(Accelerate, Action);
 
 _.extend(Accelerate.prototype, {
+
+    /**
+     * Accelerate speed
+     */
+    _accelerateSpeed: 10,
 
     /**
      * Accelerate a ship. Updates the length of the Velocity vector until
@@ -33,12 +40,27 @@ _.extend(Accelerate.prototype, {
     {
         var seconds = (Date.now() - this.time) / 1000;
 
+        this.burnFuel(seconds);
+
+        if (this.ship.getEnergy() > 0) {
+            this.accelerate(seconds);
+        }
+
+        this.time = Date.now();
+    },
+
+    /**
+     * Accelerate the ship
+     *
+     * @param {Number} seconds
+     */
+    accelerate: function(seconds)
+    {
         var impulse = this.ship.getCurrentImpulse();
-        var accelSpeed = 10;
 
         if (this.targetSpeed > impulse) {
 
-            impulse = (accelSpeed * seconds) + impulse;
+            impulse = (this._accelerateSpeed * seconds) + impulse;
             if (impulse > this.targetSpeed) {
                 impulse = this.targetSpeed;
                 this.finished = true;
@@ -46,7 +68,7 @@ _.extend(Accelerate.prototype, {
 
         } else if (this.targetSpeed < impulse) {
 
-            impulse = impulse - (accelSpeed * seconds);
+            impulse = impulse - (this._accelerateSpeed * seconds);
             if (impulse < this.targetSpeed) {
                 impulse = this.targetSpeed;
                 this.finished = true;
@@ -57,8 +79,6 @@ _.extend(Accelerate.prototype, {
         var newVelocity = (impulse / 100) * world.IMPULSE;
         this.ship.setVelocity(newVelocity);
         this.ship.setCurrentImpulse(impulse);
-
-        this.time = Date.now();
     }
 
 });

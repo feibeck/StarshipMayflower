@@ -51,6 +51,7 @@ _.extend(Ship.prototype, {
     _lastMove: null,
     _targetImpulse: 0,
     _currentImpulse: 0,
+    _energy: 1000,
 
     /**
      * Returns the ships name
@@ -309,6 +310,29 @@ _.extend(Ship.prototype, {
     },
 
     /**
+     * Sets the available energy of the ship
+     *
+     * @param {Number} energy
+     *
+     * @returns {Ship}
+     */
+    setEnergy: function(energy)
+    {
+        this._energy = energy;
+        return this;
+    },
+
+    /**
+     * Returns the energy of the ship
+     *
+     * @returns {Number}
+     */
+    getEnergy: function()
+    {
+        return this._energy;
+    },
+
+    /**
      * Returns a JSON representation of the ship
      *
      * @returns {{
@@ -361,7 +385,8 @@ _.extend(Ship.prototype, {
                 x: heading.e(1),
                 y: heading.e(2),
                 z: heading.e(3)
-            }
+            },
+            energy: this._energy
         };
     },
 

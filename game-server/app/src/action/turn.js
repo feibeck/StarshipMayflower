@@ -24,6 +24,8 @@ var Turn = function(opts) {
     this.arc = opts.arc;
     this.axis = opts.axis;
 
+    this._burnRate = 2;
+
 };
 
 util.inherits(Turn, Action);
@@ -44,7 +46,11 @@ _.extend(Turn.prototype, {
         var seconds = (Date.now() - this.time) / 1000;
         var turnDegrees = this.arc * seconds;
 
-        physics.turn(this.ship, turnDegrees, this.axis);
+        this.burnFuel(seconds);
+
+        if (this.ship.getEnergy() > 0) {
+            physics.turn(this.ship, turnDegrees, this.axis);
+        }
 
         this.time = Date.now();
 

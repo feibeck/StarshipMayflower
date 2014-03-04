@@ -17,11 +17,30 @@ var Action = function(opts) {
 
 _.extend(Action.prototype, {
 
+    _burnRate: 0,
+
     /**
      * Update interface, default update will do nothing, every tick the update will be invoked
      */
     update: function()
     {
+    },
+
+    /**
+     * Updates the ships energy
+     *
+     * @param {Number} seconds
+     */
+    burnFuel: function(seconds)
+    {
+        var energy = this.ship.getEnergy();
+
+        energy = energy - (seconds * this._burnRate);
+        if (energy < 0) {
+            energy = 0;
+        }
+
+        this.ship.setEnergy(energy);
     }
 
 });
