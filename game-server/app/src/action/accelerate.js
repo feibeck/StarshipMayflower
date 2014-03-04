@@ -40,10 +40,12 @@ _.extend(Accelerate.prototype, {
     {
         var seconds = (Date.now() - this.time) / 1000;
 
-        this.burnFuel(seconds);
+        if (this.ship.getWarpLevel() == 0) {
+            this.burnFuel(seconds);
 
-        if (this.ship.getEnergy() > 0) {
-            this.accelerate(seconds);
+            if (this.ship.getEnergy() > 0) {
+                this.accelerate(seconds);
+            }
         }
 
         this.time = Date.now();

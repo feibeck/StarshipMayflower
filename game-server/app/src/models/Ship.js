@@ -51,7 +51,8 @@ _.extend(Ship.prototype, {
     _lastMove: null,
     _targetImpulse: 0,
     _currentImpulse: 0,
-    _energy: 1000,
+    _energy: 10000,
+    _warpLevel: 0,
 
     /**
      * Returns the ships name
@@ -131,6 +132,14 @@ _.extend(Ship.prototype, {
      */
     getVelocity: function() {
         return this._velocity;
+    },
+
+    getRealVelocity: function()
+    {
+        if (this._warpLevel == 0) {
+            return this._velocity;
+        }
+        return this._warpLevel * 299792.458;
     },
 
     /**
@@ -258,6 +267,29 @@ _.extend(Ship.prototype, {
     },
 
     /**
+     * Returns the current warp level of a ship
+     *
+     * @returns {Number}
+     */
+    getWarpLevel: function()
+    {
+        return this._warpLevel;
+    },
+
+    /**
+     * Set the current warp level
+     *
+     * @param {Number} warpLevel
+     *
+     * @returns {Ship}
+     */
+    setWarpLevel: function(warpLevel)
+    {
+        this._warpLevel = warpLevel;
+        return this;
+    },
+
+    /**
      * Register a player with a station
      *
      * @param {String} station
@@ -378,7 +410,7 @@ _.extend(Ship.prototype, {
                 y: me._position.e(2),
                 z: me._position.e(3)
             },
-            speed: me.getVelocity(),
+            speed: me.getRealVelocity(),
             targetImpulse: me._targetImpulse,
             currentImpulse: me._currentImpulse,
             heading: {
@@ -386,7 +418,8 @@ _.extend(Ship.prototype, {
                 y: heading.e(2),
                 z: heading.e(3)
             },
-            energy: this._energy
+            energy: me._energy,
+            warpLevel: me._warpLevel
         };
     },
 
@@ -412,12 +445,13 @@ _.extend(Ship.prototype, {
                 y: me._position.e(2),
                 z: me._position.e(3)
             },
-            speed: me.getVelocity().modulus(),
+            speed: me.getRealVelocity(),
             heading: {
                 x: me._heading.e(1),
                 y: me._heading.e(2),
                 z: me._heading.e(3)
-            }
+            },
+            warpLevel: me._warpLevel
         };
     }
 

@@ -38,6 +38,22 @@ _.extend(Handler.prototype, {
         game.timer().addAction(action);
     },
 
+    setWarpLevel: function(msg, session, next)
+    {
+        var playerId = session.get('playerId');
+
+        if (!playerId) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
+        var shipRegistry = game.getShipRegistry();
+        var player = shipRegistry.getPlayer(playerId);
+        var ship = shipRegistry.getShip(player.getShip().getId());
+
+        ship.setWarpLevel(msg.warpLevel);
+    },
+
     turn: function(msg, session, next)
     {
         var playerId = session.get('playerId');

@@ -177,13 +177,11 @@
 			this.handle1Stype[this.stylePos] = this.percentage[0]+'%';
 			this.handle2Stype[this.stylePos] = this.percentage[1]+'%';
 			if (this.orientation == 'vertical') {
-				this.selectionElStyle.top = Math.min(this.currentValue, this.percentage[1]) +'%';
-				this.selectionElStyle.height = Math.abs(this.currentValue - this.percentage[1]) +'%';
+                var currentValue = (100 / this.max) * this.currentValue;
+				this.selectionElStyle.top = Math.min(currentValue, this.percentage[1]) +'%';
+				this.selectionElStyle.height = Math.abs(currentValue - this.percentage[1]) +'%';
 			} else {
 				this.selectionElStyle.left = Math.min(this.percentage[0], this.percentage[1]) +'%';
-
-                console.log(this.percentage);
-
 				this.selectionElStyle.width = Math.abs(this.currentValue - this.percentage[1]) +'%';
 			}
 			if (this.range) {

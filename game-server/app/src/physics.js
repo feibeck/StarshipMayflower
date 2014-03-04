@@ -150,6 +150,23 @@ function moveShip(ship, timeslice) {
     var position = ship.getPosition();
     var heading = ship.getHeading();
     var velocity = ship.getVelocity();
+    var warpLevel = ship.getWarpLevel();
+
+
+    if (warpLevel > 0) {
+        velocity = world.C * warpLevel;
+        var energy = ship.getEnergy();
+        var burnRate = 3 * warpLevel;
+        var burnedEnergy = timeslice * burnRate;
+        if (energy - burnedEnergy < 0) {
+            timeslice = energy / burnRate;
+            energy = 0;
+        } else {
+            energy = energy - burnedEnergy;
+        }
+        ship.setEnergy(energy);
+    }
+
     var newPosition = position.add(heading.multiply(velocity * timeslice));
 
     return ship.setPosition(clipPosition(newPosition));

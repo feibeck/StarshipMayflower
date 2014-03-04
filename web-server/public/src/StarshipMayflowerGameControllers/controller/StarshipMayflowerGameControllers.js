@@ -106,6 +106,13 @@ StarshipMayflowerGameControllers.controller('HelmCtrl', ['$scope', '$location', 
             );
         });
 
+        sliderWarp.on('slideStop', function(ev) {
+            Pomelo.notify(
+                'world.navigation.setWarpLevel',
+                {warpLevel: ev.value}
+            );
+        });
+
         function getAngle(x, y) {
             var theta;
 
@@ -137,6 +144,8 @@ StarshipMayflowerGameControllers.controller('HelmCtrl', ['$scope', '$location', 
 
             sliderImpulse.slider('setCurrentValue', ship.currentImpulse);
             sliderImpulse.slider('setValue', ship.targetImpulse);
+            sliderWarp.slider('setCurrentValue', ship.warpLevel);
+            sliderWarp.slider('setValue', ship.warpLevel);
         });
 
         $scope.impuls = 0;
