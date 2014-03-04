@@ -176,10 +176,10 @@ StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', '$location', '
 
 ]);
 
-    StarshipMayflowerGameControllers.controller('DebugCtrl', ['$scope', '$location', 'Pomelo', 'Map',
-	function ($scope, $location, Pomelo, Map) {
+StarshipMayflowerGameControllers.controller('DebugCtrl', ['$scope', '$location', 'Pomelo', 'Map',
+    function ($scope, $location, Pomelo, Map) {
 
-	    function getAngle(x, y) {
+        function getAngle(x, y) {
             var theta;
 
             if (Math.abs(y) > Math.abs(x)) {
@@ -201,15 +201,15 @@ StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', '$location', '
             }
 
             return theta / Math.PI * 180;
-	    }
+        }
 
-	    Pomelo.on('ShipUpdate', function(ship) {
-		$scope.angleZX = getAngle(-ship.heading.z, ship.heading.x);
-		$scope.angleYZ = getAngle(-ship.heading.z, ship.heading.y);
-		$scope.$apply();
-	    });
+        Pomelo.on('ShipUpdate', function(ship) {
+            $scope.angleZX = getAngle(-ship.heading.z, ship.heading.x);
+            $scope.angleYZ = getAngle(-ship.heading.z, ship.heading.y);
+            $scope.$apply();
+        });
 
-	}
-    ]);
+    }
+]);
 
 })();

@@ -136,7 +136,7 @@ _.extend(Ship.prototype, {
 
     getRealVelocity: function()
     {
-        if (this._warpLevel == 0) {
+        if (this._warpLevel === 0) {
             return this._velocity;
         }
         return this._warpLevel * 299792.458;

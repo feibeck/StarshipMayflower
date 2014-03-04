@@ -68,7 +68,7 @@ _.extend(ShipRegistry.prototype, {
         if (!ship) {
             return new MyError('Ship must not be empty');
         } else if (me.getShipByName(ship.getName())) {
-            return new MyError('Ship already exists')
+            return new MyError('Ship already exists');
         }
 
         ship.setId(index);
