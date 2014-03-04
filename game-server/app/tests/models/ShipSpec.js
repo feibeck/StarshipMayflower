@@ -16,13 +16,12 @@ describe("Ship model", function() {
 
     it("Starts without speed", function() {
         var ship = new Ship('HMS Foo');
-        var speed = sylvester.Vector.create([0, 0, 0]);
-        expect(ship.getVelocity()).toEqual(speed);
+        expect(ship.getVelocity()).toEqual(0);
     });
 
-    it("Faces away", function() {
+    it("Has a default heading", function() {
         var ship = new Ship('HMS Foo');
-        var heading = sylvester.Vector.create([0, 0, -1]);
+        var heading = sylvester.Vector.create([0, 0, 1]);
         expect(ship.getHeading()).toEqual(heading);
     });
 
@@ -36,12 +35,6 @@ describe("Ship model", function() {
         var ship = new Ship('HMS Foo');
         ship.setVelocity('foo');
         expect(ship.getVelocity()).toBe('foo');
-    });
-
-    it("Heading property", function() {
-        var ship = new Ship('HMS Foo');
-        ship.setHeading('foo');
-        expect(ship.getHeading()).toBe('foo');
     });
 
     it("Position property", function() {
