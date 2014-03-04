@@ -150,12 +150,8 @@ StarshipMayflowerGameControllers.controller('HelmCtrl', ['$scope', '$location', 
 
         $scope.impuls = 0;
 
-        $scope.yaw = function(arc) {
-            Pomelo.notify('world.navigation.turn', {arc: arc, axis: 'yaw'});
-        };
-
-        $scope.pitch = function(arc) {
-            Pomelo.notify('world.navigation.turn', {arc: arc, axis: 'pitch'});
+        $scope.rotate = function(axis, arc) {
+            Pomelo.notify('world.navigation.turn', {arc: arc, axis: axis});
         };
 
     }

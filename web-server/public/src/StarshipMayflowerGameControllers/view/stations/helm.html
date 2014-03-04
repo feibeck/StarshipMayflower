@@ -53,7 +53,7 @@
 
             <div class="" style="height: 100%; position: relative;">
 
-                <button id="pitchUp" class="btn btn-primary" ng-mousedown="pitch(-10)" ng-mouseup="pitch(0)" style="position: absolute; top: 0; left: 0;">
+                <button id="pitchUp" class="btn btn-primary" ng-mousedown="rotate('pitch', -10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; top: 0; left: 0;">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                 </button>
 
@@ -61,11 +61,15 @@
                     <span>{{ angleYZ | number:0 }}</span>°
                 </div>
 
-                <button id="pitchDown" class="btn btn-primary" ng-mousedown="pitch(10)" ng-mouseup="pitch(0)" style="position: absolute; bottom: 40px; left: 0;">
+                <button id="pitchDown" class="btn btn-primary" ng-mousedown="rotate('pitch', 10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; bottom: 45px; left: 0;">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                 </button>
 
-                <button id="turnleft" class="btn btn-primary" ng-mousedown="yaw(10)" ng-mouseup="yaw(0)" style="position: absolute; bottom: 0; left: 40px;">
+                <button id="rollleft" class="btn btn-primary" ng-mousedown="rotate('roll', 10)" ng-mouseup="rotate('roll', 0)" style="position: absolute; bottom: 0; left: 0;">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </button>
+
+                <button id="turnleft" class="btn btn-primary" ng-mousedown="rotate('yaw', 10)" ng-mouseup="rotate('yaw', 0)" style="position: absolute; bottom: 0; left: 45px;">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                 </button>
 
@@ -73,8 +77,12 @@
                     <span>{{ angleZX | number:0 }}</span>°
                 </div>
 
-                <button id="turnRight" class="btn btn-primary" ng-mousedown="yaw(-10)" ng-mouseup="yaw(0)" style="position: absolute; bottom: 0; right: 0;">
+                <button id="turnRight" class="btn btn-primary" ng-mousedown="rotate('yaw', -10)" ng-mouseup="rotate('yaw', 0)" style="position: absolute; bottom: 0; right: 45px;">
                     <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+
+                <button id="rollRight" class="btn btn-primary" ng-mousedown="rotate('roll', -10)" ng-mouseup="rotate('roll', 0)" style="position: absolute; bottom: 0; right: 0;">
+                    <span class="glyphicon glyphicon-refresh"></span>
                 </button>
 
             </div>
