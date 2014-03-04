@@ -2,7 +2,7 @@ var _ = require('lodash'),
     pomelo = require('pomelo'),
     models = require('../models'),
     Channel = require('../channel'),
-    MyError = require('../myError');
+    CustomError = require('../customError');
 
 var INDEX = 1;
 function newIndex() {
@@ -66,9 +66,9 @@ _.extend(ShipRegistry.prototype, {
             index = newIndex();
 
         if (!ship) {
-            return new MyError('Ship must not be empty');
+            return new CustomError('Ship must not be empty');
         } else if (me.getShipByName(ship.getName())) {
-            return new MyError('Ship already exists');
+            return new CustomError('Ship already exists');
         }
 
         ship.setId(index);
@@ -107,16 +107,16 @@ _.extend(ShipRegistry.prototype, {
      *
      * @param {Player} player
      *
-     * @returns {(Player|MyError)}
+     * @returns {(Player|CustomError)}
      */
     addPlayer: function(player)
     {
         var me = this;
 
         if (!player) {
-            return new MyError('Player must not be empty');
+            return new CustomError('Player must not be empty');
         } else if (me.getPlayerByName(player.getName())) {
-            return new MyError('Player already exists');
+            return new CustomError('Player already exists');
         }
 
         me._players[player.getId()] = player;
