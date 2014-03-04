@@ -393,6 +393,9 @@ _.extend(Ship.prototype, {
             creator = me._creator.serialize();
         }
 
+        var shipX = this._orientation.multiply(sylvester.Vector.create([1, 0, 0]));
+        var shipY = this._orientation.multiply(sylvester.Vector.create([0, 1, 0]));
+
         return {
             name: me.getName(),
             id: me.getId(),
@@ -417,6 +420,16 @@ _.extend(Ship.prototype, {
                 x: heading.e(1),
                 y: heading.e(2),
                 z: heading.e(3)
+            },
+            shipX: {
+                x: shipX.e(1),
+                y: shipX.e(2),
+                z: shipX.e(3)
+            },
+            shipY: {
+                x: shipY.e(1),
+                y: shipY.e(2),
+                z: shipY.e(3)
             },
             energy: me._energy,
             warpLevel: me._warpLevel

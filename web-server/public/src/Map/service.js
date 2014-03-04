@@ -78,7 +78,21 @@
                     new THREE.Vector3(0, 0, 1),
                     new THREE.Vector3(0, 0, 0),
                     10,
-                    'yellow'
+                    'blue'
+                );
+
+                this.shipArrowX = new THREE.ArrowHelper(
+                    new THREE.Vector3(1, 0, 0),
+                    new THREE.Vector3(0, 0, 0),
+                    10,
+                    'red'
+                );
+
+                this.shipArrowY = new THREE.ArrowHelper(
+                    new THREE.Vector3(0, 1, 0),
+                    new THREE.Vector3(0, 0, 0),
+                    10,
+                    'green'
                 );
 
                 var geometry = new THREE.Geometry();
@@ -94,6 +108,8 @@
 
                 MapScene.scene.add(this.mesh);
                 MapScene.scene.add(this.headingArrow);
+                MapScene.scene.add(this.shipArrowX);
+                MapScene.scene.add(this.shipArrowY);
                 MapScene.scene.add(this.objectProjectionLine);
             }
 
@@ -101,6 +117,8 @@
             {
                 this.mesh.position.set(x, y, z);
                 this.headingArrow.position.set(x, y, z);
+                this.shipArrowX.position.set(x, y, z);
+                this.shipArrowY.position.set(x, y, z);
 
                 this.objectProjectionLine.geometry.vertices[0].x = x;
                 this.objectProjectionLine.geometry.vertices[0].y = 0;
@@ -118,11 +136,21 @@
                 this.headingArrow.setDirection(new THREE.Vector3(x, y, z));
             };
 
+            MapObject.prototype.setShipX= function(x, y, z)
+            {
+                this.shipArrowX.setDirection(new THREE.Vector3(x, y, z));
+            };
+
+            MapObject.prototype.setShipY= function(x, y, z)
+            {
+                this.shipArrowY.setDirection(new THREE.Vector3(x, y, z));
+            };
+
             MapObject.prototype.scale = function(size)
             {
-                this.mesh.scale.x = this.headingArrow.scale.x = size;
-                this.mesh.scale.y = this.headingArrow.scale.y = size;
-                this.mesh.scale.z = this.headingArrow.scale.z = size;
+                this.mesh.scale.x = this.headingArrow.scale.x = this.shipArrowX.scale.x = this.shipArrowY.scale.x = size;
+                this.mesh.scale.y = this.headingArrow.scale.y = this.shipArrowX.scale.y = this.shipArrowY.scale.y = size;
+                this.mesh.scale.z = this.headingArrow.scale.z = this.shipArrowX.scale.y = this.shipArrowY.scale.y = size;
             };
 
             return MapObject;
@@ -259,6 +287,8 @@
                 {
                     shipMapObject.setPosition(ship.position.x, ship.position.y, ship.position.z);
                     shipMapObject.setHeading(ship.heading.x, ship.heading.y, ship.heading.z);
+                    shipMapObject.setShipX(ship.shipX.x, ship.shipX.y, ship.shipX.z);
+                    shipMapObject.setShipY(ship.shipY.x, ship.shipY.y, ship.shipY.z);
 
                     angular.forEach(otherships, function(othership) {
                         updateOthership(othership);
