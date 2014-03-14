@@ -1,4 +1,4 @@
-(function() {
+s(function() {
     'use strict';
 
 var StarshipMayflowerGameControllers = angular.module('StarshipMayflowerGameControllers', []);
@@ -165,19 +165,19 @@ StarshipMayflowerGameControllers.controller('WeaponsCtrl', ['$scope', '$location
 
 ]);
 
-StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', '$location', 'Pomelo', 'Map',
+StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', 'Pomelo',
 
-    function ($scope, $location, Pomelo, Map) {
-        Map.init('map-container');
+    function ($scope, Pomelo) {
         Pomelo.on('WorldUpdate', function(world) {
-            Map.update(world.ship, world.ships);
+            $scope.ship = world.ship;
+            $scope.otherships = world.ships;
         });
     }
 
 ]);
 
-StarshipMayflowerGameControllers.controller('DebugCtrl', ['$scope', '$location', 'Pomelo', 'Map',
-    function ($scope, $location, Pomelo, Map) {
+StarshipMayflowerGameControllers.controller('DebugCtrl', ['$scope', '$location', 'Pomelo',
+    function ($scope, $location, Pomelo ) {
 
         function getAngle(x, y) {
             var theta;

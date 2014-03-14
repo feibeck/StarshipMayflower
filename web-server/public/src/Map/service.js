@@ -15,22 +15,17 @@
         }
     ]);
 
-    /**
-     * Service holding instances of the Three.js scene, renderer and camera
-     * for the map display
-     */
-    MapService.factory('MapScene', ['THREE', 'MapConstants', '$window',
-        function(THREE, MapConstants, $window)
-        {
+    MapService.directive('ssmMap', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject',
+
+        function(THREE, MapConstants, MapGrid, $window, MapObject) {
 
             var scene = new THREE.Scene();
 
             var renderer = new THREE.WebGLRenderer({antialias: false});
-            renderer.setSize($window.innerWidth, $window.innerHeight);
 
             var camera = new THREE.PerspectiveCamera(
                 60,
-                $window.innerWidth / $window.innerHeight,
+                1,
                 1,
                 1000000000
             );
@@ -41,15 +36,112 @@
 
             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
+            var controls = new THREE.OrbitControls(camera);
+            controls.addEventListener('change', cameraMove);
+
+            MapGrid.render(scene);
+
+            var shipMapObject;
+            var otherShipMapObjects = [];
+
+            function cameraMove()
+            {
+                scaleModels();
+                renderer.render(scene, camera);
+            }
+
+            function setSize(element)
+            {
+                renderer.setSize(
+                    element.width(),
+                    element.height()
+                );
+
+                camera.aspect = element.width() / element.height();
+                camera.updateProjectionMatrix();
+
+                renderer.render(scene, camera);
+            }
+
+            function scaleModels()
+            {
+                var point1 = camera.position;
+                var point2 = new THREE.Vector3(0, 0, 0);
+                var distance = point1.distanceTo(point2);
+
+                var shipSize = distance * 0.004;
+
+                if (shipMapObject) {
+                    shipMapObject.scale(shipSize);
+                }
+
+                angular.forEach(otherShipMapObjects, function(othership) {
+                    othership.scale(shipSize);
+                });
+            }
+
             return {
 
-                scene: scene,
-                renderer: renderer,
-                camera: camera,
+                template: '',
 
-                render: function()
-                {
-                    renderer.render(scene, camera);
+                scope: {
+                    ship: '=ship',
+                    otherships: '=otherships'
+                },
+
+                link: function($scope, element, attrs) {
+
+                    element.append(renderer.domElement);
+
+                    setSize(element);
+
+                    var w = angular.element($window);
+                    w.bind('resize', function() {
+                        setSize(element);
+                    });
+
+                    scaleModels();
+
+                    $scope.$watch('ship', function() {
+
+                        var ship = $scope.ship;
+
+                        if (!shipMapObject) {
+                            shipMapObject = new MapObject();
+                            shipMapObject.setScene(scene);
+                        }
+
+                        shipMapObject.setPosition(ship.position.x, ship.position.y, ship.position.z);
+                        shipMapObject.setHeading(ship.heading.x, ship.heading.y, ship.heading.z);
+                        shipMapObject.setShipX(ship.shipX.x, ship.shipX.y, ship.shipX.z);
+                        shipMapObject.setShipY(ship.shipY.x, ship.shipY.y, ship.shipY.z);
+
+                        scaleModels();
+
+                        renderer.render(scene, camera);
+                    });
+
+                    $scope.$watch('otherships', function() {
+
+                        var ships = $scope.otherships;
+
+                        angular.forEach(ships, function(ship) {
+
+                            if (!otherShipMapObjects[ship.id]) {
+
+                                otherShipMapObjects[ship.id] = new MapObject('grey');
+                                otherShipMapObjects[ship.id].setScene(scene);
+                            }
+
+                            otherShipMapObjects[ship.id].setPosition(ship.position.x, ship.position.y, ship.position.z);
+                            otherShipMapObjects[ship.id].setHeading(ship.heading.x, ship.heading.y, ship.heading.z);
+
+                        });
+
+                        scaleModels();
+                        renderer.render(scene, camera);
+                    });
+
                 }
 
             };
@@ -60,8 +152,8 @@
     /**
      * A class to represent an object on the map
      */
-    MapService.factory('MapObject', ['THREE', 'MapScene',
-        function(THREE, MapScene)
+    MapService.factory('MapObject', ['THREE',
+        function(THREE)
         {
             function MapObject(color)
             {
@@ -105,12 +197,6 @@
                     })
                 );
                 this.objectProjectionLine.geometry.dynamic = true;
-
-                MapScene.scene.add(this.mesh);
-                MapScene.scene.add(this.headingArrow);
-                MapScene.scene.add(this.shipArrowX);
-                MapScene.scene.add(this.shipArrowY);
-                MapScene.scene.add(this.objectProjectionLine);
             }
 
             MapObject.prototype.setPosition = function(x, y, z)
@@ -153,6 +239,15 @@
                 this.mesh.scale.z = this.headingArrow.scale.z = this.shipArrowX.scale.y = this.shipArrowY.scale.y = size;
             };
 
+            MapObject.prototype.setScene = function(scene)
+            {
+                scene.add(this.mesh);
+                scene.add(this.headingArrow);
+                scene.add(this.shipArrowX);
+                scene.add(this.shipArrowY);
+                scene.add(this.objectProjectionLine);
+            };
+
             return MapObject;
         }
     ]);
@@ -160,14 +255,14 @@
     /**
      * Renders grid lines for the map display
      */
-    MapService.factory('MapGrid', ['THREE', 'MapConstants', 'MapScene',
-        function(THREE, MapConstants, MapScene)
+    MapService.factory('MapGrid', ['THREE', 'MapConstants',
+        function(THREE, MapConstants)
         {
 
-            function renderGrid()
+            function renderGrid(scene)
             {
                 var axisHelper = new THREE.AxisHelper( MapConstants.AU * 2 );
-                MapScene.scene.add( axisHelper );
+                scene.add( axisHelper );
 
 
                 var material = new THREE.LineBasicMaterial({
@@ -175,26 +270,26 @@
                 });
 
                 // Grid X-Z
-                MapScene.scene.add(line(MapConstants.AU, 0, 0, MapConstants.AU, 0, MapConstants.AU * 2, material));
-                MapScene.scene.add(line(MapConstants.AU * 2, 0, 0, MapConstants.AU * 2, 0, MapConstants.AU * 2, material));
+                scene.add(line(MapConstants.AU, 0, 0, MapConstants.AU, 0, MapConstants.AU * 2, material));
+                scene.add(line(MapConstants.AU * 2, 0, 0, MapConstants.AU * 2, 0, MapConstants.AU * 2, material));
 
-                MapScene.scene.add(line(0, 0, MapConstants.AU, MapConstants.AU * 2, 0, MapConstants.AU, material));
-                MapScene.scene.add(line(0, 0, MapConstants.AU * 2, MapConstants.AU * 2, 0, MapConstants.AU * 2, material));
+                scene.add(line(0, 0, MapConstants.AU, MapConstants.AU * 2, 0, MapConstants.AU, material));
+                scene.add(line(0, 0, MapConstants.AU * 2, MapConstants.AU * 2, 0, MapConstants.AU * 2, material));
 
                 // Grid Z-Y
-                MapScene.scene.add(line(0, MapConstants.AU, 0, 0, MapConstants.AU, MapConstants.AU * 2, material));
-                MapScene.scene.add(line(0, MapConstants.AU * 2, 0, 0, MapConstants.AU * 2, MapConstants.AU * 2, material));
+                scene.add(line(0, MapConstants.AU, 0, 0, MapConstants.AU, MapConstants.AU * 2, material));
+                scene.add(line(0, MapConstants.AU * 2, 0, 0, MapConstants.AU * 2, MapConstants.AU * 2, material));
 
-                MapScene.scene.add(line(0, 0, MapConstants.AU, 0, MapConstants.AU * 2, MapConstants.AU, material));
-                MapScene.scene.add(line(0, 0, MapConstants.AU * 2, 0, MapConstants.AU * 2, MapConstants.AU * 2, material));
+                scene.add(line(0, 0, MapConstants.AU, 0, MapConstants.AU * 2, MapConstants.AU, material));
+                scene.add(line(0, 0, MapConstants.AU * 2, 0, MapConstants.AU * 2, MapConstants.AU * 2, material));
 
 
                 // Grid X-Y
-                MapScene.scene.add(line(MapConstants.AU, 0, 0, MapConstants.AU, MapConstants.AU * 2, 0, material));
-                MapScene.scene.add(line(MapConstants.AU * 2, 0, 0, MapConstants.AU * 2, MapConstants.AU * 2, 0, material));
+                scene.add(line(MapConstants.AU, 0, 0, MapConstants.AU, MapConstants.AU * 2, 0, material));
+                scene.add(line(MapConstants.AU * 2, 0, 0, MapConstants.AU * 2, MapConstants.AU * 2, 0, material));
 
-                MapScene.scene.add(line(0, MapConstants.AU, 0, MapConstants.AU * 2, MapConstants.AU, 0, material));
-                MapScene.scene.add(line(0, MapConstants.AU * 2, 0, MapConstants.AU * 2, MapConstants.AU * 2, 0, material));
+                scene.add(line(0, MapConstants.AU, 0, MapConstants.AU * 2, MapConstants.AU, 0, material));
+                scene.add(line(0, MapConstants.AU * 2, 0, MapConstants.AU * 2, MapConstants.AU * 2, 0, material));
 
             }
 
@@ -208,95 +303,6 @@
 
             return {
                 render: renderGrid
-            };
-
-        }
-    ]);
-
-    /**
-     * Service to handle the map
-     */
-    MapService.factory('Map', ['THREE', 'MapConstants', 'MapScene', 'MapObject', 'MapGrid', '$window',
-        function(THREE, MapConstants, MapScene, MapObject, MapGrid, $window)
-        {
-
-            var shipMapObject;
-
-            var otherShipMapObjects = [];
-
-            function cameraMove()
-            {
-                scaleModels();
-                MapScene.render();
-            }
-
-            function scaleModels()
-            {
-                var point1 = MapScene.camera.position;
-                var point2 = new THREE.Vector3(0, 0, 0);
-                var distance = point1.distanceTo(point2);
-
-                var shipSize = distance * 0.002;
-
-                shipMapObject.scale(shipSize);
-
-                angular.forEach(otherShipMapObjects, function(othership) {
-                    othership.scale(shipSize);
-                });
-            }
-
-            function onWindowResize()
-            {
-                MapScene.camera.aspect = $window.innerWidth / $window.innerHeight;
-                MapScene.camera.updateProjectionMatrix();
-                MapScene.renderer.setSize($window.innerWidth, $window.innerHeight);
-                MapScene.render();
-            }
-
-            function updateOthership(ship)
-            {
-                if (!otherShipMapObjects[ship.id]) {
-                    otherShipMapObjects[ship.id] = new MapObject('grey');
-                    scaleModels();
-                }
-
-                otherShipMapObjects[ship.id].setPosition(ship.position.x, ship.position.y, ship.position.z);
-                otherShipMapObjects[ship.id].setHeading(ship.heading.x, ship.heading.y, ship.heading.z);
-            }
-
-            return {
-
-                init: function(selector)
-                {
-                    var controls = new THREE.OrbitControls(MapScene.camera);
-                    controls.addEventListener('change', cameraMove);
-
-                    MapGrid.render();
-
-                    shipMapObject = new MapObject();
-
-                    scaleModels();
-
-                    var container = document.getElementById(selector);
-                    container.appendChild(MapScene.renderer.domElement);
-
-                    angular.element($window).bind('resize', onWindowResize);
-                },
-
-                update: function(ship, otherships)
-                {
-                    shipMapObject.setPosition(ship.position.x, ship.position.y, ship.position.z);
-                    shipMapObject.setHeading(ship.heading.x, ship.heading.y, ship.heading.z);
-                    shipMapObject.setShipX(ship.shipX.x, ship.shipX.y, ship.shipX.z);
-                    shipMapObject.setShipY(ship.shipY.x, ship.shipY.y, ship.shipY.z);
-
-                    angular.forEach(otherships, function(othership) {
-                        updateOthership(othership);
-                    });
-
-                    MapScene.render();
-                }
-
             };
 
         }
