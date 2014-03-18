@@ -15,6 +15,71 @@
         }
     ]);
 
+    MapService.directive('ssmMapLabel', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject',
+
+        function(THREE, MapConstants, MapGrid, $window, MapObject) {
+
+            function toScreenXY(position, element, camera)
+            {
+                var pos = position.clone();
+                var projScreenMat = new THREE.Matrix4();
+                projScreenMat.multiply(camera.projectionMatrix, camera.matrixWorldInverse);
+                projScreenMat.multiplyVector3(pos);
+
+                return {
+                    x: (pos.x + 1) * element.width() / 2,
+                    y: (-pos.y + 1) * element.height() / 2
+                };
+            }
+
+            return {
+
+                template: '<div class="map-ship-label">{{mapobject.name}}</div>',
+
+                replace: true,
+
+                scope: {
+                    mapobject: '=mapobject',
+                    camera: '=camera'
+                },
+
+                link: function($scope, element, attrs) {
+
+                    var map = angular.element(element).parent().parent();
+
+                    $scope.$watch('mapobject', function() {
+
+                        var mapobject = $scope.mapobject;
+
+                        if (!mapobject) {
+                            return;
+                        }
+
+                        var pos = toScreenXY(
+                            new THREE.Vector3(
+                                mapobject.position.x,
+                                mapobject.position.y,
+                                mapobject.position.z
+                            ),
+                            map,
+                            $scope.camera
+                        );
+
+                        var label = element;
+
+                        label.css('top', pos.y - (label.height() / 2));
+                        label.css('left', pos.x + 3);
+
+                    });
+
+                }
+
+            }
+
+        }]
+
+    );
+
     MapService.directive('ssmMap', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject',
 
         function(THREE, MapConstants, MapGrid, $window, MapObject) {
@@ -83,25 +148,12 @@
                 });
             }
 
-            function toScreenXY(position, element)
-            {
-                var pos = position.clone();
-                var projScreenMat = new THREE.Matrix4();
-                projScreenMat.multiply(camera.projectionMatrix, camera.matrixWorldInverse);
-                projScreenMat.multiplyVector3(pos);
-
-                return {
-                    x: (pos.x + 1) * element.width() / 2,
-                    y: (-pos.y + 1) * element.height() / 2
-                };
-            }
-
             var width;
             var height;
 
             return {
 
-                template: '<div id="shiplabel" class="map-ship-label map-ship-label-ownship">{{ship.name}}</div>',
+                templateUrl: '/src/Map/view/map.html',
 
                 scope: {
                     ship: '=ship',
@@ -109,6 +161,8 @@
                 },
 
                 link: function($scope, element, attrs) {
+
+                    $scope.camera = camera;
 
                     element.append(renderer.domElement);
 
@@ -142,14 +196,6 @@
                         scaleModels();
 
                         renderer.render(scene, camera);
-
-                        var pos = toScreenXY(new THREE.Vector3(ship.position.x, ship.position.y, ship.position.z), element);
-
-                        var label = angular.element('#shiplabel');
-
-                        label.css('top', pos.y - (label.height() / 2));
-                        label.css('left', pos.x + 3);
-
                     });
 
                     $scope.$watch('otherships', function() {
