@@ -31,14 +31,15 @@ exp.getShipRegistry = function() {
 
 exp.start = function() {
     if (!running) {
-        _.forEach(shipRegistry.getAllShips(), function(ship) {
-            ship.setPosition(world.getRandomPosition());
-        });
-
         timer.run(actionManager);
         running = true;
     }
 };
+
+exp.getWorld = function()
+{
+    return world;
+}
 
 exp.isRunning = function()
 {

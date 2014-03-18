@@ -69,6 +69,7 @@ _.extend(ShipRegistry.prototype, {
 
         ship.setId(index);
         ship.setCreator(player);
+        ship.setPosition(game.getWorld().getRandomPosition());
 
         me._ships[index] = ship;
 
