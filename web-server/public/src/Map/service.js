@@ -195,7 +195,7 @@
                         }
 
                         if (!shipMapObject) {
-                            shipMapObject = new MapObject();
+                            shipMapObject = new MapObject('lime', {orientation: true});
                             shipMapObject.setScene(scene);
                         }
 
@@ -243,8 +243,13 @@
     MapService.factory('MapObject', ['THREE',
         function(THREE)
         {
-            function MapObject(color)
+            function MapObject(color, options)
             {
+                this.options = options || {};
+                if (!this.options.orientation) {
+                    this.options.orientation = false;
+                }
+
                 if (!color) {
                     color = 'lime';
                 }
@@ -254,26 +259,30 @@
                     new THREE.MeshBasicMaterial({color: color})
                 );
 
-                this.headingArrow = new THREE.ArrowHelper(
-                    new THREE.Vector3(0, 0, 1),
-                    new THREE.Vector3(0, 0, 0),
-                    10,
-                    'blue'
-                );
+                if (this.options.orientation) {
 
-                this.shipArrowX = new THREE.ArrowHelper(
-                    new THREE.Vector3(1, 0, 0),
-                    new THREE.Vector3(0, 0, 0),
-                    10,
-                    'red'
-                );
+                    this.headingArrow = new THREE.ArrowHelper(
+                        new THREE.Vector3(0, 0, 1),
+                        new THREE.Vector3(0, 0, 0),
+                        10,
+                        'blue'
+                    );
 
-                this.shipArrowY = new THREE.ArrowHelper(
-                    new THREE.Vector3(0, 1, 0),
-                    new THREE.Vector3(0, 0, 0),
-                    10,
-                    'green'
-                );
+                    this.shipArrowX = new THREE.ArrowHelper(
+                        new THREE.Vector3(1, 0, 0),
+                        new THREE.Vector3(0, 0, 0),
+                        10,
+                        'red'
+                    );
+
+                    this.shipArrowY = new THREE.ArrowHelper(
+                        new THREE.Vector3(0, 1, 0),
+                        new THREE.Vector3(0, 0, 0),
+                        10,
+                        'green'
+                    );
+
+                }
 
                 var geometry = new THREE.Geometry();
                 geometry.vertices.push(new THREE.Vector3(0, 0, 0));
@@ -290,9 +299,12 @@
             MapObject.prototype.setPosition = function(x, y, z)
             {
                 this.mesh.position.set(x, y, z);
-                this.headingArrow.position.set(x, y, z);
-                this.shipArrowX.position.set(x, y, z);
-                this.shipArrowY.position.set(x, y, z);
+
+                if (this.options.orientation) {
+                    this.headingArrow.position.set(x, y, z);
+                    this.shipArrowX.position.set(x, y, z);
+                    this.shipArrowY.position.set(x, y, z);
+                }
 
                 this.objectProjectionLine.geometry.vertices[0].x = x;
                 this.objectProjectionLine.geometry.vertices[0].y = 0;
@@ -307,33 +319,47 @@
 
             MapObject.prototype.setHeading = function(x, y, z)
             {
-                this.headingArrow.setDirection(new THREE.Vector3(x, y, z));
+                if (this.options.orientation) {
+                    this.headingArrow.setDirection(new THREE.Vector3(x, y, z));
+                }
             };
 
             MapObject.prototype.setShipX= function(x, y, z)
             {
-                this.shipArrowX.setDirection(new THREE.Vector3(x, y, z));
+                if (this.options.orientation) {
+                    this.shipArrowX.setDirection(new THREE.Vector3(x, y, z));
+                }
             };
 
             MapObject.prototype.setShipY= function(x, y, z)
             {
-                this.shipArrowY.setDirection(new THREE.Vector3(x, y, z));
+                if (this.options.orientation) {
+                    this.shipArrowY.setDirection(new THREE.Vector3(x, y, z));
+                }
             };
 
             MapObject.prototype.scale = function(size)
             {
-                this.mesh.scale.x = this.headingArrow.scale.x = this.shipArrowX.scale.x = this.shipArrowY.scale.x = size;
-                this.mesh.scale.y = this.headingArrow.scale.y = this.shipArrowX.scale.y = this.shipArrowY.scale.y = size;
-                this.mesh.scale.z = this.headingArrow.scale.z = this.shipArrowX.scale.y = this.shipArrowY.scale.y = size;
+                this.mesh.scale.x = size;
+                this.mesh.scale.y = size;
+                this.mesh.scale.z = size;
+
+                if (this.options.orientation) {
+                    this.headingArrow.scale.x = this.shipArrowX.scale.x = this.shipArrowY.scale.x = size;
+                    this.headingArrow.scale.y = this.shipArrowX.scale.y = this.shipArrowY.scale.y = size;
+                    this.headingArrow.scale.z = this.shipArrowX.scale.y = this.shipArrowY.scale.y = size;
+                }
             };
 
             MapObject.prototype.setScene = function(scene)
             {
                 scene.add(this.mesh);
-                scene.add(this.headingArrow);
-                scene.add(this.shipArrowX);
-                scene.add(this.shipArrowY);
                 scene.add(this.objectProjectionLine);
+                if (this.options.orientation) {
+                    scene.add(this.headingArrow);
+                    scene.add(this.shipArrowX);
+                    scene.add(this.shipArrowY);
+                }
             };
 
             return MapObject;
