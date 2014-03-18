@@ -99,9 +99,20 @@
             camera.position.x = MapConstants.AU * 2;
             camera.position.y = MapConstants.AU * 2;
 
-            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            camera.lookAt(
+                new THREE.Vector3(
+                    MapConstants.AU,
+                    MapConstants.AU,
+                    MapConstants.AU
+                )
+            );
 
             var controls = new THREE.OrbitControls(camera);
+            controls.target = new THREE.Vector3(
+                MapConstants.AU,
+                MapConstants.AU,
+                MapConstants.AU
+            );
             controls.addEventListener('change', cameraMove);
 
             MapGrid.render(scene);
