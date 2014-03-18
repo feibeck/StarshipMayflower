@@ -15,9 +15,9 @@
         }
     ]);
 
-    MapService.directive('ssmMapLabel', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject',
+    MapService.directive('ssmMapLabel', ['THREE',
 
-        function(THREE, MapConstants, MapGrid, $window, MapObject) {
+        function(THREE) {
 
             function toScreenXY(position, element, camera)
             {
