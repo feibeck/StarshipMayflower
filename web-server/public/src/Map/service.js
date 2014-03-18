@@ -23,8 +23,8 @@
             {
                 var pos = position.clone();
                 var projScreenMat = new THREE.Matrix4();
-                projScreenMat.multiply(camera.projectionMatrix, camera.matrixWorldInverse);
-                projScreenMat.multiplyVector3(pos);
+                projScreenMat.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+                pos.applyProjection(projScreenMat);
 
                 return {
                     x: (pos.x + 1) * element.width() / 2,
