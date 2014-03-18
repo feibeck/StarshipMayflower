@@ -449,7 +449,9 @@ _.extend(Ship.prototype, {
      */
     serializeMapData: function()
     {
-        var me = this;
+        var me = this,
+            heading = me.getHeading();
+
         return {
             name: me.getName(),
             id: me.getId(),
@@ -460,9 +462,9 @@ _.extend(Ship.prototype, {
             },
             speed: me.getRealVelocity(),
             heading: {
-                x: me._heading.e(1),
-                y: me._heading.e(2),
-                z: me._heading.e(3)
+                x: heading.e(1),
+                y: heading.e(2),
+                z: heading.e(3)
             },
             warpLevel: me._warpLevel
         };
