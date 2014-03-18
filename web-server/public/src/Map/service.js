@@ -52,12 +52,15 @@
 
             function setSize(element)
             {
+                width = element.width();
+                height = element.height();
+
                 renderer.setSize(
-                    element.width(),
-                    element.height()
+                    width,
+                    height
                 );
 
-                camera.aspect = element.width() / element.height();
+                camera.aspect = width / height;
                 camera.updateProjectionMatrix();
 
                 renderer.render(scene, camera);
@@ -80,9 +83,25 @@
                 });
             }
 
+            function toScreenXY(position, element)
+            {
+                var pos = position.clone();
+                var projScreenMat = new THREE.Matrix4();
+                projScreenMat.multiply(camera.projectionMatrix, camera.matrixWorldInverse);
+                projScreenMat.multiplyVector3(pos);
+
+                return {
+                    x: (pos.x + 1) * element.width() / 2,
+                    y: (-pos.y + 1) * element.height() / 2
+                };
+            }
+
+            var width;
+            var height;
+
             return {
 
-                template: '',
+                template: '<div id="shiplabel" class="map-ship-label map-ship-label-ownship">{{ship.name}}</div>',
 
                 scope: {
                     ship: '=ship',
@@ -106,6 +125,10 @@
 
                         var ship = $scope.ship;
 
+                        if (!ship) {
+                            return;
+                        }
+
                         if (!shipMapObject) {
                             shipMapObject = new MapObject();
                             shipMapObject.setScene(scene);
@@ -119,6 +142,14 @@
                         scaleModels();
 
                         renderer.render(scene, camera);
+
+                        var pos = toScreenXY(new THREE.Vector3(ship.position.x, ship.position.y, ship.position.z), element);
+
+                        var label = angular.element('#shiplabel');
+
+                        label.css('top', pos.y - (label.height() / 2));
+                        label.css('left', pos.x + 3);
+
                     });
 
                     $scope.$watch('otherships', function() {
