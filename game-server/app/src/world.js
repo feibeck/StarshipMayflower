@@ -1,6 +1,10 @@
+var _ = require('lodash');
+var sylvester = require('sylvester');
+
 module.exports = {
 
     ShipRegistry: require('./world/ShipRegistry'),
+    ObjectRegistry: require('./world/ObjectRegistry'),
 
     // Speed of light in km/s
     C: 299792.458,
@@ -18,6 +22,15 @@ module.exports = {
 
     TURN_PITCH: 'pitch',
 
-    TURN_ROLL: 'roll'
+    TURN_ROLL: 'roll',
+
+    getRandomPosition: function()
+    {
+        return sylvester.Vector.create([
+            _.random(this.PlayingFieldLength),
+            _.random(this.PlayingFieldLength),
+            _.random(this.PlayingFieldLength)]
+        );
+    }
 
 };

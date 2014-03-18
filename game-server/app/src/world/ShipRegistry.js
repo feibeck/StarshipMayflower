@@ -2,12 +2,8 @@ var _ = require('lodash'),
     pomelo = require('pomelo'),
     models = require('../models'),
     Channel = require('../channel'),
-    CustomError = require('../customError');
-
-var INDEX = 1;
-function newIndex() {
-    return INDEX++;
-}
+    CustomError = require('../customError'),
+    game = require('../game');
 
 var channel = new Channel();
 
@@ -63,7 +59,7 @@ _.extend(ShipRegistry.prototype, {
     addShip: function(ship, player)
     {
         var me = this,
-            index = newIndex();
+            index = game.getObjectRegistry().createId();
 
         if (!ship) {
             return new CustomError('Ship must not be empty');

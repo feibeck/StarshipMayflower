@@ -1,5 +1,7 @@
 var _ = require('lodash');
 var sylvester = require('sylvester');
+var ObjectInSpace = require('./ObjectInSpace');
+var util = require('util');
 
 /**
  * Ship model
@@ -25,32 +27,18 @@ var Ship = function(name) {
         mainscreen: null
     };
 
-    me._position = sylvester.Vector.create([0, 0, 0]);
-    me._velocity = 0;
-    me._orientation = sylvester.Matrix.I(3);
-
-    me.INITIAL_HEADING = sylvester.Vector.create([0, 0, 1]);
-
-    me._lastMove = 0;
-
-    me._targetImpulse = 0;
-    me._currentImpulse = 0;
+    ObjectInSpace.call(this);
 
 };
 
+util.inherits(Ship, ObjectInSpace);
+
 _.extend(Ship.prototype, {
 
-    _id: null,
     _name: null,
     _creator: null,
     _stations: null,
     _players: null,
-    _position: null,
-    _velocity: null,
-    _heading: null,
-    _lastMove: null,
-    _targetImpulse: 0,
-    _currentImpulse: 0,
     _energy: 10000,
     _warpLevel: 0,
 
@@ -62,29 +50,6 @@ _.extend(Ship.prototype, {
     getName: function()
     {
         return this._name;
-    },
-
-    /**
-     * Set the ships id
-     *
-     * @param {Integer} id
-     *
-     * @returns {Ship}
-     */
-    setId: function(id)
-    {
-        this._id = id;
-        return this;
-    },
-
-    /**
-     *
-     * Returns the ships id
-     *
-     * @returns {Integer}
-     */
-    getId: function() {
-        return this._id;
     },
 
     /**
@@ -114,101 +79,12 @@ _.extend(Ship.prototype, {
         this.releaseStation('comm', player);
     },
 
-    /**
-     * Sets the ships velocity vector
-     *
-     * @param {float}
-     * @returns {Ship}
-     */
-    setVelocity: function(velocity) {
-        this._velocity = velocity;
-        return this;
-    },
-
-    /**
-     * Returns the ships velocity vector
-     *
-     * @returns {float}
-     */
-    getVelocity: function() {
-        return this._velocity;
-    },
-
     getRealVelocity: function()
     {
         if (this._warpLevel === 0) {
             return this._velocity;
         }
         return this._warpLevel * 299792.458;
-    },
-
-    /**
-     * Returns the heading vector of the ship
-     *
-     * @returns {sylvester.Vector}
-     */
-    getHeading: function() {
-        return this._orientation.multiply(this.INITIAL_HEADING);
-    },
-
-    /**
-     * Set orientation.
-     *
-     * @param orientation
-     * @returns {Ship}
-     */
-    setOrientation: function(orientation) {
-        this._orientation = orientation;
-        return this;
-    },
-
-    /**
-     * Get orientation
-     *
-     * @returns {sylvester.Matrix}
-     */
-    getOrientation: function() {
-        return this._orientation;
-    },
-
-    /**
-     * Sets the position of the ship
-     *
-     * @param {sylvester.Vector} position
-     * @return {Ship}
-     */
-    setPosition: function(position) {
-        this._position = position;
-        return this;
-    },
-
-    /**
-     * Returns the position of the ship
-     *
-     * @returns {sylvester.Vector}
-     */
-    getPosition: function() {
-        return this._position;
-    },
-
-    /**
-     * Sets the timestamp of the last movement
-     *
-     * @param {Integer} lastMove
-     * @return {Ship}
-     */
-    setLastMove: function(lastMove) {
-        this._lastMove = lastMove;
-        return this;
-    },
-
-    /**
-     * Returns the timestamp of the last movement
-     *
-     * @returns {Integer}
-     */
-    getLastMove: function() {
-        return this._lastMove;
     },
 
     /**
@@ -232,38 +108,6 @@ _.extend(Ship.prototype, {
     getCreator: function()
     {
         return this._creator;
-    },
-
-    /**
-     * Set the ships target speed
-     *
-     * @param {Integer} targetSpeed
-     */
-    setTargetImpulse: function(targetImpulse)
-    {
-        this._targetImpulse = targetImpulse;
-        return this;
-    },
-
-    /**
-     * Sets the current impulse speed
-     *
-     * @param {Integer} currentImpulse
-     */
-    setCurrentImpulse: function(currentImpulse)
-    {
-        this._currentImpulse = currentImpulse;
-        return this;
-    },
-
-    /**
-     * Returns the current impulse speed
-     *
-     * @return {Integer}
-     */
-    getCurrentImpulse: function()
-    {
-        return this._currentImpulse;
     },
 
     /**

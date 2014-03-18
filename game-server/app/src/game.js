@@ -4,14 +4,24 @@ var world = require('./world'),
     _ = require('lodash'),
     pomelo = require('pomelo'),
     Channel = require('./channel'),
-    physics = require('./physics');
+    physics = require('./physics'),
+    Station = require('./models/Station');
 
 var channel = new Channel();
 
 var running = false;
 
 var shipRegistry = new world.ShipRegistry();
+var objectRegistry = new world.ObjectRegistry();
 var actionManager = new ActionManager();
+
+var spaceStationOne = new Station('Space Station One');
+spaceStationOne.setPosition(world.getRandomPosition());
+objectRegistry.addObject(spaceStationOne);
+
+var spaceStationTwo = new Station('Space Station Two');
+spaceStationTwo.setPosition(world.getRandomPosition());
+objectRegistry.addObject(spaceStationTwo);
 
 var exp = module.exports;
 
@@ -21,6 +31,10 @@ exp.getShipRegistry = function() {
 
 exp.start = function() {
     if (!running) {
+        _.forEach(shipRegistry.getAllShips(), function(ship) {
+            ship.setPosition(world.getRandomPosition());
+        });
+
         timer.run(actionManager);
         running = true;
     }
@@ -41,6 +55,11 @@ exp.moveShips = function() {
         me.moveShip(ship);
     });
 };
+
+exp.getObjectRegistry = function()
+{
+    return objectRegistry;
+}
 
 exp.moveShip = function(ship) {
     var lastMove = ship.getLastMove();
@@ -67,6 +86,10 @@ exp.sendKnownWorld = function(ship)
         if (ship != othership) {
             ships.push(othership.serializeMapData());
         }
+    });
+
+    _.forEach(objectRegistry.getAllObjects(), function(spaceObject) {
+        ships.push(spaceObject.serializeMapData());
     });
 
     channel.pushToShip(ship, 'WorldUpdate', {ship: ship.serialize(), ships: ships});
