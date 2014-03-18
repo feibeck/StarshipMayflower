@@ -1,4 +1,4 @@
-s(function() {
+(function() {
     'use strict';
 
 var StarshipMayflowerGameControllers = angular.module('StarshipMayflowerGameControllers', []);
