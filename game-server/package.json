@@ -15,7 +15,7 @@
         "grunt-jasmine-node": "latest"
     },
     "scripts": {
-        "test": "grunt travis --verbose"
+        "test": "grunt travis"
     }
 }
 
