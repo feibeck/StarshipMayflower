@@ -18,7 +18,8 @@
         "grunt": "latest",
         "grunt-cli": "latest",
         "grunt-contrib-jshint": "latest",
-        "grunt-jasmine-node": "latest"
+        "grunt-jasmine-node": "latest",
+        "grunt-contrib-watch": "latest"
     },
     "scripts": {
         "test": "grunt jasmine"

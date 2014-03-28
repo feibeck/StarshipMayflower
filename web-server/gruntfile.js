@@ -28,6 +28,17 @@ module.exports = function(grunt) {
                     "public/css/StarshipMayflower.css": "public/less/StarshipMayflower.less"
                 }
             }
+        },
+
+        watch: {
+            scripts: {
+                files: ['**/*.css'],
+                tasks: ['less'],
+                options: {
+                    event: ['changed'],
+                    reload: true
+                }
+            }
         }
 
     });
