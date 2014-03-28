@@ -39,6 +39,12 @@ StarshipMayflowerGameControllers.controller('GameCtrl', ['$scope', '$location', 
             }
         };
 
+        $scope.select = function() {
+            if (angular.isFunction(this.pane.select)) {
+                this.pane.select();
+            }
+        };
+
         $scope.panes = [];
 
         Pomelo.request(
@@ -172,6 +178,10 @@ StarshipMayflowerGameControllers.controller('MapCtrl', ['$scope', 'Pomelo',
             $scope.ship = world.ship;
             $scope.otherships = world.ships;
         });
+
+        $scope.pane.select = function() {
+          $scope.$emit('selected');
+        };
     }
 
 ]);
