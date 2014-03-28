@@ -5,5 +5,6 @@ node_js:
 -   '0.8'
 before_install:
   - "npm install -g grunt-cli"
+  - "npm init"
   - "npm i -g jasmine-node"
   - "cd game-server/"
