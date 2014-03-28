@@ -80,9 +80,9 @@
 
     );
 
-    MapService.directive('ssmMap', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject',
+    MapService.directive('ssmMap', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject', 'MapObjectTable',
 
-        function(THREE, MapConstants, MapGrid, $window, MapObject) {
+        function(THREE, MapConstants, MapGrid, $window, MapObject, MapObjectTable) {
 
             var scene = new THREE.Scene();
 
@@ -98,6 +98,8 @@
             var pickingScene = new THREE.Scene();
             var pickingRenderer = new THREE.WebGLRenderer({antialias: false});
             var pickingRenderTarget;
+
+            var objectTable = new MapObjectTable();
 
             camera.position.z = MapConstants.AU * 2;
             camera.position.x = MapConstants.AU * 2;
@@ -123,10 +125,15 @@
 
             var shipMapObject;
             var otherShipMapObjects = [];
+            var objectToShip = {};
 
             function render() {
                 renderer.render(scene, camera);
-            };
+
+                if (pickingRenderTarget) {
+                    pickingRenderer.render(pickingScene, camera);
+                }
+            }
 
             function cameraMove()
             {
@@ -184,6 +191,33 @@
                 });
             }
 
+            function attachMouseListeners(elt) {
+                elt.addEventListener('mousemove', function(e) {
+                    var rect = elt.getBoundingClientRect();
+                    var mouseX = e.clientX - rect.left;
+                    var mouseY = e.clientY - rect.top;
+                    var selectedObject = getObjectAt(mouseX, mouseY);
+
+                    if (selectedObject) {
+                        console.log('mouseover ship ' + objectToShip[selectedObject.getId()].name);
+                    }
+                })
+            }
+
+            function getObjectAt(x, y) {
+                if (!pickingRenderTarget) {
+                    return undefined;
+                }
+
+                var gl = pickingRenderer.getContext();
+                var pixelBuffer = new Uint8Array(4);
+				gl.readPixels(x, pickingRenderTarget.height - y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixelBuffer);
+
+                var id = (pixelBuffer[0] << 16) | (pixelBuffer[1] << 8) | pixelBuffer[2];
+
+                return objectTable.get(id);
+            }
+
             var width;
             var height;
 
@@ -201,6 +235,7 @@
                     $scope.camera = camera;
 
                     element.append(renderer.domElement);
+                    attachMouseListeners(renderer.domElement);
 
                     setSize(element);
 
@@ -224,9 +259,14 @@
                         }
 
                         if (!shipMapObject) {
-                            shipMapObject = new MapObject('lime', {orientation: true});
+                            var objectId = objectTable.getId();
+
+                            shipMapObject = new MapObject('lime', objectId, {orientation: true});
                             shipMapObject.setRenderScene(scene);
                             shipMapObject.setPickingScene(pickingScene);
+
+                            objectTable.set(objectId, shipMapObject);
+                            objectToShip[objectId] = ship;
                         }
 
                         shipMapObject.setPosition(ship.position.x, ship.position.y, ship.position.z);
@@ -246,10 +286,14 @@
                         angular.forEach(ships, function(ship) {
 
                             if (!otherShipMapObjects[ship.id]) {
+                                var objectId = objectTable.getId();
 
-                                otherShipMapObjects[ship.id] = new MapObject('grey');
+                                otherShipMapObjects[ship.id] = new MapObject('grey', objectId);
                                 otherShipMapObjects[ship.id].setRenderScene(scene);
                                 otherShipMapObjects[ship.id].setPickingScene(pickingScene);
+
+                                objectTable.set(objectId, otherShipMapObjects[ship.id]);
+                                objectToShip[objectId] = ship;
                             }
 
                             otherShipMapObjects[ship.id].setPosition(ship.position.x, ship.position.y, ship.position.z);
@@ -265,6 +309,37 @@
 
             };
 
+        }
+    ]);
+
+    MapService.factory('MapObjectTable', [
+        function() {
+            function MapObjectTable() {
+                this._hashtable = {};
+                this._id = 10;
+            }
+
+            MapObjectTable.prototype.getId = function() {
+                return this._id++;
+            };
+
+            MapObjectTable.prototype.set = function(id, object) {
+                this._hashtable[id] = object;
+                return this;
+            };
+
+            MapObjectTable.prototype.add = function(object) {
+                var id = this._id++;
+
+                this._hashtable[id++] = object;
+                return id;
+            };
+
+            MapObjectTable.prototype.get = function(id) {
+                return this._hashtable[id];
+            };
+
+            return MapObjectTable;
         }
     ]);
 
@@ -310,7 +385,7 @@
         {
             var parent = MapObjectBase.prototype;
 
-            function MapObjectPicker(color, options)
+            function MapObjectPicker(id, options)
             {
                 parent.constructor.apply(this, arguments);
 
@@ -318,13 +393,9 @@
                     this.options.orientation = false;
                 }
 
-                if (!color) {
-                    color = 'lime';
-                }
-
                 this.mesh = new THREE.Mesh(
                     new THREE.CubeGeometry(5, 5, 5),
-                    new THREE.MeshBasicMaterial({color: color})
+                    new THREE.MeshBasicMaterial({color: new THREE.Color(id)})
                 );
             }
 
@@ -475,10 +546,12 @@
     MapService.factory('MapObject', ['THREE', 'MapObjectActor', 'MapObjectPicker',
         function(THREE, MapObjectActor, MapObjectPicker)
         {
-            function MapObject(color, options)
+            function MapObject(color, id, options)
             {
+                this.options = options;
+                this._id = id;
                 this.actor = new MapObjectActor(color, options);
-                this.picker = new MapObjectPicker(color, options);
+                this.picker = new MapObjectPicker(id, options);
             }
 
             ['setPosition', 'scale'].forEach(function(method) {
@@ -501,6 +574,10 @@
             MapObject.prototype.setPickingScene = function(scene) {
                 this.picker.setScene(scene);
             };
+
+            MapObject.prototype.getId = function(id) {
+                return this._id;
+            }
 
             return MapObject;
         }
