@@ -1,3 +1,4 @@
+<a href="https://travis-ci.org/ireznik/StarshipMayflower"><img src="https://travis-ci.org/ireznik/StarshipMayflower.svg?branch=master"></a>
 Starship Mayflower
 ==================
 
