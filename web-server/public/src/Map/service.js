@@ -1,7 +1,5 @@
-(function() {
+define(['./module', 'angular'], function (MapService, angular) {
     'use strict';
-
-    var MapService = angular.module('MapService', ['ThreeService']);
 
     /**
      * Defines the length of an astronomical unit
@@ -642,4 +640,4 @@
         }
     ]);
 
-})();
+});

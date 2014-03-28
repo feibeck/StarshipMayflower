@@ -1,0 +1,3 @@
+define([
+    './controller/StarshipMayflowerLobbyControllers'
+], function () {});

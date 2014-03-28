@@ -1,7 +1,6 @@
-(function() {
-    'use strict';
+define(['../module'], function (StarshipMayflowerLobbyControllers) {
 
-    var StarshipMayflowerLobbyControllers = angular.module('StarshipMayflowerLobbyControllers', ['ui.bootstrap']);
+    'use strict';
 
     StarshipMayflowerLobbyControllers.controller('ShipListCtrl', ['$scope', '$location', '$modal', 'Pomelo',
         function ($scope, $location, $modal, Pomelo) {
@@ -189,4 +188,4 @@
 
         }]);
 
-})();
+});

@@ -1,14 +1,5 @@
-(function() {
+define(['./module'], function (StarshipMayflowerServices) {
     'use strict';
-
-    var StarshipMayflowerServices = angular.module('StarshipMayflowerServices', []);
-
-    var myApp = angular.module('myApp',[]);
-    myApp.factory('UserService', function() {
-        return {
-            name : 'anonymous'
-        };
-    });
 
     StarshipMayflowerServices.factory('Player', [
         function()
@@ -91,4 +82,4 @@
 
         }]);
 
-})();
+});

@@ -1,7 +1,9 @@
-(function() {
+define([
+    './module',
+    'three',
+    'orbit-controls'
+], function (ThreeService, THREE) {
     'use strict';
-
-    var ThreeService = angular.module('ThreeService', []);
 
     ThreeService.factory('THREE', [
         function()
@@ -10,4 +12,4 @@
         }
     ]);
 
-})();
+});

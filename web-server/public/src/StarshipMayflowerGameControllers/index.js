@@ -1,0 +1,3 @@
+define([
+    './controller/StarshipMayflowerGameControllers'
+], function () {});

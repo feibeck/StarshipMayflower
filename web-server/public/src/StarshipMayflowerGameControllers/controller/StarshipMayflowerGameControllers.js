@@ -1,7 +1,5 @@
-(function() {
+define(['../module', 'jquery', 'slider'], function (StarshipMayflowerGameControllers, $) {
     'use strict';
-
-var StarshipMayflowerGameControllers = angular.module('StarshipMayflowerGameControllers', []);
 
 StarshipMayflowerGameControllers.controller('GameCtrl', ['$scope', '$location', 'Pomelo',
 
@@ -222,4 +220,4 @@ StarshipMayflowerGameControllers.controller('DebugCtrl', ['$scope', '$location',
     }
 ]);
 
-})();
+});
