@@ -16,7 +16,8 @@
         "grunt-contrib-watch": "latest"
     },
     "scripts": {
-        "preinstall": "./npm-install.sh"
+        "preinstall": "./npm-install.sh",
+        "test": "grunt jasmine"
     }
 }
 

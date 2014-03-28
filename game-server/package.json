@@ -13,9 +13,6 @@
         "pomelo-collection": ">=0.1.0",
         "lodash": "2.4.1",
         "sylvester": "*"
-    },
-    "scripts": {
-        "test": "grunt jasmine"
     }
 }
 
