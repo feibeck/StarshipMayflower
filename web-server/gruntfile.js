@@ -55,5 +55,5 @@ module.exports = function(grunt) {
         grunt.task.run('watch');
     });
 
-    grunt.registerTask('default', ['start', 'watch', 'jshint', 'less']);
+    grunt.registerTask('default', ['less', 'start', 'watch', 'jshint']);
 };
