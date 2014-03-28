@@ -1,5 +1,7 @@
 {
     "name":"StarshipMayflower",
+    "description": "A starship bridge simulator running in your browser",
+    "author": "Florian Eibeck and others",
     "version":"0.0.1",
     "private":false,
     "scripts": {
