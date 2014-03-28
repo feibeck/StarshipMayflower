@@ -32,11 +32,11 @@ module.exports = function(grunt) {
 
         watch: {
             scripts: {
-                files: ['**/*.css'],
+                files: ['**/*.less'],
                 tasks: ['less'],
                 options: {
                     event: ['changed'],
-                    reload: true
+                    nospawn: true
                 }
             }
         }
@@ -45,6 +45,15 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.registerTask('default', ['jshint']);
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
+    grunt.registerTask('start', function() {
+        grunt.util.spawn({
+            cmd: 'node',
+            args: ['app.js']
+        });
+        grunt.task.run('watch');
+    });
+
+    grunt.registerTask('default', ['start', 'watch', 'jshint']);
 };

@@ -9,6 +9,7 @@
         "url" : "https://github.com/feibeck/StarshipMayflower.git"
     },
     "dependencies": {
-        "express": "2.5.2",
+        "express": "2.5.2"
     }
+
 }
