@@ -16,7 +16,6 @@ module.exports = function(grunt) {
         },
 
         jasmine_node: {
-            specNameMatcher: "Spec", // load only specs containing specNameMatcher
             projectRoot: "app"
         }
 
@@ -24,6 +23,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jasmine-node');
-
-    grunt.registerTask('default', ['jasmine_node']);
+    grunt.registerTask('default', ['jshint']);
+    grunt.registerTask('jasmine', ['jasmine_node']);
 };
