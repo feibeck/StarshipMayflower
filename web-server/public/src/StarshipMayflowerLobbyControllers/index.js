@@ -1,3 +1,5 @@
 define([
-    './controller/StarshipMayflowerLobbyControllers'
+    './controllers/LoginCtrl',
+    './controllers/ShipCtrl',
+    './controllers/ShipListCtrl'
 ], function () {});
