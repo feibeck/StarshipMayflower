@@ -25,5 +25,4 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jasmine-node');
 
     grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('jasmine', ['jasmine_node']);
 };
