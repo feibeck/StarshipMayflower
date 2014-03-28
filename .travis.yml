@@ -8,5 +8,4 @@ before_install:
   - "npm install -g grunt-cli"
   - "npm i -g jasmine-node"
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'game-server' ]; then cd .. && eval "mv $currentfolder
-    npm test;
+  - if [ "$currentfolder" != 'game-server' ]; then cd .. && eval "mv $currentfolder game-server" && cd game-server;
