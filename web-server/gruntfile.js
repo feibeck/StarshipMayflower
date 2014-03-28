@@ -38,6 +38,14 @@ module.exports = function(grunt) {
                     event: ['changed'],
                     nospawn: true
                 }
+            },
+            scripts: {
+                files: ['**/*.css'],
+                tasks: ['less'],
+                options: {
+                    event: ['deleted'],
+                    nospawn: true
+                }
             }
         }
 
@@ -47,9 +55,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-
-    grunt.registerTask('less', ['less']);
     grunt.registerTask('start', function() {
+        if(!grunt.file.exists('./public/css/StarshipMayflower.css')) {
+            grunt.task.run('less');
+        }
         grunt.util.spawn({
             cmd: 'node',
             args: ['app.js']
@@ -57,5 +66,5 @@ module.exports = function(grunt) {
         grunt.task.run('watch');
     });
 
-    grunt.registerTask('default', ['start', 'watch', 'jshint']);
+    grunt.registerTask('default', ['jshint']);
 };
