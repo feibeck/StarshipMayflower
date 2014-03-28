@@ -9,8 +9,7 @@
       "url" : "https://github.com/feibeck/StarshipMayflower.git"
     },
     "scripts": {
-        "preinstall": "./npm-install.sh",
-        "test": "grunt jasmine"
+        "preinstall": "./npm-install.sh"
     }
 }
 
