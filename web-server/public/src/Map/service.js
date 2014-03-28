@@ -186,6 +186,10 @@
 
                     scaleModels();
 
+                    $scope.$parent.$on('selected', function() {
+                        setSize(element);
+                    });
+
                     $scope.$watch('ship', function() {
 
                         var ship = $scope.ship;
