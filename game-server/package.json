@@ -15,7 +15,7 @@
         "sylvester": "*"
     },
     "scripts": {
-        "test": "grunt jasmine_node"
+        "test": "grunt"
     }
 }
 

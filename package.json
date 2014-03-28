@@ -17,7 +17,7 @@
     },
     "scripts": {
         "preinstall": "./npm-install.sh",
-        "test": "grunt jasmine_node"
+        "test": "grunt"
     }
 }
 
