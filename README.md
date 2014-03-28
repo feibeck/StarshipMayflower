@@ -36,6 +36,10 @@ $ grunt less
 ```
 to generate the CSS file.
 
+
+You can look into the scripts-dir: the install.sh should do all for you.
+
+
 Run server
 ==========
 
