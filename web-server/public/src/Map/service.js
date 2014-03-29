@@ -74,7 +74,7 @@
 
                 }
 
-            }
+            };
 
         }]
 
@@ -166,7 +166,7 @@
                 renderer.setSize(width, height);
                 pickingRenderer.setSize(width, height);
 
-                createPickingRenderTarget(width, height)
+                createPickingRenderTarget(width, height);
 
                 camera.aspect = width / height;
                 camera.updateProjectionMatrix();
@@ -201,7 +201,7 @@
                     if (selectedObject) {
                         console.log('mouseover ship ' + objectToShip[selectedObject.getId()].name);
                     }
-                })
+                });
             }
 
             function getObjectAt(x, y) {
@@ -312,11 +312,14 @@
         }
     ]);
 
+    /**
+     * Simple mapping class for mapping objects to selection buffer ids.
+     */
     MapService.factory('MapObjectTable', [
         function() {
             function MapObjectTable() {
                 this._hashtable = {};
-                this._id = 10;
+                this._id = 1;
             }
 
             MapObjectTable.prototype.getId = function() {
@@ -329,7 +332,7 @@
             };
 
             MapObjectTable.prototype.add = function(object) {
-                var id = this._id++;
+                var id = this.getId();
 
                 this._hashtable[id++] = object;
                 return id;
@@ -344,7 +347,7 @@
     ]);
 
     /**
-     * A class to represent an object on the map
+     * Base class to represent an object on the map
      */
     MapService.factory('MapObjectBase', ['THREE',
         function(THREE)
@@ -378,7 +381,7 @@
     ]);
 
     /**
-     * A class to represent an object on the map
+     * Picker object for the selection map.
      */
     MapService.factory('MapObjectPicker', ['THREE', 'MapObjectBase',
         function(THREE, MapObjectBase)
@@ -407,7 +410,7 @@
     ]);
 
     /**
-     * A class to represent an object on the map
+     * The visible object in the scene.
      */
     MapService.factory('MapObjectActor', ['THREE', 'MapObjectBase',
         function(THREE, MapObjectBase)
@@ -541,7 +544,7 @@
     ]);
 
     /**
-     * A class to represent an object on the map
+     * Proxy for combining Picker and Actor into a single class.
      */
     MapService.factory('MapObject', ['THREE', 'MapObjectActor', 'MapObjectPicker',
         function(THREE, MapObjectActor, MapObjectPicker)
@@ -577,7 +580,7 @@
 
             MapObject.prototype.getId = function(id) {
                 return this._id;
-            }
+            };
 
             return MapObject;
         }
