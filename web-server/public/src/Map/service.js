@@ -334,7 +334,7 @@
             MapObjectTable.prototype.add = function(object) {
                 var id = this.getId();
 
-                this._hashtable[id++] = object;
+                this._hashtable[id] = object;
                 return id;
             };
 
