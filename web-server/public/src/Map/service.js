@@ -211,7 +211,7 @@
 
                 var gl = pickingRenderer.getContext();
                 var pixelBuffer = new Uint8Array(4);
-				gl.readPixels(x, pickingRenderTarget.height - y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixelBuffer);
+                gl.readPixels(x, pickingRenderTarget.height - y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixelBuffer);
 
                 var id = (pixelBuffer[0] << 16) | (pixelBuffer[1] << 8) | pixelBuffer[2];
 
@@ -334,7 +334,7 @@
             MapObjectTable.prototype.add = function(object) {
                 var id = this.getId();
 
-                this._hashtable[id] = object;
+                this.set(id, object);
                 return id;
             };
 
