@@ -74,15 +74,15 @@
 
                 }
 
-            }
+            };
 
         }]
 
     );
 
-    MapService.directive('ssmMap', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject',
+    MapService.directive('ssmMap', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject', 'MapObjectTable',
 
-        function(THREE, MapConstants, MapGrid, $window, MapObject) {
+        function(THREE, MapConstants, MapGrid, $window, MapObject, MapObjectTable) {
 
             var scene = new THREE.Scene();
 
@@ -94,6 +94,12 @@
                 1,
                 1000000000
             );
+
+            var pickingScene = new THREE.Scene();
+            var pickingRenderer = new THREE.WebGLRenderer({antialias: false});
+            var pickingRenderTarget;
+
+            var objectTable = new MapObjectTable();
 
             camera.position.z = MapConstants.AU * 2;
             camera.position.x = MapConstants.AU * 2;
@@ -119,11 +125,37 @@
 
             var shipMapObject;
             var otherShipMapObjects = [];
+            var objectToShip = {};
+
+            function render() {
+                renderer.render(scene, camera);
+
+                if (pickingRenderTarget) {
+                    pickingRenderer.render(pickingScene, camera);
+                }
+            }
 
             function cameraMove()
             {
                 scaleModels();
-                renderer.render(scene, camera);
+                render();
+            }
+
+            function createPickingRenderTarget(width, height)
+            {
+                if (pickingRenderTarget) {
+                    pickingRenderTarget.dispose();
+                }
+
+                pickingRenderTarget = new THREE.WebGLRenderTarget(width, height, {
+                    depthBuffer: false,
+                    stencilBuffer: false,
+                    generateMipmaps: false,
+                    format: THREE.RGBAFormat,
+                    type: THREE.UnsignedByteType
+                });
+
+                pickingRenderer.setRenderTarget(pickingRenderTarget);
             }
 
             function setSize(element)
@@ -131,15 +163,15 @@
                 width = element.width();
                 height = element.height();
 
-                renderer.setSize(
-                    width,
-                    height
-                );
+                renderer.setSize(width, height);
+                pickingRenderer.setSize(width, height);
+
+                createPickingRenderTarget(width, height);
 
                 camera.aspect = width / height;
                 camera.updateProjectionMatrix();
 
-                renderer.render(scene, camera);
+                render();
             }
 
             function scaleModels()
@@ -159,6 +191,33 @@
                 });
             }
 
+            function attachMouseListeners(elt) {
+                elt.addEventListener('mousemove', function(e) {
+                    var rect = elt.getBoundingClientRect();
+                    var mouseX = e.clientX - rect.left;
+                    var mouseY = e.clientY - rect.top;
+                    var selectedObject = getObjectAt(mouseX, mouseY);
+
+                    if (selectedObject) {
+                        console.log('mouseover ship ' + objectToShip[selectedObject.getId()].name);
+                    }
+                });
+            }
+
+            function getObjectAt(x, y) {
+                if (!pickingRenderTarget) {
+                    return undefined;
+                }
+
+                var gl = pickingRenderer.getContext();
+                var pixelBuffer = new Uint8Array(4);
+                gl.readPixels(x, pickingRenderTarget.height - y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixelBuffer);
+
+                var id = (pixelBuffer[0] << 16) | (pixelBuffer[1] << 8) | pixelBuffer[2];
+
+                return objectTable.get(id);
+            }
+
             var width;
             var height;
 
@@ -176,6 +235,7 @@
                     $scope.camera = camera;
 
                     element.append(renderer.domElement);
+                    attachMouseListeners(renderer.domElement);
 
                     setSize(element);
 
@@ -199,8 +259,14 @@
                         }
 
                         if (!shipMapObject) {
-                            shipMapObject = new MapObject('lime', {orientation: true});
-                            shipMapObject.setScene(scene);
+                            var objectId = objectTable.getId();
+
+                            shipMapObject = new MapObject('lime', objectId, {orientation: true});
+                            shipMapObject.setRenderScene(scene);
+                            shipMapObject.setPickingScene(pickingScene);
+
+                            objectTable.set(objectId, shipMapObject);
+                            objectToShip[objectId] = ship;
                         }
 
                         shipMapObject.setPosition(ship.position.x, ship.position.y, ship.position.z);
@@ -210,7 +276,7 @@
 
                         scaleModels();
 
-                        renderer.render(scene, camera);
+                        render();
                     });
 
                     $scope.$watch('otherships', function() {
@@ -220,9 +286,14 @@
                         angular.forEach(ships, function(ship) {
 
                             if (!otherShipMapObjects[ship.id]) {
+                                var objectId = objectTable.getId();
 
-                                otherShipMapObjects[ship.id] = new MapObject('grey');
-                                otherShipMapObjects[ship.id].setScene(scene);
+                                otherShipMapObjects[ship.id] = new MapObject('grey', objectId);
+                                otherShipMapObjects[ship.id].setRenderScene(scene);
+                                otherShipMapObjects[ship.id].setPickingScene(pickingScene);
+
+                                objectTable.set(objectId, otherShipMapObjects[ship.id]);
+                                objectToShip[objectId] = ship;
                             }
 
                             otherShipMapObjects[ship.id].setPosition(ship.position.x, ship.position.y, ship.position.z);
@@ -231,7 +302,7 @@
                         });
 
                         scaleModels();
-                        renderer.render(scene, camera);
+                        render();
                     });
 
                 }
@@ -242,14 +313,114 @@
     ]);
 
     /**
-     * A class to represent an object on the map
+     * Simple mapping class for mapping objects to selection buffer ids.
      */
-    MapService.factory('MapObject', ['THREE',
+    MapService.factory('MapObjectTable', [
+        function() {
+            function MapObjectTable() {
+                this._hashtable = {};
+                this._id = 1;
+            }
+
+            MapObjectTable.prototype.getId = function() {
+                return this._id++;
+            };
+
+            MapObjectTable.prototype.set = function(id, object) {
+                this._hashtable[id] = object;
+                return this;
+            };
+
+            MapObjectTable.prototype.add = function(object) {
+                var id = this.getId();
+
+                this.set(id, object);
+                return id;
+            };
+
+            MapObjectTable.prototype.get = function(id) {
+                return this._hashtable[id];
+            };
+
+            return MapObjectTable;
+        }
+    ]);
+
+    /**
+     * Base class to represent an object on the map
+     */
+    MapService.factory('MapObjectBase', ['THREE',
         function(THREE)
         {
-            function MapObject(color, options)
+            function MapObjectBase(color, options)
             {
                 this.options = options || {};
+
+                this.mesh = null;
+            }
+
+            MapObjectBase.prototype.setPosition = function(x, y, z)
+            {
+                this.mesh.position.set(x, y, z);
+            };
+
+            MapObjectBase.prototype.scale = function(size)
+            {
+                this.mesh.scale.x = size;
+                this.mesh.scale.y = size;
+                this.mesh.scale.z = size;
+            };
+
+            MapObjectBase.prototype.setScene = function(scene)
+            {
+                scene.add(this.mesh);
+            };
+
+            return MapObjectBase;
+        }
+    ]);
+
+    /**
+     * Picker object for the selection map.
+     */
+    MapService.factory('MapObjectPicker', ['THREE', 'MapObjectBase',
+        function(THREE, MapObjectBase)
+        {
+            var parent = MapObjectBase.prototype;
+
+            function MapObjectPicker(id, options)
+            {
+                parent.constructor.apply(this, arguments);
+
+                if (!this.options.orientation) {
+                    this.options.orientation = false;
+                }
+
+                this.mesh = new THREE.Mesh(
+                    new THREE.CubeGeometry(5, 5, 5),
+                    new THREE.MeshBasicMaterial({color: new THREE.Color(id)})
+                );
+            }
+
+            MapObjectPicker.prototype = Object.create(parent);
+            MapObjectPicker.prototype.constructor = MapObjectPicker;
+
+            return MapObjectPicker;
+        }
+    ]);
+
+    /**
+     * The visible object in the scene.
+     */
+    MapService.factory('MapObjectActor', ['THREE', 'MapObjectBase',
+        function(THREE, MapObjectBase)
+        {
+            var parent = MapObjectBase.prototype;
+
+            function MapObjectActor(color, options)
+            {
+                parent.constructor.apply(this, arguments);
+
                 if (!this.options.orientation) {
                     this.options.orientation = false;
                 }
@@ -300,9 +471,12 @@
                 this.objectProjectionLine.geometry.dynamic = true;
             }
 
-            MapObject.prototype.setPosition = function(x, y, z)
+            MapObjectActor.prototype = Object.create(parent);
+            MapObjectActor.prototype.constructor = MapObjectActor;
+
+            MapObjectActor.prototype.setPosition = function(x, y, z)
             {
-                this.mesh.position.set(x, y, z);
+                parent.setPosition.apply(this, arguments);
 
                 if (this.options.orientation) {
                     this.headingArrow.position.set(x, y, z);
@@ -321,32 +495,30 @@
                 this.objectProjectionLine.geometry.verticesNeedUpdate = true;
             };
 
-            MapObject.prototype.setHeading = function(x, y, z)
+            MapObjectActor.prototype.setHeading = function(x, y, z)
             {
                 if (this.options.orientation) {
                     this.headingArrow.setDirection(new THREE.Vector3(x, y, z));
                 }
             };
 
-            MapObject.prototype.setShipX= function(x, y, z)
+            MapObjectActor.prototype.setShipX= function(x, y, z)
             {
                 if (this.options.orientation) {
                     this.shipArrowX.setDirection(new THREE.Vector3(x, y, z));
                 }
             };
 
-            MapObject.prototype.setShipY= function(x, y, z)
+            MapObjectActor.prototype.setShipY= function(x, y, z)
             {
                 if (this.options.orientation) {
                     this.shipArrowY.setDirection(new THREE.Vector3(x, y, z));
                 }
             };
 
-            MapObject.prototype.scale = function(size)
+            MapObjectActor.prototype.scale = function(size)
             {
-                this.mesh.scale.x = size;
-                this.mesh.scale.y = size;
-                this.mesh.scale.z = size;
+                parent.scale.apply(this, arguments);
 
                 if (this.options.orientation) {
                     this.headingArrow.scale.x = this.shipArrowX.scale.x = this.shipArrowY.scale.x = size;
@@ -355,15 +527,59 @@
                 }
             };
 
-            MapObject.prototype.setScene = function(scene)
+            MapObjectActor.prototype.setScene = function(scene)
             {
-                scene.add(this.mesh);
+                parent.setScene.apply(this, arguments);
+
                 scene.add(this.objectProjectionLine);
                 if (this.options.orientation) {
                     scene.add(this.headingArrow);
                     scene.add(this.shipArrowX);
                     scene.add(this.shipArrowY);
                 }
+            };
+
+            return MapObjectActor;
+        }
+    ]);
+
+    /**
+     * Proxy for combining Picker and Actor into a single class.
+     */
+    MapService.factory('MapObject', ['THREE', 'MapObjectActor', 'MapObjectPicker',
+        function(THREE, MapObjectActor, MapObjectPicker)
+        {
+            function MapObject(color, id, options)
+            {
+                this.options = options;
+                this._id = id;
+                this.actor = new MapObjectActor(color, options);
+                this.picker = new MapObjectPicker(id, options);
+            }
+
+            ['setPosition', 'scale'].forEach(function(method) {
+                MapObject.prototype[method] = function() {
+                    this.actor[method].apply(this.actor, arguments);
+                    this.picker[method].apply(this.picker, arguments);
+                };
+            });
+
+            ['setHeading', 'setShipX', 'setShipY'].forEach(function(method) {
+                MapObject.prototype[method] = function() {
+                    this.actor[method].apply(this.actor, arguments);
+                };
+            });
+
+            MapObject.prototype.setRenderScene = function(scene) {
+                this.actor.setScene(scene);
+            };
+
+            MapObject.prototype.setPickingScene = function(scene) {
+                this.picker.setScene(scene);
+            };
+
+            MapObject.prototype.getId = function(id) {
+                return this._id;
             };
 
             return MapObject;
