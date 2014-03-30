@@ -1,8 +1,15 @@
-define(['../module', 'angular'], function (MapService, angular) {
+define([
+    '../module',
+    'angular',
+    'Grid',
+    'Constants',
+    'MapObject',
+    'MapObjectTable'
+], function (MapService, angular, Grid, Constants, MapObject, MapObjectTable) {
     'use strict';
 
-    MapService.directive('ssmMap', ['THREE', 'MapConstants', 'MapGrid', '$window', 'MapObject', 'MapObjectTable',
-        function(THREE, MapConstants, MapGrid, $window, MapObject, MapObjectTable) {
+    MapService.directive('ssmMap', ['THREE', '$window',
+        function(THREE, $window) {
 
             var scene = new THREE.Scene();
 
@@ -21,27 +28,27 @@ define(['../module', 'angular'], function (MapService, angular) {
 
             var objectTable = new MapObjectTable();
 
-            camera.position.z = MapConstants.AU * 2;
-            camera.position.x = MapConstants.AU * 2;
-            camera.position.y = MapConstants.AU * 2;
+            camera.position.z = Constants.AU * 2;
+            camera.position.x = Constants.AU * 2;
+            camera.position.y = Constants.AU * 2;
 
             camera.lookAt(
                 new THREE.Vector3(
-                    MapConstants.AU,
-                    MapConstants.AU,
-                    MapConstants.AU
+                    Constants.AU,
+                    Constants.AU,
+                    Constants.AU
                 )
             );
 
             var controls = new THREE.OrbitControls(camera);
             controls.target = new THREE.Vector3(
-                MapConstants.AU,
-                MapConstants.AU,
-                MapConstants.AU
+                Constants.AU,
+                Constants.AU,
+                Constants.AU
             );
             controls.addEventListener('change', cameraMove);
 
-            MapGrid.render(scene);
+            scene.add(new Grid());
 
             var shipMapObject;
             var otherShipMapObjects = [];
