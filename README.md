@@ -32,6 +32,10 @@ $ bower install
 
 The frontend uses LESS for generating CSS files. The grunt task for starting the web-server generates on startup a new CSS file.
 
+
+You can look into the scripts-dir: the install.sh should do all for you.
+
+
 Run server
 ==========
 

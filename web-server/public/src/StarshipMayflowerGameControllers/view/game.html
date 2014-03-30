@@ -1,5 +1,6 @@
 <tabset>
     <tab active="pane.active"
+         select="select()"
           heading="{{pane.title}}"
           ng-repeat="pane in panes">
         <div ng-include="pane.content" class="station-pane"></div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="StarshipMayflowerApp">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,23 +9,6 @@
 
     <link href="css/StarshipMayflower.css" rel="stylesheet">
     <link href="css/parallax.css" rel="stylesheet">
-
-    <script src="js/lib/socket.io.js"></script>
-    <script src="js/lib/pomeloclient.js"></script>
-
-    <script type="text/javascript" src="./components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/slider.js"></script>
-    <script type="text/javascript" src="./components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="./components/three.js/three.min.js"></script>
-    <script type="text/javascript" src="./js/lib/OrbitControls.js"></script>
-    <script type="text/javascript" src="./components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="./components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script type="text/javascript" src="src/StarshipMayflowerLobbyControllers/controller/StarshipMayflowerLobbyControllers.js"></script>
-    <script type="text/javascript" src="src/StarshipMayflowerGameControllers/controller/StarshipMayflowerGameControllers.js"></script>
-    <script type="text/javascript" src="src/StarshipMayflowerServices/services.js"></script>
-    <script type="text/javascript" src="./src/Three/service.js"></script>
-    <script type="text/javascript" src="./src/Map/service.js"></script>
-    <script type="text/javascript" src="./src/app.js"></script>
 
     <style>
         @import url(http://fonts.googleapis.com/css?family=Ruslan+Display);
@@ -48,6 +31,8 @@
 <body>
 
     <div id="main-ui" ui-view></div>
+
+    <script src="components/requirejs/require.js" data-main="src/main.js"></script>
 
 </body>
 
