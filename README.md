@@ -1,3 +1,4 @@
+<a href="https://travis-ci.org/ireznik/StarshipMayflower"><img src="https://travis-ci.org/ireznik/StarshipMayflower.svg?branch=master"></a>
 Starship Mayflower
 ==================
 
@@ -29,12 +30,7 @@ $ cd web-server
 $ bower install
 ```
 
-The frontend uses LESS for generating CSS files. There is a grunt target for building the CSS file: Run
-
-```
-$ grunt less
-```
-to generate the CSS file.
+The frontend uses LESS for generating CSS files. The grunt task for starting the web-server generates on startup a new CSS file.
 
 
 You can look into the scripts-dir: the install.sh should do all for you.
@@ -54,7 +50,7 @@ Start in a new shell the web-server by:
 
 ```
 $ cd web-server
-$ node app
+$ grunt start
 ```
 
 Open your browser and visit http://localhost:3001

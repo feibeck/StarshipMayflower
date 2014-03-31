@@ -28,12 +28,43 @@ module.exports = function(grunt) {
                     "public/css/StarshipMayflower.css": "public/less/StarshipMayflower.less"
                 }
             }
+        },
+
+        watch: {
+            scripts: {
+                files: ['**/*.less'],
+                tasks: ['less'],
+                options: {
+                    event: ['changed'],
+                    nospawn: true
+                }
+            },
+            scripts: {
+                files: ['**/*.css'],
+                tasks: ['less'],
+                options: {
+                    event: ['deleted'],
+                    nospawn: true
+                }
+            }
         }
 
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.registerTask('default', ['jshint']);
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
+    grunt.registerTask('start', function() {
+        if(!grunt.file.exists('./public/css/StarshipMayflower.css')) {
+            grunt.task.run('less');
+        }
+        grunt.util.spawn({
+            cmd: 'node',
+            args: ['app.js']
+        });
+        grunt.task.run('watch');
+    });
+
+    grunt.registerTask('default', ['jshint']);
 };

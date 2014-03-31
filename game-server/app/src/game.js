@@ -39,7 +39,7 @@ exp.start = function() {
 exp.getWorld = function()
 {
     return world;
-}
+};
 
 exp.isRunning = function()
 {
@@ -60,7 +60,7 @@ exp.moveShips = function() {
 exp.getObjectRegistry = function()
 {
     return objectRegistry;
-}
+};
 
 exp.moveShip = function(ship) {
     var lastMove = ship.getLastMove();
