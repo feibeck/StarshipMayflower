@@ -1,5 +1,14 @@
 module.exports = function(grunt) {
 
+    require('load-grunt-tasks')(grunt, {
+        pattern: 'grunt-*',
+        config:  'package.json',
+        scope:   [
+            'devDependencies',
+            'dependencies'
+        ]
+    });
+
     grunt.initConfig({
         jshint: {
             all: ['Gruntfile.js', 'public/src/**/*.js'],
@@ -38,30 +47,16 @@ module.exports = function(grunt) {
                     event: ['changed'],
                     nospawn: true
                 }
-            },
-            scripts: {
-                files: ['**/*.css'],
-                tasks: ['less'],
-                options: {
-                    event: ['deleted'],
-                    nospawn: true
-                }
             }
         }
 
     });
 
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
     grunt.registerTask('start', function() {
-        if(!grunt.file.exists('./public/css/StarshipMayflower.css')) {
-            grunt.task.run('less');
-        }
+        grunt.task.run('less');
         grunt.util.spawn({
             cmd: 'node',
-            args: ['app.js']
+            args: 'app.js'
         });
         grunt.task.run('watch');
     });
