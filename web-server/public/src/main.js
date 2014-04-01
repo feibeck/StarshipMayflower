@@ -13,6 +13,7 @@ require.config({
         'slider': '../js/slider',
         'Grid': '../js/Map/Grid',
         'Constants': '../js/Map/Constants',
+        'StarMap': '../js/Map/StarMap',
         'MapObject': '../js/Map/MapObject',
         'MapObjectBase': '../js/Map/MapObjectBase',
         'MapObjectPicker': '../js/Map/MapObjectPicker',
