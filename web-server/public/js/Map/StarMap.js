@@ -302,6 +302,8 @@ define([
 
             this.objectTable.set(objectId, this.shipMapObject);
             this.objectToShip[objectId] = ship;
+        } else {
+            this.objectToShip[this.shipMapObject.getId()] = ship;
         }
 
         this.shipMapObject.setPosition(ship.position.x, ship.position.y, ship.position.z);
@@ -325,6 +327,8 @@ define([
 
                 me.objectTable.set(objectId, me.otherShipMapObjects[ship.id]);
                 me.objectToShip[objectId] = ship;
+            } else {
+                me.objectToShip[me.otherShipMapObjects[ship.id].getId()] = ship;
             }
 
             me.otherShipMapObjects[ship.id].setPosition(
