@@ -10,6 +10,7 @@
         "bootswatch": "latest",
         "three.js": "latest",
         "requirejs": "latest",
-        "requirejs-domready": "latest"
+        "requirejs-domready": "latest",
+        "lodash": "latest"
     }
 }

@@ -4,9 +4,9 @@ define([
     'MapObjectTable',
     'Grid',
     'MapObject',
-    'angular',
+    'lodash',
     'orbit-controls'
-], function(THREE, Constants, MapObjectTable, Grid, MapObject, angular) {
+], function(THREE, Constants, MapObjectTable, Grid, MapObject, _) {
     'use strict';
 
     function Map() {
@@ -232,7 +232,7 @@ define([
         this.scaleSphere(this.selectionSphere, shipSize);
         this.scaleSphere(this.hoverSphere, shipSize);
 
-        angular.forEach(this.otherShipMapObjects, function(ship) {
+        _.forIn(this.otherShipMapObjects, function(ship) {
             ship.scale(shipSize);
         });
     };
@@ -316,7 +316,7 @@ define([
 
         var me = this;
 
-        angular.forEach(ships, function(ship) {
+        _.forIn(ships, function(ship) {
 
             if (!me.otherShipMapObjects[ship.id]) {
                 var objectId = me.objectTable.getId();

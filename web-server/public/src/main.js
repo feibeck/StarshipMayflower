@@ -4,6 +4,7 @@ require.config({
         'socketIo': '../js/lib/socket.io',
         'pomelo': '../js/lib/pomeloclient',
         'jquery': '../components/jquery/dist/jquery',
+        'lodash': '../components/lodash/dist/lodash',
         'domReady': '../components/requirejs-domready/domReady',
         'angular': '../components/angular/angular',
         'uiRouter': '../components/angular-ui-router/release/angular-ui-router',
