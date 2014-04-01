@@ -154,7 +154,36 @@ define([
 
         this.selectionSphere.visible = true;
 
-        this.dispatchEvent(this.getSelectEvent(selectedObject));
+        var course = this.courseToSeletedObject();
+
+        this.dispatchEvent(this.getSelectEvent(selectedObject, course));
+    };
+
+    Map.prototype.courseToSeletedObject = function() {
+
+        if (!this.selectedObject) {
+            return null;
+        }
+
+        var myShip = this.objectToShip[this.shipMapObject.getId()];
+
+        var point1 = new THREE.Vector3(
+            myShip.position.x,
+            myShip.position.y,
+            myShip.position.z
+        );
+        var point2 = new THREE.Vector3(
+            this.selectedObject.position.x,
+            this.selectedObject.position.y,
+            this.selectedObject.position.z
+        );
+        var distance = point1.distanceTo(point2);
+
+        var course = {
+            distance: distance
+        };
+
+        return course;
     };
 
     Map.prototype.getHoverEvent = function(mapObject) {
@@ -164,10 +193,11 @@ define([
         };
     };
 
-    Map.prototype.getSelectEvent = function(mapObject) {
+    Map.prototype.getSelectEvent = function(mapObject, course) {
         return {
             type: 'select',
-            mapObject: mapObject
+            mapObject: mapObject,
+            course: course
         };
     };
 

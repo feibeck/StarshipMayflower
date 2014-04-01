@@ -8,6 +8,7 @@
             paths: {
                 'domReady': '../../components/requirejs-domready/domReady',
                 'angular': '../../components/angular/angular',
+                'jquery': '../../components/jquery/dist/jquery',
                 'three': '../../components/three.js/three.min',
                 'orbit-controls': '../lib/OrbitControls',
                 'Grid': './Grid',
@@ -37,10 +38,12 @@
 </head>
 <body>
 <script>
-    require(['StarMap', 'MapObject', 'domReady!'], function(StarMap, MapObject) {
+    require(['StarMap', 'MapObject', 'jquery', 'domReady!'], function(StarMap, MapObject, $) {
         var map = new StarMap();
         map.setSize(600, 400);
         document.body.appendChild(map.getDomElement());
+
+        var selectedObject = null;
 
         var ship = {
             id: 1,
@@ -103,11 +106,14 @@
         map.scaleModels();
 
         map.addEventListener('hover', function(event) {
-            console.log("hover over ship " + event.mapObject.name);
+            //console.log("hover over ship " + event.mapObject.name);
         });
 
         map.addEventListener('select', function(event) {
             console.log("Selected ship " + event.mapObject.name);
+            console.log("Distance " + event.course.distance + "km");
+
+            selectedObject = event.mapObject;
         });
 
         map.addEventListener('unselect', function(event) {
@@ -119,8 +125,36 @@
             map.render();
         };
 
+        setInterval(function() {
+
+            ship.position.x += 100000;
+            ship.position.y += 100000;
+            ship.position.z += 100000;
+
+            map.updateShip(ship);
+            map.scaleModels();
+
+            if (selectedObject) {
+                $('#selectedship').show();
+                $('#shipname').html(selectedObject.name);
+                var course = map.courseToSeletedObject();
+                $('#distance').html(course.distance);
+            }
+
+        }, 100);
+
         render();
     });
 </script>
+
+<div id="selectedship" style="display: none;">
+    <dl>
+        <dt>Ship</dt>
+        <dd id="shipname"></dd>
+        <dt>Distance</dt>
+        <dd id="distance"></dd>
+    </dl>
+</div>
+
 </body>
 </html>
