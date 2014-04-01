@@ -10,7 +10,15 @@ require.config({
         'uiBootstrap': '../components/angular-bootstrap/ui-bootstrap-tpls',
         'three': '../components/three.js/three.min',
         'orbit-controls': '../js/lib/OrbitControls',
-        'slider': '../js/slider'
+        'slider': '../js/slider',
+        'Grid': '../js/Map/Grid',
+        'Constants': '../js/Map/Constants',
+        'StarMap': '../js/Map/StarMap',
+        'MapObject': '../js/Map/MapObject',
+        'MapObjectBase': '../js/Map/MapObjectBase',
+        'MapObjectPicker': '../js/Map/MapObjectPicker',
+        'MapObjectActor': '../js/Map/MapObjectActor',
+        'MapObjectTable': '../js/Map/MapObjectTable'
     },
 
     shim: {

@@ -1,0 +1,126 @@
+<html>
+<head>
+    <title>Map Test</title>
+    <style>canvas { width: 600px; height: 400px }</style>
+    <script>
+        var require = {
+
+            paths: {
+                'domReady': '../../components/requirejs-domready/domReady',
+                'angular': '../../components/angular/angular',
+                'three': '../../components/three.js/three.min',
+                'orbit-controls': '../lib/OrbitControls',
+                'Grid': './Grid',
+                'Constants': './Constants',
+                'StarMap': './StarMap',
+                'MapObject': './MapObject',
+                'MapObjectBase': './MapObjectBase',
+                'MapObjectPicker': './MapObjectPicker',
+                'MapObjectActor': './MapObjectActor',
+                'MapObjectTable': './MapObjectTable'
+            },
+
+            shim: {
+                'angular': {
+                    exports: 'angular'
+                },
+                'three': {
+                    exports: 'THREE'
+                },
+                'orbit-controls': {
+                    deps: ['three']
+                }
+            }
+        };
+    </script>
+    <script src="../../components/requirejs/require.js"></script>
+</head>
+<body>
+<script>
+    require(['StarMap', 'MapObject', 'domReady!'], function(StarMap, MapObject) {
+        var map = new StarMap();
+        map.setSize(600, 400);
+        document.body.appendChild(map.getDomElement());
+
+        var ship = {
+            id: 1,
+            name: 'My ship',
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            heading: {
+                x: 0,
+                y: 0,
+                z: 1
+            },
+            shipX: {
+                x: 1,
+                y: 0,
+                z: 0
+            },
+            shipY: {
+                x: 0,
+                y: 1,
+                z: 0
+            }
+        };
+
+        var mapObjects = [
+            {
+                id: 2,
+                name: 'Object 1',
+                position: {
+                    x: 149597870,
+                    y: 149597870,
+                    z: 149597870
+                },
+                heading: {
+                    x: 0,
+                    y: 0,
+                    z: 1
+                }
+            },
+            {
+                id: 3,
+                name: 'Object 2',
+                position: {
+                    x: 149597870 * 0.5,
+                    y: 149597870 * 0.5,
+                    z: 149597870
+                },
+                heading: {
+                    x: 0,
+                    y: 0,
+                    z: 1
+                }
+            }
+        ];
+
+        map.updateShip(ship);
+        map.updateOtherships(mapObjects);
+        map.scaleModels();
+
+        map.addEventListener('hover', function(event) {
+            console.log("hover over ship " + event.mapObject.name);
+        });
+
+        map.addEventListener('select', function(event) {
+            console.log("Selected ship " + event.mapObject.name);
+        });
+
+        map.addEventListener('unselect', function(event) {
+            console.log("Unselected ship");
+        });
+
+        var render = function () {
+            requestAnimationFrame(render);
+            map.render();
+        };
+
+        render();
+    });
+</script>
+</body>
+</html>
