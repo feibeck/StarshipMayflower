@@ -12,6 +12,21 @@
         </div>
 
         <div class="col-md-2">
+
+            <div>
+                <p style="font-weight: bold; color: white">Target</p>
+                <table>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ selectedObject.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Distance</td>
+                        <td>{{ course.distance | number: 0 }}km</td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
 
     </div>
