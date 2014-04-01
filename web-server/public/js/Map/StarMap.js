@@ -172,18 +172,49 @@ define([
             myShip.position.y,
             myShip.position.z
         );
+
         var point2 = new THREE.Vector3(
             this.selectedObject.position.x,
             this.selectedObject.position.y,
             this.selectedObject.position.z
         );
+
         var distance = point1.distanceTo(point2);
 
+        var heading = point2.sub(point1);
+
         var course = {
-            distance: distance
+            distance: distance,
+            heading: heading,
+            angleZX: this.getAngle(-heading.z, heading.x),
+            angleYZ: this.getAngle(-heading.z, heading.y)
         };
 
         return course;
+    };
+
+    Map.prototype.getAngle = function(x, y) {
+        var theta;
+
+        if (Math.abs(y) > Math.abs(x)) {
+            theta = Math.asin(y / Math.sqrt(x*x + y*y));
+
+            if (x < 0) {
+                theta = Math.PI - theta;
+            }
+        } else {
+            theta = Math.acos(x / Math.sqrt(x*x + y*y));
+
+            if (y < 0) {
+                theta *= -1;
+            }
+        }
+
+        if (theta < 0) {
+            theta = 2 * Math.PI + theta;
+        }
+
+        return theta / Math.PI * 180;
     };
 
     Map.prototype.getHoverEvent = function(mapObject) {
