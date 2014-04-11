@@ -2,11 +2,7 @@ module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt, {
         pattern: 'grunt-*',
-        config:  'package.json',
-        scope:   [
-            'devDependencies',
-            'dependencies'
-        ]
+        config:  'package.json'
     });
 
     grunt.initConfig({
@@ -48,16 +44,19 @@ module.exports = function(grunt) {
                     nospawn: true
                 }
             }
+        },
+
+        execute: {
+            target: {
+                src: ['app.js']
+            }
         }
 
     });
 
     grunt.registerTask('start', function() {
         grunt.task.run('less');
-        grunt.util.spawn({
-            cmd: 'node',
-            args: 'app.js'
-        });
+        grunt.task.run('execute');
         grunt.task.run('watch');
     });
 
