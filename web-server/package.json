@@ -1,15 +1,16 @@
 {
-    "name": "StarshipMayflower",
-    "description": "A starship bridge simulator running in your browser",
-    "author": "Florian Eibeck and others",
-    "version": "0.0.1",
-    "private": false,
+    "name":                         "StarshipMayflower",
+    "description":                  "A starship bridge simulator running in your browser",
+    "author":                       "Florian Eibeck and others",
+    "version":                      "0.0.1",
+    "private":                      false,
     "repository" : {
-        "type" : "git",
-        "url" : "https://github.com/feibeck/StarshipMayflower.git"
+        "type" :                    "git",
+        "url" :                     "https://github.com/feibeck/StarshipMayflower.git"
     },
     "dependencies": {
-        "express": "2.5.2"
+        "express":                  "2.5.2",
+        "bower":                    "latest"
     },
     "devDependencies": {
         "grunt":                    "latest",
@@ -18,7 +19,8 @@
         "grunt-contrib-watch":      "~0.3.1",
         "grunt-contrib-less":       "latest",
         "load-grunt-tasks":         "latest",
-        "grunt-execute":            "latest"
+        "grunt-execute":            "latest",
+        "grunt-forever":            "latest"
     }
 
 }

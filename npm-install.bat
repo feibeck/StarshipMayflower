@@ -2,3 +2,4 @@
 @echo off
 ::install web server dependencies && game server dependencies
 cd web-server && npm install -d && cd .. && cd game-server && npm install -d
+cd web-server && bower update && bower install

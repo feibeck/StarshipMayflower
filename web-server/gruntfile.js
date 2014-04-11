@@ -36,7 +36,7 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            scripts: {
+            less: {
                 files: ['**/*.less'],
                 tasks: ['less'],
                 options: {
@@ -50,13 +50,65 @@ module.exports = function(grunt) {
             target: {
                 src: ['app.js']
             }
+        },
+
+        forever: {
+            webserver: {
+                options: {
+                    index: 'app.js'
+                }
+            },
+            gameserver: {
+                options: {
+                    index: '../game-server/app.js'
+                }
+            }
         }
 
     });
 
+    grunt.registerTask('start-webserver', function() {
+        grunt.task.run('forever:webserver:start');
+    });
+
+    grunt.registerTask('stop-webserver', function() {
+        grunt.task.run('forever:webserver:stop');
+    });
+
+    grunt.registerTask('restart-webserver', function() {
+        grunt.task.run('forever:webserver:restart');
+    });
+
+    grunt.registerTask('start-gameserver', function() {
+        grunt.task.run('forever:gameserver:start');
+    });
+
+    grunt.registerTask('stop-gameserver', function() {
+        grunt.task.run('forever:gameserver:stop');
+    });
+
+    grunt.registerTask('restart-gameserver', function() {
+        grunt.task.run('forever:gameserver:restart');
+    });
+
+    grunt.registerTask('start-servers', function() {
+        grunt.task.run('start-gameserver');
+        grunt.task.run('start-webserver');
+    });
+
+    grunt.registerTask('stop-servers', function() {
+        grunt.task.run('stop-gameserver');
+        grunt.task.run('stop-webserver');
+    });
+
+    grunt.registerTask('restart-servers', function() {
+        grunt.task.run('restart-gameserver');
+        grunt.task.run('restart-webserver');
+    });
+
     grunt.registerTask('start', function() {
         grunt.task.run('less');
-        grunt.task.run('execute');
+        grunt.task.run('restart-servers');
         grunt.task.run('watch');
     });
 
