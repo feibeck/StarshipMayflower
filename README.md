@@ -23,35 +23,20 @@ $ npm-install.sh
 ```
 (or npm-install.bat) in you working copy. This will install grunt, grunt-cli, less and other dependencies.
 
-The webserver uses bower for frontend dependencies. Run
-
-```
-$ cd web-server
-$ bower install
-```
-
-The frontend uses LESS for generating CSS files. The grunt task for starting the web-server generates on startup a new CSS file.
-
-
 You can look into the scripts-dir: the install.sh should do all for you.
 
-
-Run server
+Run server(s)
 ==========
+Basic grunt task are available from the webserver folder for both servers - game & webserver:
 
-Start game-server server by:
+- start, stop and restart
 
+Recommended usage:
 ```
-$ cd ../game-server
-$ pomelo start
-```
-
-Start in a new shell the web-server by:
-
-```
-$ cd web-server
 $ grunt start
 ```
+This task watches for code changes, and restarts the webserver if any change was detected inside the less files.
+Furthermore the task will compile valid CSS stylesheets from the defined less sources, before starting the web & gameserver.
 
 Open your browser and visit http://localhost:3001
 
