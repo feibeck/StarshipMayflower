@@ -183,11 +183,22 @@ define([
 
         var heading = point2.sub(point1);
 
+        var angle = this.getAngle(heading.z, heading.y);
+        if (angle > 90 && angle <= 180) {
+            angle = 180 - angle;
+        }
+        if (angle > 270 && angle <= 360) {
+            angle = (360 - angle) * -1;
+        }
+        if (angle > 180 && angle <= 270) {
+            angle = 180 - angle;
+        }
+
         var course = {
             distance: distance,
             heading: heading,
             angleZX: this.getAngle(-heading.z, heading.x),
-            angleYZ: this.getAngle(-heading.z, heading.y)
+            angleYZ: angle
         };
 
         return course;
