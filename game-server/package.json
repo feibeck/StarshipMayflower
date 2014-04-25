@@ -17,7 +17,8 @@
     },
     "devDependencies": {
         "grunt-jasmine-node":   "latest",
-        "grunt-contrib-jshint": "latest"
+        "grunt-contrib-jshint": "latest",
+        "load-grunt-tasks":     "latest"
     },
     "scripts": {
         "test":                 "grunt jasmine_node"
