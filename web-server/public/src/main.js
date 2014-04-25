@@ -19,7 +19,10 @@ require.config({
         'MapObjectBase': '../js/Map/MapObjectBase',
         'MapObjectPicker': '../js/Map/MapObjectPicker',
         'MapObjectActor': '../js/Map/MapObjectActor',
-        'MapObjectTable': '../js/Map/MapObjectTable'
+        'MapObjectTable': '../js/Map/MapObjectTable',
+        'compass': '../js/Compass/compass',
+        'rotation': '../js/Rotation/rotation',
+        'paper': '../components/paper/dist/paper'
     },
 
     shim: {

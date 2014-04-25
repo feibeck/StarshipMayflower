@@ -51,9 +51,12 @@
 
         <div class="col-md-8">
 
+            <div ssm-compass ship="ship" style="float: left; margin-left: 60px"></div>
+            <div ssm-rotation ship="ship" style="float: left; margin-left: 60px; width: 300px; height: 300px;"></div>
+
             <div class="" style="height: 100%; position: relative;">
 
-                <button id="pitchUp" class="btn btn-primary" ng-mousedown="rotate('pitch', -10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; top: 0; left: 0;">
+                <button id="pitchUp" class="btn btn-primary" ng-mousedown="rotate('pitch', 10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; top: 0; left: 0;">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                 </button>
 
@@ -61,7 +64,7 @@
                     <span>{{ angleYZ | number:0 }}</span>°
                 </div>
 
-                <button id="pitchDown" class="btn btn-primary" ng-mousedown="rotate('pitch', 10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; bottom: 45px; left: 0;">
+                <button id="pitchDown" class="btn btn-primary" ng-mousedown="rotate('pitch', -10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; bottom: 45px; left: 0;">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                 </button>
 

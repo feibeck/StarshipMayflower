@@ -11,6 +11,7 @@
         "three.js": "latest",
         "requirejs": "latest",
         "requirejs-domready": "latest",
-        "lodash": "latest"
+        "lodash": "latest",
+        "paper": "latest"
     }
 }
