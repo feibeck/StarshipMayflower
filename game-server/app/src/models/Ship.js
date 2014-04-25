@@ -276,7 +276,8 @@ _.extend(Ship.prototype, {
                 z: shipY.e(3)
             },
             energy: me._energy,
-            warpLevel: me._warpLevel
+            warpLevel: me._warpLevel,
+            orientation: me._orientation.elements
         };
     },
 
