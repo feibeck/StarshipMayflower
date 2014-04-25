@@ -45,13 +45,13 @@ define([
                     });
 
                     $scope.$watch('ship', function() {
-                        map.updateShip($scope.ship)
+                        map.updateShip($scope.ship);
                         map.scaleModels();
                         map.render();
                     });
 
                     $scope.$watch('otherships', function() {
-                        map.updateOtherships($scope.otherships)
+                        map.updateOtherships($scope.otherships);
                         map.scaleModels();
                         map.render();
                     });
