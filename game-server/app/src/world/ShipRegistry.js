@@ -2,8 +2,7 @@ var _ = require('lodash'),
     pomelo = require('pomelo'),
     models = require('../models'),
     Channel = require('../channel'),
-    CustomError = require('../customError'),
-    game = require('../game');
+    CustomError = require('../customError');
 
 var channel = new Channel();
 
@@ -17,12 +16,14 @@ var ShipRegistry = function()
     var me = this;
     me._ships = {};
     me._players = {};
+    me._game = require('../game');
 };
 
 _.extend(ShipRegistry.prototype, {
 
     _ships: null,
     _players: null,
+    _game : null,
 
     /**
      * Returns a list of all ships
@@ -59,7 +60,7 @@ _.extend(ShipRegistry.prototype, {
     addShip: function(ship, player)
     {
         var me = this,
-            index = game.getObjectRegistry().createId();
+            index = me._game.getObjectRegistry().createId();
 
         if (!ship) {
             return new CustomError('Ship must not be empty');
@@ -69,7 +70,7 @@ _.extend(ShipRegistry.prototype, {
 
         ship.setId(index);
         ship.setCreator(player);
-        ship.setPosition(game.getWorld().getRandomPosition());
+        ship.setPosition(me._game.getWorld().getRandomPosition());
 
         me._ships[index] = ship;
 
