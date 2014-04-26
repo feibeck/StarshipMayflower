@@ -150,33 +150,24 @@ define([
 
         var rotationMatrix = new THREE.Matrix4(
             ship.orientation[0][0],
-            ship.orientation[1][0],
-            ship.orientation[2][0],
-            0,
             ship.orientation[0][1],
-            ship.orientation[1][1],
-            ship.orientation[2][1],
-            0,
             ship.orientation[0][2],
+            0,
+            ship.orientation[1][0],
+            ship.orientation[1][1],
             ship.orientation[1][2],
+            0,
+            ship.orientation[2][0],
+            ship.orientation[2][1],
             ship.orientation[2][2],
             0,
             0,
             0,
             0,
-            0
+            1
         );
 
-        var euler = new THREE.Euler(0, 0, 0, 'XYZ');
-        euler.setFromRotationMatrix(rotationMatrix, 'XYZ');
-
-        this.airplane.rotation.x = - euler.x;
-        this.airplane.rotation.y = - euler.y;
-        this.airplane.rotation.z = - euler.z;
-
-        this.ringx.rotation.x = this.airplane.rotation.x;
-        this.ringy.rotation.y = this.airplane.rotation.y;
-        this.ringz.rotation.z = this.airplane.rotation.z;
+        this.airplane.rotation.setFromRotationMatrix(rotationMatrix);
     };
 
     return Rotation;
