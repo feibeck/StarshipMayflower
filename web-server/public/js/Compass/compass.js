@@ -35,7 +35,7 @@ define(['paper'], function(paper) {
         this.currentPitch = angle;
 
         var moveAngle = this.currentRoll + 90;
-        if (angle > 180) {
+        if (angle < 0) {
             moveAngle += 180;
         }
 
@@ -101,7 +101,7 @@ define(['paper'], function(paper) {
 
         var pixelPerDegree = this.degreeToPixel();
 
-        for (var i = -180; i < 180; i += 10) {
+        for (var i = -90; i <= 90; i += 10) {
             if (i == 0) {
                 continue;
             }
@@ -128,7 +128,7 @@ define(['paper'], function(paper) {
                     paper.view.center.x + 25,
                     paper.view.center.y + i * pixelPerDegree + 3
                 ],
-                content: ((i * -1 + 360) % 360) + '°',
+                content: (-i) + '°',
                 fillColor: color,
                 fontSize: 6
             }));
