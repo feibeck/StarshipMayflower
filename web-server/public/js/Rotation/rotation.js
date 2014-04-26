@@ -26,8 +26,6 @@ define([
 
         this.drawGrid({size:10000,scale:0.01});
 
-        this.createAllRings();
-
         this.createAirplane();
 
         this.renderer = new THREE.WebGLRenderer({antialias: false});
@@ -93,54 +91,6 @@ define([
 
         this.scene.add(this.airplane);
     };
-
-    Rotation.prototype.createAllRings = function() {
-        //create Rings
-        this.ringx = this.createRing(200,0xFF0000,'x');
-        this.ringy = this.createRing(175,0x00FF00,'y');
-        this.ringz = this.createRing(150,0x0000FF,'z');
-
-        //set up rotation hierarchy - assuming x -> y -> z intrinsic
-        this.ringy.add(this.ringz);
-        this.ringx.add(this.ringy);
-
-        this.scene.add(this.ringx);
-    };
-
-    Rotation.prototype.createRing = function(radius,color,axis) {
-        var sphere_radius = 12;
-
-        var ringMaterial = new THREE.MeshLambertMaterial({color: color});
-
-        //create ring shape
-        var circleMesh = new THREE.Mesh(
-            new THREE.TorusGeometry(radius,5,6,50),
-            ringMaterial
-        );
-
-        var sphereMesh = new THREE.Mesh(
-            new THREE.SphereGeometry(sphere_radius,12,10),
-            ringMaterial
-        );
-        sphereMesh.position.x = radius;
-
-        var composite = new THREE.Object3D();
-        composite.add(circleMesh);
-        composite.add(sphereMesh);
-        // composite.add(coneMesh);
-
-        if (axis === 'x') {
-            composite.rotation.y = Math.PI/2;
-        } else if (axis === 'y') {
-            composite.rotation.x = Math.PI/2;
-        }
-
-        var ringObj = new THREE.Object3D();
-        ringObj.add(composite);
-
-        return ringObj;
-
-    }
 
     Rotation.prototype.drawGrid = function(params) {
         params = params || {};
