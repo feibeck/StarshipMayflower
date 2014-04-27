@@ -9,7 +9,6 @@ define([
         this.height = 0;
 
         this.scene = new THREE.Scene();
-        this.scene.fog = new THREE.Fog( 0x808080, 2000, 4000 );
 
         // LIGHTS
         var ambientLight = new THREE.AmbientLight( 0x222222 );
@@ -24,7 +23,21 @@ define([
         this.scene.add(light);
         this.scene.add(light2);
 
-        this.drawGrid({size:10000,scale:0.01});
+        var material = new THREE.MeshBasicMaterial({
+            color: 'lime',
+            transparent: true,
+            opacity: 0.5
+        });
+
+        var radius = 200;
+        var segments = 32;
+
+        var circleGeometry = new THREE.CircleGeometry( radius, segments );
+        var circle = new THREE.Mesh( circleGeometry, material );
+
+        circle.rotation.x = - Math.PI / 2;
+
+        this.scene.add( circle );
 
         this.createAirplane();
 
@@ -32,17 +45,20 @@ define([
         this.renderer.gammaInput = true;
         this.renderer.gammaOutput = true;
         this.renderer.setSize(this.width, this.height);
-        this.renderer.setClearColorHex( 0xAAAAAA, 1.0 );
 
         this.camera = new THREE.PerspectiveCamera( 30, this.width / this.height, 1, 10000 );
-        this.camera.position.set( -668, 474, 210 );
+        this.camera.position.set(0, 240, -600);
 
         var center = new THREE.Vector3(0, 0, 0);
         this.camera.lookAt(center);
     }
 
     Rotation.prototype.createAirplane = function() {
-        var planeMaterial = new THREE.MeshPhongMaterial( { color: 0x95E4FB, specular: 0x505050, shininess: 100 } );
+        var planeMaterial = new THREE.MeshPhongMaterial({
+            color: 0x95E4FB,
+            specular: 0x505050,
+            shininess: 100
+        });
 
         this.airplane = new THREE.Object3D();
 
@@ -90,32 +106,6 @@ define([
         this.airplane.add( cylinder );
 
         this.scene.add(this.airplane);
-    };
-
-    Rotation.prototype.drawGrid = function(params) {
-        params = params || {};
-        var size = params.size !== undefined ? params.size:100;
-        var scale = params.scale !== undefined ? params.scale:0.1;
-        var orientation = params.orientation !== undefined ? params.orientation:"x";
-        var grid = new THREE.Mesh(
-            new THREE.PlaneGeometry(size, size, size * scale, size * scale),
-            new THREE.MeshBasicMaterial({ color: 0x555555, wireframe: true })
-        );
-        // Yes, these are poorly labeled! It would be a mess to fix.
-        // What's really going on here:
-        // "x" means "rotate 90 degrees around x", etc.
-        // So "x" really means "show a grid with a normal of Y"
-        //    "y" means "show a grid with a normal of X"
-        //    "z" means (logically enough) "show a grid with a normal of Z"
-        if (orientation === "x") {
-            grid.rotation.x = - Math.PI / 2;
-        } else if (orientation === "y") {
-            grid.rotation.y = - Math.PI / 2;
-        } else if (orientation === "z") {
-            grid.rotation.z = - Math.PI / 2;
-        }
-
-        this.scene.add(grid);
     };
 
     Rotation.prototype.animate = function() {
