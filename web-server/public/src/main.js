@@ -22,7 +22,7 @@ require.config({
         'MapObjectTable': '../js/Map/MapObjectTable',
         'compass': '../js/Compass/compass',
         'rotation': '../js/Rotation/rotation',
-        'paper': '../components/paper/dist/paper'
+        'paper': '../components/paper/dist/paper-core'
     },
 
     shim: {
