@@ -130,7 +130,7 @@ define(['paper'], function(paper) {
                 ],
                 content: (-i) + '°',
                 fillColor: color,
-                fontSize: 6
+                fontSize: 9
             }));
         }
 
@@ -164,7 +164,7 @@ define(['paper'], function(paper) {
             content: 0 + '°',
             fillColor: 'red',
             fontFamily: 'Arial',
-            fontSize: 6
+            fontSize: 9
         });
     };
 
@@ -202,7 +202,7 @@ define(['paper'], function(paper) {
                 content: i + '°',
                 fillColor: '#c0c0c0',
                 fontFamily: 'Arial',
-                fontSize: 6
+                fontSize: 9
             });
             text.rotate(90 - i);
 
