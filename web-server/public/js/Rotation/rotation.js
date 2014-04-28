@@ -1,6 +1,7 @@
 define([
-    'three'
-], function(THREE) {
+    'three',
+    'threexspaceships'
+], function(THREE, THREEx) {
     'use strict';
 
     function Rotation() {
@@ -26,7 +27,7 @@ define([
         var material = new THREE.MeshBasicMaterial({
             color: 'lime',
             transparent: true,
-            opacity: 0.5
+            opacity: 0.3
         });
 
         var radius = 200;
@@ -39,8 +40,6 @@ define([
 
         this.scene.add( circle );
 
-        this.createAirplane();
-
         this.renderer = new THREE.WebGLRenderer({antialias: false});
         this.renderer.gammaInput = true;
         this.renderer.gammaOutput = true;
@@ -51,62 +50,24 @@ define([
 
         var center = new THREE.Vector3(0, 0, 0);
         this.camera.lookAt(center);
+
+        var me = this;
+
+        this.shipModel = null;
+
+        THREEx.SpaceShips.loadSpaceFighter02(function(object3d){
+            object3d.position.x = 0;
+            object3d.position.y = 0;
+            object3d.position.z = 0;
+
+            object3d.scale.x = 0.65;
+            object3d.scale.y = 0.65;
+            object3d.scale.z = 0.65;
+
+            me.scene.add(object3d);
+            me.shipModel = object3d;
+        })
     }
-
-    Rotation.prototype.createAirplane = function() {
-        var planeMaterial = new THREE.MeshPhongMaterial({
-            color: 0x95E4FB,
-            specular: 0x505050,
-            shininess: 100
-        });
-
-        this.airplane = new THREE.Object3D();
-
-        var sphere = new THREE.Mesh(
-            new THREE.SphereGeometry( 15, 32, 16 ), planeMaterial );
-        // nose
-        sphere.rotation.x = 90 * Math.PI/180;
-        sphere.scale.y = 3.0;
-        sphere.position.y = 0;
-        sphere.position.z = 70;
-        this.airplane.add( sphere );
-
-        var cylinder = new THREE.Mesh(
-            new THREE.CylinderGeometry( 15, 15, 180, 32 ), planeMaterial );
-        // body
-        cylinder.rotation.x = 90 * Math.PI/180;
-        cylinder.position.y = 0;
-        cylinder.position.z = -20;
-        this.airplane.add( cylinder );
-
-        cylinder = new THREE.Mesh(
-            new THREE.CylinderGeometry( 20, 20, 250, 32 ), planeMaterial );
-        // wing
-        cylinder.scale.x = 0.2;
-        cylinder.rotation.z = 90 * Math.PI/180;
-        cylinder.position.y = 5;
-        this.airplane.add( cylinder );
-
-        cylinder = new THREE.Mesh(
-            new THREE.CylinderGeometry( 15, 15, 100, 32 ), planeMaterial );
-        // tail wing
-        cylinder.scale.x = 0.2;
-        cylinder.rotation.z = 90 * Math.PI/180;
-        cylinder.position.y = 5;
-        cylinder.position.z = -90;
-        this.airplane.add( cylinder );
-
-        cylinder = new THREE.Mesh(
-            new THREE.CylinderGeometry( 10, 15, 40, 32 ), planeMaterial );
-        // tail
-        cylinder.scale.x = 0.15;
-        cylinder.rotation.x = -10 * Math.PI/180;
-        cylinder.position.y = 20;
-        cylinder.position.z = -96;
-        this.airplane.add( cylinder );
-
-        this.scene.add(this.airplane);
-    };
 
     Rotation.prototype.animate = function() {
         var me = this;
@@ -138,6 +99,10 @@ define([
 
     Rotation.prototype.updateShip = function(ship) {
 
+        if (this.shipModel == null) {
+            return;
+        }
+
         var rotationMatrix = new THREE.Matrix4(
             ship.orientation[0][0],
             ship.orientation[0][1],
@@ -157,7 +122,7 @@ define([
             1
         );
 
-        this.airplane.rotation.setFromRotationMatrix(rotationMatrix);
+        this.shipModel.rotation.setFromRotationMatrix(rotationMatrix);
     };
 
     return Rotation;

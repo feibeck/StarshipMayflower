@@ -11,6 +11,10 @@ require.config({
         'uiBootstrap': '../components/angular-bootstrap/ui-bootstrap-tpls',
         'three': '../components/three.js/three.min',
         'orbit-controls': '../js/lib/OrbitControls',
+        'mtlloader': '../js/ThreeJsAddons/MTLLoader',
+        'objloader': '../js/ThreeJsAddons/OBJLoader',
+        'objmtlloader': '../js/ThreeJsAddons/OBJMTLLoader',
+        'threexspaceships': '../components/threex.spaceships/threex.spaceships',
         'slider': '../js/slider',
         'Grid': '../js/Map/Grid',
         'Constants': '../js/Map/Constants',
@@ -51,6 +55,13 @@ require.config({
         },
         'slider': {
             deps: ['jquery']
+        },
+        'threexspaceships': {
+            deps: ['three', 'mtlloader', 'objloader', 'objmtlloader'],
+            exports: 'THREEx',
+            init: function() {
+                this.THREEx.SpaceShips.baseUrl = '/components/threex.spaceships/';
+            }
         }
     },
 
