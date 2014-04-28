@@ -28,42 +28,31 @@ define([
                             return;
                         }
 
-                        compass.jaw(GameUtils.getAngle(-$scope.ship.heading.z, $scope.ship.heading.x));
-
-                        var ship = $scope.ship;
-
-                        var rotationMatrix = new THREE.Matrix4(
-                            ship.orientation[0][0],
-                            ship.orientation[0][1],
-                            ship.orientation[0][2],
-                            0,
-                            ship.orientation[1][0],
-                            ship.orientation[1][1],
-                            ship.orientation[1][2],
-                            0,
-                            ship.orientation[2][0],
-                            ship.orientation[2][1],
-                            ship.orientation[2][2],
-                            0,
-                            0,
-                            0,
-                            0,
-                            1
+                        compass.jaw(
+                            GameUtils.getAngle(
+                                -$scope.ship.heading.z,
+                                $scope.ship.heading.x
+                            )
                         );
 
-                        var euler = new THREE.Euler(0, 0, 0, 'ZXY');
-                        euler.setFromRotationMatrix(rotationMatrix, 'ZXY');
+                        var angle = GameUtils.getAngle(
+                            $scope.ship.shipY.x,
+                            $scope.ship.shipY.y
+                        );
 
-                        var angleZ = euler.z * (180 / Math.PI);
-                        if (angleZ < 0) {
-                            angleZ = 360 + angleZ;
-                        };
+                        if (angle > 90) {
+                            angle = angle - 90;
+                        } else {
+                            angle = 270 + angle;
+                        }
 
-                        angleZ = 360 - angleZ;
+                        compass.roll(angle);
 
-                        compass.roll(angleZ);
+                        var anglePitch = GameUtils.getAngle(
+                            $scope.ship.heading.z,
+                            $scope.ship.heading.y
+                        );
 
-                        var anglePitch = GameUtils.getAngle($scope.ship.heading.z, $scope.ship.heading.y);
                         if (anglePitch > 90 && anglePitch <= 180) {
                             anglePitch = 180 - anglePitch;
                         }
