@@ -1,8 +1,8 @@
 define(['../module', 'jquery', 'slider'], function (module, jquery) {
     'use strict';
 
-    module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', 'GameUtils',
-        function ($scope, $location, Pomelo, GameUtils) {
+    module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', 'GameUtils', '$window',
+        function ($scope, $location, Pomelo, GameUtils, $window) {
 
             var sliderImpulse = jquery('#impulseSlider').slider({
                 min: 0,
@@ -68,41 +68,68 @@ define(['../module', 'jquery', 'slider'], function (module, jquery) {
                 sliderWarp.slider('setCurrentValue', ship.warpLevel);
                 sliderWarp.slider('setValue', ship.warpLevel);
 
-                var rotationMatrix = new THREE.Matrix4(
-                    ship.orientation[0][0],
-                    ship.orientation[1][0],
-                    ship.orientation[2][0],
-                    0,
-                    ship.orientation[0][1],
-                    ship.orientation[1][1],
-                    ship.orientation[2][1],
-                    0,
-                    ship.orientation[0][2],
-                    ship.orientation[1][2],
-                    ship.orientation[2][2],
-                    0,
-                    0,
-                    0,
-                    0,
-                    0
-                );
-
-                var euler = new THREE.Euler(0, 0, 0, 'XYZ');
-                euler.setFromRotationMatrix(rotationMatrix, 'XYZ');
-
-                /*console.log(
-                    euler.x * (180 / Math.PI),
-                    euler.y * (180 / Math.PI),
-                    euler.z * (180 / Math.PI)
-                );*/
-
             });
 
             $scope.impuls = 0;
 
+            var turning = false;
             $scope.rotate = function(axis, arc) {
-                Pomelo.notify('world.navigation.turn', {arc: arc, axis: axis});
+                if ((arc != 0 && !turning) || arc == 0) {
+                    Pomelo.notify('world.navigation.turn', {arc: arc, axis: axis});
+                    turning = arc != 0;
+                }
             };
+
+            angular.element($window).on('keydown', function(e) {
+
+                switch (e.keyCode) {
+
+                    case 87: // w
+                        $scope.rotate('pitch', 10);
+                        break;
+                    case 83: // s
+                        $scope.rotate('pitch', -10);
+                        break;
+
+                    case 81: // q
+                        $scope.rotate('roll', -10);
+                        break;
+                    case 69: // e
+                        $scope.rotate('roll', 10);
+                        break;
+
+                    case 65: // a
+                        $scope.rotate('yaw', -10);
+                        break;
+                    case 68: // d
+                        $scope.rotate('yaw', 10);
+                        break;
+
+                }
+            });
+
+            angular.element($window).on('keyup', function(e) {
+
+                switch (e.keyCode) {
+
+                    case 81: // q
+                    case 69: // e
+                        $scope.rotate('roll', 0);
+                        break;
+
+                    case 87: // w
+                    case 83: // s
+                        $scope.rotate('pitch', 0);
+                        break;
+
+                    case 65: // a
+                    case 68: // d
+                        $scope.rotate('yaw', 0);
+                        break;
+
+                }
+
+            });
 
         }
     ]);
