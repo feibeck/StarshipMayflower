@@ -45,6 +45,11 @@ define(['../module', 'jquery', 'slider'], function (module, jquery) {
                 );
             });
 
+            Pomelo.on('WorldUpdate', function(world) {
+                $scope.otherships = world.ships;
+                $scope.$apply();
+            });
+
             Pomelo.on('ShipUpdate', function(ship) {
 
                 $scope.angleZX = GameUtils.getAngle(-ship.heading.z, ship.heading.x);

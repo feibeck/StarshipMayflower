@@ -2,5 +2,6 @@ define([
     './directives/ssmMap',
     './directives/ssmMapLabel',
     './directives/ssmCompass',
-    './directives/ssmRotation'
+    './directives/ssmRotation',
+    './directives/ssmScanner'
 ], function () {});

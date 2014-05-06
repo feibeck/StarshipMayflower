@@ -52,42 +52,39 @@
         <div class="col-md-8">
 
             <div ssm-compass ship="ship" style="float: left; margin-left: 60px"></div>
+            <div ssm-scanner ship="ship" otherships="otherships" style="float: left; margin-left: 60px; width: 300px; height: 300px;"></div>
             <div ssm-rotation ship="ship" style="float: left; margin-left: 60px; width: 300px; height: 300px;"></div>
-
-            <div class="" style="height: 100%; position: relative;">
-
-                <button id="pitchUp" class="btn btn-primary" ng-mousedown="rotate('pitch', 10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; top: 0; left: 0;">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </button>
+            <div style="float: left; width: 300px; height: 300px;">
 
                 <div style="position: absolute; margin-top: -10px; top: 50%; left: 0; font-weight: bold; color: white; padding-left: 10px;">
                     <span>{{ angleYZ | number:0 }}</span>°
                 </div>
 
-                <button id="pitchDown" class="btn btn-primary" ng-mousedown="rotate('pitch', -10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; bottom: 45px; left: 0;">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </button>
-
-                <button id="rollleft" class="btn btn-primary" ng-mousedown="rotate('roll', -10)" ng-mouseup="rotate('roll', 0)" style="position: absolute; bottom: 0; left: 0;">
-                    <span class="glyphicon glyphicon-refresh"></span>
-                </button>
-
-                <button id="turnleft" class="btn btn-primary" ng-mousedown="rotate('yaw', 10)" ng-mouseup="rotate('yaw', 0)" style="position: absolute; bottom: 0; left: 45px;">
-                    <span class="glyphicon glyphicon-arrow-left"></span>
-                </button>
-
                 <div style="position: absolute; margin-left: -15px; width: 30px; text-align: center; bottom: 0; left: 50%; font-weight: bold; color: white;">
                     <span>{{ angleZX | number:0 }}</span>°
                 </div>
 
-                <button id="turnRight" class="btn btn-primary" ng-mousedown="rotate('yaw', -10)" ng-mouseup="rotate('yaw', 0)" style="position: absolute; bottom: 0; right: 45px;">
-                    <span class="glyphicon glyphicon-arrow-right"></span>
+                <button id="rollleft" class="btn btn-primary" ng-mousedown="rotate('roll', -10)" ng-mouseup="rotate('roll', 0)" style="position: absolute; bottom: 0; left: 0;">
+                    <span class="glyphicon glyphicon-refresh"></span>
                 </button>
-
+                <button id="pitchDown" class="btn btn-primary" ng-mousedown="rotate('pitch', -10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; bottom: 45px; left: 0;">
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                </button>
                 <button id="rollRight" class="btn btn-primary" ng-mousedown="rotate('roll', 10)" ng-mouseup="rotate('roll', 0)" style="position: absolute; bottom: 0; right: 0;">
                     <span class="glyphicon glyphicon-refresh"></span>
                 </button>
+                <br />
+                <button id="turnleft" class="btn btn-primary" ng-mousedown="rotate('yaw', 10)" ng-mouseup="rotate('yaw', 0)" style="position: absolute; bottom: 0; left: 45px;">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </button>
 
+                <button id="pitchUp" class="btn btn-primary" ng-mousedown="rotate('pitch', 10)" ng-mouseup="rotate('pitch', 0)" style="position: absolute; top: 0; left: 0;">
+                    <span class="glyphicon glyphicon-arrow-up"></span>
+                </button>
+
+                <button id="turnRight" class="btn btn-primary" ng-mousedown="rotate('yaw', -10)" ng-mouseup="rotate('yaw', 0)" style="position: absolute; bottom: 0; right: 45px;">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
             </div>
 
         </div>

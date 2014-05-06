@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+        var require = {
+            paths: {
+                'domReady': '../../components/requirejs-domready/domReady',
+                'three': '../../components/three.js/three',
+                'jquery': '../../components/jquery/dist/jquery',
+                'lodash': '../../components/lodash/dist/lodash'
+            },
+            shim: {
+                'three': {
+                    exports: 'THREE'
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<div id="canvas" style="width: 500px; height: 300px;"></div>
+<script src="../../components/requirejs/require.js"></script>
+<script>
+
+    require(['./scanner', 'jquery', 'lodash', 'domReady!'], function(Scanner, $, _) {
+
+        var scanner = new Scanner();
+
+        var container = $('#canvas');
+
+        container.append(scanner.getDomElement());
+        scanner.setSize(container.width(), container.height());
+
+        var ship = {
+            orientation: [
+                [1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]
+            ],
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            }
+        };
+
+        var objects = [
+            {
+                id: 1,
+                position: {
+                    x: 9597870,
+                    y: 1997870,
+                    z: 19597870
+                }
+            },
+            {
+                id: 2,
+                position: {
+                    x: -100,
+                    y: -100,
+                    z: -100
+                }
+            }
+        ];
+
+        scanner.updateShip(ship);
+        scanner.updateObjects(objects);
+
+        scanner.animate();
+
+        function move(position) {
+
+            return {
+                x: randomMoveAxis(position.x),
+                y: randomMoveAxis(position.y),
+                z: randomMoveAxis(position.z)
+            };
+
+        };
+
+        function randomMoveAxis(value) {
+            var newValue = (Math.random() * (10 + 10) - 10) + value;
+            if (newValue > 250) {
+                newValue = 250;
+            }
+            return newValue;
+        }
+
+        function moveObjects() {
+            _.forIn(objects, function(object, index) {
+                objects[index].position = move(object.position);
+            });
+            scanner.updateObjects(objects);
+        }
+        //window.setInterval(moveObjects, 2000);
+
+    });
+
+</script>
+</body>
+</html>

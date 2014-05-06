@@ -26,6 +26,8 @@ require.config({
         'MapObjectTable': '../js/Map/MapObjectTable',
         'compass': '../js/Compass/compass',
         'rotation': '../js/Rotation/rotation',
+        'scanner': '../js/Scanner/scanner',
+        'ScannerObject': '../js/Scanner/ScannerObject',
         'paper': '../components/paper/dist/paper-core'
     },
 
