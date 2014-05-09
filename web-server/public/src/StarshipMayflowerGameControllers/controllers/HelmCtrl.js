@@ -1,49 +1,8 @@
-define(['../module', 'jquery', 'slider'], function (module, jquery) {
+define(['../module'], function (module) {
     'use strict';
 
     module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', 'GameUtils', '$window',
         function ($scope, $location, Pomelo, GameUtils, $window) {
-
-            var sliderImpulse = jquery('#impulseSlider').slider({
-                min: 0,
-                max: 100,
-                value: 0,
-                handle: 'triangle',
-                tooltip: false,
-                orientation: 'vertical',
-                selection: 'after'
-            });
-
-            var sliderWarp = jquery('#warpSlider').slider({
-                min: 0,
-                max: 4,
-                value: 0,
-                handle: 'triangle',
-                tooltip: false,
-                orientation: 'vertical',
-                selection: 'after'
-            });
-
-            sliderImpulse.on('slide', function(ev) {
-                Pomelo.notify(
-                    'world.navigation.setImpulseSpeed',
-                    {targetSpeed: ev.value}
-                );
-            });
-
-            sliderImpulse.on('slideStop', function(ev) {
-                Pomelo.notify(
-                    'world.navigation.setImpulseSpeed',
-                    {targetSpeed: ev.value}
-                );
-            });
-
-            sliderWarp.on('slideStop', function(ev) {
-                Pomelo.notify(
-                    'world.navigation.setWarpLevel',
-                    {warpLevel: ev.value}
-                );
-            });
 
             Pomelo.on('WorldUpdate', function(world) {
                 $scope.otherships = world.ships;
@@ -68,14 +27,10 @@ define(['../module', 'jquery', 'slider'], function (module, jquery) {
 
                 $scope.$apply();
 
-                sliderImpulse.slider('setCurrentValue', ship.currentImpulse);
-                sliderImpulse.slider('setValue', ship.targetImpulse);
-                sliderWarp.slider('setCurrentValue', ship.warpLevel);
-                sliderWarp.slider('setValue', ship.warpLevel);
-
             });
 
             $scope.impuls = 0;
+            $scope.warpEngine = 0;
 
             var turning = false;
             $scope.rotate = function(axis, arc) {
@@ -84,6 +39,13 @@ define(['../module', 'jquery', 'slider'], function (module, jquery) {
                     turning = arc != 0;
                 }
             };
+
+            $scope.$watch('warpEngine', function() {
+                if ($scope.warpEngine == null) {
+                    return;
+                }
+                Pomelo.notify('world.navigation.setWarp', {warp: $scope.warpEngine})
+            });
 
             angular.element($window).on('keydown', function(e) {
 

@@ -20,8 +20,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================= */
- 
-!function( $ ) {
+define([
+    'jquery'
+], function ($) {
+    'use strict';
 
 	var Slider = function(element, options) {
 		this.element = $(element);
@@ -401,4 +403,4 @@
 
 	$.fn.slider.Constructor = Slider;
 
-}( window.jQuery );
+});

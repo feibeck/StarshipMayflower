@@ -41,6 +41,8 @@ _.extend(Ship.prototype, {
     _players: null,
     _energy: 10000,
     _warpLevel: 0,
+    _warpSpeed: 1,
+    _warp: false,
 
     /**
      * Returns the ships name
@@ -81,10 +83,10 @@ _.extend(Ship.prototype, {
 
     getRealVelocity: function()
     {
-        if (this._warpLevel === 0) {
+        if (!this._warp) {
             return this._velocity;
         }
-        return this._warpLevel * 299792.458;
+        return this._warpSpeed * 299792.458;
     },
 
     /**
@@ -131,6 +133,52 @@ _.extend(Ship.prototype, {
     {
         this._warpLevel = warpLevel;
         return this;
+    },
+
+    /**
+     * Returns the current warp speed (multiple of C) of a ship
+     *
+     * @returns {Number}
+     */
+    getWarpSpeed: function()
+    {
+        return this._warpSpeed;
+    },
+
+    /**
+     * Set the current warp speed (multiple of C)
+     *
+     * @param {Number} warpSpeed
+     *
+     * @returns {Ship}
+     */
+    setWarpSpeed: function(warpSpeed)
+    {
+        this._warpSpeed = warpSpeed;
+        return this;
+    },
+
+    /**
+     * En- or disable warp engine
+     *
+     * @param {boolean} warp
+     *
+     * @returns {Ship}
+     */
+    setWarp: function(warp)
+    {
+        this._warp = warp;
+        return this;
+    },
+
+    /**
+     * Retuns wether the ship is going at warp speed
+     *
+     * @returns {boolean}
+     */
+    getWarp: function()
+    {
+        return this._warp;
     },
 
     /**
@@ -277,6 +325,8 @@ _.extend(Ship.prototype, {
             },
             energy: me._energy,
             warpLevel: me._warpLevel,
+            warpSpeed: me._warpSpeed,
+            warp: me._warp,
             orientation: me._orientation.elements
         };
     },
@@ -305,13 +355,15 @@ _.extend(Ship.prototype, {
                 y: me._position.e(2),
                 z: me._position.e(3)
             },
-            speed: me.getRealVelocity(),
             heading: {
                 x: heading.e(1),
                 y: heading.e(2),
                 z: heading.e(3)
             },
-            warpLevel: me._warpLevel
+            speed: me.getRealVelocity(),
+            warpLevel: me._warpLevel,
+            warp: me._warp,
+            warpSpeed: me._warpSpeed
         };
     }
 

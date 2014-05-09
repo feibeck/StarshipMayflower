@@ -26,7 +26,7 @@ _.extend(Handler.prototype, {
         var player = shipRegistry.getPlayer(playerId);
         var ship = shipRegistry.getShip(player.getShip().getId());
 
-	ship.setTargetImpulse(msg.targetSpeed);
+        ship.setTargetImpulse(msg.targetSpeed);
 
         var targetSpeed = msg.targetSpeed;
 
@@ -36,6 +36,22 @@ _.extend(Handler.prototype, {
         });
 
         game.timer().addAction(action);
+    },
+
+    setWarp: function(msg, session, next)
+    {
+        var playerId = session.get('playerId');
+
+        if (!playerId) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
+        var shipRegistry = game.getShipRegistry();
+        var player = shipRegistry.getPlayer(playerId);
+        var ship = shipRegistry.getShip(player.getShip().getId());
+
+        ship.setWarp(msg.warp);
     },
 
     setWarpLevel: function(msg, session, next)
@@ -51,7 +67,8 @@ _.extend(Handler.prototype, {
         var player = shipRegistry.getPlayer(playerId);
         var ship = shipRegistry.getShip(player.getShip().getId());
 
-        ship.setWarpLevel(msg.warpLevel);
+        ship.setWarpLevel(msg.targetSpeed);
+        ship.setWarpSpeed(1 + (3 * (msg.targetSpeed/100)));
     },
 
     turn: function(msg, session, next)

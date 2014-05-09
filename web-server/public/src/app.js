@@ -7,7 +7,8 @@ define([
     './StarshipMayflowerGameControllers/index',
     './StarshipMayflowerServices/index',
     './Map/index',
-    './Three/index'
+    './Three/index',
+    './SpeedSlider/index'
 ], function (angular) {
     'use strict';
 
@@ -16,6 +17,7 @@ define([
         'StarshipMayflowerLobbyControllers',
         'StarshipMayflowerGameControllers',
         'StarshipMayflowerServices',
-        'MapService'
+        'MapService',
+        'SpeedSlider'
     ]);
 });

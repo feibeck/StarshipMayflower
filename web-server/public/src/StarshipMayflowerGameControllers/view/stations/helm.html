@@ -18,14 +18,6 @@
                             <th>Speed</th>
                             <td>{{ ship.speed | number:4 }} km/s</td>
                         </tr>
-                        <tr>
-                            <th>Warp factor</th>
-                            <td>{{ ship.warpLevel }}</td>
-                        </tr>
-                        <tr>
-                            <th>Shields</th>
-                            <td>--</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -33,14 +25,37 @@
                 <!-- Engines -->
                 <div >
 
+                    <button
+                        id="togglewarp"
+                        ng-model="warpEngine"
+                        class="btn btn-danger"
+                        btn-checkbox
+                        btn-checkbox-true="1"
+                        btn-checkbox-false="0"
+                    >Warp Engine</button>
+
                     <div class="row">
                         <div class="col-md-6">
                             <p>Impulse</p>
-                            <input type="text" id="impulseSlider" data-slider-id="impulseSliderC">
+
+                            <speedslider
+                                ship="ship"
+                                id="impulseSlider"
+                                data-slider-id="impulseSliderC"
+                                engine="impulse"
+                            ></speedslider>
+
                         </div>
                         <div class="col-md-6">
                             <p>Warp</p>
-                            <input type="text" id="warpSlider" data-slider-id="warpSliderC">
+
+                            <speedslider
+                                ship="ship"
+                                id="warpSlider"
+                                data-slider-id="warpSliderC"
+                                engine="warp"
+                            ></speedslider>
+
                         </div>
                     </div>
 

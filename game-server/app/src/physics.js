@@ -149,14 +149,14 @@ function turn(ship, angle, direction) {
 function moveShip(ship, timeslice) {
     var position = ship.getPosition();
     var heading = ship.getHeading();
-    var velocity = ship.getVelocity();
-    var warpLevel = ship.getWarpLevel();
+    var velocity = ship.getRealVelocity();
+    var warp = ship.getWarp();
+    var warpSpeed = ship.getWarpSpeed();
 
 
-    if (warpLevel > 0) {
-        velocity = world.C * warpLevel;
+    if (warp) {
         var energy = ship.getEnergy();
-        var burnRate = 3 * warpLevel;
+        var burnRate = 3 * warpSpeed;
         var burnedEnergy = timeslice * burnRate;
         if (energy - burnedEnergy < 0) {
             timeslice = energy / burnRate;

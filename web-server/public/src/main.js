@@ -15,7 +15,6 @@ require.config({
         'objloader': '../js/ThreeJsAddons/OBJLoader',
         'objmtlloader': '../js/ThreeJsAddons/OBJMTLLoader',
         'threexspaceships': '../components/threex.spaceships/threex.spaceships',
-        'slider': '../js/slider',
         'Grid': '../js/Map/Grid',
         'Constants': '../js/Map/Constants',
         'StarMap': '../js/Map/StarMap',
@@ -54,9 +53,6 @@ require.config({
         },
         'orbit-controls': {
             deps: ['three']
-        },
-        'slider': {
-            deps: ['jquery']
         },
         'threexspaceships': {
             deps: ['three', 'mtlloader', 'objloader', 'objmtlloader'],
