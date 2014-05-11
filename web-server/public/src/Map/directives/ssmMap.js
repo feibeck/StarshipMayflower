@@ -5,8 +5,8 @@ define([
 ], function (module, angular, StarMap) {
     'use strict';
 
-    module.directive('ssmMap', ['THREE', '$window', '$interval',
-        function(THREE, $window, $interval) {
+    module.directive('ssmMap', ['$window', '$interval',
+        function($window, $interval) {
 
             var map = new StarMap();
 

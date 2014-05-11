@@ -2,21 +2,19 @@ define([
     'angular',
     'uiRouter',
     'uiBootstrap',
-    'pomelo',
-    './StarshipMayflowerLobbyControllers/index',
-    './StarshipMayflowerGameControllers/index',
-    './StarshipMayflowerServices/index',
+    './Lobby/index',
+    './Game/index',
+    './Utils/index',
     './Map/index',
-    './Three/index',
     './SpeedSlider/index'
 ], function (angular) {
     'use strict';
 
     return angular.module('StarshipMayflowerApp', [
         'ui.router',
-        'StarshipMayflowerLobbyControllers',
-        'StarshipMayflowerGameControllers',
-        'StarshipMayflowerServices',
+        'Lobby',
+        'Game',
+        'Utils',
         'MapService',
         'SpeedSlider'
     ]);

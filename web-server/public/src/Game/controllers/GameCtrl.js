@@ -12,27 +12,27 @@ define(['../module'], function (module) {
             var stationPanes = {
                 helm: {
                     title: 'Helm',
-                    content: 'src/StarshipMayflowerGameControllers/view/stations/helm.html'
+                    content: 'src/Game/view/stations/helm.html'
                 },
                 science: {
                     title: 'Science',
-                    content: 'src/StarshipMayflowerGameControllers/view/stations/science.html'
+                    content: 'src/Game/view/stations/science.html'
                 },
                 weapons: {
                     title: 'Weapons',
-                    content: 'src/StarshipMayflowerGameControllers/view/stations/weapons.html'
+                    content: 'src/Game/view/stations/weapons.html'
                 },
                 engineering: {
                     title: 'Engineering',
-                    content: 'src/StarshipMayflowerGameControllers/view/stations/engineering.html'
+                    content: 'src/Game/view/stations/engineering.html'
                 },
                 comm: {
                     title: 'Comm',
-                    content: 'src/StarshipMayflowerGameControllers/view/stations/comm.html'
+                    content: 'src/Game/view/stations/comm.html'
                 },
                 mainscreen: {
                     title: 'Mainscreen',
-                    content: 'src/StarshipMayflowerGameControllers/view/stations/mainscreen.html'
+                    content: 'src/Game/view/stations/mainscreen.html'
                 }
             };
 
@@ -59,11 +59,11 @@ define(['../module'], function (module) {
                 });
                 $scope.panes.push({
                     title: 'Map',
-                    content: 'src/StarshipMayflowerGameControllers/view/stations/map.html'
+                    content: 'src/Game/view/stations/map.html'
                 });
                 $scope.panes.push({
                     title: 'Debug',
-                    content: 'src/StarshipMayflowerGameControllers/view/stations/debug.html'
+                    content: 'src/Game/view/stations/debug.html'
                 });
             });
 

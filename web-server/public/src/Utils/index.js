@@ -1,4 +1,5 @@
 define([
     './services/Player',
-    './services/Pomelo'
+    './services/Pomelo',
+    './services/Three'
 ], function () {});

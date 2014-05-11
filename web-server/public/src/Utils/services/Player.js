@@ -1,7 +1,7 @@
-define(['../module'], function (StarshipMayflowerServices) {
+define(['../module'], function (module) {
     'use strict';
 
-    StarshipMayflowerServices.factory('Player', [
+    module.factory('Player', [
         function()
         {
             var player = {

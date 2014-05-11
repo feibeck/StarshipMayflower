@@ -36,7 +36,6 @@ define([
                     }
 
                     var notify = function(ev) {
-                        console.log(ev.value);
                         Pomelo.notify(
                             route,
                             {targetSpeed: ev.value}

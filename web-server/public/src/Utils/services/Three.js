@@ -1,11 +1,11 @@
 define([
-    './module',
+    '../module',
     'three',
     'orbit-controls'
-], function (ThreeService, THREE) {
+], function (module, THREE) {
     'use strict';
 
-    ThreeService.factory('THREE', [
+    module.factory('THREE', [
         function()
         {
             return THREE;

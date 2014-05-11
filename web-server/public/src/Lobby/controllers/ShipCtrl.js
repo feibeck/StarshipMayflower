@@ -1,7 +1,7 @@
-define(['../module'], function (StarshipMayflowerLobbyControllers) {
+define(['../module'], function (module) {
     'use strict';
 
-    StarshipMayflowerLobbyControllers.controller('ShipCtrl', ['$scope', '$location', 'Pomelo', 'Player', '$stateParams',
+    module.controller('ShipCtrl', ['$scope', '$location', 'Pomelo', 'Player', '$stateParams',
         function ($scope, $location, Pomelo, Player, $stateParams) {
 
             var shipId = $stateParams.shipId;

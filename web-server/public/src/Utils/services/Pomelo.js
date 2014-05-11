@@ -1,7 +1,10 @@
-define(['../module'], function (StarshipMayflowerServices) {
+define([
+    '../module',
+    'pomelo'
+], function (module) {
     'use strict';
 
-   StarshipMayflowerServices.factory('Pomelo', ['$rootScope', '$q',
+   module.factory('Pomelo', ['$rootScope', '$q',
         function($rootScope, $q){
 
             var pomelo = window.pomelo;

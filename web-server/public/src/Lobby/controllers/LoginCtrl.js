@@ -1,7 +1,7 @@
-define(['../module'], function (StarshipMayflowerLobbyControllers) {
+define(['../module'], function (module) {
     'use strict';
 
-    StarshipMayflowerLobbyControllers.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
+    module.controller('LoginCtrl', ['$scope', '$location', 'Pomelo', 'Player',
         function ($scope, $location, Pomelo, Player) {
             $scope.alerts = [];
             $scope.login = function() {
