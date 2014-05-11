@@ -5,7 +5,7 @@ define([
 ], function (module, angular, Scanner) {
     'use strict';
 
-    module.directive('ssmScanner', ['THREE', '$window', '$interval',
+    module.directive('scanner', ['THREE', '$window', '$interval',
         function(THREE, $window, $interval) {
 
             var scanner = new Scanner();

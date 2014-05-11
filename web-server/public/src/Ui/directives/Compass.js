@@ -5,7 +5,7 @@ define([
 ], function (module, angular, Compass) {
     'use strict';
 
-    module.directive('ssmCompass', ['GameUtils',
+    module.directive('compass', ['GameUtils',
         function(GameUtils) {
 
             var compass = new Compass();

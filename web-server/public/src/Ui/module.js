@@ -1,5 +1,5 @@
 define(['angular'], function (angular) {
     'use strict';
 
-    return angular.module('MapService', ['Utils']);
+    return angular.module('Ui', ['Utils']);
 });

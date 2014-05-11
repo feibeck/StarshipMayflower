@@ -5,8 +5,7 @@ define([
     './Lobby/index',
     './Game/index',
     './Utils/index',
-    './Map/index',
-    './SpeedSlider/index'
+    './Ui/index'
 ], function (angular) {
     'use strict';
 
@@ -15,7 +14,6 @@ define([
         'Lobby',
         'Game',
         'Utils',
-        'MapService',
-        'SpeedSlider'
+        'Ui'
     ]);
 });

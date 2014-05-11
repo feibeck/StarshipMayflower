@@ -1,7 +1,7 @@
-define(['../module', 'angular'], function (MapService, angular) {
+define(['../module', 'angular'], function (module, angular) {
     'use strict';
 
-    MapService.directive('ssmMapLabel', ['THREE',
+    module.directive('mapLabel', ['THREE',
         function(THREE) {
 
             function toScreenXY(position, element, camera)

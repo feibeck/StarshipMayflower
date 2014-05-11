@@ -5,7 +5,7 @@ define([
 ], function (module, angular, Rotation) {
     'use strict';
 
-    module.directive('ssmRotation', ['THREE', '$window', '$interval',
+    module.directive('rotation', ['THREE', '$window', '$interval',
         function(THREE, $window, $interval) {
 
             var map = new Rotation();

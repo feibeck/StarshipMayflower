@@ -5,14 +5,14 @@ define([
 ], function (module, angular, StarMap) {
     'use strict';
 
-    module.directive('ssmMap', ['$window', '$interval',
+    module.directive('map', ['$window', '$interval',
         function($window, $interval) {
 
             var map = new StarMap();
 
             return {
 
-                templateUrl: '/src/Map/view/map.html',
+                templateUrl: '/src/Ui/view/map.html',
 
                 scope: {
                     ship: '=ship',
