@@ -4,14 +4,14 @@ define([
 ], function (module) {
     'use strict';
 
-   module.factory('Pomelo', ['$rootScope', '$q',
-        function($rootScope, $q){
+   module.factory('Pomelo', ['$rootScope', '$q', '$window',
+        function($rootScope, $q, $window){
 
             var pomelo = window.pomelo;
             var deferred = $q.defer();
 
             pomelo.init({
-                host: "127.0.0.1",
+                host: $window.location.hostname,
                 port: "3010",
                 log: true
             }, function() {
