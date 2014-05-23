@@ -59,13 +59,40 @@ define([
             });
         },
         calculateLocalPosition: function(shipPosition, object) {
-            var globalPosition = new THREE.Vector3(
-                object.position.x,
-                object.position.y,
-                object.position.z
+            var rotation = this.getShipRotationMatrix(),
+                globalPosition = new THREE.Vector3(
+                    object.position.x,
+                    object.position.y,
+                    object.position.z
+                ),
+                localPosition = globalPosition.sub(shipPosition),
+                m1 = new THREE.Matrix4();
+
+            localPosition.applyMatrix4(m1.getInverse(rotation));
+
+            return localPosition;
+        },
+        getShipRotationMatrix: function() {
+            var rotationMatrix = new THREE.Matrix4(
+                this.ship.orientation[0][0],
+                this.ship.orientation[0][1],
+                this.ship.orientation[0][2],
+                0,
+                this.ship.orientation[1][0],
+                this.ship.orientation[1][1],
+                this.ship.orientation[1][2],
+                0,
+                this.ship.orientation[2][0],
+                this.ship.orientation[2][1],
+                this.ship.orientation[2][2],
+                0,
+                0,
+                0,
+                0,
+                1
             );
 
-            return globalPosition.sub(shipPosition);
+            return rotationMatrix;
         }
     });
 
