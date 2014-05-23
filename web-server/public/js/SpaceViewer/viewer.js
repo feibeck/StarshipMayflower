@@ -9,6 +9,19 @@ define([
     "use strict";
 
     var Viewer = SpaceObjectsRenderer.extend({
+        initCamera: function() {
+            this.camera = new THREE.PerspectiveCamera(
+                45,
+                this.width / this.height,
+                0.001,
+                1
+            );
+
+            this.camera.position.set(0, 0.03, -0.075);
+
+            var center = new THREE.Vector3(0, 0, 0);
+            this.camera.lookAt(center);
+        },
         initialize: function() {
             var me = this;
 
@@ -19,9 +32,7 @@ define([
                 object3d.position.y = 0;
                 object3d.position.z = 0;
 
-                object3d.scale.x = 0.65;
-                object3d.scale.y = 0.65;
-                object3d.scale.z = 0.65;
+                object3d.scale.set(0.00012, 0.00012, 0.00012);
 
                 me.scene.add(object3d);
                 me.shipModel = object3d;
@@ -48,7 +59,7 @@ define([
                 if (me.renderObjects[object.id]) {
                     obj = me.renderObjects[object.id];
                 } else {
-                    var SphereGeometry = new THREE.SphereGeometry(32, 32, 32),
+                    var SphereGeometry = new THREE.SphereGeometry(3, 3, 3),
                         material = new THREE.MeshBasicMaterial({color: 'white'});
 
                     obj = me.renderObjects[object.id] = new THREE.Mesh(SphereGeometry, material);
