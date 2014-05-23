@@ -66,10 +66,10 @@ define(['../module'], function (module) {
                         break;
 
                     case 65: // a
-                        $scope.rotate('yaw', -10);
+                        $scope.rotate('yaw', 10);
                         break;
                     case 68: // d
-                        $scope.rotate('yaw', 10);
+                        $scope.rotate('yaw', -10);
                         break;
 
                 }
