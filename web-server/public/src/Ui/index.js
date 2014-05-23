@@ -4,5 +4,6 @@ define([
     './directives/MapLabel',
     './directives/Rotation',
     './directives/Scanner',
-    './directives/SpeedSlider'
+    './directives/SpeedSlider',
+    './directives/SpaceView'
 ], function () {});
