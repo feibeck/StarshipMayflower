@@ -27,7 +27,9 @@ require.config({
         'rotation': '../js/Rotation/rotation',
         'scanner': '../js/Scanner/scanner',
         'ScannerObject': '../js/Scanner/ScannerObject',
-        'paper': '../components/paper/dist/paper-core'
+        'paper': '../components/paper/dist/paper-core',
+        'SpaceViewer': '../js/SpaceViewer/viewer',
+        'SpaceObjectsRenderer': '../js/lib/SpaceObjectsRenderer'
     },
 
     shim: {
@@ -54,6 +56,9 @@ require.config({
         'orbit-controls': {
             deps: ['three']
         },
+        'mtlloader': ['three'],
+        'objloader': ['three'],
+        'objmtlloader': ['three'],
         'threexspaceships': {
             deps: ['three', 'mtlloader', 'objloader', 'objmtlloader'],
             exports: 'THREEx',
