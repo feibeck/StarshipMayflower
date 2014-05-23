@@ -1,12 +1,13 @@
 define([
     '../module',
     'angular',
-    'compass'
-], function (module, angular, Compass) {
+    'compass',
+    'angle'
+], function (module, angular, Compass, Angle) {
     'use strict';
 
-    module.directive('compass', ['GameUtils',
-        function(GameUtils) {
+    module.directive('compass', [
+        function() {
 
             var compass = new Compass();
 
@@ -28,8 +29,10 @@ define([
                             return;
                         }
 
-                        compass.jaw(GameUtils.getAzimuth($scope.ship));
-                        compass.pitch(GameUtils.getPolar($scope.ship));
+                        var angle = new Angle($scope.ship);
+
+                        compass.jaw(angle.getAzimuth());
+                        compass.pitch(angle.getPolar());
 
                         compass.draw();
 

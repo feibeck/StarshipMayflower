@@ -5,8 +5,9 @@ define([
     'Grid',
     'MapObject',
     'lodash',
+    'angle',
     'orbit-controls'
-], function(THREE, Constants, MapObjectTable, Grid, MapObject, _) {
+], function(THREE, Constants, MapObjectTable, Grid, MapObject, _, Angle) {
     'use strict';
 
     function Map() {
@@ -183,49 +184,18 @@ define([
 
         var heading = point2.sub(point1);
 
-        var angle = this.getAngle(heading.z, heading.y);
-        if (angle > 90 && angle <= 180) {
-            angle = 180 - angle;
-        }
-        if (angle > 270 && angle <= 360) {
-            angle = (360 - angle) * -1;
-        }
-        if (angle > 180 && angle <= 270) {
-            angle = 180 - angle;
-        }
+        var angle = new Angle({
+            heading: heading
+        });
 
         var course = {
             distance: distance,
             heading: heading,
-            angleZX: this.getAngle(-heading.z, heading.x),
-            angleYZ: angle
+            angleZX: angle.getAzimuth(),
+            angleYZ: angle.getPolar()
         };
 
         return course;
-    };
-
-    Map.prototype.getAngle = function(x, y) {
-        var theta;
-
-        if (Math.abs(y) > Math.abs(x)) {
-            theta = Math.asin(y / Math.sqrt(x*x + y*y));
-
-            if (x < 0) {
-                theta = Math.PI - theta;
-            }
-        } else {
-            theta = Math.acos(x / Math.sqrt(x*x + y*y));
-
-            if (y < 0) {
-                theta *= -1;
-            }
-        }
-
-        if (theta < 0) {
-            theta = 2 * Math.PI + theta;
-        }
-
-        return theta / Math.PI * 180;
     };
 
     Map.prototype.getHoverEvent = function(mapObject) {

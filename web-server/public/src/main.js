@@ -28,6 +28,7 @@ require.config({
         'scanner': '../js/Scanner/scanner',
         'ScannerObject': '../js/Scanner/ScannerObject',
         'paper': '../components/paper/dist/paper-core',
+        'angle': '../js/Util/angle',
         'SpaceViewer': '../js/SpaceViewer/viewer',
         'SpaceObjectsRenderer': '../js/lib/SpaceObjectsRenderer'
     },

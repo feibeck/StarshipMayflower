@@ -1,8 +1,8 @@
-define(['../module'], function (module) {
+define(['../module', 'angle'], function (module, Angle) {
     'use strict';
 
-    module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', 'GameUtils', '$window',
-        function ($scope, $location, Pomelo, GameUtils, $window) {
+    module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', '$window',
+        function ($scope, $location, Pomelo, $window) {
 
             Pomelo.on('WorldUpdate', function(world) {
                 $scope.otherships = world.ships;
@@ -10,12 +10,10 @@ define(['../module'], function (module) {
             });
 
             Pomelo.on('ShipUpdate', function(ship) {
-
-                $scope.azimuth = GameUtils.getAzimuth(ship);
-                $scope.polar = GameUtils.getPolar(ship);
-
+                var angle = new Angle(ship);
+                $scope.azimuth = angle.getAzimuth();
+                $scope.polar = angle.getPolar();
                 $scope.$apply();
-
             });
 
             $scope.impuls = 0;

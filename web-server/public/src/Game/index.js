@@ -4,5 +4,5 @@ define([
     './controllers/HelmCtrl',
     './controllers/MapCtrl',
     './controllers/WeaponsCtrl',
-    './services/GameUtils'
+    './controllers/MainScreenCtrl'
 ], function () {});
