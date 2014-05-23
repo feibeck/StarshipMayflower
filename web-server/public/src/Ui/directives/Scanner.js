@@ -12,7 +12,7 @@ define([
 
             return {
 
-                template: '<div><div class="scanner"></div><pagination class="pagination-sm" direction-links="true" boundary-links="false" previous-text="&lsaquo;" next-text="&rsaquo;" max-size="5" items-per-page="1" total-Items="9" page="zoomFactor"></pagination></div>',
+                template: '<div><div class="scanner"></div><pagination class="pagination-sm" direction-links="true" boundary-links="false" previous-text="&lsaquo;" next-text="&rsaquo;" max-size="5" items-per-page="1" total-Items="9" ng-model="zoomFactor"></pagination></div>',
 
                 scope: {
                     ship: '=ship',
