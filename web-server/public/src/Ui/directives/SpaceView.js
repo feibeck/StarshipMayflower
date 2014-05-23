@@ -7,14 +7,14 @@ define([
 ], function (module, angular, SpaceViewer) {
     'use strict';
 
-    module.directive('spaceView', ['THREE', '$window', '$interval',
-        function(THREE, $window, $interval) {
+    module.directive('spaceView', ['THREE', '$window',
+        function(THREE, $window) {
 
             var spaceViewer = new SpaceViewer();
 
             return {
 
-                template: '<div class="space-view"></div>',
+                template: '',
 
                 scope: {
                     ship: '=ship',
@@ -24,8 +24,17 @@ define([
                 controller: function($scope) {},
 
                 link: function($scope, element, attrs) {
-                    element.find('div').append(spaceViewer.getDomElement());
+                    element.append(spaceViewer.getDomElement());
                     spaceViewer.setSize(element.width(), element.height());
+
+                    var w = angular.element($window);
+                    w.bind('resize', function() {
+                        spaceViewer.setSize(element.width(), element.height());
+                    });
+
+                    $scope.$parent.$on('selected', function() {
+                        spaceViewer.setSize(element.width(), element.height());
+                    });
 
                     $scope.$watch('ship', function() {
                         if ($scope.ship === null) {

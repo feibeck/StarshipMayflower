@@ -31,9 +31,17 @@
             }
         };
     </script>
+    <style type="text/css">
+        html, body {
+            min-height: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
-<div id="canvas" style="width: 500px; height: 300px;"></div>
+<div id="canvas" style="width: 100%; height: 100%;"></div>
 <script src="../../components/requirejs/require.js"></script>
 <script>
 
@@ -63,17 +71,9 @@
             {
                 id: 1,
                 position: {
-                    x: 9597870,
-                    y: 1997870,
-                    z: 19597870
-                }
-            },
-            {
-                id: 2,
-                position: {
-                    x: -100,
-                    y: -100,
-                    z: -100
+                    x: 0,
+                    y: 0,
+                    z: 6
                 }
             }
         ];
@@ -83,31 +83,17 @@
 
         spaceViewer.animate();
 
-        function move(position) {
-
-            return {
-                x: randomMoveAxis(position.x),
-                y: randomMoveAxis(position.y),
-                z: randomMoveAxis(position.z)
-            };
-
-        };
-
-        function randomMoveAxis(value) {
-            var newValue = (Math.random() * (10 + 10) - 10) + value;
-            if (newValue > 250) {
-                newValue = 250;
-            }
-            return newValue;
-        }
-
         function moveObjects() {
             _.forIn(objects, function(object, index) {
-                objects[index].position = move(object.position);
+                objects[index].position.z += 0.002;
             });
             spaceViewer.updateObjects(objects);
         }
-        window.setInterval(moveObjects, 2000);
+        window.setInterval(moveObjects, 100);
+
+        window.onresize = function() {
+            spaceViewer.setSize(container.width(), container.height());
+        };
 
     });
 

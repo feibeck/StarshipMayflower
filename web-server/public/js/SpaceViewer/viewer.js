@@ -14,7 +14,7 @@ define([
                 45,
                 this.width / this.height,
                 0.001,
-                1
+                10000
             );
 
             this.camera.position.set(0, 0.03, -0.075);
@@ -59,7 +59,7 @@ define([
                 if (me.renderObjects[object.id]) {
                     obj = me.renderObjects[object.id];
                 } else {
-                    var SphereGeometry = new THREE.SphereGeometry(3, 3, 3),
+                    var SphereGeometry = new THREE.SphereGeometry(3, 100, 100),
                         material = new THREE.MeshBasicMaterial({color: 'white'});
 
                     obj = me.renderObjects[object.id] = new THREE.Mesh(SphereGeometry, material);
