@@ -11,7 +11,7 @@ define([
             var deferred = $q.defer();
 
             pomelo.init({
-                host: "127.0.0.1",
+                host: window.location.hostname,
                 port: "3010",
                 log: true
             }, function() {
