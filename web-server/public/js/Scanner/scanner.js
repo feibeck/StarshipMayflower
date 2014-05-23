@@ -42,7 +42,6 @@ define([
     Scanner.prototype.setRangeFactor = function(factor) {
         if (factor >= 1 && factor <= 10) {
             this.factor = factor - 1;
-            console.log(this.factor);
             this.drawObjects();
         }
     };
