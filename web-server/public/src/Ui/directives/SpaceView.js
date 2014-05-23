@@ -24,6 +24,15 @@ define([
                 controller: function($scope) {},
 
                 link: function($scope, element, attrs) {
+                    var w = angular.element($window);
+                    w.bind('resize', function() {
+                        spaceViewer.setSize(element.width(), element.height());
+                    });
+
+                    $scope.$parent.$on('selected', function() {
+                        spaceViewer.setSize(element.width(), element.height());
+                    });
+
                     element.find('div').append(spaceViewer.getDomElement());
                     spaceViewer.setSize(element.width(), element.height());
 

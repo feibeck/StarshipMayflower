@@ -29,7 +29,8 @@ require.config({
         'ScannerObject': '../js/Scanner/ScannerObject',
         'paper': '../components/paper/dist/paper-core',
         'SpaceViewer': '../js/SpaceViewer/viewer',
-        'SpaceObjectsRenderer': '../js/lib/SpaceObjectsRenderer'
+        'SpaceObjectsRenderer': '../js/lib/SpaceObjectsRenderer',
+        'Models': '../models/Models'
     },
 
     shim: {

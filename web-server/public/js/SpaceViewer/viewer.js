@@ -4,8 +4,9 @@ define([
     'SpaceObjectsRenderer',
     'lodash',
     'three',
-    'threexspaceships'
-], function(SpaceObjectsRenderer, _, THREE, THREEx) {
+    'threexspaceships',
+    'Models'
+], function(SpaceObjectsRenderer, _, THREE, THREEx, Models) {
     "use strict";
 
     var Viewer = SpaceObjectsRenderer.extend({
@@ -14,7 +15,7 @@ define([
                 45,
                 this.width / this.height,
                 0.001,
-                1
+                500
             );
 
             this.camera.position.set(0, 0.03, -0.075);
@@ -27,7 +28,7 @@ define([
 
             this.shipModel = null;
 
-            THREEx.SpaceShips.loadSpaceFighter02(function(object3d){
+            THREEx.SpaceShips.loadSpaceFighter02(function(object3d) {
                 object3d.position.x = 0;
                 object3d.position.y = 0;
                 object3d.position.z = 0;
@@ -38,12 +39,17 @@ define([
                 me.shipModel = object3d;
             });
 
+            this.stationModel = null;
+            Models.Starbase(function(object3d) {
+                me.stationModel = object3d;
+            });
+
             this.renderObjects = {};
         },
         drawObjects: function() {
             var me = this;
 
-            if (!this.ship || !this.shipModel) {
+            if (!this.ship || !this.shipModel || !this.stationModel) {
                 return;
             }
 
@@ -54,19 +60,19 @@ define([
             );
 
             _.forIn(this.worldObjects, function(object) {
-                var obj;
+                var obj,
+                    position = me.calculateLocalPosition(shipPosition, object);
 
                 if (me.renderObjects[object.id]) {
                     obj = me.renderObjects[object.id];
                 } else {
-                    var SphereGeometry = new THREE.SphereGeometry(3, 3, 3),
-                        material = new THREE.MeshBasicMaterial({color: 'white'});
+                    obj = me.renderObjects[object.id] = me.stationModel.clone();
+                    obj.position = position;
 
-                    obj = me.renderObjects[object.id] = new THREE.Mesh(SphereGeometry, material);
                     me.scene.add(obj);
                 }
 
-                obj.position = me.calculateLocalPosition(shipPosition, object);
+                obj.position = position;
             });
         },
         calculateLocalPosition: function(shipPosition, object) {
