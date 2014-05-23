@@ -67,21 +67,6 @@ define(['paper'], function(paper) {
         return pixelPerDegree;
     };
 
-    Compass.prototype.roll = function(angle) {
-
-        var currentPitch = this.currentPitch;
-        this.pitch(0);
-
-        this.xyGroup.setPivot(paper.view.center);
-        this.xyGroup.rotate(-this.currentRoll);
-
-        this.currentRoll = angle;
-        this.xyGroup.rotate(angle);
-        this.labelRollAngle.content = Math.round(angle) + '°';
-
-        this.pitch(currentPitch);
-    };
-
     Compass.prototype.jaw = function(angle) {
         this.xzGroup.setPivot(paper.view.center);
         this.xzGroup.rotate(-this.currentJaw);
@@ -158,14 +143,6 @@ define(['paper'], function(paper) {
             [paper.view.center.x + 35, paper.view.center.y]
         );
         redLine.strokeColor = 'red';
-
-        this.labelRollAngle = new paper.PointText({
-            point: [paper.view.center.x - 60, paper.view.center.y + 3],
-            content: 0 + '°',
-            fillColor: 'red',
-            fontFamily: 'Arial',
-            fontSize: 9
-        });
     };
 
     Compass.prototype.createJawDisplay = function() {

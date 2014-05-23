@@ -27,6 +27,20 @@ define(['../module'], function (module) {
                     }
 
                     return theta / Math.PI * 180;
+                },
+                getAzimuth: function(ship)
+                {
+                    var heading = ship.heading;
+                    return this.getAngle(heading.z, heading.x);
+                },
+                getPolar: function(ship)
+                {
+                    var heading = ship.heading;
+                    return Math.asin(heading.y / this.norm(heading)) / Math.PI * 180;
+                },
+                norm: function(vec)
+                {
+                    return Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
                 }
             };
         }

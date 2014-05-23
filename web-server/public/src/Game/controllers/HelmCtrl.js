@@ -11,19 +11,8 @@ define(['../module'], function (module) {
 
             Pomelo.on('ShipUpdate', function(ship) {
 
-                $scope.angleZX = GameUtils.getAngle(-ship.heading.z, ship.heading.x);
-
-                var angle = GameUtils.getAngle(ship.heading.z, ship.heading.y);
-                if (angle > 90 && angle <= 180) {
-                    angle = 180 - angle;
-                }
-                if (angle > 270 && angle <= 360) {
-                    angle = (360 - angle) * -1;
-                }
-                if (angle > 180 && angle <= 270) {
-                    angle = 180 - angle;
-                }
-                $scope.angleYZ = angle;
+                $scope.azimuth = GameUtils.getAzimuth(ship);
+                $scope.polar = GameUtils.getPolar(ship);
 
                 $scope.$apply();
 
