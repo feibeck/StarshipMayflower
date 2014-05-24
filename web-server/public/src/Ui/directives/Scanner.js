@@ -20,7 +20,7 @@ define([
                 },
 
                 controller: function($scope) {
-                    $scope.zoomFactor = 1;
+                    $scope.zoomFactor = 9;
                 },
 
                 link: function($scope, element, attrs) {
