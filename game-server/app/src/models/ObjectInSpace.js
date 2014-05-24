@@ -34,6 +34,8 @@ _.extend(ObjectInSpace.prototype, {
     _lastMove: null,
     _targetImpulse: 0,
     _currentImpulse: 0,
+    _size: null,
+    _model: "",
 
 
     /**

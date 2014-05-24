@@ -9,7 +9,9 @@ define([
 ], function(_, THREE) {
     "use strict";
 
-        var getCentroid = function ( boundingBox, object ) {
+        var getCentroid = function (object) {
+
+            var boundingBox = new THREE.Box3().setFromObject(object);
 
             var x0 = boundingBox.min.x;
             var x1 = boundingBox.max.x;
@@ -26,65 +28,53 @@ define([
             var centroidY = y0 + ( bHeight / 2 )+ object.position.y;
             var centroidZ = z0 + ( bDepth / 2 ) + object.position.z;
 
-            return { x : centroidX, y : centroidY, z : centroidZ };
+            return {x: centroidX, y: centroidY, z: centroidZ};
 
         }
 
-        return {
+        var scaleModel = function(ship, model) {
+            var box = new THREE.Box3().setFromObject(model);
+            var scale = ship.size.z / (box.max.z - box.min.z);
+            model.scale.multiplyScalar(scale);
+        }
 
-            loadSpaceFighter02: function(onLoad){
-                var loader	= new THREE.OBJMTLLoader();
+        // change emissive color of all object3d material - they are too dark
+        var fixLightning = function(model) {
+            model.traverse(function(model) {
+                if (model.material) {
+                    model.material.emissive.set('white')
+                }
+            });
+        }
 
-                var baseUrl	= '/components/threex.spaceships/';
-                var objUrl	= baseUrl + 'models/SpaceFighter02/SpaceFighter02.obj';
-                var mtlUrl	= baseUrl + 'models/SpaceFighter02/SpaceFighter02.mtl';
+        var loader	= new THREE.OBJMTLLoader();
 
-                loader.load(objUrl, mtlUrl, function ( object3d ) {
+        var modelUrls = {
 
-                    object3d.scale.multiplyScalar(1/200);
-
-                    // change emissive color of all object3d material - they are too dark
-                    object3d.traverse(function(object3d){
-                        if( object3d.material ){
-                            object3d.material.emissive.set('white')
-                        }
-                    });
-
-                    // notify the callback
-                    onLoad	&& onLoad(object3d)
-
-                } );
+            SpaceFighter02: {
+                baseUrl: '/components/threex.spaceships/',
+                objUrl: 'models/SpaceFighter02/SpaceFighter02.obj',
+                mtlUrl: 'models/SpaceFighter02/SpaceFighter02.mtl'
             },
 
-            loadSpaceStation1: function(onLoad){
-                var loader	= new THREE.OBJMTLLoader();
+            SpaceStation01: {
+                baseUrl: '/models/SpaceStation01/',
+                objUrl: 'SpaceStation01.obj',
+                mtlUrl: 'SpaceStation01.mtl'
+            }
 
-                var baseUrl	= '/models/SpaceStation01/'
-                var objUrl	= baseUrl + 'SpaceStation01.obj';
-                var mtlUrl	= baseUrl + 'SpaceStation01.mtl';
+        };
 
-                loader.load(objUrl, mtlUrl, function ( object3d ) {
+        return {
 
-                    var box = new THREE.Box3().setFromObject(object3d);
-                    var spaceStationHeight = 3;
-
-                    var scale = spaceStationHeight / (box.max.y - box.min.y);
-                    object3d.scale.multiplyScalar(scale);
-
-                    var box = new THREE.Box3().setFromObject(object3d);
-
-                    object3d.centeroid = getCentroid(box, object3d);
-
-                    // change emissive color of all object3d material - they are too dark
-                    object3d.traverse(function(object3d){
-                        if( object3d.material ){
-                            object3d.material.emissive.set('white')
-                        }
-                    })
-                    // notify the callback
-                    onLoad	&& onLoad(object3d)
-
-                } );
+            loadModel: function(ship, onLoadFunc) {
+                var source = modelUrls[ship.model];
+                loader.load(source.baseUrl + source.objUrl, source.baseUrl + source.mtlUrl, function(object3d) {
+                    scaleModel(ship, object3d);
+                    fixLightning(object3d);
+                    object3d.centeroid = getCentroid(object3d);
+                    onLoadFunc && onLoadFunc(object3d)
+                });
             }
 
         };

@@ -24,24 +24,28 @@ define([
         },
         initialize: function() {
             var me = this;
-
             this.shipModel = null;
-
-            ModelLoader.loadSpaceFighter02(function(object3d){
-                object3d.position.x = 0;
-                object3d.position.y = 0;
-                object3d.position.z = 0;
-
-                object3d.scale.set(0.00012, 0.00012, 0.00012);
-
-                me.scene.add(object3d);
-                me.shipModel = object3d;
-            });
-
             this.renderObjects = {};
         },
         drawObjects: function() {
             var me = this;
+
+            if (this.ship && !this.shipModel) {
+
+                if (!this.loading) {
+                    this.loading = true;
+                    ModelLoader.loadModel(this.ship, function (model) {
+                        model.position.x = 0;
+                        model.position.y = 0;
+                        model.position.z = 0;
+
+                        me.scene.add(model);
+                        me.shipModel = model;
+                        me.loading = false;
+                    });
+                }
+
+            }
 
             if (this.loading || !this.ship || !this.shipModel) {
                 return;
@@ -63,17 +67,17 @@ define([
                         me.renderObjects[object.id].position.z -= me.renderObjects[object.id].centeroid.z;
                     }
                 } else {
-                    me.loadObjectSpaceStation(object.id);
+                    me.loadObjectSpaceStation(object, object.id);
                 }
 
             });
         },
 
-        loadObjectSpaceStation: function(objectId)
+        loadObjectSpaceStation: function(object, objectId)
         {
             var me = this;
             me.loading = true;
-            ModelLoader.loadSpaceStation1(function(object3d){
+            ModelLoader.loadModel(object, function(object3d){
                 me.scene.add(object3d);
                 me.renderObjects[objectId] = object3d;
                 me.loading = false;

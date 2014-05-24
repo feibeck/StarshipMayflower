@@ -27,6 +27,14 @@ var Ship = function(name) {
         mainscreen: null
     };
 
+    me._size = {
+        x: 0.027,
+        y: 0.007,
+        z: 0.020
+    };
+
+    me._model = "SpaceFighter02";
+
     ObjectInSpace.call(this);
 
 };
@@ -353,7 +361,9 @@ _.extend(Ship.prototype, {
             warpLevel: me._warpLevel,
             warpSpeed: me._warpSpeed,
             warp: me._warp,
-            orientation: me._orientation.elements
+            orientation: me._orientation.elements,
+            size: me._size,
+            model: me._model
         };
     },
 
@@ -389,7 +399,10 @@ _.extend(Ship.prototype, {
             speed: me.getRealVelocity(),
             warpLevel: me._warpLevel,
             warp: me._warp,
-            warpSpeed: me._warpSpeed
+            warpSpeed: me._warpSpeed,
+            orientation: me._orientation.elements,
+            size: me._size,
+            model: me._model
         };
     }
 

@@ -8,6 +8,7 @@ define([
 
         this.width = 0;
         this.height = 0;
+        this.loading = false;
 
         this.scene = new THREE.Scene();
 
@@ -15,10 +16,10 @@ define([
         var ambientLight = new THREE.AmbientLight( 0x222222 );
 
         var light = new THREE.DirectionalLight( 0xFFFFFF, 1.0 );
-        light.position.set( 200, 400, 500 );
+        light.position.set(2, 4, 5);
 
         var light2 = new THREE.DirectionalLight( 0xFFFFFF, 1.0 );
-        light2.position.set( -500, 250, -200 );
+        light2.position.set(-5, 2.5, -2);
 
         this.scene.add(ambientLight);
         this.scene.add(light);
@@ -30,7 +31,7 @@ define([
             opacity: 0.3
         });
 
-        var radius = 200;
+        var radius = 0.025;
         var segments = 32;
 
         var circleGeometry = new THREE.CircleGeometry( radius, segments );
@@ -45,8 +46,8 @@ define([
         this.renderer.gammaOutput = true;
         this.renderer.setSize(this.width, this.height);
 
-        this.camera = new THREE.PerspectiveCamera( 30, this.width / this.height, 1, 10000 );
-        this.camera.position.set(0, 240, -600);
+        this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.01, 1);
+        this.camera.position.set(0, 0.01, -0.045);
 
         var center = new THREE.Vector3(0, 0, 0);
         this.camera.lookAt(center);
@@ -54,19 +55,6 @@ define([
         var me = this;
 
         this.shipModel = null;
-
-        ModelLoader.loadSpaceFighter02(function(object3d){
-            object3d.position.x = 0;
-            object3d.position.y = 0;
-            object3d.position.z = 0;
-
-            object3d.scale.x = 0.65;
-            object3d.scale.y = 0.65;
-            object3d.scale.z = 0.65;
-
-            me.scene.add(object3d);
-            me.shipModel = object3d;
-        })
     }
 
     Rotation.prototype.animate = function() {
@@ -97,9 +85,27 @@ define([
         return this.renderer.domElement;
     };
 
+    Rotation.prototype.loadShipModel = function(ship) {
+        var me = this;
+
+        ModelLoader.loadModel(ship, function(object3d) {
+            object3d.position.x = 0;
+            object3d.position.y = 0;
+            object3d.position.z = 0;
+
+            me.scene.add(object3d);
+            me.shipModel = object3d;
+            me.loading = false;
+        });
+    };
+
     Rotation.prototype.updateShip = function(ship) {
 
         if (this.shipModel == null) {
+            if (!this.loading) {
+                this.loading = true;
+                this.loadShipModel(ship);
+            }
             return;
         }
 
