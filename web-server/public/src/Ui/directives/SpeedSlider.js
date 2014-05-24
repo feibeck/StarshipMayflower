@@ -55,7 +55,13 @@ define([
                             slider.slider('setCurrentValue', $scope.ship.warpLevel);
                             slider.slider('setValue', $scope.ship.warpLevel);
                         } else if (engine == 'impulse') {
-                            slider.slider('setCurrentValue', $scope.ship.currentImpulse);
+
+                            var current = $scope.ship.currentImpulse;
+                            if (current > 100) {
+                                current = 100;
+                            }
+
+                            slider.slider('setCurrentValue', current);
                             slider.slider('setValue', $scope.ship.targetImpulse);
                         }
 

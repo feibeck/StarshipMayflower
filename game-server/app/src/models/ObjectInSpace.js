@@ -160,6 +160,16 @@ _.extend(ObjectInSpace.prototype, {
     },
 
     /**
+     * Get the objects target speed
+     *
+     * @returns {Integer}
+     */
+    getTargetImpulse: function()
+    {
+        return this._targetImpulse;
+    },
+
+    /**
      * Sets the current impulse speed
      *
      * @param {Integer} currentImpulse

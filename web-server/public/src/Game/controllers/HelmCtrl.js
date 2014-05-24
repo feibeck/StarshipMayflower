@@ -34,6 +34,13 @@ define(['../module', 'angle'], function (module, Angle) {
                 Pomelo.notify('world.navigation.setWarp', {warp: $scope.warpEngine})
             });
 
+            $scope.$watch('slowImpulse', function() {
+                if ($scope.slowImpulse == null) {
+                    return;
+                }
+                Pomelo.notify('world.navigation.setSlowImpulse', {slowImpulse: $scope.slowImpulse})
+            });
+
             angular.element($window).on('keydown', function(e) {
 
                 switch (e.keyCode) {

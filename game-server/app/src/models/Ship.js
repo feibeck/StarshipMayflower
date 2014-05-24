@@ -43,6 +43,7 @@ _.extend(Ship.prototype, {
     _warpLevel: 0,
     _warpSpeed: 1,
     _warp: false,
+    _slowImpulse: false,
 
     /**
      * Returns the ships name
@@ -182,6 +183,30 @@ _.extend(Ship.prototype, {
     },
 
     /**
+     * En- or disable slow impulse mode
+     *
+     * @param {boolean} warp
+     *
+     * @returns {Ship}
+     */
+    setSlowImpulse: function(slowImpulse)
+    {
+        this._slowImpulse = slowImpulse;
+        return this;
+    },
+
+    /**
+     * Retuns wether the ship is going at slow impulse speed
+     *
+     * @returns {boolean}
+     */
+    getSlowImpulse: function()
+    {
+        return this._slowImpulse;
+    },
+
+
+    /**
      * Register a player with a station
      *
      * @param {String} station
@@ -308,6 +333,7 @@ _.extend(Ship.prototype, {
             speed: me.getRealVelocity(),
             targetImpulse: me._targetImpulse,
             currentImpulse: me._currentImpulse,
+            slowImpulse: me._slowImpulse,
             heading: {
                 x: heading.e(1),
                 y: heading.e(2),

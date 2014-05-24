@@ -38,6 +38,29 @@ _.extend(Handler.prototype, {
         game.timer().addAction(action);
     },
 
+    setSlowImpulse: function(msg, session, next)
+    {
+        var playerId = session.get('playerId');
+
+        if (!playerId) {
+            next(new Error('User not logged in'), {code: 'ERR', payload: {}});
+            return;
+        }
+
+        var shipRegistry = game.getShipRegistry();
+        var player = shipRegistry.getPlayer(playerId);
+        var ship = shipRegistry.getShip(player.getShip().getId());
+
+        ship.setSlowImpulse(msg.slowImpulse);
+
+        var action = new Accelerate({
+            ship: ship,
+            targetSpeed: ship.getTargetImpulse()
+        });
+
+        game.timer().addAction(action);
+    },
+
     setWarp: function(msg, session, next)
     {
         var playerId = session.get('playerId');
