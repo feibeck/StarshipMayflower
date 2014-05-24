@@ -15,6 +15,7 @@
         "requirejs-domready": "latest",
         "lodash":             "latest",
         "paper":              "latest",
-        "threex.spaceships":  "latest"
+        "threex.spaceships":  "latest",
+        "socket.io-client":   "latest"
     }
 }

@@ -1,7 +1,7 @@
 require.config({
 
     paths: {
-        'socketIo': '../js/lib/socket.io',
+        'socketIo': '../components/socket.io-client/dist/socket.io.min',
         'pomelo': '../js/lib/pomeloclient',
         'jquery': '../components/jquery/dist/jquery',
         'lodash': '../components/lodash/dist/lodash',
