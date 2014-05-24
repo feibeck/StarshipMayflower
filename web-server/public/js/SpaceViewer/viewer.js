@@ -4,8 +4,8 @@ define([
     'SpaceObjectsRenderer',
     'lodash',
     'three',
-    'threexspaceships'
-], function(SpaceObjectsRenderer, _, THREE, THREEx) {
+    'ModelLoader'
+], function(SpaceObjectsRenderer, _, THREE, ModelLoader) {
     "use strict";
 
     var Viewer = SpaceObjectsRenderer.extend({
@@ -19,7 +19,7 @@ define([
 
             this.camera.position.set(0, 0.03, -0.075);
 
-            var center = new THREE.Vector3(0, 0, 0);
+            var center = new THREE.Vector3(0, 0.02, 0);
             this.camera.lookAt(center);
         },
         initialize: function() {
@@ -27,7 +27,7 @@ define([
 
             this.shipModel = null;
 
-            THREEx.SpaceShips.loadSpaceFighter02(function(object3d){
+            ModelLoader.loadSpaceFighter02(function(object3d){
                 object3d.position.x = 0;
                 object3d.position.y = 0;
                 object3d.position.z = 0;
@@ -43,7 +43,7 @@ define([
         drawObjects: function() {
             var me = this;
 
-            if (!this.ship || !this.shipModel) {
+            if (this.loading || !this.ship || !this.shipModel) {
                 return;
             }
 
@@ -54,21 +54,33 @@ define([
             );
 
             _.forIn(this.worldObjects, function(object) {
-                var obj;
 
                 if (me.renderObjects[object.id]) {
-                    obj = me.renderObjects[object.id];
+                    me.renderObjects[object.id].position = me.calculateLocalPosition(shipPosition, object);
+                    if (me.renderObjects[object.id].centeroid) {
+                        me.renderObjects[object.id].position.x -= me.renderObjects[object.id].centeroid.x;
+                        me.renderObjects[object.id].position.y -= me.renderObjects[object.id].centeroid.y;
+                        me.renderObjects[object.id].position.z -= me.renderObjects[object.id].centeroid.z;
+                    }
                 } else {
-                    var SphereGeometry = new THREE.SphereGeometry(3, 100, 100),
-                        material = new THREE.MeshBasicMaterial({color: 'white'});
-
-                    obj = me.renderObjects[object.id] = new THREE.Mesh(SphereGeometry, material);
-                    me.scene.add(obj);
+                    me.loadObjectSpaceStation(object.id);
                 }
 
-                obj.position = me.calculateLocalPosition(shipPosition, object);
             });
         },
+
+        loadObjectSpaceStation: function(objectId)
+        {
+            var me = this;
+            me.loading = true;
+            ModelLoader.loadSpaceStation1(function(object3d){
+                me.scene.add(object3d);
+                me.renderObjects[objectId] = object3d;
+                me.loading = false;
+                me.drawObjects();
+            });
+        },
+
         calculateLocalPosition: function(shipPosition, object) {
             var rotation = this.getShipRotationMatrix(),
                 globalPosition = new THREE.Vector3(
@@ -83,6 +95,7 @@ define([
 
             return localPosition;
         },
+
         getShipRotationMatrix: function() {
             var rotationMatrix = new THREE.Matrix4(
                 this.ship.orientation[0][0],
@@ -105,6 +118,7 @@ define([
 
             return rotationMatrix;
         }
+
     });
 
     return Viewer;

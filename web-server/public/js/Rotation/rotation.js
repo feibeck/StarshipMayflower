@@ -1,7 +1,7 @@
 define([
     'three',
-    'threexspaceships'
-], function(THREE, THREEx) {
+    'ModelLoader'
+], function(THREE, ModelLoader) {
     'use strict';
 
     function Rotation() {
@@ -55,7 +55,7 @@ define([
 
         this.shipModel = null;
 
-        THREEx.SpaceShips.loadSpaceFighter02(function(object3d){
+        ModelLoader.loadSpaceFighter02(function(object3d){
             object3d.position.x = 0;
             object3d.position.y = 0;
             object3d.position.z = 0;

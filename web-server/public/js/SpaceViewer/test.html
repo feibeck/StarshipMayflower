@@ -5,14 +5,15 @@
         var require = {
             paths: {
                 'domReady': '../../components/requirejs-domready/domReady',
-                'three': '../../components/three.js/three',
-                'mtlloader': '../ThreeJsAddons/MTLLoader',
-                'objloader': '../ThreeJsAddons/OBJLoader',
-                'objmtlloader': '../ThreeJsAddons/OBJMTLLoader',
+                'three': '../../components/threejs-build/build/three.min',
+                'mtlloader': '../../components/threejs-examples/examples/js/loaders/MTLLoader',
+                'objloader': '../../components/threejs-examples/examples/js/loaders/OBJLoader',
+                'objmtlloader': '../../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
                 'threexspaceships': '../../components/threex.spaceships/threex.spaceships',
                 'jquery': '../../components/jquery/dist/jquery',
                 'lodash': '../../components/lodash/dist/lodash',
-                'SpaceObjectsRenderer': '../lib/SpaceObjectsRenderer'
+                'SpaceObjectsRenderer': '../lib/SpaceObjectsRenderer',
+                'ModelLoader': '../lib/ModelLoader'
             },
             shim: {
                 'three': {
@@ -73,7 +74,7 @@
                 position: {
                     x: 0,
                     y: 0,
-                    z: 6
+                    z: 4
                 }
             }
         ];
@@ -85,7 +86,7 @@
 
         function moveObjects() {
             _.forIn(objects, function(object, index) {
-                objects[index].position.z += 0.002;
+                objects[index].position.z += 0.02;
             });
             spaceViewer.updateObjects(objects);
         }

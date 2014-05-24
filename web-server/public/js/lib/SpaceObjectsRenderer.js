@@ -12,6 +12,8 @@ define([
 
         this.scene = new THREE.Scene();
 
+        this.loading = false;
+
         this.initLights();
         this.initCamera();
 

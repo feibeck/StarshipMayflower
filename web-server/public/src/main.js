@@ -9,11 +9,11 @@ require.config({
         'angular': '../components/angular/angular',
         'uiRouter': '../components/angular-ui-router/release/angular-ui-router',
         'uiBootstrap': '../components/angular-bootstrap/ui-bootstrap-tpls',
-        'three': '../components/three.js/three.min',
-        'orbit-controls': '../js/lib/OrbitControls',
-        'mtlloader': '../js/ThreeJsAddons/MTLLoader',
-        'objloader': '../js/ThreeJsAddons/OBJLoader',
-        'objmtlloader': '../js/ThreeJsAddons/OBJMTLLoader',
+        'three': '../components/threejs-build/build/three.min',
+        'orbit-controls': '../components/threejs-controls/controls/OrbitControls',
+        'mtlloader': '../components/threejs-examples/examples/js/loaders/MTLLoader',
+        'objloader': '../components/threejs-examples/examples/js/loaders/OBJLoader',
+        'objmtlloader': '../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
         'threexspaceships': '../components/threex.spaceships/threex.spaceships',
         'Grid': '../js/Map/Grid',
         'Constants': '../js/Map/Constants',
@@ -30,7 +30,8 @@ require.config({
         'paper': '../components/paper/dist/paper-core',
         'angle': '../js/Util/angle',
         'SpaceViewer': '../js/SpaceViewer/viewer',
-        'SpaceObjectsRenderer': '../js/lib/SpaceObjectsRenderer'
+        'SpaceObjectsRenderer': '../js/lib/SpaceObjectsRenderer',
+        'ModelLoader': '../js/lib/ModelLoader'
     },
 
     shim: {
