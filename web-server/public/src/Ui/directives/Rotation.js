@@ -8,8 +8,6 @@ define([
     module.directive('rotation', ['THREE', '$window', '$interval',
         function(THREE, $window, $interval) {
 
-            var map = new Rotation();
-
             return {
 
                 template: '<div></div>',
@@ -19,6 +17,8 @@ define([
                 },
 
                 link: function($scope, element, attrs) {
+
+                    var map = new Rotation();
 
                     element.append(map.getDomElement());
                     map.setSize(element.width(), element.height());

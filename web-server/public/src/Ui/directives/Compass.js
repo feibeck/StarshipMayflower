@@ -9,8 +9,6 @@ define([
     module.directive('compass', [
         function() {
 
-            var compass = new Compass();
-
             return {
 
                 template: '<div></div>',
@@ -20,6 +18,8 @@ define([
                 },
 
                 link: function($scope, element, attrs) {
+
+                    var compass = new Compass();
 
                     element.append(compass.getDomElement());
 

@@ -8,8 +8,6 @@ define([
     module.directive('map', ['$window', '$interval',
         function($window, $interval) {
 
-            var map = new StarMap();
-
             return {
 
                 templateUrl: '/src/Ui/view/map.html',
@@ -20,6 +18,8 @@ define([
                 },
 
                 link: function($scope, element, attrs) {
+
+                    var map = new StarMap();
 
                     $scope.camera = map.getCamera();
 

@@ -8,8 +8,6 @@ define([
     module.directive('scanner', ['THREE', '$window', '$interval',
         function(THREE, $window, $interval) {
 
-            var scanner = new Scanner();
-
             return {
 
                 template: '<div><div class="scanner"></div><pagination class="pagination-sm" direction-links="true" boundary-links="false" previous-text="&lsaquo;" next-text="&rsaquo;" max-size="5" items-per-page="1" total-Items="9" ng-model="zoomFactor"></pagination></div>',
@@ -24,6 +22,8 @@ define([
                 },
 
                 link: function($scope, element, attrs) {
+
+                    var scanner = new Scanner();
 
                     element.find('div').append(scanner.getDomElement());
                     scanner.setSize(element.width(), element.height());

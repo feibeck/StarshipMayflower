@@ -10,8 +10,6 @@ define([
     module.directive('spaceView', ['THREE', '$window',
         function(THREE, $window) {
 
-            var spaceViewer = new SpaceViewer();
-
             return {
 
                 template: '',
@@ -24,6 +22,9 @@ define([
                 controller: function($scope) {},
 
                 link: function($scope, element, attrs) {
+
+                    var spaceViewer = new SpaceViewer();
+
                     element.append(spaceViewer.getDomElement());
                     spaceViewer.setSize(element.width(), element.height());
 
