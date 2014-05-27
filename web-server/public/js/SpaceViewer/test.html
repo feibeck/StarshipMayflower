@@ -57,8 +57,8 @@
 
         var ship = {
             orientation: [
-                [1, 0, 0],
-                [0, 1, 0],
+                [Math.cos(Math.PI/4), -Math.sin(Math.PI/4), 0],
+                [Math.sin(Math.PI/4), Math.cos(Math.PI/4), 0],
                 [0, 0, 1]
             ],
             position: {
@@ -77,10 +77,34 @@
         var objects = [
             {
                 id: 1,
+                orientation: [
+                    [1, 0, 0],
+                    [0, 1, 0.4],
+                    [0.4, 0, 0.5]
+                ],
                 position: {
                     x: 0,
                     y: 0,
-                    z: 3
+                    z: 4
+                },
+                size: {
+                    x: 2.793,
+                    y: 3.000,
+                    z: 2.793
+                },
+                model: "SpaceStation01"
+            },
+            {
+                id: 2,
+                orientation: [
+                    [1, 0, 0],
+                    [0, 1, 0.4],
+                    [0.4, 0, 0.5]
+                ],
+                position: {
+                    x: 2,
+                    y: 0,
+                    z: -4
                 },
                 size: {
                     x: 2.793,
