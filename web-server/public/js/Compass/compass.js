@@ -3,10 +3,10 @@ define(['paper'], function(paper) {
     var Compass = function(id) {
 
         this.domElement = document.createElement('canvas');
-        this.domElement.width = 400;
-        this.domElement.height = 400;
+        this.domElement.width = 200;
+        this.domElement.height = 200;
 
-        this.outerRingSize = 55;
+        this.outerRingSize = 35;
         this.radius = Math.min(this.domElement.width, this.domElement.height);
 
         paper.setup(this.domElement);
@@ -97,26 +97,28 @@ define(['paper'], function(paper) {
             xyScale.push(new paper.Path({
                 segments: [
                     [
-                        paper.view.center.x - 20,
+                        paper.view.center.x - 10,
                         paper.view.center.y + i * pixelPerDegree
                     ],
                     [
-                        paper.view.center.x + 20,
+                        paper.view.center.x + 10,
                         paper.view.center.y + i * pixelPerDegree
                     ]
                 ],
                 strokeColor: color
             }));
 
-            xyScale.push(new paper.PointText({
-                point: [
-                    paper.view.center.x + 25,
-                    paper.view.center.y + i * pixelPerDegree + 3
-                ],
-                content: (-i) + '°',
-                fillColor: color,
-                fontSize: 9
-            }));
+            if (i % 20 == 0) {
+                xyScale.push(new paper.PointText({
+                    point: [
+                        paper.view.center.x + 15,
+                        paper.view.center.y + i * pixelPerDegree + 3
+                    ],
+                    content: (-i) + '°',
+                    fillColor: color,
+                    fontSize: 9
+                }));
+            }
         }
 
         xyScale.push(new paper.Path({
@@ -136,11 +138,11 @@ define(['paper'], function(paper) {
 
     Compass.prototype.createRollDisplay = function() {
         var redLine = new paper.Path(
-            [paper.view.center.x - 35, paper.view.center.y],
+            [paper.view.center.x - 15, paper.view.center.y],
             [paper.view.center.x - 5, paper.view.center.y],
             [paper.view.center.x, paper.view.center.y + 5],
             [paper.view.center.x + 5, paper.view.center.y],
-            [paper.view.center.x + 35, paper.view.center.y]
+            [paper.view.center.x + 15, paper.view.center.y]
         );
         redLine.strokeColor = 'red';
     };
@@ -155,13 +157,13 @@ define(['paper'], function(paper) {
 
             var a = i * (Math.PI/180);
 
-            var length = 20;
+            var length = 8;
             if (i == 0 || i == 90 || i == 180 || i == 270) {
-                length = 30;
+                length = 12;
             }
 
             var color = '#c0c0c0';
-            if (i == 0) {
+            if (i == 0 || i == 90 || i == 180 || i == 270) {
                 color = 'red';
             }
 
@@ -175,21 +177,24 @@ define(['paper'], function(paper) {
                 strokeColor: color
             }));
 
-            var text = new paper.PointText({
-                content: i + '°',
-                fillColor: '#c0c0c0',
-                fontFamily: 'Arial',
-                fontSize: 9
-            });
-            text.rotate(90 - i);
+            if (i % 20 == 0) {
+                var text = new paper.PointText({
+                    content: i + '°',
+                    fillColor: '#c0c0c0',
+                    fontFamily: 'Arial',
+                    fontSize: 9
+                });
+                text.rotate(90 - i);
 
-            text.pivot = text.bounds.leftCenter;
+                text.pivot = text.bounds.leftCenter;
 
-            var px3 = paper.view.center.x + Math.sin(a) * (r + length + 3);
-            var py3 = paper.view.center.y + Math.cos(a) * (r + length + 3);
+                var px3 = paper.view.center.x + Math.sin(a) * (r + length + 3);
+                var py3 = paper.view.center.y + Math.cos(a) * (r + length + 3);
 
-            text.position = new paper.Point(px3, py3);
-            xzScale.push(text);
+                text.position = new paper.Point(px3, py3);
+                xzScale.push(text);
+            }
+
         };
 
         this.xzGroup = new paper.Group({
