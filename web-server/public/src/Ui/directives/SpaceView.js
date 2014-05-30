@@ -2,13 +2,12 @@
 
 define([
     '../module',
-    'angular',
-    'SpaceViewer'
-], function (module, angular, SpaceViewer) {
+    'angular'
+], function (module, angular) {
     'use strict';
 
-    module.directive('spaceView', ['THREE', '$window',
-        function(THREE, $window) {
+    module.directive('spaceView', ['THREE', '$window', 'Scenes',
+        function(THREE, $window, Scenes) {
 
             return {
 
@@ -23,7 +22,7 @@ define([
 
                 link: function($scope, element, attrs) {
 
-                    var spaceViewer = new SpaceViewer();
+                    var spaceViewer = Scenes.getSpaceview();
 
                     element.append(spaceViewer.getDomElement());
                     spaceViewer.setSize(element.width(), element.height());
@@ -33,9 +32,11 @@ define([
                         spaceViewer.setSize(element.width(), element.height());
                     });
 
-                    $scope.$parent.$on('selected', function() {
-                        spaceViewer.setSize(element.width(), element.height());
-                    });
+                    var resizeFunc = function() {
+                        map.setSize(element.width(), element.height());
+                    };
+
+                    angular.element($window).on('resize', resizeFunc);
 
                     $scope.$watch('ship', function() {
                         if ($scope.ship === null) {
@@ -52,6 +53,10 @@ define([
                     });
 
                     spaceViewer.animate();
+
+                    $scope.$on('$destroy', function() {
+                        angular.element($window).off('resize', resizeFunc);
+                    });
 
                 }
 

@@ -1,40 +1,33 @@
-<div ng-controller="MapCtrl" id="map" class="station-pane">
+<div class="flexbox flexbox-horizontal flex">
 
-    <div class="row">
+    <div map
+         ship="ship"
+         otherships="otherships"
+         class="flex"
+    ></div>
 
-        <div class="col-md-2">
-        </div>
+    <div class="" style="width: 200px;">
 
-        <div class="col-md-8">
-
-            <div map ship="ship" otherships="otherships" style="width: 100%; height: 100%; position:relative;"></div>
-
-        </div>
-
-        <div class="col-md-2">
-
-            <div>
-                <p style="font-weight: bold; color: white">Target</p>
-                <table>
-                    <tr>
-                        <td>Name</td>
-                        <td>{{ selectedObject.name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Distance</td>
-                        <td>{{ course.distance | number: 0 }}km</td>
-                    </tr>
-                    <tr>
-                        <td>Course Z-X</td>
-                        <td>{{ course.angleZX | number:0 }}°</td>
-                    </tr>
-                    <tr>
-                        <td>Course Y-Z</td>
-                        <td>{{ course.angleYZ | number:0 }}°</td>
-                    </tr>
-                </table>
-            </div>
-
+        <div>
+            <p style="font-weight: bold; color: white">Target</p>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ selectedObject.name }}</td>
+                </tr>
+                <tr>
+                    <td>Distance</td>
+                    <td>{{ course.distance | number: 0 }}km</td>
+                </tr>
+                <tr>
+                    <td>Course Z-X</td>
+                    <td>{{ course.angleZX | number:0 }}°</td>
+                </tr>
+                <tr>
+                    <td>Course Y-Z</td>
+                    <td>{{ course.angleYZ | number:0 }}°</td>
+                </tr>
+            </table>
         </div>
 
     </div>

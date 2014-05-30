@@ -77,7 +77,13 @@ define(['../module'], function (module) {
                     newValue
                 ).then(function(started) {
                     if (started) {
-                        $location.path('/play');
+                        Pomelo.request(
+                            'world.game.start',
+                            {}
+                        ).then(function(stations) {
+                            Player.setStations(stations);
+                            $location.path('/play/' + stations[0]);
+                        });
                     }
                 });
 

@@ -1,12 +1,11 @@
 define([
     '../module',
-    'angular',
-    'StarMap'
-], function (module, angular, StarMap) {
+    'angular'
+], function (module, angular) {
     'use strict';
 
-    module.directive('map', ['$window', '$interval',
-        function($window, $interval) {
+    module.directive('map', ['$window', '$interval', 'Scenes',
+        function($window, $interval, Scenes) {
 
             return {
 
@@ -19,7 +18,7 @@ define([
 
                 link: function($scope, element, attrs) {
 
-                    var map = new StarMap();
+                    var map = Scenes.getMap();
 
                     $scope.camera = map.getCamera();
 
@@ -27,14 +26,11 @@ define([
 
                     map.setSize(element.width(), element.height());
 
-                    var w = angular.element($window);
-                    w.bind('resize', function() {
+                    var resizeFunc = function() {
                         map.setSize(element.width(), element.height());
-                    });
+                    };
 
-                    $scope.$parent.$on('selected', function() {
-                        map.setSize(element.width(), element.height());
-                    });
+                    angular.element($window).on('resize', resizeFunc);
 
                     map.addEventListener('select', function(event) {
                         $scope.$parent.selectedObject = event.mapObject;
@@ -54,6 +50,10 @@ define([
                         map.updateOtherships($scope.otherships);
                         map.scaleModels();
                         map.render();
+                    });
+
+                    $scope.$on('$destroy', function() {
+                        angular.element($window).off('resize', resizeFunc);
                     });
 
                 }

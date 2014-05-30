@@ -10,14 +10,21 @@ define(['../module', 'angle'], function (module, Angle) {
             });
 
             Pomelo.on('ShipUpdate', function(ship) {
+                $scope.ship = ship;
                 var angle = new Angle(ship);
+
+                $scope.impuls = ship.targetImpulse;
+                $scope.warpEngine = ship.warp;
+                $scope.slowImpulse = ship.slowImpulse;
+
                 $scope.azimuth = angle.getAzimuth();
                 $scope.polar = angle.getPolar();
                 $scope.$apply();
             });
 
             $scope.impuls = 0;
-            $scope.warpEngine = 0;
+            $scope.warpEngine = null;
+            $scope.slowImpulse = null;
 
             var turning = false;
             $scope.rotate = function(axis, arc) {
@@ -41,7 +48,7 @@ define(['../module', 'angle'], function (module, Angle) {
                 Pomelo.notify('world.navigation.setSlowImpulse', {slowImpulse: $scope.slowImpulse})
             });
 
-            angular.element($window).on('keydown', function(e) {
+            var keydown = function(e) {
 
                 switch (e.keyCode) {
 
@@ -67,9 +74,9 @@ define(['../module', 'angle'], function (module, Angle) {
                         break;
 
                 }
-            });
+            }
 
-            angular.element($window).on('keyup', function(e) {
+            var keyup = function(e) {
 
                 switch (e.keyCode) {
 
@@ -90,6 +97,14 @@ define(['../module', 'angle'], function (module, Angle) {
 
                 }
 
+            }
+
+            angular.element($window).on('keydown', keydown);
+            angular.element($window).on('keyup', keyup);
+
+            $scope.$on('$destroy', function() {
+                angular.element($window).off();
+                angular.element($window).off();
             });
 
         }

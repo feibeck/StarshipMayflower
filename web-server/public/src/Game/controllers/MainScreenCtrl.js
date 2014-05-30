@@ -7,9 +7,6 @@ define(['../module'], function (module) {
                 $scope.ship = world.ship;
                 $scope.otherships = world.ships;
             });
-            $scope.pane.select = function() {
-              $scope.$emit('selected');
-            };
         }
     ]);
 

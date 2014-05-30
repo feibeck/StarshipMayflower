@@ -1,8 +1,11 @@
 define([
+    './controllers/CommCtrl',
     './controllers/DebugCtrl',
-    './controllers/GameCtrl',
+    './controllers/EngineeringCtrl',
     './controllers/HelmCtrl',
+    './controllers/MainScreenCtrl',
     './controllers/MapCtrl',
-    './controllers/WeaponsCtrl',
-    './controllers/MainScreenCtrl'
+    './controllers/PlayCtrl',
+    './controllers/ScienceCtrl',
+    './controllers/WeaponsCtrl'
 ], function () {});

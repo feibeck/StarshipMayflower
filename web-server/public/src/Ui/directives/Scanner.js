@@ -1,16 +1,15 @@
 define([
     '../module',
-    'angular',
-    'scanner'
-], function (module, angular, Scanner) {
+    'angular'
+], function (module, angular) {
     'use strict';
 
-    module.directive('scanner', ['THREE', '$window', '$interval',
-        function(THREE, $window, $interval) {
+    module.directive('scanner', ['THREE', '$window', '$interval', 'Scenes',
+        function(THREE, $window, $interval, Scenes) {
 
             return {
 
-                template: '<div><div class="scanner"></div><pagination class="pagination-sm" direction-links="true" boundary-links="false" previous-text="&lsaquo;" next-text="&rsaquo;" max-size="9" items-per-page="1" total-Items="9" ng-model="zoomFactor"></pagination></div>',
+                template: '<div class="scanner flex"></div><pagination class="pagination-sm scanner-pagination" direction-links="true" boundary-links="false" previous-text="&lsaquo;" next-text="&rsaquo;" max-size="5" items-per-page="1" total-Items="9" ng-model="zoomFactor"></pagination>',
 
                 scope: {
                     ship: '=ship',
@@ -23,7 +22,7 @@ define([
 
                 link: function($scope, element, attrs) {
 
-                    var scanner = new Scanner();
+                    var scanner = Scenes.getScanner();
 
                     element.find('div').append(scanner.getDomElement());
                     scanner.setSize(element.width(), element.height());

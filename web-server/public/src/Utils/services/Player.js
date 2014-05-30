@@ -6,10 +6,12 @@ define(['../module'], function (module) {
         {
             var player = {
                 id: null,
-                name: null
+                name: null,
+                stations: null
             };
 
             return {
+
                 getId: function()
                 {
                     return player.id;
@@ -28,7 +30,18 @@ define(['../module'], function (module) {
                 setName: function(name)
                 {
                     player.name = name;
+                },
+
+                setStations: function(stations)
+                {
+                    player.stations = stations;
+                },
+
+                getStations: function()
+                {
+                    return player.stations;
                 }
+
             };
         }
     ]);

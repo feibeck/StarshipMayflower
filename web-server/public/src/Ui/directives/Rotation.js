@@ -1,12 +1,11 @@
 define([
     '../module',
-    'angular',
-    'rotation'
-], function (module, angular, Rotation) {
+    'angular'
+], function (module, angular) {
     'use strict';
 
-    module.directive('rotation', ['THREE', '$window', '$interval',
-        function(THREE, $window, $interval) {
+    module.directive('rotation', ['THREE', '$window', '$interval', 'Scenes',
+        function(THREE, $window, $interval, Scenes) {
 
             return {
 
@@ -18,7 +17,7 @@ define([
 
                 link: function($scope, element, attrs) {
 
-                    var map = new Rotation();
+                    var map = Scenes.getRotation();
 
                     element.append(map.getDomElement());
                     map.setSize(element.width(), element.height());

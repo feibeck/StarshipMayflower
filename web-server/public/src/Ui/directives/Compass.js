@@ -1,13 +1,12 @@
 define([
     '../module',
     'angular',
-    'compass',
     'angle'
-], function (module, angular, Compass, Angle) {
+], function (module, angular, Angle) {
     'use strict';
 
-    module.directive('compass', [
-        function() {
+    module.directive('compass', ['Scenes',
+        function(Scenes) {
 
             return {
 
@@ -19,7 +18,7 @@ define([
 
                 link: function($scope, element, attrs) {
 
-                    var compass = new Compass();
+                    var compass = Scenes.getCompass();
 
                     element.append(compass.getDomElement());
 

@@ -5,5 +5,6 @@ define([
     './directives/Rotation',
     './directives/Scanner',
     './directives/SpeedSlider',
-    './directives/SpaceView'
+    './directives/SpaceView',
+    './filters/Ucfirst'
 ], function () {});

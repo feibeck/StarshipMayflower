@@ -6,11 +6,8 @@ define(['../module'], function (module) {
             Pomelo.on('WorldUpdate', function(world) {
                 $scope.ship = world.ship;
                 $scope.otherships = world.ships;
+                $scope.$apply();
             });
-
-            $scope.pane.select = function() {
-              $scope.$emit('selected');
-            };
         }
     ]);
 
