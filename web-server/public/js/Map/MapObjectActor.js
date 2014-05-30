@@ -16,7 +16,7 @@ define(['MapObjectBase', 'three'], function (MapObjectBase, THREE) {
         }
 
         this.mesh = new THREE.Mesh(
-            new THREE.CubeGeometry(5, 5, 5),
+            new THREE.BoxGeometry(5, 5, 5),
             new THREE.MeshBasicMaterial({color: color})
         );
 
