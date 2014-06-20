@@ -1,10 +1,10 @@
 define([
     '../module',
-    'StarMap',
-    'scanner',
-    'compass',
-    'rotation',
-    'SpaceViewer'
+    'Map/StarMap',
+    'Scanner/scanner',
+    'Compass/compass',
+    'Rotation/rotation',
+    'SpaceViewer/viewer'
 ], function (module, StarMap, Scanner, Compass, Rotation, SpaceViewer) {
     'use strict';
 

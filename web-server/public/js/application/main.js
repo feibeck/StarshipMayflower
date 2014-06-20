@@ -17,23 +17,9 @@ require.config({
         'objloader': '../components/threejs-examples/examples/js/loaders/OBJLoader',
         'objmtlloader': '../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
         'threexspaceships': '../components/threex.spaceships/threex.spaceships',
-        'Grid': 'Map/Grid',
-        'Constants': 'Map/Constants',
-        'StarMap': 'Map/StarMap',
-        'MapObject': 'Map/MapObject',
-        'MapObjectBase': 'Map/MapObjectBase',
-        'MapObjectPicker': 'Map/MapObjectPicker',
-        'MapObjectActor': 'Map/MapObjectActor',
-        'MapObjectTable': 'Map/MapObjectTable',
-        'compass': 'Compass/compass',
-        'rotation': 'Rotation/rotation',
-        'scanner': 'Scanner/scanner',
-        'ScannerObject': 'Scanner/ScannerObject',
         'paper': '../components/paper/dist/paper-core',
-        'angle': 'Util/angle',
-        'SpaceViewer': 'SpaceViewer/viewer',
-        'SpaceObjectsRenderer': 'lib/SpaceObjectsRenderer',
-        'ModelLoader': 'lib/ModelLoader'
+        'ModelLoader': 'lib/ModelLoader',
+        'SpaceObjectsRenderer': 'lib/SpaceObjectsRenderer'
     },
 
     shim: {

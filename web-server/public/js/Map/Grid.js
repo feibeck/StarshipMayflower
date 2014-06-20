@@ -1,4 +1,4 @@
-define(['three', 'Constants'], function (THREE, Constants) {
+define(['three', 'Map/Constants'], function (THREE, Constants) {
     'use strict';
 
     var Grid = function() {

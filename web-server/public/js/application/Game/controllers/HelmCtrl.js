@@ -1,4 +1,4 @@
-define(['../module', 'angle'], function (module, Angle) {
+define(['../module', 'Util/angle'], function (module, Angle) {
     'use strict';
 
     module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', '$window',

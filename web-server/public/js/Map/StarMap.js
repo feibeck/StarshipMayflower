@@ -1,11 +1,11 @@
 define([
     'three',
-    'Constants',
-    'MapObjectTable',
-    'Grid',
-    'MapObject',
+    'Map/Constants',
+    'Map/MapObjectTable',
+    'Map/Grid',
+    'Map/MapObject',
     'lodash',
-    'angle',
+    'Util/angle',
     'orbit-controls'
 ], function(THREE, Constants, MapObjectTable, Grid, MapObject, _, Angle) {
     'use strict';
@@ -38,7 +38,7 @@ define([
         this.camera.position.z = Constants.AU * 2;
         this.camera.position.x = Constants.AU * 2;
         this.camera.position.y = Constants.AU * 2;
-        
+
         var center = new THREE.Vector3(
             Constants.AU,
             Constants.AU,
