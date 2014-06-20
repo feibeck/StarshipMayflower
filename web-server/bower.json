@@ -16,6 +16,6 @@
         "lodash":             "latest",
         "paper":              "latest",
         "threex.spaceships":  "latest",
-        "socket.io-client":   "latest"
+        "socket.io-client":   "0.9.16"
     }
 }

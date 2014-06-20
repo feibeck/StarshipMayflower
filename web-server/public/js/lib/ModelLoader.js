@@ -52,7 +52,7 @@ define([
         var modelUrls = {
 
             SpaceFighter02: {
-                baseUrl: '/components/threex.spaceships/',
+                baseUrl: 'components/threex.spaceships/',
                 objUrl: 'models/SpaceFighter02/SpaceFighter02.obj',
                 mtlUrl: 'models/SpaceFighter02/SpaceFighter02.mtl'
             },
