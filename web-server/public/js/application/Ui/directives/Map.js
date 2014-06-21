@@ -1,15 +1,18 @@
 define([
+    'require',
     '../module',
     'angular'
-], function (module, angular) {
+], function (require, module, angular) {
     'use strict';
+
+    var viewPath = require.toUrl('../view');
 
     module.directive('map', ['$window', '$interval', 'Scenes',
         function($window, $interval, Scenes) {
 
             return {
 
-                templateUrl: '/src/Ui/view/map.html',
+                templateUrl: viewPath + '/map.html',
 
                 scope: {
                     ship: '=ship',

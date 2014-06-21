@@ -1,8 +1,10 @@
 require.config({
 
+  baseUrl : '/js',
+
     paths: {
-        'socketIo': '../components/socket.io-client/dist/socket.io.min',
-        'pomelo': '../js/lib/pomeloclient',
+        'socket.io': '../components/socket.io-client/dist/socket.io',
+        'pomelo': 'lib/pomeloclient',
         'jquery': '../components/jquery/dist/jquery',
         'lodash': '../components/lodash/dist/lodash',
         'domReady': '../components/requirejs-domready/domReady',
@@ -15,32 +17,15 @@ require.config({
         'objloader': '../components/threejs-examples/examples/js/loaders/OBJLoader',
         'objmtlloader': '../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
         'threexspaceships': '../components/threex.spaceships/threex.spaceships',
-        'Grid': '../js/Map/Grid',
-        'Constants': '../js/Map/Constants',
-        'StarMap': '../js/Map/StarMap',
-        'MapObject': '../js/Map/MapObject',
-        'MapObjectBase': '../js/Map/MapObjectBase',
-        'MapObjectPicker': '../js/Map/MapObjectPicker',
-        'MapObjectActor': '../js/Map/MapObjectActor',
-        'MapObjectTable': '../js/Map/MapObjectTable',
-        'compass': '../js/Compass/compass',
-        'rotation': '../js/Rotation/rotation',
-        'scanner': '../js/Scanner/scanner',
-        'ScannerObject': '../js/Scanner/ScannerObject',
         'paper': '../components/paper/dist/paper-core',
-        'angle': '../js/Util/angle',
-        'SpaceViewer': '../js/SpaceViewer/viewer',
-        'SpaceObjectsRenderer': '../js/lib/SpaceObjectsRenderer',
-        'ModelLoader': '../js/lib/ModelLoader'
+        'ModelLoader': 'lib/ModelLoader',
+        'SpaceObjectsRenderer': 'lib/SpaceObjectsRenderer'
     },
 
     shim: {
-        'socketIo': {
-            exports: 'socketIo'
-        },
         'pomelo': {
             exports: 'pomelo',
-            deps: ['socketIo']
+            deps: ['socket.io']
         },
         'angular': {
             exports: 'angular',
@@ -68,7 +53,7 @@ require.config({
                 this.THREEx.SpaceShips.baseUrl = '/components/threex.spaceships/';
             }
         }
-    },
-
-    deps: ['./bootstrap']
+    }
 });
+
+require(['application/bootstrap']);

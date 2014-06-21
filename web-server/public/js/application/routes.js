@@ -1,5 +1,6 @@
-define(['./app'], function (app) {
+define(['require', './app'], function (require, app) {
     'use strict';
+    var basePath = require.toUrl('.');
 
     app.config(['$stateProvider', '$urlRouterProvider',
 
@@ -11,31 +12,31 @@ define(['./app'], function (app) {
 
             .state('lobby', {
                 url: '/lobby',
-                templateUrl: 'src/Lobby/view/lobby.html',
+                templateUrl: basePath + '/Lobby/view/lobby.html',
                 abstract: true
             })
 
                 .state('lobby.login', {
                     url: '/login',
-                    templateUrl: 'src/Lobby/view/login.html',
+                    templateUrl: basePath + '/Lobby/view/login.html',
                     controller: 'LoginCtrl'
                 })
 
                 .state('lobby.shiplist', {
                     url: '/ships',
-                    templateUrl: 'src/Lobby/view/shipList.html',
+                    templateUrl: basePath + '/Lobby/view/shipList.html',
                     controller: 'ShipListCtrl'
                 })
 
                 .state('lobby.ship', {
                     url: '/ship/:shipId',
-                    templateUrl: 'src/Lobby/view/ship.html',
+                    templateUrl: basePath + '/Lobby/view/ship.html',
                     controller: 'ShipCtrl'
                 })
 
             .state('play', {
                 url: '/play',
-                templateUrl: 'src/Game/view/play.html',
+                templateUrl: basePath + '/Game/view/play.html',
                 controller: 'PlayCtrl',
                 abstract: true,
                 data: {
@@ -47,49 +48,49 @@ define(['./app'], function (app) {
 
                 .state('play.comm', {
                     url: '/comm',
-                    templateUrl: 'src/Game/view/stations/comm.html',
+                    templateUrl: basePath + '/Game/view/stations/comm.html',
                     controller: 'CommCtrl'
                 })
 
                 .state('play.debug', {
                     url: '/debug',
-                    templateUrl: 'src/Game/view/stations/debug.html',
+                    templateUrl: basePath + '/Game/view/stations/debug.html',
                     controller: 'DebugCtrl'
                 })
 
                 .state('play.engineering', {
                     url: '/engineering',
-                    templateUrl: 'src/Game/view/stations/engineering.html',
+                    templateUrl: basePath + '/Game/view/stations/engineering.html',
                     controller: 'EngineeringCtrl'
                 })
 
                 .state('play.helm', {
                     url: '/helm',
-                    templateUrl: 'src/Game/view/stations/helm.html',
+                    templateUrl: basePath + '/Game/view/stations/helm.html',
                     controller: 'HelmCtrl'
                 })
 
                 .state('play.mainscreen', {
                     url: '/mainscreen',
-                    templateUrl: 'src/Game/view/stations/mainscreen.html',
+                    templateUrl: basePath + '/Game/view/stations/mainscreen.html',
                     controller: 'MainScreenCtrl'
                 })
 
                 .state('play.map', {
                     url: '/map',
-                    templateUrl: 'src/Game/view/stations/map.html',
+                    templateUrl: basePath + '/Game/view/stations/map.html',
                     controller: 'MapCtrl'
                 })
 
                 .state('play.science', {
                     url: '/science',
-                    templateUrl: 'src/Game/view/stations/science.html',
+                    templateUrl: basePath + '/Game/view/stations/science.html',
                     controller: 'ScienceCtrl'
                 })
 
                 .state('play.weapons', {
                     url: '/weapons',
-                    templateUrl: 'src/Game/view/stations/weapons.html',
+                    templateUrl: basePath + '/Game/view/stations/weapons.html',
                     controller: 'WeaponsCtrl'
                 });
 

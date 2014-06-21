@@ -1,13 +1,12 @@
 define([
     '../module',
     'pomelo'
-], function (module) {
+], function (module, pomelo) {
     'use strict';
 
    module.factory('Pomelo', ['$rootScope', '$q', '$window',
         function($rootScope, $q, $window){
 
-            var pomelo = window.pomelo;
             var deferred = $q.defer();
 
             pomelo.init({

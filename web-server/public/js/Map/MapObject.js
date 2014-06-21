@@ -1,4 +1,4 @@
-define(['MapObjectPicker', 'MapObjectActor'], function(MapObjectPicker, MapObjectActor) {
+define(['Map/MapObjectPicker', 'Map/MapObjectActor'], function(MapObjectPicker, MapObjectActor) {
     'use strict';
 
     function MapObject(color, id, options)

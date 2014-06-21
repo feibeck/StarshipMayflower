@@ -1,4 +1,4 @@
-define(['MapObjectBase', 'three'], function(MapObjectBase, THREE) {
+define(['Map/MapObjectBase', 'three'], function(MapObjectBase, THREE) {
     'use strict';
 
     var parent = MapObjectBase.prototype;

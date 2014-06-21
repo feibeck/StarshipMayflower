@@ -2,10 +2,10 @@ define([
     'angular',
     'uiRouter',
     'uiBootstrap',
-    './Lobby/index',
-    './Game/index',
-    './Utils/index',
-    './Ui/index'
+    'application/Lobby/index',
+    'application/Game/index',
+    'application/Utils/index',
+    'application/Ui/index'
 ], function (angular) {
     'use strict';
 

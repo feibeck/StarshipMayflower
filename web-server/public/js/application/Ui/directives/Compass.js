@@ -1,7 +1,7 @@
 define([
     '../module',
     'angular',
-    'angle'
+    'Util/angle'
 ], function (module, angular, Angle) {
     'use strict';
 
