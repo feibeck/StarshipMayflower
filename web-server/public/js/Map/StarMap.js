@@ -5,9 +5,8 @@ define([
     'Map/Grid',
     'Map/MapObject',
     'lodash',
-    'Util/angle',
     'orbit-controls'
-], function(THREE, Constants, MapObjectTable, Grid, MapObject, _, Angle) {
+], function(THREE, Constants, MapObjectTable, Grid, MapObject, _) {
     'use strict';
 
     function Map() {
@@ -155,47 +154,7 @@ define([
 
         this.selectionSphere.visible = true;
 
-        var course = this.courseToSeletedObject();
-
-        this.dispatchEvent(this.getSelectEvent(selectedObject, course));
-    };
-
-    Map.prototype.courseToSeletedObject = function() {
-
-        if (!this.selectedObject) {
-            return null;
-        }
-
-        var myShip = this.objectToShip[this.shipMapObject.getId()];
-
-        var point1 = new THREE.Vector3(
-            myShip.position.x,
-            myShip.position.y,
-            myShip.position.z
-        );
-
-        var point2 = new THREE.Vector3(
-            this.selectedObject.position.x,
-            this.selectedObject.position.y,
-            this.selectedObject.position.z
-        );
-
-        var distance = point1.distanceTo(point2);
-
-        var heading = point2.sub(point1);
-
-        var angle = new Angle({
-            heading: heading
-        });
-
-        var course = {
-            distance: distance,
-            heading: heading,
-            angleZX: angle.getAzimuth(),
-            angleYZ: angle.getPolar()
-        };
-
-        return course;
+        this.dispatchEvent(this.getSelectEvent(selectedObject));
     };
 
     Map.prototype.getHoverEvent = function(mapObject) {
@@ -205,11 +164,10 @@ define([
         };
     };
 
-    Map.prototype.getSelectEvent = function(mapObject, course) {
+    Map.prototype.getSelectEvent = function(mapObject) {
         return {
             type: 'select',
-            mapObject: mapObject,
-            course: course
+            mapObject: mapObject
         };
     };
 

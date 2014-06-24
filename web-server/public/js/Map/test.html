@@ -134,10 +134,6 @@
             if (selectedObject) {
                 $('#selectedship').show();
                 $('#shipname').html(selectedObject.name);
-                var course = map.courseToSeletedObject();
-                $('#distance').html(course.distance);
-                $('#angleZX').html(course.angleZX);
-                $('#angleYZ').html(course.angleYZ);
             }
 
         }, 100);
@@ -150,10 +146,6 @@
     <dl>
         <dt>Ship</dt>
         <dd id="shipname"></dd>
-        <dt>Distance</dt>
-        <dd id="distance"></dd>
-        <dt>Heading</dt>
-        <dd><span id="angleZX"></span>°/<span id="angleYZ"></span>°</dd>
     </dl>
 </div>
 

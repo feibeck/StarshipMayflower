@@ -7,8 +7,8 @@ define([
 
     var viewPath = require.toUrl('../view');
 
-    module.directive('map', ['$window', '$interval', 'Scenes',
-        function($window, $interval, Scenes) {
+    module.directive('map', ['$window', '$interval', 'Scenes', 'Target',
+        function($window, $interval, Scenes, Target) {
 
             return {
 
@@ -36,11 +36,7 @@ define([
                     angular.element($window).on('resize', resizeFunc);
 
                     map.addEventListener('select', function(event) {
-                        $scope.$parent.selectedObject = event.mapObject;
-                        $interval(function() {
-                            $scope.$parent.course = map.courseToSeletedObject();
-                        }, 100);
-
+                        Target.setCurrentTarget(event.mapObject.id);
                     });
 
                     $scope.$watch('ship', function() {
