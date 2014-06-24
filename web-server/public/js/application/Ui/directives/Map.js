@@ -35,9 +35,11 @@ define([
 
                     angular.element($window).on('resize', resizeFunc);
 
-                    map.addEventListener('select', function(event) {
+                    var selectListener = function(event) {
                         Target.setCurrentTarget(event.mapObject.id);
-                    });
+                    };
+
+                    map.addEventListener('select', selectListener);
 
                     $scope.$watch('ship', function() {
                         map.updateShip($scope.ship);
@@ -53,6 +55,7 @@ define([
 
                     $scope.$on('$destroy', function() {
                         angular.element($window).off('resize', resizeFunc);
+                        map.removeEventListener('select', selectListener);
                     });
 
                 }

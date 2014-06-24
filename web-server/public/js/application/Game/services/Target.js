@@ -75,8 +75,16 @@ define([
 
                 addListener: function (listener)
                 {
-                    if (listeners.indexOf(listener) === - 1) {
+                    if (listeners.indexOf(listener) === -1) {
                         listeners.push(listener);
+                    }
+                },
+
+                removeListener: function(listener)
+                {
+                    var index = listeners.indexOf(listener);
+                    if (index !== -1) {
+                        listeners.splice(index, 1);
                     }
                 }
 

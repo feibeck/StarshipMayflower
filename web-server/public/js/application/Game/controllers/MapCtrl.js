@@ -3,16 +3,26 @@ define(['../module'], function (module) {
 
     module.controller('MapCtrl', ['$scope', 'Pomelo', 'Target',
         function ($scope, Pomelo, Target) {
-            Pomelo.on('WorldUpdate', function(world) {
+
+            var worldUpdateListener = function(world) {
                 $scope.ship = world.ship;
                 $scope.otherships = world.ships;
                 $scope.$apply();
-            });
+            };
 
-            Target.addListener(function(event) {
+            var targetListener = function(event) {
                 $scope.selectedObject = event.currentTarget;
                 $scope.course = event.course;
+            };
+
+            Pomelo.on('WorldUpdate', worldUpdateListener);
+            Target.addListener(targetListener);
+
+            $scope.$on('$destroy', function() {
+                Pomelo.off('WorldUpdate', worldUpdateListener);
+                Target.removeListener(targetListener);
             });
+
         }
     ]);
 

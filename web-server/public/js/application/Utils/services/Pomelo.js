@@ -46,6 +46,12 @@ define([
                     pomeloInitialized.then(function() {
                         pomelo.on(route, callback);
                     });
+                },
+
+                off: function(route, callback) {
+                    pomeloInitialized.then(function() {
+                        pomelo.removeListener(route, callback);
+                    })
                 }
 
             };

@@ -4,12 +4,12 @@ define(['../module', 'Util/angle'], function (module, Angle) {
     module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', '$window', 'Target',
         function ($scope, $location, Pomelo, $window, Target) {
 
-            Pomelo.on('WorldUpdate', function(world) {
+            var worldUpdateListener = function(world) {
                 $scope.otherships = world.ships;
                 $scope.$apply();
-            });
+            };
 
-            Pomelo.on('ShipUpdate', function(ship) {
+            var shipUpdateListener = function(ship) {
                 $scope.ship = ship;
                 var angle = new Angle(ship);
 
@@ -20,12 +20,17 @@ define(['../module', 'Util/angle'], function (module, Angle) {
                 $scope.azimuth = angle.getAzimuth();
                 $scope.polar = angle.getPolar();
                 $scope.$apply();
-            });
+            };
 
-            Target.addListener(function(event) {
+            Pomelo.on('WorldUpdate', worldUpdateListener);
+            Pomelo.on('ShipUpdate', shipUpdateListener);
+
+            var targetListener = function(event) {
                 $scope.selectedObject = event.currentTarget;
                 $scope.course = event.course;
-            });
+            };
+
+            Target.addListener(targetListener);
 
             $scope.impuls = 0;
             $scope.warpEngine = null;
@@ -110,6 +115,9 @@ define(['../module', 'Util/angle'], function (module, Angle) {
             $scope.$on('$destroy', function() {
                 angular.element($window).off();
                 angular.element($window).off();
+                Pomelo.off('WorldUpdate', worldUpdateListener);
+                Pomelo.off('ShipUpdate', shipUpdateListener);
+                Target.removeListener(targetListener);
             });
 
         }

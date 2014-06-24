@@ -4,12 +4,19 @@ define(['../module', 'Util/angle'], function (module, Angle) {
     module.controller('DebugCtrl', ['$scope', '$location', 'Pomelo',
 
         function ($scope, $location, Pomelo) {
-            Pomelo.on('ShipUpdate', function(ship) {
+
+            var shipUpdateListener = function(ship) {
                 $scope.ship = ship;
                 var angle = new Angle(ship);
                 $scope.azimuth = angle.getAzimuth();
                 $scope.polar = angle.getPolar();
                 $scope.$apply();
+            };
+
+            Pomelo.on('ShipUpdate', shipUpdateListener);
+
+            $scope.$on('$destroy', function() {
+                Pomelo.off('ShipUpdate', shipUpdateListener);
             });
         }
 
