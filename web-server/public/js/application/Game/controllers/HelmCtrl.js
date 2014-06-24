@@ -1,8 +1,8 @@
 define(['../module', 'Util/angle'], function (module, Angle) {
     'use strict';
 
-    module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', '$window',
-        function ($scope, $location, Pomelo, $window) {
+    module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', '$window', 'Target',
+        function ($scope, $location, Pomelo, $window, Target) {
 
             Pomelo.on('WorldUpdate', function(world) {
                 $scope.otherships = world.ships;
@@ -20,6 +20,11 @@ define(['../module', 'Util/angle'], function (module, Angle) {
                 $scope.azimuth = angle.getAzimuth();
                 $scope.polar = angle.getPolar();
                 $scope.$apply();
+            });
+
+            Target.addListener(function(event) {
+                $scope.selectedObject = event.currentTarget;
+                $scope.course = event.course;
             });
 
             $scope.impuls = 0;

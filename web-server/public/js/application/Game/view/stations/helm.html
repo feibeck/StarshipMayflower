@@ -61,6 +61,12 @@
         <div class="flex"><strong>Speed:</strong>&nbsp;{{ ship.speed | number:0 }} km/s</div>
     </div>
 
+    <div style="position: absolute; width: 600px; top: 85px; left: 50%; margin-left: -300px;" class="flexbox flexbox-horizontal">
+        <div class="flex"><strong>Target:</strong>&nbsp;{{ selectedObject.name }}</div>
+        <div class="flex"><strong>Course:</strong>&nbsp;{{ course.azimuth | number:0 }}° / {{ course.polar | number:0 }}°</div>
+        <div class="flex"><strong>Dist:</strong>&nbsp;{{ course.distance | number: 0 }}km</div>
+    </div>
+
     <div space-view ship="ship" otherships="otherships" class="flex spaceview_helm"></div>
 
     <div class="flexbox" style="width: 200px;">
