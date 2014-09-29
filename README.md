@@ -1,4 +1,4 @@
-<a href="https://travis-ci.org/ireznik/StarshipMayflower"><img src="https://travis-ci.org/feibeck/StarshipMayflower.svg?branch=master"></a>
+<a href="https://travis-ci.org/feibeck/StarshipMayflower"><img src="https://travis-ci.org/feibeck/StarshipMayflower.svg?branch=master"></a>
 Starship Mayflower
 ==================
 
