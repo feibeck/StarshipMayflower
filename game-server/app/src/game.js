@@ -5,7 +5,9 @@ var world = require('./world'),
     pomelo = require('pomelo'),
     Channel = require('./channel'),
     physics = require('./physics'),
-    Station = require('./models/Station');
+    Station = require('./models/Station'),
+    Planet = require('./models/Planet'),
+    sylvester = require('sylvester');;
 
 var channel = new Channel();
 
@@ -22,6 +24,18 @@ objectRegistry.addObject(spaceStationOne);
 var spaceStationTwo = new Station('Space Station Two');
 spaceStationTwo.setPosition(world.getRandomPosition());
 objectRegistry.addObject(spaceStationTwo);
+
+var sun = new Planet(
+    "Sun",
+    {
+        x: 1392684,
+        y: 1392684,
+        z: 1392684
+    },
+    "Sun"
+);
+sun.setPosition(sylvester.Vector.create([world.AU, world.AU, world.AU]));
+objectRegistry.addObject(sun);
 
 var exp = module.exports;
 

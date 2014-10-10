@@ -68,7 +68,22 @@ define([
         return {
 
             loadModel: function(ship, onLoadFunc) {
+
+                if (ship.model == "Sun") {
+
+                    var sunDiameter = 1392684;
+                    var geometry = new THREE.SphereGeometry(sunDiameter, 64, 64);
+                    var material = new THREE.MeshBasicMaterial({color: "yellow"});
+                    var object3d = new THREE.Mesh(geometry, material);
+
+                    object3d.centeroid = getCentroid(object3d);
+                    onLoadFunc && onLoadFunc(object3d)
+
+                    return;
+                }
+
                 var source = modelUrls[ship.model];
+
                 loader.load(source.baseUrl + source.objUrl, source.baseUrl + source.mtlUrl, function(object3d) {
                     scaleModel(ship, object3d);
                     fixLightning(object3d);
