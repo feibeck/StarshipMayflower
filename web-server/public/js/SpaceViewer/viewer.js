@@ -12,10 +12,10 @@ define([
 
         initCamera: function() {
             this.camera = new THREE.PerspectiveCamera(
-                90,
+                45,
                 this.width / this.height,
                 0.001,
-                10000
+                1500000
             );
         },
 
