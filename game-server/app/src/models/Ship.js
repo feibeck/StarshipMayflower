@@ -23,8 +23,7 @@ var Ship = function(name) {
         weapons: null,
         comm: null,
         science: null,
-        engineering: null,
-        mainscreen: null
+        engineering: null
     };
 
     me._size = {
@@ -86,7 +85,6 @@ _.extend(Ship.prototype, {
         this.releaseStation('weapons', player);
         this.releaseStation('engineering', player);
         this.releaseStation('science', player);
-        this.releaseStation('mainscreen', player);
         this.releaseStation('comm', player);
     },
 
@@ -330,8 +328,7 @@ _.extend(Ship.prototype, {
                 weapons: (me._stations.weapons ? me._stations.weapons.getName() : ''),
                 science: (me._stations.science ? me._stations.science.getName() : ''),
                 engineering: (me._stations.engineering ? me._stations.engineering.getName() : ''),
-                comm: (me._stations.comm ? me._stations.comm.getName() : null),
-                mainscreen: (me._stations.mainscreen ? me._stations.mainscreen.getName() : '')
+                comm: (me._stations.comm ? me._stations.comm.getName() : null)
             },
             position: {
                 x: me._position.e(1),

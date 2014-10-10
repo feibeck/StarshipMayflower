@@ -92,6 +92,17 @@ exp.sendUpdates = function()
     _.forEach(shipRegistry.getAllShips(), function(ship) {
         me.sendKnownWorld(ship);
     });
+
+    var ships = [];
+    _.forEach(shipRegistry.getAllShips(), function(othership) {
+        ships.push(othership.serializeMapData());
+    });
+
+    _.forEach(objectRegistry.getAllObjects(), function(spaceObject) {
+        ships.push(spaceObject.serializeMapData());
+    });
+
+    channel.pushToGlobal('GlobalUpdate', {ships: ships});
 };
 
 exp.sendKnownWorld = function(ship)

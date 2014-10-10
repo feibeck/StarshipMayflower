@@ -33,7 +33,7 @@ define([
                     });
 
                     var resizeFunc = function() {
-                        map.setSize(element.width(), element.height());
+                        spaceViewer.setSize(element.width(), element.height());
                     };
 
                     angular.element($window).on('resize', resizeFunc);

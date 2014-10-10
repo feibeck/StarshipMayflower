@@ -1,15 +1,15 @@
 define(['../module', 'Util/angle', 'lodash'], function (module, Angle, _) {
     'use strict';
 
-    module.controller('MainScreenCtrl', ['$scope', '$location', 'Pomelo', '$window', '$stateParams',
+    module.controller('View3dCtrl', ['$scope', '$location', 'Pomelo', '$window', '$stateParams',
         function ($scope, $location, Pomelo, $window, $stateParams) {
 
             Pomelo.request(
                 "connector.entry.view",
                 {}
             ).then(function(id) {
-                    Pomelo.request("world.lobby.registerViewer", {});
-                });
+                Pomelo.request("world.lobby.registerViewer", {});
+            });
 
             var shipId = $stateParams.shipId;
 

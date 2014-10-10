@@ -42,6 +42,28 @@ _.extend(Channel.prototype, {
     },
 
     /**
+     * Pushes a message to the lobby
+     *
+     * @param {String} route
+     * @param {Object} msg
+     */
+    pushToGlobal: function(route, msg)
+    {
+        console.log("Sending Global Update");
+        var channel = this.getGlobalChannel();
+        if (channel) {
+            channel.pushMessage(route, msg);
+        }
+    },
+
+    addToGlobalChannel: function(id, serverId)
+    {
+        var channel = this.getGlobalChannel();
+        console.log("Adding to global channel: " + id + " / " + serverId);
+        channel.add(id, serverId);
+    },
+
+    /**
      * Adds a player to the lobby channel and notifies the channel
      *
      * @param {Player} player
@@ -49,6 +71,7 @@ _.extend(Channel.prototype, {
     addPlayerToLobby: function(player)
     {
         var channel = this.getLobbyChannel();
+        console.log("Adding to lobby channel: " + player.getId() + " / " + player.getServerId());
         channel.add(player.getId(), player.getServerId());
         channel.pushMessage('PlayerAdded', player.serialize());
     },
@@ -96,6 +119,15 @@ _.extend(Channel.prototype, {
      */
     getLobbyChannel: function() {
         return pomelo.app.get('channelService').getChannel('lobby', true);
+    },
+
+    /**
+     * Returns a global channel
+     *
+     * @returns {Channel}
+     */
+    getGlobalChannel: function() {
+        return pomelo.app.get('channelService').getChannel('global', true);
     }
 
 });

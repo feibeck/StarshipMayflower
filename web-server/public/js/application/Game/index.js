@@ -8,5 +8,6 @@ define([
     './controllers/PlayCtrl',
     './controllers/ScienceCtrl',
     './controllers/WeaponsCtrl',
+    './controllers/View3dCtrl',
     './services/Target'
 ], function () {});

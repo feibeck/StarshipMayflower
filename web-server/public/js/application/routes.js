@@ -92,7 +92,19 @@ define(['require', './app'], function (require, app) {
                     url: '/weapons',
                     templateUrl: basePath + '/Game/view/stations/weapons.html',
                     controller: 'WeaponsCtrl'
-                });
+                })
+
+            .state('view3d', {
+                url: '/view3d/:shipId',
+                templateUrl: basePath + '/Game/view/stations/view3d.html',
+                controller: 'View3dCtrl'
+            })
+
+            .state('mainscreen', {
+                url: '/mainscreen/:shipId',
+                templateUrl: basePath + '/Game/view/stations/mainscreen.html',
+                controller: 'MainScreenCtrl'
+            });
 
         }
 

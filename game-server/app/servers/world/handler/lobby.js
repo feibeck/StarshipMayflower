@@ -114,6 +114,19 @@ _.extend(Handler.prototype, {
         }
     },
 
+    registerViewer: function(msg, session, next)
+    {
+        channel.addToGlobalChannel(
+            session.get('viewerId'),
+            session.frontendId
+        );
+
+        next(null, {
+            code: "OK",
+            payload: {}
+        });
+    },
+
     takeStation: function(msg, session, next)
     {
         var playerId = session.get('playerId');
