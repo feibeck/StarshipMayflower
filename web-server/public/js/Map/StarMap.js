@@ -34,9 +34,12 @@ define([
             1,
             1000000000
         );
-        this.camera.position.z = Constants.AU * 2;
-        this.camera.position.x = Constants.AU * 2;
-        this.camera.position.y = Constants.AU * 2;
+
+        this.camera.position.set(
+            Constants.AU * 2,
+            Constants.AU * 2,
+            Constants.AU * 2
+        );
 
         var center = new THREE.Vector3(
             Constants.AU,
@@ -86,9 +89,11 @@ define([
                 transparent: true
             })
         );
-        sphere.position.x = 149597870;
-        sphere.position.y = 149597870;
-        sphere.position.z = 149597870;
+        sphere.position.set(
+            149597870,
+            149597870,
+            149597870
+        );
 
         sphere.visible = false;
 
@@ -126,9 +131,12 @@ define([
     };
 
     Map.prototype.hoverObject = function(hoveredObject) {
-        this.hoverSphere.position.x = hoveredObject.position.x;
-        this.hoverSphere.position.y = hoveredObject.position.y;
-        this.hoverSphere.position.z = hoveredObject.position.z;
+
+        this.hoverSphere.position.set(
+            hoveredObject.position.x,
+            hoveredObject.position.y,
+            hoveredObject.position.z
+        );
 
         this.hoverSphere.visible = true;
 
@@ -148,9 +156,11 @@ define([
 
         this.selectedObject = selectedObject;
 
-        this.selectionSphere.position.x = selectedObject.position.x;
-        this.selectionSphere.position.y = selectedObject.position.y;
-        this.selectionSphere.position.z = selectedObject.position.z;
+        this.selectionSphere.position.set(
+            selectedObject.position.x,
+            selectedObject.position.y,
+            selectedObject.position.z
+        );
 
         this.selectionSphere.visible = true;
 

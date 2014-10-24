@@ -24,13 +24,8 @@ define([
         var y = this.object.localPosition.y;
         var z = this.object.localPosition.z;
 
-        this.sphere.position.x = x;
-        this.sphere.position.y = y;
-        this.sphere.position.z = z;
-
-        this.sphere2.position.x = x;
-        this.sphere2.position.y = 0;
-        this.sphere2.position.z = z;
+        this.sphere.position.set(x, y, z);
+        this.sphere2.position.set(x, 0, z);
 
         this.objectProjectionLine.geometry.vertices[0].x = x;
         this.objectProjectionLine.geometry.vertices[0].y = 0;

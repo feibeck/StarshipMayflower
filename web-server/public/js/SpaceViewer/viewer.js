@@ -34,7 +34,8 @@ define([
                 if (!this.loading) {
                     this.loading = true;
                     ModelLoader.loadModel(this.ship, function (model) {
-                        model.position = new THREE.Vector3(
+
+                        model.position.set(
                             0 - model.centeroid.x,
                             0 - model.centeroid.y,
                             0 - model.centeroid.z
@@ -90,7 +91,7 @@ define([
                 position.z -= me.renderObjects[object.id].centeroid.z;
             }
 
-            me.renderObjects[object.id].position = position;
+            me.renderObjects[object.id].position.set(position.x, position.y, position.z);
         },
 
         placeShip: function()
@@ -119,7 +120,7 @@ define([
             direction.setLength(0.015);
             position.add(direction);
 
-            this.camera.position = position;
+            this.camera.position.set(position.x, position.y, position.z);
 
             var cameraMatrix = new THREE.Matrix4(
                 -1, 0, 0,
