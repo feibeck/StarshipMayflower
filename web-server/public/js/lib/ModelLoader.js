@@ -3,10 +3,11 @@
 define([
     'lodash',
     'three',
+    'require',
     'mtlloader',
     'objloader',
     'objmtlloader'
-], function(_, THREE) {
+], function(_, THREE, require) {
     "use strict";
 
         var getCentroid = function (object) {
@@ -52,13 +53,13 @@ define([
         var modelUrls = {
 
             SpaceFighter02: {
-                baseUrl: 'components/threex.spaceships/',
+                baseUrl: require.toUrl('../components/threex.spaceships/'),
                 objUrl: 'models/SpaceFighter02/SpaceFighter02.obj',
                 mtlUrl: 'models/SpaceFighter02/SpaceFighter02.mtl'
             },
 
             SpaceStation01: {
-                baseUrl: '/models/SpaceStation01/',
+                baseUrl: require.toUrl('../models/SpaceStation01/'),
                 objUrl: 'SpaceStation01.obj',
                 mtlUrl: 'SpaceStation01.mtl'
             }

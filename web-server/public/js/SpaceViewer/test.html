@@ -3,17 +3,20 @@
 <head>
     <script>
         var require = {
+
+            baseUrl : '../',
+
             paths: {
-                'domReady': '../../components/requirejs-domready/domReady',
-                'three': '../../components/threejs-build/build/three.min',
-                'mtlloader': '../../components/threejs-examples/examples/js/loaders/MTLLoader',
-                'objloader': '../../components/threejs-examples/examples/js/loaders/OBJLoader',
-                'objmtlloader': '../../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
-                'threexspaceships': '../../components/threex.spaceships/threex.spaceships',
-                'jquery': '../../components/jquery/dist/jquery',
-                'lodash': '../../components/lodash/dist/lodash',
-                'SpaceObjectsRenderer': '../lib/SpaceObjectsRenderer',
-                'ModelLoader': '../lib/ModelLoader'
+                'domReady': '../components/requirejs-domready/domReady',
+                'three': '../components/threejs-build/build/three.min',
+                'mtlloader': '../components/threejs-examples/examples/js/loaders/MTLLoader',
+                'objloader': '../components/threejs-examples/examples/js/loaders/OBJLoader',
+                'objmtlloader': '../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
+                'threexspaceships': '../components/threex.spaceships/threex.spaceships',
+                'jquery': '../components/jquery/dist/jquery',
+                'lodash': '../components/lodash/dist/lodash',
+                'SpaceObjectsRenderer': 'lib/SpaceObjectsRenderer',
+                'ModelLoader': 'lib/ModelLoader'
             },
             shim: {
                 'three': {
@@ -26,7 +29,7 @@
                     deps: ['three', 'mtlloader', 'objloader', 'objmtlloader'],
                     exports: 'THREEx',
                     init: function() {
-                        this.THREEx.SpaceShips.baseUrl = '/components/threex.spaceships/';
+                        this.THREEx.SpaceShips.baseUrl = '../components/threex.spaceships/';
                     }
                 }
             }
@@ -46,7 +49,7 @@
 <script src="../../components/requirejs/require.js"></script>
 <script>
 
-    require(['./viewer', 'jquery', 'lodash', 'domReady!'], function(SpaceViewer, $, _) {
+    require(['./SpaceViewer/viewer', 'jquery', 'lodash', 'domReady!'], function(SpaceViewer, $, _) {
 
         var spaceViewer = new SpaceViewer();
 
