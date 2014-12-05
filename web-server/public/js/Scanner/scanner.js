@@ -1,8 +1,9 @@
 define([
     'three',
     'lodash',
-    './ScannerObject'
-], function(THREE, _, ScannerObject) {
+    './ScannerObject',
+    'lib/FpsMeter'
+], function(THREE, _, ScannerObject, FpsMeter) {
     'use strict';
 
     function Scanner() {
@@ -23,6 +24,8 @@ define([
         this.worldObjects = [];
         this.scannerObjects = [];
 
+        this._renderThrottled = _.throttle(this.render.bind(this), 1000 / 30);
+
         this.ranges = [
             40,
             200,
@@ -37,6 +40,8 @@ define([
         ];
 
         this.factor = 0;
+
+        this._fpsMeter = (new FpsMeter()).startLogging('Scanner');
     }
 
     Scanner.prototype.setRangeFactor = function(factor) {
@@ -53,6 +58,7 @@ define([
     Scanner.prototype.updateObjects = function(objects) {
         this.worldObjects = objects;
         this.drawObjects();
+        this.scheduleRender();
     };
 
     Scanner.prototype.drawObjects = function() {
@@ -267,15 +273,16 @@ define([
     };
 
     Scanner.prototype.animate = function() {
-        var me = this;
-        window.requestAnimationFrame(function() {
-            me.animate();
-        });
-        this.render();
+        this.scheduleRender();
     };
 
     Scanner.prototype.render = function() {
         this.renderer.render(this.scene, this.camera);
+        this._fpsMeter.tick();
+    };
+
+    Scanner.prototype.scheduleRender = function() {
+        this._renderThrottled();
     };
 
     Scanner.prototype.setSize = function(width, height) {
@@ -287,7 +294,7 @@ define([
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
 
-        this.render();
+        this.scheduleRender();
     };
 
     Scanner.prototype.getDomElement = function() {

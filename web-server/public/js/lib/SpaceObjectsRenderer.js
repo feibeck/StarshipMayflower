@@ -7,14 +7,10 @@ define([
 ], function(_, THREE, FpsMeter) {
     "use strict";
 
-    var rendererId = 0;
+    var instanceId = 0;
 
-    function SpaceObjectsRenderer(instrument) {
+    function SpaceObjectsRenderer() {
         var me = this;
-
-        if (typeof(instrument) === 'undefined') {
-            instrument = true;
-        }
 
         this.width = 0;
         this.height = 0;
@@ -33,19 +29,9 @@ define([
 
         this.initialize();
 
-        if (instrument) {
-            var fpsMeter = new FpsMeter(),
-                id = rendererId++;
+        this._renderThrottled = _.throttle(this.render.bind(this), 1000 / 30);
 
-            this._fpsMeter = fpsMeter;
-
-            setInterval(function() {
-                var fps = fpsMeter.getFps();
-                if (fps > 0) {
-                    console.log('renderer ' + id + ' rendering at ' + fps.toFixed(2) + ' FPS');
-                }
-            }, 1000);
-        }
+        this._fpsMeter = (new FpsMeter()).startLogging('SpaceObjectsRenderer ' + (instanceId++));
     }
 
     _.extend(SpaceObjectsRenderer.prototype, {
@@ -98,6 +84,7 @@ define([
         },
         render: function() {
             this.renderer.render(this.scene, this.camera);
+            this._fpsMeter.tick();
         },
         updateShip: function(ship) {
             this.ship = ship;
@@ -106,18 +93,14 @@ define([
         updateObjects: function(objects) {
             this.worldObjects = objects;
             this.drawObjects();
+
+            this.scheduleRender();
         },
         animate: function() {
-            var me = this;
-            window.requestAnimationFrame(function() {
-                me.animate();
-            });
-
-            this.render();
-
-            if (me._fpsMeter) {
-                me._fpsMeter.tick();
-            }
+            this.scheduleRender();
+        },
+        scheduleRender: function() {
+            this._renderThrottled();
         },
         drawObjects: function() {},
         initialize: function() {}

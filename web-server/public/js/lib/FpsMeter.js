@@ -30,10 +30,26 @@ define(['lodash'], function(_) {
                 return -1;
             }
 
-            var oldest = this._sampleQueue[(this._nextSampleIndex - this._sampleCount + this._sampleDepth) % this._sampleDepth],
-                newest = this._sampleQueue[(this._nextSampleIndex + this._sampleDepth - 1) % this._sampleDepth];
+            var oldest = this._sampleQueue[(this._nextSampleIndex - this._sampleCount + this._sampleDepth) % this._sampleDepth];
 
-            return this._sampleCount / (newest - oldest) * 1000;
+            return this._sampleCount / (Date.now() - oldest) * 1000;
+        },
+
+        startLogging: function(context, interval) {
+            var me = this;
+
+            if (typeof(interval) === 'undefined') {
+                interval = 2000;
+            }
+
+            setInterval(function() {
+                var fps = me.getFps();
+                if (fps > 0) {
+                    console.log((context || '') + ' rendering at ' + fps.toFixed(2) + ' FPS');
+                }
+            }, interval);
+
+            return me;
         }
     });
 
