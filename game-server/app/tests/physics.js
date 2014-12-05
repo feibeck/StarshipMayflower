@@ -24,7 +24,7 @@ function testRotationInShipFOR(failIsFatal) {
         sylvester = require('sylvester'),
         util = require('util');
 
-    var ITERATIONS = 10000,
+    var ITERATIONS = 1,
         THRESHOLD = 1E-30;
 
     var ship = new Ship();
@@ -82,6 +82,9 @@ function testRotationInShipFOR(failIsFatal) {
 
             if (failIsFatal) throw(new Error('failed'));
         }
+
+        console.log(newOrientation);
+        console.log(newOrientation.multiply(sylvester.Vector.create([1, 0 ,0])));
     }
 
     for (var i = 0; i < ITERATIONS; i++) iterate();
