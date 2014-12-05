@@ -1,0 +1,131 @@
+<div class="flexbox flexbox-horizontal flex">
+
+    <div class="flexbox" style="width: 200px;">
+
+        <div compass ship="ship" style="width: 200px; height: 200px;"></div>
+
+        <div rotation ship="ship" style="width: 200px; height: 200px;"></div>
+
+        <div class="flex"></div>
+
+        <div style="height: 120px; margin-left: 15px;">
+
+            <div class="">
+                <button
+                    id="rollleft"
+                    class="btn btn-lg btn-primary"
+                    ng-mousedown="rotate('roll', -10)"
+                    ng-mouseup="rotate('roll', 0)"
+                ><span class="glyphicon glyphicon-refresh"></span>
+                </button>
+                <button
+                    id="pitchDown"
+                    class="btn btn-lg btn-primary"
+                    ng-mousedown="rotate('pitch', -10)"
+                    ng-mouseup="rotate('pitch', 0)"
+                ><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button
+                    id="rollRight"
+                    class="btn btn-lg btn-primary"
+                    ng-mousedown="rotate('roll', 10)"
+                    ng-mouseup="rotate('roll', 0)"
+                ><span class="glyphicon glyphicon-refresh"></span></button>
+            </div>
+            <div class="" style="margin-top: 5px;">
+                <button
+                    id="turnleft"
+                    class="btn btn-lg btn-primary"
+                    ng-mousedown="rotate('yaw', 10)"
+                    ng-mouseup="rotate('yaw', 0)"
+                ><span class="glyphicon glyphicon-arrow-left"></span></button>
+                <button
+                    id="pitchUp"
+                    class="btn btn-lg btn-primary"
+                    ng-mousedown="rotate('pitch', 10)"
+                    ng-mouseup="rotate('pitch', 0)"
+                ><span class="glyphicon glyphicon-arrow-down"></span></button>
+                <button
+                    id="turnRight"
+                    class="btn btn-lg btn-primary"
+                    ng-mousedown="rotate('yaw', -10)"
+                    ng-mouseup="rotate('yaw', 0)"
+                ><span class="glyphicon glyphicon-arrow-right"></span></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="position: absolute; width: 500px; top: 55px; left: 50%; margin-left: -250px;" class="flexbox flexbox-horizontal">
+        <div class="flex"><strong>Course:</strong>&nbsp;{{ azimuth | number:0 }}° / {{ polar | number:0 }}°</div>
+        <div class="flex"><strong>Energy:</strong>&nbsp;{{ ship.energy | number:0 }}</div>
+        <div class="flex"><strong>Speed:</strong>&nbsp;{{ ship.speed | number:0 }} km/s</div>
+    </div>
+
+    <div style="position: absolute; width: 600px; top: 85px; left: 50%; margin-left: -300px;" class="flexbox flexbox-horizontal">
+        <div class="flex"><strong>Target:</strong>&nbsp;{{ selectedObject.name }}</div>
+        <div class="flex"><strong>Course:</strong>&nbsp;{{ course.azimuth | number:0 }}° / {{ course.polar | number:0 }}°</div>
+        <div class="flex"><strong>Dist:</strong>&nbsp;{{ course.distance | number: 0 }}km</div>
+    </div>
+
+    <div space-view ship="ship" otherships="otherships" class="flex spaceview_helm"></div>
+
+    <div class="flexbox" style="width: 200px;">
+
+        <div scanner ship="ship" otherships="otherships" style="width: 200px; height: 200px;" class="flexbox"></div>
+
+        <div class="flex"></div>
+
+        <div style="margin-bottom: 10px;">
+
+            <button
+                id="togglewarp"
+                ng-model="warpEngine"
+                class="btn btn-danger"
+                btn-checkbox
+                btn-checkbox-true="1"
+                btn-checkbox-false="0"
+                style="margin: 5px;"
+            >Warp Engine</button>
+
+            <button
+                id="toogleslow"
+                ng-model="slowImpulse"
+                class="btn btn-info"
+                btn-checkbox
+                btn-checkbox-true="1"
+                btn-checkbox-false="0"
+                style="margin: 5px;"
+            >Slow impulse</button>
+
+        </div>
+
+        <div class="flexbox flexbox-horizontal" style="margin-bottom: 10px; height: 260px;">
+            <div class="flexbox flex">
+                <p>Impulse</p>
+                <speedslider
+                    ship="ship"
+                    id="impulseSlider"
+                    data-slider-id="impulseSliderC"
+                    engine="impulse"
+                    class="flex"
+                ></speedslider>
+
+            </div>
+            <div class="flexbox flex">
+                <p>Warp</p>
+                <speedslider
+                    ship="ship"
+                    id="warpSlider"
+                    data-slider-id="warpSliderC"
+                    engine="warp"
+                    class="flex"
+                ></speedslider>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

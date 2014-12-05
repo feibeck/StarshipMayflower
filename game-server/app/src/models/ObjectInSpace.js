@@ -34,6 +34,8 @@ _.extend(ObjectInSpace.prototype, {
     _lastMove: null,
     _targetImpulse: 0,
     _currentImpulse: 0,
+    _size: null,
+    _model: "",
 
 
     /**
@@ -157,6 +159,16 @@ _.extend(ObjectInSpace.prototype, {
     {
         this._targetImpulse = targetImpulse;
         return this;
+    },
+
+    /**
+     * Get the objects target speed
+     *
+     * @returns {Integer}
+     */
+    getTargetImpulse: function()
+    {
+        return this._targetImpulse;
     },
 
     /**

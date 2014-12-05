@@ -16,6 +16,14 @@ var Station = function(name) {
 
     me._name = name;
 
+    me._size = {
+        x: 2.793,
+        y: 3.000,
+        z: 2.793
+    };
+
+    me._model = "SpaceStation01";
+
     ObjectInSpace.call(this);
 
 };
@@ -65,7 +73,10 @@ _.extend(Station.prototype, {
                 x: heading.e(1),
                 y: heading.e(2),
                 z: heading.e(3)
-            }
+            },
+            orientation: me._orientation.elements,
+            size: me._size,
+            model: me._model
         };
     }
 

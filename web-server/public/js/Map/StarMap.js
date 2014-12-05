@@ -1,9 +1,9 @@
 define([
     'three',
-    'Constants',
-    'MapObjectTable',
-    'Grid',
-    'MapObject',
+    'Map/Constants',
+    'Map/MapObjectTable',
+    'Map/Grid',
+    'Map/MapObject',
     'lodash',
     'orbit-controls'
 ], function(THREE, Constants, MapObjectTable, Grid, MapObject, _) {
@@ -34,10 +34,13 @@ define([
             1,
             1000000000
         );
-        this.camera.position.z = Constants.AU * 2;
-        this.camera.position.x = Constants.AU * 2;
-        this.camera.position.y = Constants.AU * 2;
-        
+
+        this.camera.position.set(
+            Constants.AU * 2,
+            Constants.AU * 2,
+            Constants.AU * 2
+        );
+
         var center = new THREE.Vector3(
             Constants.AU,
             Constants.AU,
@@ -86,9 +89,11 @@ define([
                 transparent: true
             })
         );
-        sphere.position.x = 149597870;
-        sphere.position.y = 149597870;
-        sphere.position.z = 149597870;
+        sphere.position.set(
+            149597870,
+            149597870,
+            149597870
+        );
 
         sphere.visible = false;
 
@@ -126,9 +131,12 @@ define([
     };
 
     Map.prototype.hoverObject = function(hoveredObject) {
-        this.hoverSphere.position.x = hoveredObject.position.x;
-        this.hoverSphere.position.y = hoveredObject.position.y;
-        this.hoverSphere.position.z = hoveredObject.position.z;
+
+        this.hoverSphere.position.set(
+            hoveredObject.position.x,
+            hoveredObject.position.y,
+            hoveredObject.position.z
+        );
 
         this.hoverSphere.visible = true;
 
@@ -148,84 +156,15 @@ define([
 
         this.selectedObject = selectedObject;
 
-        this.selectionSphere.position.x = selectedObject.position.x;
-        this.selectionSphere.position.y = selectedObject.position.y;
-        this.selectionSphere.position.z = selectedObject.position.z;
+        this.selectionSphere.position.set(
+            selectedObject.position.x,
+            selectedObject.position.y,
+            selectedObject.position.z
+        );
 
         this.selectionSphere.visible = true;
 
-        var course = this.courseToSeletedObject();
-
-        this.dispatchEvent(this.getSelectEvent(selectedObject, course));
-    };
-
-    Map.prototype.courseToSeletedObject = function() {
-
-        if (!this.selectedObject) {
-            return null;
-        }
-
-        var myShip = this.objectToShip[this.shipMapObject.getId()];
-
-        var point1 = new THREE.Vector3(
-            myShip.position.x,
-            myShip.position.y,
-            myShip.position.z
-        );
-
-        var point2 = new THREE.Vector3(
-            this.selectedObject.position.x,
-            this.selectedObject.position.y,
-            this.selectedObject.position.z
-        );
-
-        var distance = point1.distanceTo(point2);
-
-        var heading = point2.sub(point1);
-
-        var angle = this.getAngle(heading.z, heading.y);
-        if (angle > 90 && angle <= 180) {
-            angle = 180 - angle;
-        }
-        if (angle > 270 && angle <= 360) {
-            angle = (360 - angle) * -1;
-        }
-        if (angle > 180 && angle <= 270) {
-            angle = 180 - angle;
-        }
-
-        var course = {
-            distance: distance,
-            heading: heading,
-            angleZX: this.getAngle(-heading.z, heading.x),
-            angleYZ: angle
-        };
-
-        return course;
-    };
-
-    Map.prototype.getAngle = function(x, y) {
-        var theta;
-
-        if (Math.abs(y) > Math.abs(x)) {
-            theta = Math.asin(y / Math.sqrt(x*x + y*y));
-
-            if (x < 0) {
-                theta = Math.PI - theta;
-            }
-        } else {
-            theta = Math.acos(x / Math.sqrt(x*x + y*y));
-
-            if (y < 0) {
-                theta *= -1;
-            }
-        }
-
-        if (theta < 0) {
-            theta = 2 * Math.PI + theta;
-        }
-
-        return theta / Math.PI * 180;
+        this.dispatchEvent(this.getSelectEvent(selectedObject));
     };
 
     Map.prototype.getHoverEvent = function(mapObject) {
@@ -235,11 +174,10 @@ define([
         };
     };
 
-    Map.prototype.getSelectEvent = function(mapObject, course) {
+    Map.prototype.getSelectEvent = function(mapObject) {
         return {
             type: 'select',
-            mapObject: mapObject,
-            course: course
+            mapObject: mapObject
         };
     };
 

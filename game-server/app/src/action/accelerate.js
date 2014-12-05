@@ -30,7 +30,7 @@ _.extend(Accelerate.prototype, {
     /**
      * Accelerate speed
      */
-    _accelerateSpeed: 10,
+    _accelerateSpeed: 7500,
 
     /**
      * Accelerate a ship. Updates the length of the Velocity vector until
@@ -40,7 +40,7 @@ _.extend(Accelerate.prototype, {
     {
         var seconds = (Date.now() - this.time) / 1000;
 
-        if (this.ship.getWarpLevel() === 0) {
+        if (!this.ship.getWarp()) {
             this.burnFuel(seconds);
 
             if (this.ship.getEnergy() > 0) {
@@ -58,29 +58,40 @@ _.extend(Accelerate.prototype, {
      */
     accelerate: function(seconds)
     {
-        var impulse = this.ship.getCurrentImpulse();
-
-        if (this.targetSpeed > impulse) {
-
-            impulse = (this._accelerateSpeed * seconds) + impulse;
-            if (impulse > this.targetSpeed) {
-                impulse = this.targetSpeed;
-                this.finished = true;
-            }
-
-        } else if (this.targetSpeed < impulse) {
-
-            impulse = impulse - (this._accelerateSpeed * seconds);
-            if (impulse < this.targetSpeed) {
-                impulse = this.targetSpeed;
-                this.finished = true;
-            }
-
+        var maxVelocity;
+        if (this.ship.getSlowImpulse()) {
+            maxVelocity = world.SLOW_IMPULSE;
+        } else {
+            maxVelocity = world.IMPULSE;
         }
 
-        var newVelocity = (impulse / 100) * world.IMPULSE;
-        this.ship.setVelocity(newVelocity);
-        this.ship.setCurrentImpulse(impulse);
+        var targetVelocity = (this.targetSpeed / 100) * maxVelocity;
+        var currentVelocity = this.ship.getVelocity();
+
+        if (targetVelocity > currentVelocity) {
+
+            currentVelocity += this._accelerateSpeed * seconds;
+            if (currentVelocity > targetVelocity) {
+                currentVelocity = targetVelocity
+                this.finished = true;
+            }
+
+        } else if (targetVelocity < currentVelocity) {
+
+            currentVelocity -= this._accelerateSpeed * seconds;
+            if (currentVelocity < targetVelocity) {
+                currentVelocity = targetVelocity
+                this.finished = true;
+            }
+
+        } else {
+            this.finished = true;
+        }
+
+        var currentImpulse = (currentVelocity / maxVelocity) * 100;
+
+        this.ship.setVelocity(currentVelocity);
+        this.ship.setCurrentImpulse(currentImpulse);
     }
 
 });

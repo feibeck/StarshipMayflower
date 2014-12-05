@@ -1,4 +1,4 @@
-define(['MapObjectBase', 'three'], function(MapObjectBase, THREE) {
+define(['Map/MapObjectBase', 'three'], function(MapObjectBase, THREE) {
     'use strict';
 
     var parent = MapObjectBase.prototype;
@@ -12,7 +12,7 @@ define(['MapObjectBase', 'three'], function(MapObjectBase, THREE) {
         }
 
         this.mesh = new THREE.Mesh(
-            new THREE.CubeGeometry(5, 5, 5),
+            new THREE.BoxGeometry(5, 5, 5),
             new THREE.MeshBasicMaterial({color: new THREE.Color(id)})
         );
     }

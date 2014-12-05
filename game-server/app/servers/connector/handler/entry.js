@@ -1,4 +1,8 @@
-var _ = require('lodash');
+var _       = require('lodash')
+    pomelo = require('pomelo'),
+    Channel = require('../../../src/channel');
+
+var channel = new Channel();
 
 module.exports = function(app) {
     return new Handler(app);
@@ -19,7 +23,8 @@ var onUserLeave = function (app, session, reason) {
 
 _.extend(Handler.prototype, {
 
-    entry: function(msg, session, next) {
+    entry: function(msg, session, next)
+    {
         var self = this;
         var playerId = parseInt(this.serverId + id, 10);
         id += 1;
@@ -32,6 +37,17 @@ _.extend(Handler.prototype, {
         console.log("Session for player " + msg.username + " with id " + playerId + " set");
 
         next(null, {code: "OK", payload: playerId});
+    },
+
+    view: function(msg, session, next)
+    {
+        var viewerId = parseInt(this.serverId + id, 10);
+        id += 1;
+        session.bind(viewerId);
+        session.set('viewerId', viewerId);
+        session.pushAll();
+
+        next(null, {code: "OK", payload: viewerId});
     }
 
 });

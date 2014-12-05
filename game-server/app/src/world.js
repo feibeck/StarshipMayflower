@@ -11,6 +11,7 @@ module.exports = {
 
     // Normal impulse speed (0.25c) at 100%, in km/s
     IMPULSE: 74948.1145,
+    SLOW_IMPULSE: 100,
 
     // Astronomical unit in km
     AU: 149597870.7,

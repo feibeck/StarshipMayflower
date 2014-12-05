@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+        var require = {
+
+            baseUrl : '../',
+
+            paths: {
+                'domReady': '../components/requirejs-domready/domReady',
+                'three': '../components/threejs-build/build/three.min',
+                'mtlloader': '../components/threejs-examples/examples/js/loaders/MTLLoader',
+                'objloader': '../components/threejs-examples/examples/js/loaders/OBJLoader',
+                'objmtlloader': '../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
+                'threexspaceships': '../components/threex.spaceships/threex.spaceships',
+                'jquery': '../components/jquery/dist/jquery',
+                'lodash': '../components/lodash/dist/lodash',
+                'SpaceObjectsRenderer': 'lib/SpaceObjectsRenderer',
+                'ModelLoader': 'lib/ModelLoader'
+            },
+            shim: {
+                'three': {
+                    exports: 'THREE'
+                },
+                'mtlloader': ['three'],
+                'objloader': ['three'],
+                'objmtlloader': ['three'],
+                'threexspaceships': {
+                    deps: ['three', 'mtlloader', 'objloader', 'objmtlloader'],
+                    exports: 'THREEx',
+                    init: function() {
+                        this.THREEx.SpaceShips.baseUrl = '../components/threex.spaceships/';
+                    }
+                }
+            }
+        };
+    </script>
+    <style type="text/css">
+        html, body {
+            min-height: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="canvas" style="width: 100%; height: 100%;"></div>
+<script src="../../components/requirejs/require.js"></script>
+<script>
+
+    require(['./SpaceViewer/viewer', 'jquery', 'lodash', 'domReady!'], function(SpaceViewer, $, _) {
+
+        var spaceViewer = new SpaceViewer();
+
+        var container = $('#canvas');
+
+        container.append(spaceViewer.getDomElement());
+        spaceViewer.setSize(container.width(), container.height());
+
+        var ship = {
+            orientation: [
+                [Math.cos(Math.PI/4), -Math.sin(Math.PI/4), 0],
+                [Math.sin(Math.PI/4), Math.cos(Math.PI/4), 0],
+                [0, 0, 1]
+            ],
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            size: {
+                x: 0.027,
+                y: 0.007,
+                z: 0.020
+            },
+            model: "SpaceFighter02"
+        };
+
+        var objects = [
+            {
+                id: 1,
+                orientation: [
+                    [1, 0, 0],
+                    [0, 1, 0.4],
+                    [0.4, 0, 0.5]
+                ],
+                position: {
+                    x: 0,
+                    y: 0,
+                    z: 4
+                },
+                size: {
+                    x: 2.793,
+                    y: 3.000,
+                    z: 2.793
+                },
+                model: "SpaceStation01"
+            },
+            {
+                id: 2,
+                orientation: [
+                    [1, 0, 0],
+                    [0, 1, 0.4],
+                    [0.4, 0, 0.5]
+                ],
+                position: {
+                    x: 2,
+                    y: 0,
+                    z: -4
+                },
+                size: {
+                    x: 2.793,
+                    y: 3.000,
+                    z: 2.793
+                },
+                model: "SpaceStation01"
+            }
+        ];
+
+        spaceViewer.updateShip(ship);
+        spaceViewer.updateObjects(objects);
+
+        spaceViewer.animate();
+
+        function moveObjects() {
+            _.forIn(objects, function(object, index) {
+                objects[index].position.z += 0.02;
+            });
+            spaceViewer.updateObjects(objects);
+        }
+        window.setInterval(moveObjects, 100);
+
+        window.onresize = function() {
+            spaceViewer.setSize(container.width(), container.height());
+        };
+
+    });
+
+</script>
+</body>
+</html>

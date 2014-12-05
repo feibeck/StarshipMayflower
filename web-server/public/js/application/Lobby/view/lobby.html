@@ -1,0 +1,15 @@
+<div class="parallax">
+    <ul id="scene" class="scene" style="padding: 0; margin: 0;">
+        <li class="layer" data-depth="0.05"><div class="background background-0"></div></li>
+        <li class="layer" data-depth="0.15"><div class="background background-1"></div></li>
+        <li class="layer" data-depth="0.30"><div class="background background-2"></div></li>
+    </ul>
+</div>
+
+<script type="text/javascript" src="components/parallax/deploy/parallax.js"></script>
+<script>
+    var scene = document.getElementById('scene');
+    var parallax = new Parallax(scene);
+</script>
+
+<div ui-view></div>

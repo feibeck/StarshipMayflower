@@ -1,0 +1,15 @@
+<div class="flexbox full">
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand">Starship Mayflower</span>
+            </div>
+            <ul class="nav navbar-nav">
+                <li ng-repeat="station in stations" class=""><a ng-href="/#{{ $state.href('play.' + station) }}">{{ station | ucfirst }}</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div ui-view class="flexbox flex"></div>
+</div>

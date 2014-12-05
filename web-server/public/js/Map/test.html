@@ -5,20 +5,14 @@
     <script>
         var require = {
 
+            baseUrl : '../',
+
             paths: {
-                'domReady': '../../components/requirejs-domready/domReady',
-                'jquery': '../../components/jquery/dist/jquery',
-                'lodash': '../../components/lodash/dist/lodash',
-                'three': '../../components/three.js/three.min',
-                'orbit-controls': '../lib/OrbitControls',
-                'Grid': './Grid',
-                'Constants': './Constants',
-                'StarMap': './StarMap',
-                'MapObject': './MapObject',
-                'MapObjectBase': './MapObjectBase',
-                'MapObjectPicker': './MapObjectPicker',
-                'MapObjectActor': './MapObjectActor',
-                'MapObjectTable': './MapObjectTable'
+                'domReady': '../components/requirejs-domready/domReady',
+                'jquery': '../components/jquery/dist/jquery',
+                'lodash': '../components/lodash/dist/lodash',
+                'three': '../components/three.js/three.min',
+                'orbit-controls': '../components/threejs-controls/controls/OrbitControls'
             },
 
             shim: {
@@ -35,7 +29,7 @@
 </head>
 <body>
 <script>
-    require(['StarMap', 'MapObject', 'jquery', 'domReady!'], function(StarMap, MapObject, $) {
+    require(['Map/StarMap', 'Map/MapObject', 'jquery', 'domReady!'], function(StarMap, MapObject, $) {
         var map = new StarMap();
         map.setSize(600, 400);
         document.body.appendChild(map.getDomElement());
@@ -134,10 +128,6 @@
             if (selectedObject) {
                 $('#selectedship').show();
                 $('#shipname').html(selectedObject.name);
-                var course = map.courseToSeletedObject();
-                $('#distance').html(course.distance);
-                $('#angleZX').html(course.angleZX);
-                $('#angleYZ').html(course.angleYZ);
             }
 
         }, 100);
@@ -150,10 +140,6 @@
     <dl>
         <dt>Ship</dt>
         <dd id="shipname"></dd>
-        <dt>Distance</dt>
-        <dd id="distance"></dd>
-        <dt>Heading</dt>
-        <dd><span id="angleZX"></span>°/<span id="angleYZ"></span>°</dd>
     </dl>
 </div>
 

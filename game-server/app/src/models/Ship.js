@@ -23,9 +23,16 @@ var Ship = function(name) {
         weapons: null,
         comm: null,
         science: null,
-        engineering: null,
-        mainscreen: null
+        engineering: null
     };
+
+    me._size = {
+        x: 0.027,
+        y: 0.007,
+        z: 0.020
+    };
+
+    me._model = "SpaceFighter02";
 
     ObjectInSpace.call(this);
 
@@ -41,6 +48,9 @@ _.extend(Ship.prototype, {
     _players: null,
     _energy: 10000,
     _warpLevel: 0,
+    _warpSpeed: 1,
+    _warp: false,
+    _slowImpulse: false,
 
     /**
      * Returns the ships name
@@ -75,16 +85,15 @@ _.extend(Ship.prototype, {
         this.releaseStation('weapons', player);
         this.releaseStation('engineering', player);
         this.releaseStation('science', player);
-        this.releaseStation('mainscreen', player);
         this.releaseStation('comm', player);
     },
 
     getRealVelocity: function()
     {
-        if (this._warpLevel === 0) {
+        if (!this._warp) {
             return this._velocity;
         }
-        return this._warpLevel * 299792.458;
+        return this._warpSpeed * 299792.458;
     },
 
     /**
@@ -132,6 +141,76 @@ _.extend(Ship.prototype, {
         this._warpLevel = warpLevel;
         return this;
     },
+
+    /**
+     * Returns the current warp speed (multiple of C) of a ship
+     *
+     * @returns {Number}
+     */
+    getWarpSpeed: function()
+    {
+        return this._warpSpeed;
+    },
+
+    /**
+     * Set the current warp speed (multiple of C)
+     *
+     * @param {Number} warpSpeed
+     *
+     * @returns {Ship}
+     */
+    setWarpSpeed: function(warpSpeed)
+    {
+        this._warpSpeed = warpSpeed;
+        return this;
+    },
+
+    /**
+     * En- or disable warp engine
+     *
+     * @param {boolean} warp
+     *
+     * @returns {Ship}
+     */
+    setWarp: function(warp)
+    {
+        this._warp = warp;
+        return this;
+    },
+
+    /**
+     * Retuns wether the ship is going at warp speed
+     *
+     * @returns {boolean}
+     */
+    getWarp: function()
+    {
+        return this._warp;
+    },
+
+    /**
+     * En- or disable slow impulse mode
+     *
+     * @param {boolean} warp
+     *
+     * @returns {Ship}
+     */
+    setSlowImpulse: function(slowImpulse)
+    {
+        this._slowImpulse = slowImpulse;
+        return this;
+    },
+
+    /**
+     * Retuns wether the ship is going at slow impulse speed
+     *
+     * @returns {boolean}
+     */
+    getSlowImpulse: function()
+    {
+        return this._slowImpulse;
+    },
+
 
     /**
      * Register a player with a station
@@ -249,8 +328,7 @@ _.extend(Ship.prototype, {
                 weapons: (me._stations.weapons ? me._stations.weapons.getName() : ''),
                 science: (me._stations.science ? me._stations.science.getName() : ''),
                 engineering: (me._stations.engineering ? me._stations.engineering.getName() : ''),
-                comm: (me._stations.comm ? me._stations.comm.getName() : null),
-                mainscreen: (me._stations.mainscreen ? me._stations.mainscreen.getName() : '')
+                comm: (me._stations.comm ? me._stations.comm.getName() : null)
             },
             position: {
                 x: me._position.e(1),
@@ -260,6 +338,7 @@ _.extend(Ship.prototype, {
             speed: me.getRealVelocity(),
             targetImpulse: me._targetImpulse,
             currentImpulse: me._currentImpulse,
+            slowImpulse: me._slowImpulse,
             heading: {
                 x: heading.e(1),
                 y: heading.e(2),
@@ -277,7 +356,11 @@ _.extend(Ship.prototype, {
             },
             energy: me._energy,
             warpLevel: me._warpLevel,
-            orientation: me._orientation.elements
+            warpSpeed: me._warpSpeed,
+            warp: me._warp,
+            orientation: me._orientation.elements,
+            size: me._size,
+            model: me._model
         };
     },
 
@@ -305,13 +388,18 @@ _.extend(Ship.prototype, {
                 y: me._position.e(2),
                 z: me._position.e(3)
             },
-            speed: me.getRealVelocity(),
             heading: {
                 x: heading.e(1),
                 y: heading.e(2),
                 z: heading.e(3)
             },
-            warpLevel: me._warpLevel
+            speed: me.getRealVelocity(),
+            warpLevel: me._warpLevel,
+            warp: me._warp,
+            warpSpeed: me._warpSpeed,
+            orientation: me._orientation.elements,
+            size: me._size,
+            model: me._model
         };
     }
 
