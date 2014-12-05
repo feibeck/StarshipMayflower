@@ -2,11 +2,20 @@
 
 define([
     'lodash',
-    'three'
-], function(_, THREE) {
+    'three',
+    'lib/FpsMeter'
+], function(_, THREE, FpsMeter) {
     "use strict";
 
-    function SpaceObjectsRenderer() {
+    var rendererId = 0;
+
+    function SpaceObjectsRenderer(instrument) {
+        var me = this;
+
+        if (typeof(instrument) === 'undefined') {
+            instrument = true;
+        }
+
         this.width = 0;
         this.height = 0;
 
@@ -23,6 +32,20 @@ define([
         this.worldObjects = [];
 
         this.initialize();
+
+        if (instrument) {
+            var fpsMeter = new FpsMeter(),
+                id = rendererId++;
+
+            this._fpsMeter = fpsMeter;
+
+            setInterval(function() {
+                var fps = fpsMeter.getFps();
+                if (fps > 0) {
+                    console.log('renderer ' + id + ' rendering at ' + fps.toFixed(2) + ' FPS');
+                }
+            }, 1000);
+        }
     }
 
     _.extend(SpaceObjectsRenderer.prototype, {
@@ -89,10 +112,15 @@ define([
             window.requestAnimationFrame(function() {
                 me.animate();
             });
+
             this.render();
+
+            if (me._fpsMeter) {
+                me._fpsMeter.tick();
+            }
         },
         drawObjects: function() {},
-        initialize: function() {},
+        initialize: function() {}
     });
 
     SpaceObjectsRenderer.extend = function(properties) {
