@@ -14,7 +14,6 @@ define([
 
             var map       = null;
             var scanner   = null;
-            var spaceview = null;
             var rotation  = null;
             var compass   = null;
             var spaceview = null;
