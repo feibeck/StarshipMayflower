@@ -20,9 +20,13 @@ define([
 
                 controller: function($scope) {},
 
-                link: function($scope, element, attrs) {
+                link: function($scope, element, attributes) {
 
-                    var spaceViewer = Scenes.getSpaceview();
+                    if (attributes.view == "3d") {
+                        var spaceViewer = Scenes.getSpaceview3d();
+                    } else {
+                        var spaceViewer = Scenes.getSpaceview();
+                    }
 
                     element.append(spaceViewer.getDomElement());
                     spaceViewer.setSize(element.width(), element.height());

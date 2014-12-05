@@ -2,11 +2,13 @@
 
 define([
     'lodash',
-    'three'
+    'three',
+    'stereoEffect'
 ], function(_, THREE) {
     "use strict";
 
-    function SpaceObjectsRenderer() {
+    function SpaceObjectsRenderer(view3d) {
+
         this.width = 0;
         this.height = 0;
 
@@ -17,7 +19,7 @@ define([
         this.initLights();
         this.initCamera();
 
-        this.initRenderer();
+        this.initRenderer(view3d);
 
         this.ship = null;
         this.worldObjects = [];
@@ -26,11 +28,21 @@ define([
     }
 
     _.extend(SpaceObjectsRenderer.prototype, {
-        initRenderer: function() {
+        initRenderer: function(view3d) {
             this.renderer = new THREE.WebGLRenderer({antialias: true});
             this.renderer.gammaInput = true;
             this.renderer.gammaOutput = true;
-            this.renderer.setSize(this.width, this.height);
+
+            if (view3d) {
+                this.effect = new THREE.StereoEffect(this.renderer);
+                this.effect.separation = 0.001;
+
+                this.renderable = this.effect;
+            } else {
+                this.renderable = this.renderer;
+            }
+
+            this.renderable.setSize(this.width, this.height);
         },
         initLights: function() {
             // LIGHTS
@@ -66,7 +78,7 @@ define([
             this.width = width;
             this.height = height;
 
-            this.renderer.setSize(width, height);
+            this.renderable.setSize(width, height);
 
             this.camera.aspect = width / height;
             this.camera.updateProjectionMatrix();
@@ -74,7 +86,7 @@ define([
             this.render();
         },
         render: function() {
-            this.renderer.render(this.scene, this.camera);
+            this.renderable.render(this.scene, this.camera);
         },
         updateShip: function(ship) {
             this.ship = ship;

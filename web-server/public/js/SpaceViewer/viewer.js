@@ -4,7 +4,8 @@ define([
     'SpaceObjectsRenderer',
     'lodash',
     'three',
-    'ModelLoader'
+    'ModelLoader',
+    'stereoEffect'
 ], function(SpaceObjectsRenderer, _, THREE, ModelLoader) {
     "use strict";
 

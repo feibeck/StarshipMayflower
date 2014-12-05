@@ -13,6 +13,7 @@ require.config({
         'uiBootstrap': '../components/angular-bootstrap/ui-bootstrap-tpls',
         'three': '../components/threejs-build/build/three.min',
         'orbit-controls': '../components/threejs-controls/controls/OrbitControls',
+        'stereoEffect': '../components/threejs-examples/examples/js/effects/StereoEffect',
         'mtlloader': '../components/threejs-examples/examples/js/loaders/MTLLoader',
         'objloader': '../components/threejs-examples/examples/js/loaders/OBJLoader',
         'objmtlloader': '../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
@@ -46,6 +47,7 @@ require.config({
         'mtlloader': ['three'],
         'objloader': ['three'],
         'objmtlloader': ['three'],
+        'stereoEffect': ['three'],
         'threexspaceships': {
             deps: ['three', 'mtlloader', 'objloader', 'objmtlloader'],
             exports: 'THREEx',

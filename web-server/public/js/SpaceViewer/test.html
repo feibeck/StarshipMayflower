@@ -9,6 +9,7 @@
             paths: {
                 'domReady': '../components/requirejs-domready/domReady',
                 'three': '../components/threejs-build/build/three.min',
+                'stereoEffect': '../components/threejs-examples/examples/js/effects/StereoEffect',
                 'mtlloader': '../components/threejs-examples/examples/js/loaders/MTLLoader',
                 'objloader': '../components/threejs-examples/examples/js/loaders/OBJLoader',
                 'objmtlloader': '../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
@@ -25,6 +26,7 @@
                 'mtlloader': ['three'],
                 'objloader': ['three'],
                 'objmtlloader': ['three'],
+                'stereoEffect': ['three'],
                 'threexspaceships': {
                     deps: ['three', 'mtlloader', 'objloader', 'objmtlloader'],
                     exports: 'THREEx',
@@ -51,7 +53,7 @@
 
     require(['./SpaceViewer/viewer', 'jquery', 'lodash', 'domReady!'], function(SpaceViewer, $, _) {
 
-        var spaceViewer = new SpaceViewer();
+        var spaceViewer = new SpaceViewer(true);
 
         var container = $('#canvas');
 

@@ -12,12 +12,13 @@ define([
         function()
         {
 
-            var map       = null;
-            var scanner   = null;
-            var spaceview = null;
-            var rotation  = null;
-            var compass   = null;
-            var spaceview = null;
+            var map         = null;
+            var scanner     = null;
+            var spaceview   = null;
+            var rotation    = null;
+            var compass     = null;
+            var spaceview   = null;
+            var spaceview3d = null;
 
             return {
 
@@ -59,6 +60,14 @@ define([
                         spaceview = new SpaceViewer();
                     }
                     return spaceview;
+                },
+
+                getSpaceview3d: function()
+                {
+                    if (spaceview3d == null) {
+                        spaceview3d = new SpaceViewer(true);
+                    }
+                    return spaceview3d;
                 }
 
             };
