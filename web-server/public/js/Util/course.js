@@ -24,7 +24,7 @@ define([
                 target.position.z
             );
 
-            var heading = targetVector.sub(sourceVector);
+            var heading = targetVector.clone().sub(sourceVector);
 
             var angle = new Angle({
                 heading: heading
