@@ -138,6 +138,8 @@ define([
             matrix.multiply(cameraMatrix);
 
             this.camera.rotation.setFromRotationMatrix(matrix);
+
+            this.scheduleRender();
         },
 
         loadModel: function(object)

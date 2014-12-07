@@ -1,7 +1,9 @@
 define([
+    'lodash',
     'three',
-    'ModelLoader'
-], function(THREE, ModelLoader) {
+    'ModelLoader',
+    'lib/FpsMeter'
+], function(_, THREE, ModelLoader, FpsMeter) {
     'use strict';
 
     function Rotation() {
@@ -24,6 +26,8 @@ define([
         this.scene.add(ambientLight);
         this.scene.add(light);
         this.scene.add(light2);
+
+        this._renderThrottled = _.throttle(this.render.bind(this), 1000 / 30);
 
         var material = new THREE.MeshBasicMaterial({
             color: 'lime',
@@ -52,21 +56,22 @@ define([
         var center = new THREE.Vector3(0, 0, 0);
         this.camera.lookAt(center);
 
-        var me = this;
-
         this.shipModel = null;
+
+        this._fpsMeter = (new FpsMeter()).startLogging('Rotation');
     }
 
     Rotation.prototype.animate = function() {
-        var me = this;
-        window.requestAnimationFrame(function() {
-            me.animate();
-        });
-        this.render();
+        this.scheduleRender();
     };
 
     Rotation.prototype.render = function() {
         this.renderer.render(this.scene, this.camera);
+        this._fpsMeter.tick();
+    };
+
+    Rotation.prototype.scheduleRender = function() {
+        this._renderThrottled();
     };
 
     Rotation.prototype.setSize = function(width, height) {
@@ -129,6 +134,8 @@ define([
         );
 
         this.shipModel.rotation.setFromRotationMatrix(rotationMatrix);
+
+        this.scheduleRender();
     };
 
     return Rotation;

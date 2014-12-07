@@ -2,11 +2,16 @@
 
 define([
     'lodash',
-    'three'
-], function(_, THREE) {
+    'three',
+    'lib/FpsMeter'
+], function(_, THREE, FpsMeter) {
     "use strict";
 
+    var instanceId = 0;
+
     function SpaceObjectsRenderer() {
+        var me = this;
+
         this.width = 0;
         this.height = 0;
 
@@ -23,6 +28,10 @@ define([
         this.worldObjects = [];
 
         this.initialize();
+
+        this._renderThrottled = _.throttle(this.render.bind(this), 1000 / 30);
+
+        this._fpsMeter = (new FpsMeter()).startLogging('SpaceObjectsRenderer ' + (instanceId++));
     }
 
     _.extend(SpaceObjectsRenderer.prototype, {
@@ -75,6 +84,7 @@ define([
         },
         render: function() {
             this.renderer.render(this.scene, this.camera);
+            this._fpsMeter.tick();
         },
         updateShip: function(ship) {
             this.ship = ship;
@@ -83,16 +93,17 @@ define([
         updateObjects: function(objects) {
             this.worldObjects = objects;
             this.drawObjects();
+
+            this.scheduleRender();
         },
         animate: function() {
-            var me = this;
-            window.requestAnimationFrame(function() {
-                me.animate();
-            });
-            this.render();
+            this.scheduleRender();
+        },
+        scheduleRender: function() {
+            this._renderThrottled();
         },
         drawObjects: function() {},
-        initialize: function() {},
+        initialize: function() {}
     });
 
     SpaceObjectsRenderer.extend = function(properties) {
