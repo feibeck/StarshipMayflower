@@ -9,10 +9,10 @@
         "url" :                 "https://github.com/feibeck/StarshipMayflower.git"
     },
     "dependencies": {
-        "pomelo":               "0.8.7",
+        "pomelo":               "1.2.0",
         "pomelo-collection":    ">=0.1.0",
-        "lodash":               "2.4.1",
-        "sylvester":            "*",
+        "lodash":               "latest",
+        "sylvester":            "latest",
         "forever":              "latest"
     },
     "devDependencies": {
@@ -24,5 +24,3 @@
         "test":                 "grunt jasmine_node"
     }
 }
-
-

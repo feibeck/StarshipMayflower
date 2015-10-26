@@ -1,16 +1,14 @@
 {
     "name":                   "Starship Mayflower",
     "dependencies": {
-        "bootstrap-assets":   "latest",
+        "html-bootstrap-assets": "latest",
         "bootstrap":          "latest",
         "angular":            "latest",
         "angular-bootstrap":  "latest",
         "angular-ui-router":  "0.2.8-bowratic-tedium",
         "parallax":           "latest",
         "bootswatch":         "latest",
-        "threejs-build":      "latest",
-        "threejs-controls":   "latest",
-        "threejs-examples":   "latest",
+        "threejs":            "latest",
         "requirejs":          "latest",
         "requirejs-domready": "latest",
         "lodash":             "latest",

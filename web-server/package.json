@@ -9,12 +9,15 @@
         "url" :                     "https://github.com/feibeck/StarshipMayflower.git"
     },
     "dependencies": {
-        "express":                  "2.5.2",
+        "express":                  "latest",
+        "method-override":          "latest",
+        "body-parser":              "latest",
+        "errorhandler":             "latest",
         "bower":                    "latest"
     },
     "devDependencies": {
         "grunt-contrib-less":       "latest",
-        "grunt-contrib-watch":      "~0.3.1",
+        "grunt-contrib-watch":      "latest",
         "grunt-forever":            "latest",
         "load-grunt-tasks":         "latest"
     }
