@@ -212,8 +212,10 @@ define([
         this.scaleSphere(this.selectionSphere, shipSize);
         this.scaleSphere(this.hoverSphere, shipSize);
 
-        _.forIn(this.otherShipMapObjects, function(ship) {
-            ship.scale(shipSize);
+        _.forEach(this.otherShipMapObjects, function(ship) {
+            if (ship) {
+                ship.scale(shipSize);
+            }
         });
     };
 

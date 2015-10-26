@@ -186,7 +186,7 @@ _.extend(Handler.prototype, {
         player.setReadyToPlay(msg);
 
         var allReady = true;
-        _(shipRegistry.getAllPlayers()).each(function(player) {
+        _.forEach(shipRegistry.getAllPlayers(), function(player) {
             if (!player.getReadyToPlay()) {
                 allReady = false;
             }

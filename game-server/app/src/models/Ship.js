@@ -256,7 +256,7 @@ _.extend(Ship.prototype, {
     stationsForPlayer: function(player)
     {
         var stations = [];
-        _(this._stations).each(function (playerOnStation, station) {
+        _.forEach(this._stations, function (playerOnStation, station) {
             if (playerOnStation && playerOnStation.getId() == player.getId()) {
                 stations.push(station);
             }
