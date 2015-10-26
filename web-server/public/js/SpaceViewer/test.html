@@ -7,15 +7,15 @@
             baseUrl : '../',
 
             paths: {
-                'domReady': '../components/requirejs-domready/domReady',
-                'three': '../components/threejs-build/build/three.min',
-                'stereoEffect': '../components/threejs-examples/examples/js/effects/StereoEffect',
-                'mtlloader': '../components/threejs-examples/examples/js/loaders/MTLLoader',
-                'objloader': '../components/threejs-examples/examples/js/loaders/OBJLoader',
-                'objmtlloader': '../components/threejs-examples/examples/js/loaders/OBJMTLLoader',
-                'threexspaceships': '../components/threex.spaceships/threex.spaceships',
-                'jquery': '../components/jquery/dist/jquery',
-                'lodash': '../components/lodash/dist/lodash',
+                'jquery': '../../components/jquery/jquery',
+                'lodash': '../../components/lodash/lodash',
+                'domReady': '../../components/requirejs-domready/domReady',
+                'three': '../../components/threejs/build/three.min',
+                'stereoEffect': '../../components/threejs/examples/js/effects/StereoEffect',
+                'mtlloader': '../../components/threejs/examples/js/loaders/MTLLoader',
+                'objloader': '../../components/threejs/examples/js/loaders/OBJLoader',
+                'objmtlloader': '../../components/threejs/examples/js/loaders/OBJMTLLoader',
+                'threexspaceships': '../../components/threex.spaceships/threex.spaceships',
                 'SpaceObjectsRenderer': 'lib/SpaceObjectsRenderer',
                 'ModelLoader': 'lib/ModelLoader'
             },
@@ -31,7 +31,7 @@
                     deps: ['three', 'mtlloader', 'objloader', 'objmtlloader'],
                     exports: 'THREEx',
                     init: function() {
-                        this.THREEx.SpaceShips.baseUrl = '../components/threex.spaceships/';
+                        this.THREEx.SpaceShips.baseUrl = '../../components/threex.spaceships/';
                     }
                 }
             }

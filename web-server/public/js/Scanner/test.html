@@ -3,11 +3,12 @@
 <head>
     <script>
         var require = {
+            baseUrl : '../',
             paths: {
+                'jquery': '../../components/jquery/jquery',
+                'lodash': '../../components/lodash/lodash',
                 'domReady': '../../components/requirejs-domready/domReady',
-                'three': '../../components/three.js/three',
-                'jquery': '../../components/jquery/dist/jquery',
-                'lodash': '../../components/lodash/dist/lodash'
+                'three': '../../components/threejs/build/three.min'
             },
             shim: {
                 'three': {
@@ -22,7 +23,7 @@
 <script src="../../components/requirejs/require.js"></script>
 <script>
 
-    require(['./scanner', 'jquery', 'lodash', 'domReady!'], function(Scanner, $, _) {
+    require(['./Scanner/scanner', 'jquery', 'lodash', 'domReady!'], function(Scanner, $, _) {
 
         var scanner = new Scanner();
 
