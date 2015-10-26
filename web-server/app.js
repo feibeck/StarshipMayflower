@@ -1,26 +1,27 @@
 var express = require('express');
-var app = express.createServer();
+var methodOverride = require('method-override');
+var bodyParser = require('body-parser');
+var errorHandler = require('errorhandler');
+var app = express();
 
-app.configure(function(){
-  app.use(express.methodOverride());
-  app.use(express.bodyParser());
-  app.use(app.router);
-  app.set('view engine', 'jade');
-  app.set('views', __dirname + '/public');
-  app.set('view options', {layout: false});
-  app.set('basepath',__dirname + '/public');
-});
+app.use(methodOverride());
+app.use(bodyParser());
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/public');
+app.set('view options', {layout: false});
+app.set('basepath',__dirname + '/public');
 
-app.configure('development', function(){
-  app.use(express.static(__dirname + '/public'));
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
+var env = process.env.NODE_ENV || 'development';
+if ('development' == env) {
+    app.use(express.static(__dirname + '/public'));
+    app.use(errorHandler({ dumpExceptions: true, showStack: true }));
+}
 
-app.configure('production', function(){
-  var oneYear = 31557600000;
-  app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
-  app.use(express.errorHandler());
-});
+if ('production' == env) {
+    var oneYear = 31557600000;
+    app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
+    app.use(errorHandler());
+}
 
 console.log("Web server has started.\nPlease log on http://127.0.0.1:3001/index.html");
 
