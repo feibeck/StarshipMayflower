@@ -6,7 +6,7 @@
                 <span class="navbar-brand">Starship Mayflower</span>
             </div>
             <ul class="nav navbar-nav">
-                <li ng-repeat="station in stations" class=""><a ng-href="/{{ $state.href('play.' + station) }}">{{ station | ucfirst }}</a></li>
+                <li ng-repeat="station in stations" class=""><a ui-sref="{{ 'play.' + station }}">{{ station | ucfirst }}</a></li>
             </ul>
         </div>
     </nav>
