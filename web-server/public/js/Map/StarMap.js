@@ -41,19 +41,12 @@ define([
             Constants.AU * 2
         );
 
-        var center = new THREE.Vector3(
-            Constants.AU,
-            Constants.AU,
-            Constants.AU
-        );
-
-        this.camera.lookAt(center);
-
         var controls = new THREE.OrbitControls(
             this.camera,
             this.getDomElement()
         );
-        controls.target = center;
+
+        controls.target.set(Constants.AU, Constants.AU, Constants.AU);
 
         var me = this;
 

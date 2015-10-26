@@ -123,7 +123,8 @@ define([
 
             this.camera.position.set(position.x, position.y, position.z);
 
-            var cameraMatrix = new THREE.Matrix4(
+            var cameraMatrix = new THREE.Matrix4();
+            cameraMatrix.set(
                 -1, 0, 0,
                 0,
                 0, 1, 0,
@@ -157,7 +158,8 @@ define([
         },
 
         getShipRotationMatrix: function(ship) {
-            var rotationMatrix = new THREE.Matrix4(
+            var rotationMatrix = new THREE.Matrix4();
+            rotationMatrix.set(
                 ship.orientation[0][0],
                 ship.orientation[0][1],
                 ship.orientation[0][2],

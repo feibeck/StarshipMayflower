@@ -114,7 +114,8 @@ define([
             return;
         }
 
-        var rotationMatrix = new THREE.Matrix4(
+        var rotationMatrix = new THREE.Matrix4();
+        rotationMatrix.set(
             ship.orientation[0][0],
             ship.orientation[0][1],
             ship.orientation[0][2],
