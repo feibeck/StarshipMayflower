@@ -39,15 +39,6 @@ define([
             model.scale.multiplyScalar(scale);
         }
 
-        // change emissive color of all object3d material - they are too dark
-        var fixLightning = function(model) {
-            model.traverse(function(model) {
-                if (model.material) {
-                    model.material.emissive.set('white')
-                }
-            });
-        }
-
         var loader	= new THREE.OBJMTLLoader();
 
         var modelUrls = {
@@ -87,7 +78,6 @@ define([
 
                 loader.load(source.baseUrl + source.objUrl, source.baseUrl + source.mtlUrl, function(object3d) {
                     scaleModel(ship, object3d);
-                    fixLightning(object3d);
                     object3d.centeroid = getCentroid(object3d);
                     onLoadFunc && onLoadFunc(object3d)
                 });
