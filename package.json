@@ -1,23 +1,24 @@
 {
-    "name":             "StarshipMayflower",
-    "description":      "A starship bridge simulator running in your browser",
-    "author":           "Florian Eibeck and others",
-    "version":          "0.0.1",
-    "private":          false,
-    "repository" : {
-        "type" :        "git",
-        "url" :         "https://github.com/feibeck/StarshipMayflower.git"
-    },
-    "scripts": {
-        "preinstall":   "./npm-install.sh",
-        "test":         "grunt"
-    },
-    "devDependencies": {
-        "grunt":                    "latest",
-        "grunt-cli":                "latest",
-        "load-grunt-tasks":         "latest",
-        "grunt-execute":            "latest",
-        "grunt-forever":            "latest"
-    }
+  "name": "StarshipMayflower",
+  "description": "A starship bridge simulator running in your browser",
+  "author": "Florian Eibeck and others",
+  "version": "0.0.1",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/feibeck/StarshipMayflower.git"
+  },
+  "scripts": {
+    "preinstall": "./npm-install.sh",
+    "test": "grunt"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-browserify": "latest",
+    "grunt-cli": "latest",
+    "grunt-execute": "latest",
+    "grunt-forever": "latest",
+    "load-grunt-tasks": "latest",
+    "lodash": "^3.10.1"
+  }
 }
-

@@ -44,7 +44,7 @@ _.extend(Turn.prototype, {
         }
 
         var seconds = (Date.now() - this.time) / 1000;
-        var turnDegrees = this.arc * seconds;
+        var turnDegrees = this.arc * seconds * 3;
 
         this.burnFuel(seconds);
 

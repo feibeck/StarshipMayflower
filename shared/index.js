@@ -1,5 +1,5 @@
 /* global node: true */
 
 module.exports = {
-    foo: true'
+    model: require('./model')
 };

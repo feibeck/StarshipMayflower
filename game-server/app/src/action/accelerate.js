@@ -30,7 +30,7 @@ _.extend(Accelerate.prototype, {
     /**
      * Accelerate speed
      */
-    _accelerateSpeed: 7500,
+    _accelerateSpeed: 750000,
 
     /**
      * Accelerate a ship. Updates the length of the Velocity vector until

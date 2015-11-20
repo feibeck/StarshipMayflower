@@ -11,5 +11,6 @@ game-server/logs
 
 web-server/public/components
 web-server/public/css/StarshipMayflower.css
+web-server/public/js/Util/shared.js
 
 node_modules
