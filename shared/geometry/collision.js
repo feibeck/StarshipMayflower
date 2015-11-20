@@ -47,6 +47,33 @@ function collides(o1, o2) {
     }
 }
 
+/**
+ * Check for intersection between an object and a straight line.
+ * 
+ * @param {ObjectInSpace} o
+ * @param {sylvester.Vector} base Straight line base point
+ * @param {sylvester.Vector} direction Straigt line direction vector (must be normalized)
+ * 
+ * @return {boolean}
+ */
+function collidesWithLine(o, base, direction) {
+    switch (o.getVolume().type) {
+        case volume.Point.type:
+            return false;
+        
+        case volume.Sphere.type:
+            return sphereCollidesWithLine(o, base, direction);
+        
+        case volume.Box.type:
+            return boxCollidesWithLine(o, base, direction);
+    }
+}
+
+module.exports = {
+    collides: collides,
+    collidesWithLine: collidesWithLine
+};
+
 function collidesBoxBox(box1, box2) {
     throw new Error('box-box collisions not implemented');
 }
@@ -73,6 +100,15 @@ function collidesSphereSphere(sphere1, sphere2) {
         (sphere1.getVolume().getRadius() + sphere2.getVolume().getRadius());
 }
 
-module.exports = {
-    collides: collides
-};
+function sphereCollidesWithLine(sphere, base, direction) {
+    var pos = sphere.getPosition(),
+        d = pos.subtract(base),
+        dproj = d.dot(direction),
+        mod2 = d.dot(d) - dproj*dproj;
+    
+    return mod2 > 0 ? (Math.sqrt(mod2) < sphere.getVolume().getRadius()) : true;
+}
+
+function boxCollidesWithLine() {
+    throw new Error('collisions line - box not implemented');
+}
