@@ -1,7 +1,7 @@
 /* jshint node:true */
 
-var volume = require('../models/volume'),
-    ObjectInSpace = require('../ObjectInSpace');
+var volume = require('../model/volume'),
+    ObjectInSpace = require('../model/ObjectInSpace');
 
 /**
  * Check two objects for collision.
@@ -72,3 +72,7 @@ function collidesSphereSphere(sphere1, sphere2) {
     return sphere1.getPosition().subtract(sphere2.getPosition()).modulus() <
         (sphere1.getVolume().getRadius() + sphere2.getVolume().getRadius());
 }
+
+module.exports = {
+    collides: collides
+};

@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-mocha-test');
     
     grunt.initConfig({
         browserify: {
@@ -14,8 +15,28 @@ module.exports = function(grunt) {
                     }
                 }
             }
+        },
+        
+        mochaTest: {
+            nyan: {
+                options: {
+                    reporter: 'nyan',
+                    ui: 'tdd'
+                },
+                src: 'shared/tests/**/*.js'
+            },
+            debug: {
+                options: {
+                    reporter: 'spec',
+                    ui: 'tdd',
+                    bail: true
+                },
+                src: 'shared/tests/**/*.js'
+            }
         }
     });
     
     grunt.registerTask('default', ['browserify']);
+    grunt.registerTask('test', ['mochaTest:nyan']);
+    grunt.registerTask('test:debug', ['mochaTest:debug']);
 };

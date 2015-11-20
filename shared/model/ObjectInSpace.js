@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var sylvester = require('sylvester');
-var Point = require('./volume/point');
+var Point = require('./volume/Point');
 
 /**
  * A thing that exists in space and time.

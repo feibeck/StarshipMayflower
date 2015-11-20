@@ -21,14 +21,14 @@ _.extend(Box.prototype, {
     _extend: null,
     
     /**
-     * @return {Sylvester.Vector}
+     * @return {sylvester.Vector}
      */
     getExtend: function() {
         return this._extend;
     },
     
     /**
-     * @param {Sylvester.Vector} extend
+     * @param {sylvester.Vector} extend
      * 
      * @return Box
      */
