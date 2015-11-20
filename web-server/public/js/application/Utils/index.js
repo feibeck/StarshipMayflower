@@ -2,5 +2,6 @@ define([
     './services/Player',
     './services/Pomelo',
     './services/Scenes',
-    './services/Three'
+    './services/Three',
+    './services/WorldRegistry'
 ], function () {});

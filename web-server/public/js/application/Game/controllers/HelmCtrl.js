@@ -1,8 +1,8 @@
 define(['../module', 'Util/angle'], function (module, Angle) {
     'use strict';
 
-    module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', '$window', 'Target',
-        function ($scope, $location, Pomelo, $window, Target) {
+    module.controller('HelmCtrl', ['$scope', '$location', 'Pomelo', '$window', 'Target', 'WorldRegistry',
+        function ($scope, $location, Pomelo, $window, Target, WorldRegistry) {
 
             var worldUpdateListener = function(world) {
                 $scope.otherships = world.ships;
@@ -24,6 +24,10 @@ define(['../module', 'Util/angle'], function (module, Angle) {
 
             Pomelo.on('WorldUpdate', worldUpdateListener);
             Pomelo.on('ShipUpdate', shipUpdateListener);
+
+            WorldRegistry.on('update', function() {
+                var allObjects = WorldRegistry.getAllObjects();
+            });
 
             var targetListener = function(event) {
                 $scope.selectedObject = event.currentTarget;
@@ -59,9 +63,7 @@ define(['../module', 'Util/angle'], function (module, Angle) {
             });
 
             var keydown = function(e) {
-
                 switch (e.keyCode) {
-
                     case 87: // w
                         $scope.rotate('pitch', 10);
                         break;
@@ -82,14 +84,11 @@ define(['../module', 'Util/angle'], function (module, Angle) {
                     case 68: // d
                         $scope.rotate('yaw', -10);
                         break;
-
                 }
-            }
+            };
 
             var keyup = function(e) {
-
                 switch (e.keyCode) {
-
                     case 81: // q
                     case 69: // e
                         $scope.rotate('roll', 0);
@@ -104,10 +103,8 @@ define(['../module', 'Util/angle'], function (module, Angle) {
                     case 68: // d
                         $scope.rotate('yaw', 0);
                         break;
-
                 }
-
-            }
+            };
 
             angular.element($window).on('keydown', keydown);
             angular.element($window).on('keyup', keyup);

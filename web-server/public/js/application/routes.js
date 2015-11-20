@@ -3,7 +3,6 @@ define(['require', './app'], function (require, app) {
     var basePath = require.toUrl('.');
 
     app.config(['$stateProvider', '$urlRouterProvider',
-
         function($stateProvider, $urlRouterProvider) {
 
             $urlRouterProvider.otherwise('/lobby/login');

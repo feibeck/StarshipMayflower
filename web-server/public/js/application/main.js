@@ -20,7 +20,8 @@ require.config({
         'threexspaceships': '../components/threex.spaceships/threex.spaceships',
         'paper': '../components/paper/dist/paper-core',
         'ModelLoader': 'lib/ModelLoader',
-        'SpaceObjectsRenderer': 'lib/SpaceObjectsRenderer'
+        'SpaceObjectsRenderer': 'lib/SpaceObjectsRenderer',
+        'shared': 'Util/shared'
     },
 
     shim: {
@@ -54,6 +55,9 @@ require.config({
             init: function() {
                 this.THREEx.SpaceShips.baseUrl = '/components/threex.spaceships/';
             }
+        },
+        'shared': {
+            exports: 'ssmfShared'
         }
     }
 });

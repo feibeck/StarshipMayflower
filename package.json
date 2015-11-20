@@ -16,13 +16,14 @@
     "grunt": "latest",
     "grunt-browserify": "latest",
     "grunt-cli": "latest",
+    "grunt-contrib-watch": "^0.6.1",
     "grunt-execute": "latest",
     "grunt-forever": "latest",
+    "grunt-mocha-test": "^0.12.7",
     "lapack": "^0.1.0",
     "load-grunt-tasks": "latest",
     "lodash": "^3.10.1",
-    "sylvester": "0.0.21",
-    "grunt-mocha-test": "^0.12.7",
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "sylvester": "0.0.21"
   }
 }

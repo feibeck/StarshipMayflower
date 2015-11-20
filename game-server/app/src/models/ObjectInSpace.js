@@ -215,6 +215,7 @@ _.extend(ObjectInSpace.prototype, {
                 z: me._position.e(3)
             },
             speed: me.getRealVelocity(),
+            orientation: me._orientation.elements,
             heading: {
                 x: heading.e(1),
                 y: heading.e(2),
