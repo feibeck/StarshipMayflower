@@ -125,6 +125,18 @@ _.extend(ObjectInSpace.prototype, {
     
     getVolume: function() {
         return this._volume;
+    },
+
+    fromJson: function(json) {
+        this.setOrientation(sylvester.Matrix.create(json.orientation));
+        this.setPosition(
+            sylvester.Vector.create([
+                json.position.x, 
+                json.position.y, 
+                json.position.z
+            ])
+        );
+        this.setVelocity(json.velocity);
     }
 
 });

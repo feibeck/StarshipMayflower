@@ -1,6 +1,11 @@
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
+var INDEX = 1;
+function newIndex() {
+    return INDEX++;
+}
+
 function ObjectInSpaceRegistry() {
     EventEmitter.call(this);
     
@@ -12,12 +17,20 @@ function ObjectInSpaceRegistry() {
 util.inherits(ObjectInSpaceRegistry, EventEmitter);
 
 ObjectInSpaceRegistry.prototype.push = function (object) {
+    if (!object.getId()) {
+        object.setId(this.createId());
+    }
     this._hashtable[object.getId()] = object;
     this._dirty = true;
     this.emit('update');
     
     return this;
 };
+
+/* Backwards compatibility */
+ObjectInSpaceRegistry.prototype.addObject = function(object) {
+    this.push(object);
+}
 
 ObjectInSpaceRegistry.prototype.updateObject = function(object) {
     if (!this._hashtable[object.getId()]) {
@@ -56,6 +69,10 @@ ObjectInSpaceRegistry.prototype.getSurroundings = function(origin, radius) {
     });
     
     return surroundings;
+};
+
+ObjectInSpaceRegistry.prototype.createId = function() {
+    return newIndex();
 };
 
 ObjectInSpaceRegistry.prototype._getList = function() {

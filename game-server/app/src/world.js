@@ -4,7 +4,7 @@ var sylvester = require('sylvester');
 module.exports = {
 
     ShipRegistry: require('./world/ShipRegistry'),
-    ObjectRegistry: require('./world/ObjectRegistry'),
+    ObjectRegistry: require('../../../shared/model/ObjectInSpaceRegistry'),
 
     // Speed of light in km/s
     C: 299792.458,

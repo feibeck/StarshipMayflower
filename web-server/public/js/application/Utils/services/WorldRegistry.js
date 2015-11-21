@@ -9,8 +9,16 @@ define([
         function(Pomelo) {
 
             var worldRegistry = new shared.model.ObjectInSpaceRegistry();
+            var ownShip = null;
 
             Pomelo.on('WorldUpdate', function(world) {
+
+                if (!ownShip) {
+                    ownShip = new new shared.model.ObjectInSpace();
+                    ownShip.setId(world.ship.id);
+                }
+
+                ownShip.fromJson(world.ship);
 
                 var allShips = world.ships;
                 allShips.push(world.ship);
@@ -24,19 +32,14 @@ define([
                         worldRegistry.push(object);
                     }
 
-                    object.setOrientation(shared.sylvester.Matrix.create(ship.orientation));
-                    object.setPosition(
-                        shared.sylvester.Vector.create([
-                            ship.position.x, 
-                            ship.position.y, 
-                            ship.position.z
-                        ])
-                    );
-                    object.setVelocity(ship.velocity);
+                    object.fromJson(ship);
                 });
             });
-            
-            return worldRegistry;
+
+            return {
+                registry: worldRegistry,
+                ship: ownShip
+            };
         }
     ]);
 });

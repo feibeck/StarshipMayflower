@@ -51,7 +51,14 @@ suite('Object registry', function() {
         assert.strictEqual(registry.getObject('ding2'), o2);
         assert(!registry.getObject('dingsbums'));
     });
-    
+
+    test('object gets an id', function() {
+        var o = new ObjectInSpace();
+        var registry = new ObjectInSpaceRegistry();
+        registry.push(o);
+        assert(o.getId() != null);
+    });
+
     test('determining the surroundings', function() {
         var objects = [
                 {
