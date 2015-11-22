@@ -1,6 +1,7 @@
 var _ = require('lodash'),
     game = require('../../../src/game'),
-    models = require('../../../src/models'),
+    Ship = require('../../../src/models/Ship'),
+    Player = require('../../../src/models/Player'),
     Channel = require('../../../src/channel');
 
 var channel = new Channel();
@@ -73,7 +74,7 @@ _.extend(Handler.prototype, {
         }
 
         player = shipRegistry.getPlayer(playerId);
-        ship = shipRegistry.addShip(new models.Ship(msg), player);
+        ship = shipRegistry.addShip(new Ship(msg), player);
 
         if (!ship.isError) {
             next(null, {
@@ -94,7 +95,7 @@ _.extend(Handler.prototype, {
     addPlayer: function(msg, session, next)
     {
         var shipRegistry = game.getShipRegistry();
-        var player = new models.Player(msg.playerId, msg.name, session.frontendId);
+        var player = new Player(msg.playerId, msg.name, session.frontendId);
 
         player = shipRegistry.addPlayer(player);
 

@@ -1,6 +1,5 @@
 var _ = require('lodash'),
     pomelo = require('pomelo'),
-    models = require('../models'),
     Channel = require('../channel'),
     CustomError = require('../customError');
 
