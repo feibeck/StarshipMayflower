@@ -117,22 +117,54 @@ _.extend(ObjectInSpace.prototype, {
     getPosition: function() {
         return this._position;
     },
-    
+
     setVolume: function(volume) {
         this._volume = volume;
         return this;
     },
-    
+
     getVolume: function() {
         return this._volume;
+    },
+
+    /**
+     * Returns data need for showing the object on a map
+     *
+     * @returns {{
+     *     id: Integer,
+     *     position: {x: *, y: *, z: *},
+     *     speed: *,
+     *     heading: {x: *, y: *, z: *}
+     * }}
+     */
+    serializeMapData: function()
+    {
+        var me = this,
+            heading = me.getHeading();
+
+        return {
+            id: me.getId(),
+            position: {
+                x: me._position.e(1),
+                y: me._position.e(2),
+                z: me._position.e(3)
+            },
+            speed: me.getRealVelocity(),
+            orientation: me._orientation.elements,
+            heading: {
+                x: heading.e(1),
+                y: heading.e(2),
+                z: heading.e(3)
+            }
+        };
     },
 
     fromJson: function(json) {
         this.setOrientation(sylvester.Matrix.create(json.orientation));
         this.setPosition(
             sylvester.Vector.create([
-                json.position.x, 
-                json.position.y, 
+                json.position.x,
+                json.position.y,
                 json.position.z
             ])
         );

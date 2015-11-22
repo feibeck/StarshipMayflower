@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var sylvester = require('sylvester');
-var ObjectInSpace = require('./ObjectInSpace');
+var ObjectInSpace = require('../../../../shared/model/ObjectInSpace');
 var util = require('util');
 
 /**
@@ -34,6 +34,11 @@ var Ship = function(name) {
 
     me._model = "SpaceFighter02";
 
+    me._targetImpulse = 0;
+    me._currentImpulse = 0;
+
+    me._lastMove = 0;
+
     ObjectInSpace.call(this);
 
 };
@@ -51,6 +56,9 @@ _.extend(Ship.prototype, {
     _warpSpeed: 1,
     _warp: false,
     _slowImpulse: false,
+    _targetImpulse: 0,
+    _currentImpulse: 0,
+    _lastMove: null,
 
     /**
      * Returns the ships name
@@ -285,6 +293,68 @@ _.extend(Ship.prototype, {
     getEnergy: function()
     {
         return this._energy;
+    },
+
+    /**
+     * Set the objects target speed
+     *
+     * @param {Integer} targetSpeed
+     */
+    setTargetImpulse: function(targetImpulse)
+    {
+        this._targetImpulse = targetImpulse;
+        return this;
+    },
+
+    /**
+     * Get the objects target speed
+     *
+     * @returns {Integer}
+     */
+    getTargetImpulse: function()
+    {
+        return this._targetImpulse;
+    },
+
+    /**
+     * Sets the current impulse speed
+     *
+     * @param {Integer} currentImpulse
+     */
+    setCurrentImpulse: function(currentImpulse)
+    {
+        this._currentImpulse = currentImpulse;
+        return this;
+    },
+
+    /**
+     * Returns the current impulse speed
+     *
+     * @return {Integer}
+     */
+    getCurrentImpulse: function()
+    {
+        return this._currentImpulse;
+    },
+
+    /**
+     * Sets the timestamp of the last movement
+     *
+     * @param {Integer} lastMove
+     * @return {ObjectInSpace}
+     */
+    setLastMove: function(lastMove) {
+        this._lastMove = lastMove;
+        return this;
+    },
+
+    /**
+     * Returns the timestamp of the last movement
+     *
+     * @returns {Integer}
+     */
+    getLastMove: function() {
+        return this._lastMove;
     },
 
     /**
