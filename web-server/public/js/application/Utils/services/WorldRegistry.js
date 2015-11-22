@@ -14,7 +14,7 @@ define([
             Pomelo.on('WorldUpdate', function(world) {
 
                 if (!ownShip) {
-                    ownShip = new new shared.model.ObjectInSpace();
+                    ownShip = new shared.model.ObjectInSpace();
                     ownShip.setId(world.ship.id);
                 }
 

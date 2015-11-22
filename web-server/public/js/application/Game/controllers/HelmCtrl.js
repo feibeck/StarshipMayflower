@@ -25,8 +25,8 @@ define(['../module', 'Util/angle'], function (module, Angle) {
             Pomelo.on('WorldUpdate', worldUpdateListener);
             Pomelo.on('ShipUpdate', shipUpdateListener);
 
-            WorldRegistry.on('update', function() {
-                var allObjects = WorldRegistry.getAllObjects();
+            WorldRegistry.registry.on('update', function() {
+                var allObjects = WorldRegistry.registry.getAllObjects();
             });
 
             var targetListener = function(event) {
