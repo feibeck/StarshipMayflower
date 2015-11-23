@@ -1,6 +1,6 @@
 var _ = require('lodash'),
     game = require('../../../src/game'),
-    Ship = require('../../../src/models/Ship'),
+    Ship = require('../../../../../shared/model/Ship'),
     Player = require('../../../src/models/Player'),
     Channel = require('../../../src/channel');
 

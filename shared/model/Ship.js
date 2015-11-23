@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var sylvester = require('sylvester');
-var ObjectInSpace = require('../../../../shared/model/ObjectInSpace');
+var ObjectInSpace = require('./ObjectInSpace');
 var util = require('util');
 
 /**
