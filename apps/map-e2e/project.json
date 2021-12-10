@@ -1,0 +1,28 @@
+{
+  "root": "apps/map-e2e",
+  "sourceRoot": "apps/map-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/map-e2e/cypress.json",
+        "devServerTarget": "map:storybook"
+      },
+      "configurations": {
+        "ci": {
+          "devServerTarget": "map:storybook:ci"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/map-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["map"]
+}

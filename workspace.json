@@ -1,6 +1,10 @@
 {
   "version": 2,
   "projects": {
+    "map": "libs/map",
+    "map-e2e": "apps/map-e2e",
+    "starship-mayflower-frontend": "apps/starship-mayflower-frontend",
+    "starship-mayflower-frontend-e2e": "apps/starship-mayflower-frontend-e2e",
     "util": "libs/util"
   }
 }

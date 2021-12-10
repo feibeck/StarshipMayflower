@@ -1,0 +1,30 @@
+{
+  "root": "apps/starship-mayflower-frontend-e2e",
+  "sourceRoot": "apps/starship-mayflower-frontend-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/starship-mayflower-frontend-e2e/cypress.json",
+        "devServerTarget": "starship-mayflower-frontend:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "starship-mayflower-frontend:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/starship-mayflower-frontend-e2e/**/*.{js,ts}"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["starship-mayflower-frontend"]
+}

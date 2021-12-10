@@ -1,0 +1,74 @@
+{
+  "root": "apps/starship-mayflower-frontend",
+  "sourceRoot": "apps/starship-mayflower-frontend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/starship-mayflower-frontend",
+        "index": "apps/starship-mayflower-frontend/src/index.html",
+        "baseHref": "/",
+        "main": "apps/starship-mayflower-frontend/src/main.tsx",
+        "polyfills": "apps/starship-mayflower-frontend/src/polyfills.ts",
+        "tsConfig": "apps/starship-mayflower-frontend/tsconfig.app.json",
+        "assets": [
+          "apps/starship-mayflower-frontend/src/favicon.ico",
+          "apps/starship-mayflower-frontend/src/assets"
+        ],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/starship-mayflower-frontend/src/environments/environment.ts",
+              "with": "apps/starship-mayflower-frontend/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "starship-mayflower-frontend:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "starship-mayflower-frontend:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/starship-mayflower-frontend/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/starship-mayflower-frontend"],
+      "options": {
+        "jestConfig": "apps/starship-mayflower-frontend/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

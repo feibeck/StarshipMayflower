@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@starship-mayflower/map": ["libs/map/src/index.ts"],
       "@starship-mayflower/util": ["libs/util/src/index.ts"]
     }
   },
