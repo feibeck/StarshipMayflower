@@ -1,16 +1,44 @@
-._*
-.~lock.*
-.DS_Store
-.idea
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+/web-server/node_modules
+
+# IDEs and editors
+/.idea
 .project
-.settings
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-atlassian-ide-plugin.xml
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Project Files
 game-server/logs
-
 web-server/public/components
 web-server/public/css/StarshipMayflower.css
 web-server/public/js/Util/shared.js
-
-node_modules
