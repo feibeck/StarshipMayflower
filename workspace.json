@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "compass": "libs/compass",
+    "compass-e2e": "apps/compass-e2e",
     "map": "libs/map",
     "map-e2e": "apps/map-e2e",
     "starship-mayflower-frontend": "apps/starship-mayflower-frontend",
