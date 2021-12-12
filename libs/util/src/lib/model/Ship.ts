@@ -1,7 +1,7 @@
 import { MapData, ObjectInSpace, Size } from './ObjectInSpace';
 import { Vector } from 'sylvester-es6';
 
-type Station = 'helm' | 'weapons' | 'comm' | 'science' | 'engineering';
+export type Station = 'helm' | 'weapons' | 'comm' | 'science' | 'engineering';
 
 interface Player {
   getId: () => number;
