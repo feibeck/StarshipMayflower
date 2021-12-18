@@ -20,6 +20,7 @@
     "@types/paper": "^0.12.3",
     "@types/sylvester-es6": "^0.0.1",
     "@types/three": "^0.135.0",
+    "@types/ws": "^8.2.2",
     "core-js": "^3.6.5",
     "events": "^3.3.0",
     "paper": "^0.12.15",
@@ -31,7 +32,9 @@
     "regenerator-runtime": "0.13.7",
     "sylvester-es6": "^0.0.2",
     "three": "^0.135.0",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "uuid": "^8.3.2",
+    "ws": "^8.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.12.13",

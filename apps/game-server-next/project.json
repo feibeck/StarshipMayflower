@@ -1,0 +1,52 @@
+{
+  "root": "apps/game-server-next",
+  "sourceRoot": "apps/game-server-next/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/game-server-next",
+        "main": "apps/game-server-next/src/main.ts",
+        "tsConfig": "apps/game-server-next/tsconfig.app.json",
+        "assets": ["apps/game-server-next/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/game-server-next/src/environments/environment.ts",
+              "with": "apps/game-server-next/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "game-server-next:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/game-server-next/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/game-server-next"],
+      "options": {
+        "jestConfig": "apps/game-server-next/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
