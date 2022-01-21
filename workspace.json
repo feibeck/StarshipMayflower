@@ -4,6 +4,7 @@
     "compass": "libs/compass",
     "compass-e2e": "apps/compass-e2e",
     "game-server": "apps/game-server",
+    "game-server-lib": "libs/game-server-lib",
     "game-server-next": "apps/game-server-next",
     "map": "libs/map",
     "map-e2e": "apps/map-e2e",

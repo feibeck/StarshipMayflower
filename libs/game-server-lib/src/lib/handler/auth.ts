@@ -1,9 +1,9 @@
-import { Handler } from '../Handler';
+import { RouteHandler } from './RouteHandler';
 import { Message, ResponseMessage } from '../Message';
 import { Session } from '../Session';
 import { Channel } from '../Channel';
 
-export class AuthHandler extends Handler {
+export class AuthHandler extends RouteHandler {
   public name = 'auth';
   handle(
     session: Session,

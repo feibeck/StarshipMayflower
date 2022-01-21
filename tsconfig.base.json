@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@starship-mayflower/compass": ["libs/compass/src/index.ts"],
+      "@starship-mayflower/game-server-lib": [
+        "libs/game-server-lib/src/index.ts"
+      ],
       "@starship-mayflower/map": ["libs/map/src/index.ts"],
       "@starship-mayflower/util": ["libs/util/src/index.ts"]
     }

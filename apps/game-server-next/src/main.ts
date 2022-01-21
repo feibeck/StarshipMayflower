@@ -1,4 +1,4 @@
-import { SocketHandler } from './app/SocketHandler';
+import { SocketHandler } from '@starship-mayflower/game-server-lib';
 
 const handler = new SocketHandler();
-handler.start(3010);
+handler.start(10000);
