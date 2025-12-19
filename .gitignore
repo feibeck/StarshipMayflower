@@ -5,8 +5,6 @@
 
 # dependencies
 /node_modules
-/web-server/node_modules
-/game-server/node_modules
 
 # IDEs and editors
 /.idea
@@ -37,6 +35,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Nx
+.nx/cache
+.nx/workspace-data
 
 # Project Files
 game-server/logs
