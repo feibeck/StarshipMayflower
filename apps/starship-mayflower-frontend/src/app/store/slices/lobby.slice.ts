@@ -11,6 +11,7 @@ export const LOBBY_FEATURE_KEY = 'lobby';
 export interface Player {
   id: number;
   name: string;
+  ready?: boolean;
 }
 
 export interface Ship {

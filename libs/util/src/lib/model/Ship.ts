@@ -11,6 +11,7 @@ interface SerializedPlayer {
 interface Player {
   getId: () => number;
   getName: () => string;
+  getReadyToPlay?: () => boolean;
   serialize: () => SerializedPlayer;
 }
 
@@ -79,6 +80,13 @@ export class Ship extends ObjectInSpace {
    */
   getName() {
     return this.name;
+  }
+
+  /**
+   * Returns all players on the ship
+   */
+  getPlayers(): Player[] {
+    return Object.values(this.players);
   }
 
   /**

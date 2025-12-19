@@ -301,28 +301,53 @@ export class LobbyHandler extends RouteHandler {
       };
     }
 
+    const ship = player.getShip();
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
     const ready = (
       msg.payload['ready'] !== undefined ? msg.payload['ready'] : msg.payload
     ) as boolean;
     player.setReadyToPlay(ready);
 
-    // Check if all players are ready
-    let allReady = true;
-    shipRegistry.getAllPlayers().forEach((p) => {
-      if (!p.getReadyToPlay()) {
-        allReady = false;
-      }
+    // Broadcast ship update with new ready status to all players in lobby
+    const serializedShip = ship.serialize();
+    channel.pushToLobby('ShipUpdated', serializedShip);
+    channel.pushToShip(ship.getId(), 'PlayerReady', {
+      playerId: player.getId(),
+      playerName: player.getName(),
+      ready: ready,
     });
 
-    // Start game if all ready and not already running
+    // Check if all players on THIS SHIP are ready
+    let allReady = true;
+    const playersOnShip = ship.getPlayers();
+
+    // Need at least 1 player to start
+    if (playersOnShip.length === 0) {
+      allReady = false;
+    } else {
+      playersOnShip.forEach((p) => {
+        if (p && p.getReadyToPlay && !p.getReadyToPlay()) {
+          allReady = false;
+        }
+      });
+    }
+
+    // Start game if all players on ship are ready and not already running
     if (allReady && !this.game.isRunning()) {
       this.game.start();
-      channel.pushToLobby('GameStarted', {});
+      channel.pushToLobby('GameStarted', { shipId: ship.getId() });
     }
 
     return {
       status: 'ok',
       running: this.game.isRunning(),
+      ship: serializedShip,
     };
   }
 }

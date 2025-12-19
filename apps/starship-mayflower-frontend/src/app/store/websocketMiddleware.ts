@@ -10,7 +10,7 @@ import {
 } from './slices/lobby.slice';
 import { selectUsername } from './auth.slice';
 import { globalUpdate, shipUpdate, worldUpdate } from './slices/world.slice';
-import { setShip, updatePosition, updateNavigation } from './slices/ship.slice';
+import { updatePosition, updateNavigation } from './slices/ship.slice';
 
 /**
  * WebSocket Middleware
@@ -112,9 +112,11 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
     }
   });
 
-  gameClient.on('GameStarted', () => {
-    console.log('Game started!');
-    // Could dispatch a game started action here
+  gameClient.on('GameStarted', (payload: unknown) => {
+    console.log('Game started!', payload);
+    // TODO: Navigate to game page once it's implemented
+    // For now, just show an alert
+    alert('Game is starting! All players are ready.');
   });
 
   // World events

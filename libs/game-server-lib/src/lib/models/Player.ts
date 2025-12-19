@@ -76,10 +76,11 @@ export class Player {
   /**
    * Returns a JSON representation of the player
    */
-  serialize(): { id: number; name: string } {
+  serialize(): { id: number; name: string; ready: boolean } {
     return {
       id: this.getId(),
       name: this.getName(),
+      ready: this.getReadyToPlay(),
     };
   }
 }

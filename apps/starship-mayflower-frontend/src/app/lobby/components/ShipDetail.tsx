@@ -104,6 +104,49 @@ const ReadyInfo = styled.div`
   font-size: ${theme.typography.fontSize.sm};
 `;
 
+const PlayersSection = styled.div`
+  padding: ${theme.spacing.md};
+  background: ${theme.colors.background};
+  border-radius: ${theme.borderRadius.md};
+  border-left: 4px solid ${theme.colors.primary};
+`;
+
+const PlayersList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.spacing.sm};
+  margin-top: ${theme.spacing.md};
+`;
+
+const PlayerItem = styled.div<{ isReady: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${theme.spacing.sm} ${theme.spacing.md};
+  background: ${({ isReady }) =>
+    isReady ? theme.colors.success + '10' : theme.colors.background};
+  border: 1px solid
+    ${({ isReady }) => (isReady ? theme.colors.success : theme.colors.border)};
+  border-radius: ${theme.borderRadius.sm};
+`;
+
+const PlayerName = styled.span`
+  color: ${theme.colors.text};
+  font-size: ${theme.typography.fontSize.md};
+  font-weight: ${theme.typography.fontWeight.medium};
+`;
+
+const ReadyBadge = styled.span<{ isReady: boolean }>`
+  padding: ${theme.spacing.xs} ${theme.spacing.sm};
+  border-radius: ${theme.borderRadius.sm};
+  font-size: ${theme.typography.fontSize.xs};
+  font-weight: ${theme.typography.fontWeight.medium};
+  background: ${({ isReady }) =>
+    isReady ? theme.colors.success + '20' : theme.colors.textMuted + '20'};
+  color: ${({ isReady }) =>
+    isReady ? theme.colors.success : theme.colors.textMuted};
+`;
+
 const STATIONS = [
   { name: 'helm', displayName: 'Helm' },
   { name: 'weapons', displayName: 'Weapons' },
@@ -204,6 +247,29 @@ export const ShipDetail: React.FC<ShipDetailProps> = ({
           </InfoValue>
         </InfoRow>
       </ShipInfo>
+
+      <PlayersSection>
+        <SectionTitle>Players on Ship</SectionTitle>
+        <PlayersList>
+          {ship.players && ship.players.length > 0 ? (
+            ship.players.map((player) => (
+              <PlayerItem key={player.id} isReady={player.ready || false}>
+                <PlayerName>
+                  {player.name}
+                  {player.name === username && ' (You)'}
+                </PlayerName>
+                <ReadyBadge isReady={player.ready || false}>
+                  {player.ready ? 'Ready' : 'Not Ready'}
+                </ReadyBadge>
+              </PlayerItem>
+            ))
+          ) : (
+            <div style={{ color: theme.colors.textMuted, textAlign: 'center' }}>
+              No players on ship yet
+            </div>
+          )}
+        </PlayersList>
+      </PlayersSection>
 
       <div>
         <SectionTitle>Select Your Station</SectionTitle>
