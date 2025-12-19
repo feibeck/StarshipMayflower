@@ -31,7 +31,8 @@ export function IntegrationTest() {
       addEvent(`❌ Connection error: ${JSON.stringify(error)}`);
     });
 
-    gameClient.on('reconnecting', (attempt: number) => {
+    gameClient.on('reconnecting', (...args: unknown[]) => {
+      const attempt = args[0] as number;
       addEvent(`🔄 Reconnecting... (attempt ${attempt})`);
     });
 
