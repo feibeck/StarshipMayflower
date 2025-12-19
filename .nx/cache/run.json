@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx serve starship-mayflower-frontend",
+    "startTime": "2025-12-19T10:45:44.740Z",
+    "endTime": "2025-12-19T10:45:45.992Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "starship-mayflower-frontend:serve",
+      "target": "serve",
+      "projectName": "starship-mayflower-frontend",
+      "hash": "5027305530651839191",
+      "startTime": "2025-12-19T10:45:44.746Z",
+      "endTime": "2025-12-19T10:45:45.992Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
+}

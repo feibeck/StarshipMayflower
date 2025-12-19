@@ -3,17 +3,17 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Lobby } from './lobby/Lobby';
 import { RequireAuth } from './auth/auth';
 import { LoginPage } from './Login';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from './store/hooks';
 import { selectConnected, selectConnectionError } from './store/game.slice';
 
 export function App() {
-  const dispatch = useDispatch();
-  const isConnected = useSelector(selectConnected);
-  const isConnectionError = useSelector(selectConnectionError);
+  const dispatch = useAppDispatch();
+  const isConnected = useAppSelector(selectConnected);
+  const isConnectionError = useAppSelector(selectConnectionError);
 
   useEffect(() => {
     dispatch({ type: 'WS_CONNECT' });
-  });
+  }, [dispatch]); // Fix: Added dependency array to prevent infinite loop
 
   return isConnected ? (
     <Routes>
@@ -29,7 +29,7 @@ export function App() {
       />
     </Routes>
   ) : isConnectionError ? (
-    <div>Mööp</div>
+    <div>Connection Error - Unable to connect to game server</div>
   ) : (
     <div>Connecting to game server</div>
   );
