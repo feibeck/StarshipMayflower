@@ -18,6 +18,7 @@ interface SerializedShip {
   name: string;
   id: number;
   creator: SerializedPlayer | undefined;
+  players: SerializedPlayer[];
   stations: Record<Station, SerializedPlayer | null>;
   position: Size;
   speed: number;
@@ -282,6 +283,10 @@ export class Ship extends ObjectInSpace {
       creator = this.creator.serialize();
     }
 
+    const players = Object.values(this.players).map((player) =>
+      player.serialize(),
+    );
+
     const shipX = this.orientation.multiply(new Vector([1, 0, 0]));
     const shipY = this.orientation.multiply(new Vector([0, 1, 0]));
 
@@ -289,6 +294,7 @@ export class Ship extends ObjectInSpace {
       name: this.getName(),
       id: Number.parseInt(this.getId()),
       creator,
+      players,
       stations: {
         helm: this.stations.helm
           ? {
