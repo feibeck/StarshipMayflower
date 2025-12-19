@@ -6,8 +6,8 @@ import { Channel, CHANNEL_ALL } from './Channel';
 
 export class SocketHandler {
   private server: WebSocket.WebSocketServer | undefined;
-  private router: Router;
-  private channel: Channel = new Channel();
+  public router: Router;
+  public channel: Channel = new Channel();
 
   constructor() {
     this.router = new Router();
