@@ -33,6 +33,10 @@ export const authSlice = createSlice({
     authenticated: (state) => {
       state.authenticated = true;
     },
+    logout: (state) => {
+      state.authenticated = false;
+      state.name = '';
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(register.fulfilled, (state, action) => {
@@ -44,7 +48,7 @@ export const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 
-export const { authenticated } = authSlice.actions;
+export const { authenticated, logout } = authSlice.actions;
 
 export const getAuthState = (rootState: Record<string, unknown>): AuthState =>
   rootState[AUTH_FEATURE_KEY] as AuthState;

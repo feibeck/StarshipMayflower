@@ -7,7 +7,10 @@ import {
   stationTaken,
   stationReleased,
   updateCurrentShip,
+  takeStation,
+  releaseStation,
 } from './slices/lobby.slice';
+import { selectUsername } from './auth.slice';
 import { globalUpdate, shipUpdate, worldUpdate } from './slices/world.slice';
 import { setShip, updatePosition, updateNavigation } from './slices/ship.slice';
 
@@ -43,13 +46,50 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
   });
 
   gameClient.on('StationTaken', (payload: unknown) => {
-    const data = payload as { ship: Parameters<typeof updateCurrentShip>[0] };
-    storeApi.dispatch(updateCurrentShip(data.ship));
+    const state = storeApi.getState() as RootState;
+    const username = selectUsername(state);
+    const shipData = payload as unknown;
+
+    storeApi.dispatch(updateCurrentShip(shipData as Parameters<typeof updateCurrentShip>[0]));
+
+    // Track which station the current user took
+    if (username && shipData && typeof shipData === 'object' && 'stations' in shipData) {
+      const stations = (shipData as { stations: Record<string, unknown> }).stations;
+      const takenStations = Object.entries(stations)
+        .filter(([_, playerName]) => playerName === username)
+        .map(([stationName]) => stationName);
+
+      // Update local myStations for each one the user has
+      takenStations.forEach(stationName => {
+        storeApi.dispatch(takeStation(stationName));
+      });
+    }
   });
 
   gameClient.on('StationReleased', (payload: unknown) => {
-    const data = payload as { ship: Parameters<typeof updateCurrentShip>[0] };
-    storeApi.dispatch(updateCurrentShip(data.ship));
+    const state = storeApi.getState() as RootState;
+    const username = selectUsername(state);
+    const currentMyStations = state.lobby.myStations;
+    const shipData = payload as unknown;
+
+    storeApi.dispatch(updateCurrentShip(shipData as Parameters<typeof updateCurrentShip>[0]));
+
+    // Track which station was released by checking what the user had before
+    if (username && shipData && typeof shipData === 'object' && 'stations' in shipData) {
+      const stations = (shipData as { stations: Record<string, unknown> }).stations;
+      const takenStations = Object.entries(stations)
+        .filter(([_, playerName]) => playerName === username)
+        .map(([stationName]) => stationName);
+
+      // Find stations the user released (were in myStations but not anymore)
+      const releasedStations = currentMyStations.filter(
+        station => !takenStations.includes(station)
+      );
+
+      releasedStations.forEach(stationName => {
+        storeApi.dispatch(releaseStation(stationName));
+      });
+    }
   });
 
   gameClient.on('GameStarted', () => {

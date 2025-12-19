@@ -6,6 +6,7 @@ import { LoginPage } from './Login';
 import { IntegrationTest } from './pages/IntegrationTest';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { selectConnected, selectConnectionError } from './store/game.slice';
+import { GlobalStyles } from './theme';
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -16,7 +17,10 @@ export function App() {
     dispatch({ type: 'WS_CONNECT' });
   }, [dispatch]); // Fix: Added dependency array to prevent infinite loop
 
-  return isConnected ? (
+  return (
+    <>
+      <GlobalStyles />
+      {isConnected ? (
     <Routes>
       <Route path="/" element={<Navigate replace to="/lobby" />} />
       <Route path="/login" element={<LoginPage />} />
@@ -30,10 +34,12 @@ export function App() {
         }
       />
     </Routes>
-  ) : isConnectionError ? (
-    <div>Connection Error - Unable to connect to game server</div>
-  ) : (
-    <div>Connecting to game server</div>
+      ) : isConnectionError ? (
+        <div>Connection Error - Unable to connect to game server</div>
+      ) : (
+        <div>Connecting to game server</div>
+      )}
+    </>
   );
 }
 

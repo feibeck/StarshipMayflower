@@ -4,6 +4,7 @@ import {
   LobbyHandler,
   NavigationHandler,
   GameHandler,
+  AuthHandler,
 } from '@starship-mayflower/game-server-lib';
 
 // Initialize socket handler
@@ -13,6 +14,7 @@ const handler = new SocketHandler();
 const game = new Game(handler.channel);
 
 // Register game handlers
+handler.router.addHandler(new AuthHandler(game));
 handler.router.addHandler(new LobbyHandler(game));
 handler.router.addHandler(new NavigationHandler(game));
 handler.router.addHandler(new GameHandler(game));

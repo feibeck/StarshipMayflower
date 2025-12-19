@@ -1,7 +1,6 @@
 import { Session } from './Session';
 import * as WebSocket from 'ws';
 import { Router } from './Router';
-import { AuthHandler } from './handler/auth';
 import { Channel, CHANNEL_ALL } from './Channel';
 
 export class SocketHandler {
@@ -11,7 +10,6 @@ export class SocketHandler {
 
   constructor() {
     this.router = new Router();
-    this.router.addHandler(new AuthHandler());
   }
 
   start(port: number) {
