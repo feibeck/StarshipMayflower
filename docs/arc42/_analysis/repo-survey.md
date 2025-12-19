@@ -11,11 +11,13 @@
 **Starship Mayflower** is a **browser-based starship bridge simulator** that allows multiple users to collaboratively operate a virtual spacecraft. Players can take on different bridge roles (navigation, helm, etc.) and work together in real-time to explore space, interact with space stations, and manage ship systems.
 
 The application consists of:
+
 - A **real-time multiplayer game server** managing game state and physics
 - A **React-based web frontend** providing the user interface
 - **Reusable component libraries** for UI elements (compass, map, utilities)
 
 ### Target Users
+
 - Game enthusiasts interested in cooperative multiplayer experiences
 - Fans of spaceship bridge simulators (similar to "Artemis Spaceship Bridge Simulator")
 - Groups looking for collaborative gaming experiences
@@ -26,17 +28,18 @@ The application consists of:
 
 ### Primary Languages & Frameworks
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **TypeScript** | ~4.4.3 | Primary language for all components |
-| **React** | 17.0.2 | Frontend UI framework |
-| **Pinus** | 1.4.14 | Game server framework (successor to Pomelo) |
-| **Node.js** | N/A | Runtime environment |
-| **Nx** | 13.2.3 | Monorepo management and build system |
+| Technology     | Version | Purpose                                     |
+| -------------- | ------- | ------------------------------------------- |
+| **TypeScript** | ~4.4.3  | Primary language for all components         |
+| **React**      | 17.0.2  | Frontend UI framework                       |
+| **Pinus**      | 1.4.14  | Game server framework (successor to Pomelo) |
+| **Node.js**    | N/A     | Runtime environment                         |
+| **Nx**         | 13.2.3  | Monorepo management and build system        |
 
 ### Key Dependencies
 
 **Frontend:**
+
 - React Router DOM 6.1.1 (routing)
 - Redux Toolkit 1.6.2 (state management)
 - Emotion (styling)
@@ -45,17 +48,20 @@ The application consists of:
 - WebSockets (ws 8.3.0, isomorphic-ws 4.0.1)
 
 **Backend:**
+
 - Pinus 1.4.14 (real-time game server framework)
 - Sylvester-ES6 (vector math for physics)
 - Express (legacy web server)
 
 **Development:**
+
 - Jest 27.2.3 (testing)
 - Cypress 8.3.0 (E2E testing)
 - Storybook 6.4.5 (component development)
 - ESLint, Prettier (code quality)
 
 ### Build System
+
 - **Nx Workspace** (monorepo orchestration)
 - **Webpack 5** (bundling)
 - **TypeScript compiler** (transpilation)
@@ -95,6 +101,7 @@ StarshipMayflower/
 ## Main Entrypoints
 
 ### 1. Game Server (`apps/game-server`)
+
 - **Type:** Real-time multiplayer game server
 - **Framework:** Pinus (Node.js game server framework)
 - **Entrypoint:** `apps/game-server/src/main.ts`
@@ -107,6 +114,7 @@ StarshipMayflower/
   - **World server**: Manages game state, physics, player actions
 
 **Key responsibilities:**
+
 - Real-time physics simulation (ship movement, acceleration, rotation)
 - Game state management (ships, players, space objects)
 - WebSocket communication with clients
@@ -114,11 +122,13 @@ StarshipMayflower/
 - World updates broadcast to clients
 
 **Configuration:** `apps/game-server/src/config/`
+
 - `servers.json` - Server topology
 - `clientProtos.json` / `serverProtos.json` - Protocol definitions
 - `dictionary.json` - Message compression dictionary
 
 ### 2. Frontend Application (`apps/starship-mayflower-frontend`)
+
 - **Type:** Single-Page Application (SPA)
 - **Framework:** React 17 + Redux Toolkit
 - **Entrypoint:** `apps/starship-mayflower-frontend/src/main.tsx`
@@ -126,6 +136,7 @@ StarshipMayflower/
 - **Dev server:** Port 4200 (default Nx dev server)
 
 **Key features:**
+
 - WebSocket connection to game server
 - Redux state management with WebSocket middleware
 - Authentication flow
@@ -133,10 +144,12 @@ StarshipMayflower/
 - Bridge station interfaces (via reusable component libs)
 
 **Main routes:**
+
 - `/login` - Authentication
 - `/lobby` - Ship selection and game lobby
 
 ### 3. Legacy Web Server (`web-server/`)
+
 - **Type:** Express.js static file server
 - **Status:** DEPRECATED (superseded by Nx dev server)
 - **Framework:** Express, Bower, Grunt
@@ -149,9 +162,11 @@ StarshipMayflower/
 ### Applications
 
 #### `apps/game-server` (Primary Game Server)
+
 Core game logic and real-time server using Pinus framework.
 
 **Key modules:**
+
 - `app/servers/connector/` - Client connection handling
   - `handler/entry.ts` - Authentication and connection
 - `app/servers/world/` - Game world management
@@ -168,12 +183,15 @@ Core game logic and real-time server using Pinus framework.
   - `world/ShipRegistry.ts` - Ship management
 
 #### `apps/game-server-next`
+
 Next-generation game server (under development). Minimal implementation currently.
 
 #### `apps/starship-mayflower-frontend` (React Frontend)
+
 Main user interface application.
 
 **Key modules:**
+
 - `app/App.tsx` - Main app with routing
 - `app/Login.tsx` - Authentication UI
 - `app/lobby/Lobby.tsx` - Lobby interface
@@ -188,6 +206,7 @@ Main user interface application.
 ### Shared Libraries
 
 #### `libs/compass`
+
 React component for displaying ship orientation (pitch/yaw).
 
 **Type:** UI Component Library
@@ -196,22 +215,26 @@ React component for displaying ship orientation (pitch/yaw).
 **Storybook:** Yes
 
 #### `libs/map`
+
 React component for displaying tactical star map with ships and space objects.
 
 **Type:** UI Component Library
 **Tech:** React, Three.js (3D rendering)
 **Key classes:**
+
 - `StarMap.ts` - Main 3D map renderer
 - `MapObjectActor.ts` - Interactive map objects
 - `Grid.ts` - Map grid rendering
-**Export:** `<Map />` component
-**Storybook:** Yes
+  **Export:** `<Map />` component
+  **Storybook:** Yes
 
 #### `libs/game-server-lib`
+
 Abstraction layer for building game servers with common patterns.
 
 **Type:** Backend Library
 **Key exports:**
+
 - `Router` - Request routing
 - `SocketHandler` - WebSocket handling
 - `Session` - Session management
@@ -222,10 +245,12 @@ Abstraction layer for building game servers with common patterns.
 **Note:** Appears to be a custom framework layer, possibly to abstract Pinus or support migration.
 
 #### `libs/util`
+
 Shared domain models and utilities used by both frontend and backend.
 
 **Type:** Shared Library (Isomorphic)
 **Key exports:**
+
 - `Ship` - Ship model with physics properties
 - `ObjectInSpaceRegistry` - Registry for space objects
 - Volume primitives (Sphere, Box, Point, Volume)
@@ -238,10 +263,10 @@ Shared domain models and utilities used by both frontend and backend.
 
 ### Direct Dependencies
 
-| System | Type | Purpose | Connection |
-|--------|------|---------|------------|
+| System      | Type    | Purpose            | Connection            |
+| ----------- | ------- | ------------------ | --------------------- |
 | **Browser** | Runtime | Frontend execution | HTTP/HTTPS, WebSocket |
-| **Node.js** | Runtime | Backend execution | N/A |
+| **Node.js** | Runtime | Backend execution  | N/A                   |
 
 ### Communication Protocols
 
@@ -254,6 +279,7 @@ Shared domain models and utilities used by both frontend and backend.
 ### Notable Absences (Assumptions)
 
 The following are **NOT** currently used:
+
 - ❌ No external databases (state is in-memory only)
 - ❌ No message brokers (Redis, RabbitMQ, etc.)
 - ❌ No external APIs
@@ -269,51 +295,53 @@ The following are **NOT** currently used:
 
 ### Configuration Files
 
-| Path | Purpose |
-|------|---------|
-| `package.json` | Root npm dependencies and scripts |
-| `nx.json` | Nx workspace configuration |
-| `workspace.json` | Project definitions (legacy, being phased out) |
-| `tsconfig.base.json` | TypeScript path mappings for monorepo |
-| `.eslintrc.json` | Linting rules |
-| `babel.config.json` | Babel transpilation config |
-| `jest.config.js` | Jest test runner config |
+| Path                 | Purpose                                        |
+| -------------------- | ---------------------------------------------- |
+| `package.json`       | Root npm dependencies and scripts              |
+| `nx.json`            | Nx workspace configuration                     |
+| `workspace.json`     | Project definitions (legacy, being phased out) |
+| `tsconfig.base.json` | TypeScript path mappings for monorepo          |
+| `.eslintrc.json`     | Linting rules                                  |
+| `babel.config.json`  | Babel transpilation config                     |
+| `jest.config.js`     | Jest test runner config                        |
 
 ### Build & Scripts
 
-| Path | Purpose |
-|------|---------|
-| `npm-install.sh` / `.bat` | Dependency installation scripts |
-| `scripts/` | Additional build and setup scripts |
-| `Gruntfile.js` | Legacy Grunt build (for web-server) |
+| Path                      | Purpose                             |
+| ------------------------- | ----------------------------------- |
+| `npm-install.sh` / `.bat` | Dependency installation scripts     |
+| `scripts/`                | Additional build and setup scripts  |
+| `Gruntfile.js`            | Legacy Grunt build (for web-server) |
 
 ### Documentation
 
-| Path | Purpose |
-|------|---------|
-| `README.md` | Project overview and getting started |
-| `docs/arc42/` | Architecture documentation (arc42 template) |
-| `libs/*/README.md` | Library-specific docs (minimal) |
+| Path               | Purpose                                     |
+| ------------------ | ------------------------------------------- |
+| `README.md`        | Project overview and getting started        |
+| `docs/arc42/`      | Architecture documentation (arc42 template) |
+| `libs/*/README.md` | Library-specific docs (minimal)             |
 
 ### Source Code
 
-| Path | Purpose |
-|------|---------|
-| `apps/game-server/src/main.ts` | Game server entrypoint |
-| `apps/game-server/src/app/src/game.ts` | Core game loop and state |
-| `apps/starship-mayflower-frontend/src/main.tsx` | Frontend entrypoint |
+| Path                                               | Purpose                  |
+| -------------------------------------------------- | ------------------------ |
+| `apps/game-server/src/main.ts`                     | Game server entrypoint   |
+| `apps/game-server/src/app/src/game.ts`             | Core game loop and state |
+| `apps/starship-mayflower-frontend/src/main.tsx`    | Frontend entrypoint      |
 | `apps/starship-mayflower-frontend/src/app/App.tsx` | Main React app component |
-| `libs/util/src/lib/model/Ship.ts` | Shared ship model |
+| `libs/util/src/lib/model/Ship.ts`                  | Shared ship model        |
 
 ---
 
 ## Major Functional Areas
 
 ### 1. Authentication & Lobby
+
 - **Location:** `apps/starship-mayflower-frontend/src/app/auth/`, `apps/game-server/.../connector/handler/entry.ts`
 - **Functionality:** User login, session management, ship selection/creation
 
 ### 2. Real-Time Physics Simulation
+
 - **Location:** `apps/game-server/src/app/src/physics.ts`, `game.ts`, `action/`
 - **Functionality:**
   - Ship movement (impulse engines at 0.25c)
@@ -322,6 +350,7 @@ The following are **NOT** currently used:
   - Position tracking in 3D space (AU scale)
 
 ### 3. World State Management
+
 - **Location:** `apps/game-server/src/app/src/world.ts`, `game.ts`, `models/`
 - **Functionality:**
   - Ship registry (all active ships)
@@ -330,6 +359,7 @@ The following are **NOT** currently used:
   - Astronomical unit (AU) based coordinate system
 
 ### 4. Action Queue System
+
 - **Location:** `apps/game-server/src/app/src/action/`
 - **Functionality:**
   - Queued command execution (turn, accelerate)
@@ -337,6 +367,7 @@ The following are **NOT** currently used:
   - Action manager coordinating multiple actions
 
 ### 5. Client-Server Communication
+
 - **Location:**
   - Frontend: `apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts`
   - Backend: `apps/game-server/.../servers/`, `libs/game-server-lib/`
@@ -347,6 +378,7 @@ The following are **NOT** currently used:
   - Real-time state synchronization
 
 ### 6. UI Components (Bridge Stations)
+
 - **Location:** `libs/compass/`, `libs/map/`
 - **Functionality:**
   - Compass: Ship orientation display (pitch/yaw)
@@ -501,6 +533,7 @@ nx storybook map
 **Starship Mayflower** is a moderately complex, browser-based multiplayer space simulator built with modern TypeScript/React on the frontend and a real-time Pinus game server on the backend. The project is organized as an Nx monorepo with clear separation between apps and reusable libraries. The codebase shows evidence of active modernization from legacy AngularJS/Grunt to React/Nx.
 
 **Strengths:**
+
 - Clean monorepo architecture
 - Type-safe codebase (TypeScript)
 - Reusable UI component libraries
@@ -508,6 +541,7 @@ nx storybook map
 - Active development (migration in progress)
 
 **Gaps:**
+
 - No persistence layer (ephemeral state)
 - Limited deployment tooling
 - Authentication appears basic

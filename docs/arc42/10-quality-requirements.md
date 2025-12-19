@@ -9,6 +9,7 @@ This section documents quality requirements **beyond the top-3 quality goals** a
 > **Note on Evidence**: All quality scenarios in this section are based on concrete code evidence, configuration files, or documented patterns in the codebase. No speculative requirements are included.
 
 > **Note on Confidence Levels**: This documentation distinguishes between three confidence levels:
+>
 > - **HIGH confidence**: Observable implementations that exist in code (verified with file citations)
 > - **MEDIUM confidence**: Estimated performance characteristics based on typical behavior (marked as "**estimated**")
 > - **LOW confidence**: Acceptance criteria and SLAs where formal requirements don't exist (marked as "**TBD**" or "**Assumption**")
@@ -21,32 +22,33 @@ This section documents quality requirements **beyond the top-3 quality goals** a
 
 The following table summarizes quality requirements organized by ISO 25010 categories:
 
-| Category | Quality Attribute | Priority | Status | Evidence |
-|----------|-------------------|----------|--------|----------|
-| **Performance Efficiency** | Build cache performance | High | ✅ Implemented | Nx caching (nx.json) |
-| | Entity lookup performance | High | ✅ Implemented | O(1) registry pattern |
-| | Network bandwidth efficiency | Medium | ⚠️ Partial | Binary protocol configured but unused |
-| **Security** | Authentication enforcement | High | ✅ Implemented | Session validation in handlers |
-| | Credential management | High | ❌ **CRITICAL ISSUE** | Hardcoded credentials in source |
-| | Transport security | Medium | ❌ Missing | No TLS/SSL (ws:// not wss://) |
-| **Reliability** | Tick cycle resilience | High | ❌ Missing | No error boundaries in timer |
-| | Network reconnection | Medium | ❌ Missing | Manual reconnection required |
-| | Heartbeat detection | Medium | ✅ Implemented | Pinus 3-second heartbeat |
-| **Maintainability** | Dependency enforcement | High | ✅ Implemented | ESLint exhaustive-deps rule |
-| | Type safety | High | ✅ Implemented | TypeScript strict mode |
-| | Test coverage | Medium | ⚠️ Low | ~13% file coverage (10/73+ files) |
-| **Observability** | Structured logging | Medium | ✅ Implemented | Log4js with 9 categories |
-| | Log rotation | Medium | ✅ Implemented | 1MB max, 5 backups per category |
-| | Metrics collection | Medium | ❌ Missing | No Prometheus/StatsD |
-| **Scalability** | Connector horizontal scaling | High | ✅ Supported | Pinus distributed topology |
-| | World state sharding | Medium | ❌ Not supported | Single world server design |
-| **Usability (Developer)** | Component isolation | High | ✅ Implemented | Storybook for UI libs |
-| | Build performance | High | ✅ Implemented | Nx incremental builds (5-10x) |
-| | Hot module replacement | Medium | ✅ Implemented | Webpack dev server HMR |
-| **Testability** | Physics accuracy verification | High | ✅ Implemented | 10,000-iteration stress test |
-| | Handler testing | Medium | ⚠️ Gap | Lobby/entry handlers not tested |
+| Category                   | Quality Attribute             | Priority | Status                | Evidence                              |
+| -------------------------- | ----------------------------- | -------- | --------------------- | ------------------------------------- |
+| **Performance Efficiency** | Build cache performance       | High     | ✅ Implemented        | Nx caching (nx.json)                  |
+|                            | Entity lookup performance     | High     | ✅ Implemented        | O(1) registry pattern                 |
+|                            | Network bandwidth efficiency  | Medium   | ⚠️ Partial            | Binary protocol configured but unused |
+| **Security**               | Authentication enforcement    | High     | ✅ Implemented        | Session validation in handlers        |
+|                            | Credential management         | High     | ❌ **CRITICAL ISSUE** | Hardcoded credentials in source       |
+|                            | Transport security            | Medium   | ❌ Missing            | No TLS/SSL (ws:// not wss://)         |
+| **Reliability**            | Tick cycle resilience         | High     | ❌ Missing            | No error boundaries in timer          |
+|                            | Network reconnection          | Medium   | ❌ Missing            | Manual reconnection required          |
+|                            | Heartbeat detection           | Medium   | ✅ Implemented        | Pinus 3-second heartbeat              |
+| **Maintainability**        | Dependency enforcement        | High     | ✅ Implemented        | ESLint exhaustive-deps rule           |
+|                            | Type safety                   | High     | ✅ Implemented        | TypeScript strict mode                |
+|                            | Test coverage                 | Medium   | ⚠️ Low                | ~13% file coverage (10/73+ files)     |
+| **Observability**          | Structured logging            | Medium   | ✅ Implemented        | Log4js with 9 categories              |
+|                            | Log rotation                  | Medium   | ✅ Implemented        | 1MB max, 5 backups per category       |
+|                            | Metrics collection            | Medium   | ❌ Missing            | No Prometheus/StatsD                  |
+| **Scalability**            | Connector horizontal scaling  | High     | ✅ Supported          | Pinus distributed topology            |
+|                            | World state sharding          | Medium   | ❌ Not supported      | Single world server design            |
+| **Usability (Developer)**  | Component isolation           | High     | ✅ Implemented        | Storybook for UI libs                 |
+|                            | Build performance             | High     | ✅ Implemented        | Nx incremental builds (5-10x)         |
+|                            | Hot module replacement        | Medium   | ✅ Implemented        | Webpack dev server HMR                |
+| **Testability**            | Physics accuracy verification | High     | ✅ Implemented        | 10,000-iteration stress test          |
+|                            | Handler testing               | Medium   | ⚠️ Gap                | Lobby/entry handlers not tested       |
 
 **Legend**:
+
 - ✅ Implemented: Working implementation with evidence
 - ⚠️ Partial/Low: Incomplete or below target
 - ❌ Missing: Not implemented, documented gap
@@ -56,6 +58,7 @@ The following table summarizes quality requirements organized by ISO 25010 categ
 ## 10.2 Quality Scenarios
 
 Quality scenarios are organized by ISO 25010 quality categories. Each scenario follows the Q42 short form:
+
 - **Context**: System state and environment
 - **Stimulus**: Event triggering the quality requirement
 - **Response**: System behavior
@@ -75,6 +78,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Nx build system retrieves cached build artifacts for all unaffected projects (compass, map, game-server). Only `libs/util` and `apps/starship-mayflower-frontend` rebuild from source.
 
 **Measure**:
+
 - **Observable Implementation**: Nx caching enabled for all build targets (nx.json configuration)
 - **Estimated Performance**: Cache hit rate >85%, build time <30 seconds vs ~5 minutes clean build (6x improvement, **estimated** from typical Nx performance, not measured)
 - **Acceptance Criteria** (**TBD**): Specific cache hit rate and build time SLAs not formally defined
@@ -92,6 +96,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: O(1) hash map lookup returns ship reference without array iteration
 
 **Measure**:
+
 - **Observable Implementation**: O(1) hash map registry using `Record<string, T>` pattern
 - **Estimated Performance**: Lookup time <1ms for 100 entities, constant time up to 1000 entities (**estimated**, not profiled)
 - **Acceptance Criteria** (**TBD**): Specific latency SLAs for entity lookups not formally defined
@@ -109,6 +114,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Scanner component throttles render updates to 30 FPS (33ms interval) using lodash throttle
 
 **Measure**:
+
 - **Observable Implementation**: Lodash throttle at 30 FPS (33ms interval) in Scanner component
 - **Estimated Performance**: CPU usage reduction vs unthrottled (**not measured**)
 - **Acceptance Criteria** (**Assumption**): 30 FPS deemed acceptable for tactical display based on design decision, not formal requirement
@@ -128,6 +134,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Server validates session, responds with error code `{code: 'ERR', payload: {error: 'User not logged in'}}`
 
 **Measure**:
+
 - **Observable Implementation**: Session validation checks on all lobby/world handlers using `session.get('playerId')`
 - **Expected Behavior**: 100% of protected endpoints reject unauthenticated requests with consistent error format
 - **Acceptance Criteria** (**TBD**): Response time SLA for authentication checks not formally defined (estimated <10ms)
@@ -145,6 +152,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: **SECURITY FAILURE** - Admin credentials exposed in plaintext JSON committed to source control (`admin/admin`, `monitor/monitor`, `test/test`)
 
 **Measure**:
+
 - **FAILURE**: Zero protection against credential theft
 - Recovery time: Immediate credential rotation required
 - Impact: Full admin access to game server
@@ -162,6 +170,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: **NO TLS/SSL** - WebSocket connections use `ws://` protocol (plaintext) instead of `wss://` (encrypted)
 
 **Measure**:
+
 - Encryption: None - all traffic visible to network observers
 - Man-in-the-middle protection: None
 - Suitability: **Prototype/demo only** - not production-ready
@@ -181,6 +190,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: **CRASH** - Node.js process terminates, all player sessions lost, requires manual restart
 
 **Measure**:
+
 - **FAILURE**: Zero error recovery capability
 - Downtime: Until manual intervention (minutes to hours)
 - Data loss: All in-flight game state lost (no persistence)
@@ -198,6 +208,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Client detects error via WebSocket `onerror` event, displays "Connection lost" message. **Manual reconnection required** - player must click "Reconnect" button.
 
 **Measure**:
+
 - Automatic retry: **NONE** - 100% of disconnects require user action
 - User experience: **POOR** - Disrupts gameplay flow
 - Recovery time: 5-30 seconds (including user reaction time)
@@ -215,6 +226,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Pinus framework detects heartbeat timeout after 3 seconds, terminates connection, removes session
 
 **Measure**:
+
 - **Observable Implementation**: Pinus heartbeat configured at 3-second interval (main.ts)
 - **Expected Behavior**: Client timeout detected within ≤3 seconds, session cleaned up automatically
 - **Acceptance Criteria** (**Assumption**): 3-second timeout deemed acceptable based on Pinus default, not formal requirement
@@ -234,6 +246,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: ESLint fails with error: `React Hook useEffect has a missing dependency: 'shipId'. Either include it or remove the dependency array. (react-hooks/exhaustive-deps)`
 
 **Measure**:
+
 - **Observable Implementation**: ESLint `react-hooks/exhaustive-deps` rule set to 'error' level
 - **Expected Behavior**: 100% of missing React hook dependencies caught during lint (build-time enforcement)
 - **Acceptance Criteria** (**Assumption**): Build-time enforcement deemed sufficient based on development team preference
@@ -251,6 +264,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Compiler reports type errors in all files importing Ship (frontend components, backend handlers, tests)
 
 **Measure**:
+
 - **Observable Implementation**: TypeScript strict mode enabled, isomorphic models shared between frontend/backend
 - **Expected Behavior**: 100% of type mismatches caught at compile time before reaching production
 - **Acceptance Criteria**: Type safety is a documented Quality Goal (#5 in Section 1.2) with HIGH priority
@@ -268,6 +282,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: **LOW COVERAGE** - Only 10 test files (8 unit tests: physics.spec.ts, Ship.spec.ts, collision.spec.ts, ObjectInSpaceRegistry.spec.ts, Player.spec.ts, timer.spec.ts, entity.spec.ts, physics-integration.spec.ts; plus 2 Cypress component test apps) covering 73+ production source files
 
 **Measure**:
+
 - Test file coverage: ~13% (10 test files / 73+ source files)
 - Untested critical paths: Lobby handlers, WebSocket middleware, RPC handlers
 - Regression risk: **HIGH** - Most production code has no automated tests
@@ -287,6 +302,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Log4js rotates log file, renames current file to `con-log-connector-server-1.log.1`, creates new log file. Oldest backup (`.log.5`) deleted.
 
 **Measure**:
+
 - Maximum disk usage per category: 5MB (1MB current + 4MB backups)
 - Total log storage: ~45MB (9 categories × 5MB)
 - Rotation trigger: Exact 1MB file size (1,048,576 bytes)
@@ -304,6 +320,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Separate `rpc-debug-{serverId}.log` captures detailed RPC events (call parameters, response data, timing) isolated from application logs
 
 **Measure**:
+
 - Log isolation: RPC events separated from business logic logs
 - Debug detail level: Full request/response payloads logged
 - Performance impact: Minimal (<5ms per RPC call for logging)
@@ -321,6 +338,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: **NO METRICS AVAILABLE** - Must manually parse log files or query application directly
 
 **Measure**:
+
 - **FAILURE**: Cannot track Service Level Objectives (SLOs)
 - Mean time to detection: **High** - Issues require manual log review
 - Alerting capability: **None** - No threshold-based alerts possible
@@ -340,6 +358,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Pinus master server distributes incoming connections across 5 connectors via round-robin or least-connections algorithm
 
 **Measure**:
+
 - Linear scaling: Each connector handles ~100 connections
 - Load distribution: ±10% variance between connector loads
 - Throughput: 5x connection capacity vs single connector
@@ -357,6 +376,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: **ARCHITECTURE LIMITATION** - In-memory state is not partitioned or sharded. Multiple world servers would have inconsistent state.
 
 **Measure**:
+
 - Maximum capacity: ~50 ships before physics tick exceeds 100ms budget
 - Scaling approach: **Vertical only** - Must upgrade CPU/RAM
 - Horizontal scaling: Not supported without major architecture change
@@ -374,6 +394,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Memory grows unbounded without eviction policy or garbage collection for old entities
 
 **Measure**:
+
 - **RISK**: Out-of-memory (OOM) crash if entity count grows unchecked
 - Estimated footprint: ~100KB per ship × 1000 ships = 100MB baseline
 - Mitigation: **MISSING** - No TTL (time-to-live) or LRU eviction policy
@@ -393,6 +414,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Storybook launches visual development environment with hot module replacement. Component renders without running full game server or authentication.
 
 **Measure**:
+
 - Development speed: 5x faster iteration (no server startup, instant reload)
 - Feedback loop: <1 second from code change to visual update
 - Independence: Zero backend dependencies for UI development
@@ -410,6 +432,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: IDE displays red squiggle under error with message: `Argument of type 'string' is not assignable to parameter of type 'number'`
 
 **Measure**:
+
 - Detection time: <1 second from save to error display
 - Context: Error shown inline at exact location
 - Prevention: 100% of type errors caught before runtime
@@ -427,6 +450,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Nx detects affected projects via dependency graph, rebuilds only `compass` library (~5 seconds), retrieves cached artifacts for all other projects
 
 **Measure**:
+
 - Build time: <10 seconds vs ~2 minutes for clean build (12x improvement)
 - Cache hit rate: >90% for unaffected projects
 - Developer productivity: Enables rapid iteration cycles
@@ -446,6 +470,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Test generates 10,000 random rotation matrices, applies to ship orientation, verifies all axes remain orthonormal within 1e-30 threshold
 
 **Measure**:
+
 - Test iterations: 10,000 random scenarios
 - Pass criteria: 100% of rotations maintain axis alignment
 - Precision threshold: 1e-30 (near machine epsilon for floating-point)
@@ -463,6 +488,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: Cypress renders component, captures screenshot, compares against baseline snapshot, reports visual differences
 
 **Measure**:
+
 - Visual coverage: Compass and map libraries have E2E test apps
 - Regression detection: Pixel-level comparison catches unintended changes
 - Approval workflow: Developer reviews and approves intentional visual changes
@@ -480,6 +506,7 @@ Quality scenarios are organized by ISO 25010 quality categories. Each scenario f
 **Response**: **NO TESTS FOUND** - Lobby handlers, entry handlers, and navigation handlers lack integration tests
 
 **Measure**:
+
 - Handler test coverage: 0% (no handler tests exist)
 - Risk: Critical user flows (authentication, ship joining) untested
 - Regression protection: **NONE** - Changes can break without detection
@@ -521,18 +548,13 @@ The following quality requirements have **documented gaps** requiring remediatio
 ### Priority Recommendations
 
 **Immediate (Week 1)**:
+
 1. Remove hardcoded credentials, implement secrets management (SEC-2)
 2. Add try/catch to tick cycle with graceful degradation (REL-1)
 
-**High Priority (Month 1)**:
-3. Implement automatic WebSocket reconnection with exponential backoff (REL-2)
-4. Add handler integration tests for authentication and ship joining flows (TEST-3)
-5. Add Prometheus `/metrics` endpoint (OBS-3)
+**High Priority (Month 1)**: 3. Implement automatic WebSocket reconnection with exponential backoff (REL-2) 4. Add handler integration tests for authentication and ship joining flows (TEST-3) 5. Add Prometheus `/metrics` endpoint (OBS-3)
 
-**Medium Priority (Quarter 1)**:
-6. Increase test coverage to 40%+ focusing on handlers and middleware (MAINT-3)
-7. Add TLS/SSL for production WebSocket connections (SEC-3)
-8. Implement entity lifecycle management with TTL for inactive ships (SCALE-3)
+**Medium Priority (Quarter 1)**: 6. Increase test coverage to 40%+ focusing on handlers and middleware (MAINT-3) 7. Add TLS/SSL for production WebSocket connections (SEC-3) 8. Implement entity lifecycle management with TTL for inactive ships (SCALE-3)
 
 ---
 
@@ -545,12 +567,14 @@ This section identifies areas where quality requirements documentation has **LOW
 **Current State**: Performance optimizations are implemented (Nx caching, O(1) registries, render throttling) but lack formal acceptance criteria or SLAs.
 
 **Questions**:
+
 1. **Build Performance SLA**: What is the acceptable maximum build time for CI pipeline? (Current: ~30s with cache, ~5min clean)
 2. **Entity Lookup Latency**: What is the maximum acceptable latency for registry lookups? (Current: O(1) pattern but not profiled)
 3. **Render Frame Rate**: Is 30 FPS sufficient for tactical display? Should we support higher frame rates for specific scenarios?
 4. **Tick Budget**: What is the acceptable maximum physics tick duration? (Current: 100ms target for 10 Hz, but no monitoring)
 
 **Impact**: Without formal SLAs, we cannot:
+
 - Set up performance regression alerts
 - Make informed trade-offs between performance and other attributes
 - Validate that current performance meets stakeholder expectations
@@ -560,6 +584,7 @@ This section identifies areas where quality requirements documentation has **LOW
 **Current State**: Critical security gaps identified (SEC-2, SEC-3) but no documented security requirements or threat model.
 
 **Questions**:
+
 1. **Deployment Environment**: Is this intended for production deployment on public internet, or limited to trusted local networks?
 2. **Credential Management**: What is the approved secrets management solution? (Environment variables, Vault, AWS Secrets Manager, Kubernetes Secrets?)
 3. **TLS/SSL Requirement**: Is transport encryption (wss://) required for production deployment?
@@ -567,6 +592,7 @@ This section identifies areas where quality requirements documentation has **LOW
 5. **Security Audit Frequency**: How often should security reviews be conducted?
 
 **Impact**: Without clarification, we risk:
+
 - Building inappropriate security controls for deployment environment
 - Investing in security features that aren't needed (over-engineering)
 - Leaving critical security gaps unaddressed (under-engineering)
@@ -576,6 +602,7 @@ This section identifies areas where quality requirements documentation has **LOW
 **Current State**: No error boundaries in tick cycle, manual reconnection, no formal availability targets.
 
 **Questions**:
+
 1. **Availability Requirement**: What is the target uptime/availability? (99%? 99.9%? Best effort?)
 2. **Error Handling Priority**: Is tick cycle resilience (REL-1) critical for production, or acceptable for prototype?
 3. **Reconnection UX**: Is automatic reconnection with exponential backoff required, or is manual reconnection acceptable?
@@ -583,6 +610,7 @@ This section identifies areas where quality requirements documentation has **LOW
 5. **Backup/Recovery**: Are backup and disaster recovery procedures required?
 
 **Impact**: Without availability targets, we cannot:
+
 - Prioritize reliability improvements appropriately
 - Design appropriate error handling and recovery mechanisms
 - Set up monitoring and alerting thresholds
@@ -592,6 +620,7 @@ This section identifies areas where quality requirements documentation has **LOW
 **Current State**: Connector horizontal scaling supported, world state sharding not supported.
 
 **Questions**:
+
 1. **Expected User Load**: What is the maximum expected concurrent user count? (Current capacity: ~100-200 users per world)
 2. **Growth Timeline**: What is the expected user growth rate over next 6-12 months?
 3. **World Sharding**: Is multi-world support required? (e.g., multiple game instances on separate world servers)
@@ -599,6 +628,7 @@ This section identifies areas where quality requirements documentation has **LOW
 5. **Scalability Priority**: Is horizontal scalability beyond connector layer a priority, or is vertical scaling (bigger servers) acceptable?
 
 **Impact**: Without scalability requirements, we risk:
+
 - Over-engineering distributed systems that aren't needed
 - Under-provisioning for expected load
 - Making architectural decisions that limit future growth
@@ -608,6 +638,7 @@ This section identifies areas where quality requirements documentation has **LOW
 **Current State**: 13% test coverage, handlers untested, no formal coverage targets.
 
 **Questions**:
+
 1. **Coverage Target**: What is the minimum acceptable test coverage? (40%? 60%? 80%?)
 2. **Critical Path Priority**: Which components are highest priority for test coverage? (Handlers? Physics? Middleware?)
 3. **Test Types**: What types of tests are required? (Unit? Integration? E2E? Performance? Load?)
@@ -615,6 +646,7 @@ This section identifies areas where quality requirements documentation has **LOW
 5. **Testing Budget**: How much time/effort should be allocated to increasing test coverage vs new features?
 
 **Impact**: Without coverage targets, we cannot:
+
 - Prioritize testing effort effectively
 - Balance testing investment vs feature development
 - Set up automated quality gates
@@ -624,6 +656,7 @@ This section identifies areas where quality requirements documentation has **LOW
 **Current State**: Structured logging implemented, metrics collection missing.
 
 **Questions**:
+
 1. **Metrics Platform**: What monitoring platform should be used? (Prometheus? Datadog? CloudWatch? Application Insights?)
 2. **Key Metrics**: What are the critical metrics to track? (Request rate? Error rate? Latency percentiles? Business metrics?)
 3. **Alerting Requirements**: What conditions should trigger alerts? Who receives alerts?
@@ -631,6 +664,7 @@ This section identifies areas where quality requirements documentation has **LOW
 5. **APM (Application Performance Monitoring)**: Is distributed tracing required for troubleshooting RPC calls?
 
 **Impact**: Without observability requirements, we cannot:
+
 - Implement appropriate monitoring infrastructure
 - Set up effective alerting
 - Troubleshoot production issues efficiently
@@ -648,26 +682,49 @@ This section identifies areas where quality requirements documentation has **LOW
 - **Section 9**: Architecture decisions with quality trade-off analysis
 
 [^1]: nx.json lines 20-34 configure caching for build, lint, test, e2e, build-storybook targets with cache: true
+
 [^2]: libs/util/src/lib/model/ObjectInSpaceRegistry.ts uses Record<string, T> hash map; Section 8.2 documents O(1) lookup pattern
-[^3]: web-server/public/js/Scanner/scanner.js line 27: _.throttle(render, 1000/30) throttles to 30 FPS (~33ms interval)
+
+[^3]: web-server/public/js/Scanner/scanner.js line 27: \_.throttle(render, 1000/30) throttles to 30 FPS (~33ms interval)
+
 [^4]: apps/game-server/src/app/servers/world/handler/lobby.ts lines 16-19, 32-34, 116-120 validate session.get('playerId')
+
 [^5]: apps/game-server/src/config/adminUser.json contains plaintext credentials (admin/admin, monitor/monitor, test/test) - CRITICAL SECURITY ISSUE
+
 [^6]: Section 7 Deployment View lines 380, 462 document WebSocket using ws:// (plaintext) not wss:// (TLS)
+
 [^7]: apps/game-server/src/app/src/timer.ts lacks try/catch; Section 6 Runtime View line 262 documents crash risk
+
 [^8]: Section 6 Runtime View lines 553, 609 document manual reconnection requirement; no retry logic in websocketMiddleware.ts or client.ts
+
 [^9]: apps/game-server/src/main.ts line 14: heartbeat: 3 (3-second interval)
+
 [^10]: eslint.config.mjs line 45: 'react-hooks/exhaustive-deps': 'error'; documented in MODERNIZATION.md line 94
+
 [^11]: Section 1.2 Quality Goal #5; Section 8.1 Isomorphic Domain Model; TypeScript 4.4.3 strict mode enabled
+
 [^12]: Codebase analysis found 10 test files (8 unit tests: physics.spec.ts, Ship.spec.ts, collision.spec.ts, ObjectInSpaceRegistry.spec.ts, Player.spec.ts, timer.spec.ts, entity.spec.ts, physics-integration.spec.ts; 2 Cypress component test apps) vs 73+ production source files
+
 [^13]: apps/game-server/src/config/log4js.json lines 10-14: maxLogSize: 1048576, backups: 5 for all appenders
+
 [^14]: apps/game-server/src/config/log4js.json lines 34-42 define rpc-debug category with separate log file
+
 [^15]: Section 7 Deployment View lines 422-423 document "No Prometheus/StatsD integration found"
+
 [^16]: Section 9 ADR-001 Distributed Connector/World Server Architecture; apps/game-server/src/config/servers.json
+
 [^17]: Section 5 Building Block View shows single world server topology; Section 9 ADR-004 In-Memory Ephemeral State
+
 [^18]: Section 9 ADR-004 documents in-memory state without persistence; Recommendations section (line 634) lists "Add entity lifecycle management (TTL for inactive ships)"
+
 [^19]: libs/compass/project.json includes storybook target; similar for libs/map/project.json
+
 [^20]: TypeScript 4.4.3 in package.json; strict mode enabled in tsconfig.base.json; Section 1.2 Quality Goal #5
+
 [^21]: nx.json lines 20-34; Section 8.8 documents 5-10x build performance improvement from Nx caching
+
 [^22]: apps/game-server/src/app/src/physics.spec.ts lines 19-76 run 10,000-iteration rotation accuracy test with 1e-30 threshold
+
 [^23]: apps/compass-e2e and apps/map-e2e directories contain Cypress E2E test configurations
+
 [^24]: Codebase analysis found only 10 test files; no tests in apps/game-server/src/app/servers/world/handler/ or apps/game-server/src/app/servers/connector/handler/

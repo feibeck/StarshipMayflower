@@ -299,7 +299,7 @@ export const ShipDetail: React.FC<ShipDetailProps> = ({
           {isTogglingReady
             ? 'Processing...'
             : isReady
-              ? 'Not Ready'
+              ? 'Cancel Ready'
               : 'Ready to Play'}
         </ReadyButton>
         {!canBeReady && (

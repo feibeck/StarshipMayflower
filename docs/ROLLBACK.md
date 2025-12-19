@@ -5,6 +5,7 @@ If critical issues are discovered after the modernization, follow this guide to 
 ## Quick Full Rollback
 
 ### Option 1: Use Backup Branch (Recommended)
+
 ```bash
 # Switch to backup branch (created before modernization)
 git checkout backup/pre-modernization
@@ -16,6 +17,7 @@ git checkout -b hotfix/rollback-modernization
 ```
 
 ### Option 2: Revert Feature Branch
+
 ```bash
 # Get the merge commit hash
 git log --oneline | grep "Modernize React frontend"
@@ -31,6 +33,7 @@ git revert -m 1 <merge-commit-hash>
 If only specific changes need reverting:
 
 ### Revert React 19 → React 17
+
 ```bash
 # Edit package.json
 "react": "17.0.2",
@@ -49,6 +52,7 @@ yarn build
 ```
 
 ### Revert Nx 20 → Nx 13
+
 ```bash
 # Edit package.json - restore @nrwl packages
 "@nrwl/cli": "13.2.3",
@@ -75,6 +79,7 @@ yarn build
 ```
 
 ### Revert ESLint 9 → ESLint 7
+
 ```bash
 # Edit package.json
 "eslint": "7.32.0",
@@ -96,6 +101,7 @@ yarn lint
 ```
 
 ### Revert TypeScript 5.7 → 4.4
+
 ```bash
 # Edit package.json
 "typescript": "~4.4.3",
@@ -136,9 +142,11 @@ yarn start
 ## Common Rollback Scenarios
 
 ### Scenario 1: Build Fails After Deployment
+
 **Symptoms**: Production build fails, errors in webpack/babel
 
 **Solution**:
+
 ```bash
 # Quick rollback to backup branch
 git checkout backup/pre-modernization
@@ -147,9 +155,11 @@ git checkout -b hotfix/build-fix
 ```
 
 ### Scenario 2: Runtime Errors in Production
+
 **Symptoms**: App loads but crashes, React errors in console
 
 **Solution**:
+
 ```bash
 # Revert only React 19 changes
 git checkout HEAD~1 apps/starship-mayflower-frontend/src/main.tsx
@@ -160,9 +170,11 @@ git checkout HEAD~1 apps/starship-mayflower-frontend/src/app/app.tsx
 ```
 
 ### Scenario 3: TypeScript Errors Everywhere
+
 **Symptoms**: Too many TypeScript errors, can't fix quickly
 
 **Solution**:
+
 ```bash
 # Revert TypeScript upgrade only
 git checkout HEAD~1 tsconfig.base.json
@@ -172,9 +184,11 @@ yarn build
 ```
 
 ### Scenario 4: ESLint Blocking Development
+
 **Symptoms**: ESLint errors everywhere, team blocked
 
 **Solution**:
+
 ```bash
 # Quick fix: Disable ESLint temporarily
 echo "export default [];" > eslint.config.mjs
@@ -185,16 +199,19 @@ echo "export default [];" > eslint.config.mjs
 ## Emergency Procedures
 
 ### If Git History is Lost
+
 1. Check if `pre-upgrade-dependencies.txt` exists in root
 2. Use those versions to manually restore package.json
 3. Reinstall and rebuild
 
 ### If Backup Branch is Missing
+
 1. Look for tags: `git tag -l`
 2. Check remote: `git branch -r | grep backup`
 3. Use git reflog to find old commits: `git reflog`
 
 ### If All Else Fails
+
 1. Clone fresh repository from remote
 2. Checkout last known-good commit
 3. Deploy that version
@@ -232,12 +249,12 @@ If rollback fails or issues persist:
 
 ## Rollback Decision Matrix
 
-| Issue Severity | Recommended Action | Timeline |
-|---------------|-------------------|----------|
-| Critical (app down) | Full rollback (Option 1) | Immediate |
-| High (major features broken) | Full rollback or partial | Within 1 hour |
-| Medium (minor issues) | Partial rollback or fix forward | Within 4 hours |
-| Low (cosmetic/non-blocking) | Fix forward | Next sprint |
+| Issue Severity               | Recommended Action              | Timeline       |
+| ---------------------------- | ------------------------------- | -------------- |
+| Critical (app down)          | Full rollback (Option 1)        | Immediate      |
+| High (major features broken) | Full rollback or partial        | Within 1 hour  |
+| Medium (minor issues)        | Partial rollback or fix forward | Within 4 hours |
+| Low (cosmetic/non-blocking)  | Fix forward                     | Next sprint    |
 
 ---
 

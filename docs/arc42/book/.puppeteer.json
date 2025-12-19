@@ -1,1 +1,4 @@
-{"args": ["--no-sandbox", "--disable-setuid-sandbox"], "defaultViewport": {"width": 4800, "height": 3200, "deviceScaleFactor": 3}}
+{
+  "args": ["--no-sandbox", "--disable-setuid-sandbox"],
+  "defaultViewport": { "width": 4800, "height": 3200, "deviceScaleFactor": 3 }
+}

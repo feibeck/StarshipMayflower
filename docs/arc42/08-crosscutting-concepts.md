@@ -3,6 +3,7 @@
 This section documents **8 key crosscutting patterns** that affect multiple building blocks and form the basis for conceptual integrity of the Starship Mayflower architecture. These concepts are documented centrally to avoid repetition across building block descriptions.
 
 **Selection Criteria**: The patterns documented here were selected based on:
+
 - **Crosscutting Nature**: Each pattern is used by at least 3 building blocks (section 5), ensuring system-wide consistency
 - **Quality Goal Support**: All patterns directly support quality goals from section 1.2 (real-time responsiveness, maintainability, developer experience)
 - **Architectural Significance**: Patterns are critical to achieving conceptual integrity and maintaining system coherence
@@ -11,6 +12,7 @@ This section documents **8 key crosscutting patterns** that affect multiple buil
 **Pattern Organization**: Patterns are organized from domain layer (models, registries) through business logic (actions, state management) to infrastructure (communication, rendering, build system).
 
 **Additional Patterns**: Other important patterns specific to individual building blocks are documented in section 5 (Building Block View). Examples include:
+
 - Pinus framework handlers pattern (section 5.2)
 - React Router navigation pattern (section 5.3)
 - Storybook component isolation pattern (section 5.5)
@@ -31,6 +33,7 @@ ObjectInSpace (base class)
 ```
 
 **Key Pattern**: Each domain model provides **multiple serialization methods** for different contexts:
+
 - `serialize()` - Full state serialization for game server replication
 - `serializeMapData()` - Visualization-focused data for 3D map rendering
 - `fromJson()` - Deserialization from network format
@@ -69,7 +72,7 @@ export class ObjectInSpace {
   // Fluent builder pattern for configuration
   setPosition(vector: Vector): ObjectInSpace {
     this.position = vector;
-    return this;  // Method chaining
+    return this; // Method chaining
   }
 }
 
@@ -109,33 +112,40 @@ export class Ship extends ObjectInSpace {
 
 **Ubiquitous Language** (Domain Terms):
 
-| Term | Definition | File Reference |
-|------|------------|----------------|
-| **ObjectInSpace** | Base class for all spatial entities with 3D position, velocity, heading, and orientation matrix | libs/util/src/lib/model/ObjectInSpace.ts[^domain3] |
-| **Ship** | Player-controlled vessel with 5 bridge stations (helm, weapons, comm, science, engineering), energy, and warp capability | libs/util/src/lib/model/Ship.ts[^domain4] |
-| **Station** | Enum of bridge station types: helm, weapons, comm, science, engineering | libs/util/src/lib/model/Ship.ts[^domain5] |
-| **Player** | User assigned to ship with specific station role | apps/game-server/src/app/src/models/Player.ts[^domain6] |
-| **MapData** | Lightweight serialization format for 3D map visualization | libs/util/src/lib/model/ObjectInSpace.ts[^domain7] |
+| Term              | Definition                                                                                                               | File Reference                                          |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
+| **ObjectInSpace** | Base class for all spatial entities with 3D position, velocity, heading, and orientation matrix                          | libs/util/src/lib/model/ObjectInSpace.ts[^domain3]      |
+| **Ship**          | Player-controlled vessel with 5 bridge stations (helm, weapons, comm, science, engineering), energy, and warp capability | libs/util/src/lib/model/Ship.ts[^domain4]               |
+| **Station**       | Enum of bridge station types: helm, weapons, comm, science, engineering                                                  | libs/util/src/lib/model/Ship.ts[^domain5]               |
+| **Player**        | User assigned to ship with specific station role                                                                         | apps/game-server/src/app/src/models/Player.ts[^domain6] |
+| **MapData**       | Lightweight serialization format for 3D map visualization                                                                | libs/util/src/lib/model/ObjectInSpace.ts[^domain7]      |
 
 [^domain3]: libs/util/src/lib/model/ObjectInSpace.ts lines 10-45 define base class with position, velocity, heading, orientation
+
 [^domain4]: libs/util/src/lib/model/Ship.ts lines 15-40 define Ship class with stations, energy, warp
+
 [^domain5]: libs/util/src/lib/model/Ship.ts lines 5-10 define Station enum: 'helm', 'weapons', 'comm', 'science', 'engineering'
+
 [^domain6]: apps/game-server/src/app/src/models/Player.ts lines 10-30 define Player wrapping session with ship/station assignment
+
 [^domain7]: libs/util/src/lib/model/ObjectInSpace.ts lines 60-70 define MapData interface for visualization
 
 **Building Blocks Using This Pattern**:
+
 - **Frontend SPA** (section 5.3): Imports domain models via `@starship-mayflower/util` for type-safe state management
 - **Game Server** (section 5.2): Uses same models for server-side game logic and state management
 - **Map Library** (section 5.5): Consumes `MapData` serialization format for Three.js visualization
 - **Compass Library** (section 5.5): Uses orientation data from domain models
 
 **Why This Matters**:
+
 - **Type Safety Across Network Boundary**: TypeScript compiler catches type mismatches between client and server (supports developer experience quality goal from section 1.2)
 - **Single Source of Truth**: Domain models defined once, eliminating client-server deserialization bugs
 - **Multiple Views of Same Data**: Dual serialization enables efficient map rendering (lightweight) vs full state sync (complete)
 - **Fluent Builder Pattern**: Method chaining enables clean object configuration code
 
 **Anti-Patterns to Avoid**:
+
 - ❌ **Separate Client/Server Models**: Duplicating domain models leads to deserialization bugs and type mismatches
 - ❌ **Single Serialization Method**: Forces unnecessary data transfer (sending full state for map rendering wastes bandwidth)
 - ❌ **Direct Property Access**: Bypassing setters breaks fluent interface and prevents validation
@@ -164,8 +174,8 @@ export class ObjectInSpaceRegistry extends EventEmitter {
   push(object: ObjectInSpace): ObjectInSpaceRegistry {
     object.setId(this.createId());
     this._hashtable[object.getId()] = object;
-    this._dirty = true;  // Mark cache as stale
-    this.emit('update');  // Broadcast changes to observers
+    this._dirty = true; // Mark cache as stale
+    this.emit('update'); // Broadcast changes to observers
     return this;
   }
 
@@ -248,22 +258,26 @@ export class ShipRegistry {
 ```
 
 **Registry Hierarchy**:
+
 - **ObjectInSpaceRegistry** (base): Manages all spatial entities (ships, stations, planets)
 - **ShipRegistry** (specialized): Manages ships and player-to-ship assignments with broadcasting
 
 **Building Blocks Using This Pattern**:
+
 - **Game Server - World Server** (section 5.2): Uses `ShipRegistry` and `ObjectInSpaceRegistry` for all entity management
 - **Game Server - Lobby Handler** (section 5.2): Creates ships via `ShipRegistry.addShip()`
 - **Game Server - Navigation Handler** (section 5.2): Looks up ships via `ShipRegistry.getShip(id)`
 - **Game Server - Physics Engine** (section 5.2): Iterates all ships via `ShipRegistry.getAllShips()`
 
 **Why This Matters**:
+
 - **Performance Optimization**: O(1) hash lookup vs O(n) array search; critical for 10 Hz tick cycle (section 1.2 real-time responsiveness goal)
 - **Lazy Caching**: Only rebuilds array when dirty flag set; avoids repeated conversions
 - **Event-Driven Updates**: Registry emits events enabling observers to react to entity changes
 - **Centralized Entity Lifecycle**: Single point for entity creation, lookup, and destruction
 
 **Anti-Patterns to Avoid**:
+
 - ❌ **Array-Only Storage**: Using only arrays forces O(n) lookup; unacceptable for real-time 10 Hz tick cycle
 - ❌ **Eager List Rebuilding**: Rebuilding list on every insertion destroys performance; lazy caching essential
 - ❌ **Distributed Entity Management**: Multiple entity storage locations creates synchronization bugs and inconsistent state
@@ -287,7 +301,7 @@ export abstract class Action {
   public type: string;
   public finished = false;
   public aborted = false;
-  public singleton = false;  // Prevents duplicate actions
+  public singleton = false; // Prevents duplicate actions
   protected ship: Ship;
   protected _burnRate = 0;
 
@@ -317,10 +331,10 @@ export class Accelerate extends Action {
 
   constructor(opts: ActionOptions) {
     opts.type = 'accelerate';
-    opts.singleton = true;  // Only one accelerate per ship
+    opts.singleton = true; // Only one accelerate per ship
     super(opts);
     this.targetSpeed = opts.targetSpeed;
-    this._burnRate = 3;  // Energy per second
+    this._burnRate = 3; // Energy per second
     this.time = Date.now();
   }
 
@@ -333,7 +347,7 @@ export class Accelerate extends Action {
       if (this.ship.getEnergy() > 0) {
         this.accelerate(seconds);
       } else {
-        this.finished = true;  // Out of energy
+        this.finished = true; // Out of energy
       }
     }
 
@@ -348,7 +362,7 @@ export class Accelerate extends Action {
       this.ship.setVelocity(this.targetSpeed);
       this.finished = true;
     } else {
-      const newSpeed = currentSpeed + (diff * 0.1 * seconds);
+      const newSpeed = currentSpeed + diff * 0.1 * seconds;
       this.ship.setVelocity(newSpeed);
     }
   }
@@ -364,7 +378,7 @@ export class ActionQueue {
       this._store.push(val);
       return true;
     }
-    return false;  // Queue full
+    return false; // Queue full
   }
 
   pop(): Action | undefined {
@@ -415,10 +429,10 @@ export class ActionManager {
         continue;
       }
 
-      action.update();  // Execute one tick
+      action.update(); // Execute one tick
 
       if (!action.finished) {
-        this.actionQueue.push(action);  // Re-queue for next tick
+        this.actionQueue.push(action); // Re-queue for next tick
       } else {
         // Clean up completed action
         delete this.actionMap[action.type][action.id];
@@ -432,14 +446,15 @@ export function run() {
   const gameActionManager = new ActionManager();
 
   setInterval(() => {
-    gameActionManager.update();  // Process all pending actions
-    moveShips();  // Apply physics simulation
-    sendUpdates();  // Broadcast state to clients
-  }, 100);  // 10 Hz tick rate
+    gameActionManager.update(); // Process all pending actions
+    moveShips(); // Apply physics simulation
+    sendUpdates(); // Broadcast state to clients
+  }, 100); // 10 Hz tick rate
 }
 ```
 
 **Action Types**[^action3]:
+
 - **Accelerate**: Gradually change ship velocity to target speed over time
 - **Turn**: Rotate ship orientation matrix toward target heading
 - **SetWarp**: Enable/disable faster-than-light travel mode
@@ -447,12 +462,14 @@ export function run() {
 [^action3]: Concrete action implementations in apps/game-server/src/app/src/action/accelerate.ts, turn.ts; warp handling in Ship model
 
 **Building Blocks Using This Pattern**:
+
 - **Game Server - World Server** (section 5.2): Manages action queue and executes actions every tick
 - **Game Server - Navigation Handler** (section 5.2): Queues navigation actions (turn, accelerate)
 - **Game Server - Timer/Tick** (section 5.2): Calls `actionManager.update()` every 100ms
 - **Game Server - Action System** (section 5.2): Coordinates action lifecycle
 
 **Why This Matters**:
+
 - **Deferred Execution**: Commands execute asynchronously over multiple ticks; decouples request from execution
 - **Singleton Pattern**: Prevents conflicting actions (can't accelerate to two speeds simultaneously)
 - **Cancelable Operations**: Actions can be aborted mid-execution (e.g., emergency stop)
@@ -460,6 +477,7 @@ export function run() {
 - **Time-Based Simulation**: Supports realistic physics (acceleration takes time, not instant)
 
 **Anti-Patterns to Avoid**:
+
 - ❌ **Immediate Execution**: Executing commands synchronously blocks game loop; must queue for deferred execution
 - ❌ **Allowing Duplicate Actions**: Multiple conflicting accelerations create undefined behavior; singleton pattern required
 - ❌ **No Abort Mechanism**: Actions must be cancelable for responsive gameplay (emergency stops, collisions)
@@ -640,18 +658,21 @@ export const App: FC = () => {
 ```
 
 **Redux Store Structure**[^redux3]:
+
 - **game.slice**: Connection state, ships, current ship, world state
 - **auth.slice**: Authentication state, username, player ID
 
 [^redux3]: apps/starship-mayflower-frontend/src/app/store/game.slice.ts defines game state; auth.slice.ts defines auth state
 
 **Building Blocks Using This Pattern**:
+
 - **Frontend SPA** (section 5.3): All React components access state via Redux selectors
 - **Login Page** (section 5.3): Dispatches auth actions
 - **Lobby Page** (section 5.3): Dispatches ship creation and station assignment actions
 - **WebSocket Middleware** (section 5.3): Manages connection lifecycle
 
 **Why This Matters**:
+
 - **Predictable State Management**: Redux ensures single source of truth for application state (supports maintainability quality goal from section 1.2)
 - **Async-Aware Middleware**: Handles WebSocket lifecycle as first-class citizen in Redux flow
 - **Request/Response Correlation**: UUID-based tracking enables promise-based async calls
@@ -659,6 +680,7 @@ export const App: FC = () => {
 - **Time-Travel Debugging**: Redux DevTools provides visibility into all state changes
 
 **Anti-Patterns to Avoid**:
+
 - ❌ **Component-Level WebSocket**: Managing WebSocket in components creates inconsistent connection state; middleware centralizes lifecycle
 - ❌ **Callback Hell**: Without promise-based correlation, async calls become nested callback chains
 - ❌ **Direct State Mutation**: Mutating Redux state directly breaks time-travel debugging; use reducers
@@ -716,21 +738,21 @@ export class Channel {
   pushToShip(ship: Ship, route: string, msg: any) {
     const channel = this.getShipChannel(ship);
     if (channel) {
-      channel.pushMessage(route, msg);  // Async broadcast to ship crew
+      channel.pushMessage(route, msg); // Async broadcast to ship crew
     }
   }
 
   pushToLobby(route: string, msg: any) {
     const channel = this.getLobbyChannel();
     if (channel) {
-      channel.pushMessage(route, msg);  // Broadcast to all lobby players
+      channel.pushMessage(route, msg); // Broadcast to all lobby players
     }
   }
 
   pushToGlobal(route: string, msg: any) {
     const channelService = pinus.app.get('channelService');
     const channel = channelService.getChannel('global', true);
-    channel.pushMessage(route, msg);  // Broadcast to all connected clients
+    channel.pushMessage(route, msg); // Broadcast to all connected clients
   }
 
   getShipChannel(ship: Ship): PinusChannel {
@@ -792,6 +814,7 @@ export function moveShip(ship: Ship) {
 ```
 
 **Channel Hierarchy**[^channel3]:
+
 - **Global**: All connected clients (world state, all ships)
 - **Lobby**: Players not yet assigned to ships (ship list, player list)
 - **Ship-specific**: Crew of specific ship (ship state, station assignments)
@@ -799,18 +822,21 @@ export function moveShip(ship: Ship) {
 [^channel3]: Channel scopes defined in game logic; pushToGlobal for world state, pushToLobby for lobby, pushToShip for ship-specific
 
 **Building Blocks Using This Pattern**:
+
 - **Game Server - Connector Server** (section 5.2): Routes channel messages to connected clients
 - **Game Server - World Server** (section 5.2): Publishes state updates to appropriate channels
 - **Game Server - Lobby Handler** (section 5.2): Broadcasts lobby changes via `pushToLobby()`
 - **Game Server - Game Handler** (section 5.2): Broadcasts world updates via `pushToGlobal()`
 
 **Why This Matters**:
+
 - **Efficient Broadcast**: Only sends to relevant clients; ship updates don't spam entire server (supports network efficiency quality goal from section 1.2)
 - **Hierarchical Scoping**: Global/lobby/ship channels match game domain model, preventing inappropriate information leakage
 - **Automatic Subscription**: Channels auto-create and manage membership, simplifying client lifecycle
 - **Decouples State Changes from Delivery**: Handlers don't need to know about connected clients, enabling independent evolution
 
 **Anti-Patterns to Avoid**:
+
 - ❌ **Broadcast Everything to Everyone**: Sending all updates to all clients wastes bandwidth and leaks game state (e.g., enemy positions)
 - ❌ **Manual Client Tracking**: Tracking which clients need which updates creates complex, error-prone code; channels automate this
 - ❌ **Tight Coupling to Clients**: Handlers knowing about specific clients prevents independent scaling of connector and world servers
@@ -939,6 +965,7 @@ export function turn(args, callback) {
 ```
 
 **RPC Communication Flow**[^pinus3]:
+
 1. Client connects to **Connector Server** (port 3010)
 2. Connector authenticates and binds session
 3. Client sends game command to Connector
@@ -949,12 +976,14 @@ export function turn(args, callback) {
 [^pinus3]: RPC flow documented in section 6 (Runtime View); connector handles client I/O while world manages game state
 
 **Building Blocks Using This Pattern**:
+
 - **Game Server - Connector Server** (section 5.2): Handles client connections, routes to world via RPC
 - **Game Server - World Server** (section 5.2): Executes game logic, responds to RPC calls
 - **Game Server - Entry Handler** (section 5.2): Initiates RPC calls for authentication
 - **Game Server - Navigation Handler** (section 5.2): RPC calls for ship commands
 
 **Why This Matters**:
+
 - **Transparent RPC**: Remote calls look like local function calls; framework handles serialization/transport, reducing distributed systems complexity
 - **Session-Based Routing**: RPC calls automatically route through client's session, maintaining context across server boundaries
 - **Binary Protocol**: Dictionary + protobuf compression reduces bandwidth by ~70% vs JSON (supports network efficiency quality goal from section 1.2)
@@ -962,6 +991,7 @@ export function turn(args, callback) {
 - **Environment Configuration**: Easy switching between dev/prod server topologies via JSON configuration
 
 **Anti-Patterns to Avoid**:
+
 - ❌ **REST APIs Between Servers**: HTTP overhead unnecessary for internal RPC; binary protocol 70% more efficient
 - ❌ **Monolithic Server**: Combining connector and world prevents independent scaling; I/O-bound and CPU-bound needs differ
 - ❌ **Manual Serialization**: Hand-coding serialization creates bugs; Pinus handles protobuf automatically
@@ -1156,11 +1186,13 @@ export const Compass: FC<CompassProps> = ({ pitch, yaw }) => {
 ```
 
 **Building Blocks Using This Pattern**:
+
 - **Map Library** (section 5.5): Three.js 3D rendering for star map visualization
 - **Compass Library** (section 5.5): Paper.js 2D rendering for ship orientation display
 - **Frontend SPA** (section 5.3): Consumes Map and Compass components
 
 **Why This Matters**:
+
 - **React/Three.js Boundary**: Clean separation between React declarative state and Three.js imperative rendering prevents framework conflicts
 - **Imperative DOM from React**: Three.js scene imperatively managed inside React lifecycle hooks, enabling complex 3D without React DOM
 - **Ref-Based Lifecycle**: `useRef` manages DOM mounting point, avoiding duplicate renders and memory leaks
@@ -1168,6 +1200,7 @@ export const Compass: FC<CompassProps> = ({ pitch, yaw }) => {
 - **Reusable Visualization Components**: Map and Compass are library-level abstractions (supports maintainability quality goal from section 1.2)
 
 **Anti-Patterns to Avoid**:
+
 - ❌ **React-Managed Three.js**: Trying to manage Three.js objects as React state causes performance issues; use refs
 - ❌ **Missing Cleanup**: Not removing Three.js DOM elements on unmount creates memory leaks
 - ❌ **Prop Changes Without Updates**: Ignoring prop changes leaves Three.js scene stale; useEffect ensures synchronization
@@ -1253,6 +1286,7 @@ import { Map } from '@starship-mayflower/map';
 ```
 
 **Monorepo Structure**[^nx3]:
+
 ```
 /
 ├── apps/
@@ -1275,6 +1309,7 @@ import { Map } from '@starship-mayflower/map';
 [^nx3]: Monorepo structure defined in workspace.json; apps/ contains deployable applications, libs/ contains reusable libraries
 
 **Module Boundary Rules**[^nx4]:
+
 - **Applications CANNOT import from other applications**: Prevents tight coupling
 - **Libraries CANNOT import from applications**: Ensures library reusability
 - **Libraries CAN import from other libraries**: Enables layered library architecture
@@ -1283,12 +1318,14 @@ import { Map } from '@starship-mayflower/map';
 [^nx4]: Module boundaries enforced by .eslintrc.json @nrwl/nx/enforce-module-boundaries rule; violations fail CI build
 
 **Building Blocks Using This Pattern**:
+
 - **All building blocks** (section 5): Organized as Nx projects with enforced boundaries
 - **Frontend SPA** (section 5.3): Imports from compass, map, util libraries
 - **Game Server** (section 5.2): Imports from util, game-server-lib libraries
 - **Libraries** (section 5.4, 5.5): Self-contained with minimal dependencies
 
 **Why This Matters**:
+
 - **Architectural Discipline**: Compile-time enforcement prevents architectural erosion (addresses technical debt constraint from section 2); violations fail build
 - **Clean Imports**: Path mappings eliminate brittle relative paths (`../../../libs/util`), making code relocatable
 - **Build Caching**: Nx caches task results; rebuild only affected projects (supports developer experience quality goal from section 1.2), improving build time by 5-10x
@@ -1296,16 +1333,19 @@ import { Map } from '@starship-mayflower/map';
 - **Refactoring Safety**: Path mappings enable safe refactoring without updating import paths across hundreds of files
 
 **Anti-Patterns to Avoid**:
+
 - ❌ **Application Importing Application**: Apps importing from other apps creates tight coupling; use shared libraries
 - ❌ **Library Importing Application**: Makes libraries non-reusable; libraries must only depend on other libraries
 - ❌ **Relative Path Imports**: `../../../libs/util` is brittle; use `@starship-mayflower/util` path mappings
 - ❌ **Disabling Boundary Checks**: Bypassing ESLint rules defeats architectural enforcement; fix violations instead
 
 **Pattern Alternatives Considered**:
+
 - **Polyrepo**: Each library in separate repository would eliminate module boundary issues but create versioning and coordination overhead
 - **No Enforcement**: Relying on code review alone allows architectural erosion; compile-time enforcement is superior
 
 > **Cross-references:**
+>
 > - **Section 1.2** (Quality Goals) defines quality goals supported by these patterns (real-time responsiveness, maintainability, developer experience)
 > - **Section 2** (Constraints) documents Nx monorepo and TypeScript constraints
 > - **Section 4** (Solution Strategy) explains rationale for isomorphic models and monorepo structure
@@ -1314,30 +1354,57 @@ import { Map } from '@starship-mayflower/map';
 > - **Section 7** (Deployment View) documents how these patterns are deployed (Nx build system, configuration management)
 
 [^domain1]: Domain models in libs/util/src/lib/model/; imported by both apps/game-server and apps/starship-mayflower-frontend
+
 [^domain2]: libs/util/src/lib/model/ObjectInSpace.ts lines 45-90 define base serialization; Ship.ts lines 120-150 override for ship-specific data
+
 [^domain3]: libs/util/src/lib/model/ObjectInSpace.ts lines 10-45 define base class with position, velocity, heading, orientation
+
 [^domain4]: libs/util/src/lib/model/Ship.ts lines 15-40 define Ship class with stations, energy, warp
+
 [^domain5]: libs/util/src/lib/model/Ship.ts lines 5-10 define Station enum: 'helm', 'weapons', 'comm', 'science', 'engineering'
+
 [^domain6]: apps/game-server/src/app/src/models/Player.ts lines 10-30 define Player wrapping session with ship/station assignment
+
 [^domain7]: libs/util/src/lib/model/ObjectInSpace.ts lines 60-70 define MapData interface for visualization
+
 [^registry1]: Registry pattern implemented in libs/util/src/lib/model/ObjectInSpaceRegistry.ts and apps/game-server/src/app/src/world/ShipRegistry.ts
+
 [^registry2]: libs/util/src/lib/model/ObjectInSpaceRegistry.ts lines 10-80 implement base registry; ShipRegistry.ts lines 15-100 specialize for game domain
+
 [^action1]: Action pattern implemented in apps/game-server/src/app/src/action/ directory; ActionQueue, ActionManager, Accelerate, Turn
+
 [^action2]: apps/game-server/src/app/src/action/action.ts lines 10-50 define base Action; accelerate.ts and turn.ts implement concrete actions; actionManager.ts orchestrates
+
 [^action3]: Concrete action implementations in apps/game-server/src/app/src/action/accelerate.ts, turn.ts; warp handling in Ship model
+
 [^redux1]: Redux implementation in apps/starship-mayflower-frontend/src/app/store/; store.ts, game.slice.ts, auth.slice.ts, websocketMiddleware.ts, client.ts
+
 [^redux2]: apps/starship-mayflower-frontend/src/app/store/store.ts lines 15-35 configure store; websocketMiddleware.ts lines 20-80 implement middleware; client.ts lines 40-100 implement request tracking
+
 [^redux3]: apps/starship-mayflower-frontend/src/app/store/game.slice.ts defines game state; auth.slice.ts defines auth state
+
 [^channel1]: Channel pattern implemented in libs/game-server-lib/src/lib/Channel.ts (WebSocket channels) and apps/game-server/src/app/src/channel.ts (Pinus channels)
+
 [^channel2]: libs/game-server-lib/src/lib/Channel.ts lines 20-60 implement WebSocket channels; apps/game-server/src/app/src/channel.ts lines 30-80 implement Pinus integration
+
 [^channel3]: Channel scopes defined in game logic; pushToGlobal for world state, pushToLobby for lobby, pushToShip for ship-specific
+
 [^pinus1]: Pinus RPC implemented in apps/game-server/src/main.ts configuration and apps/game-server/src/app/servers/world/remote/ RPC handlers
+
 [^pinus2]: apps/game-server/src/main.ts lines 10-20 configure Pinus; servers/connector/handler/entry.ts lines 30-50 show RPC calls; servers/world/remote/player.ts defines remote functions
+
 [^pinus3]: RPC flow documented in section 6 (Runtime View); connector handles client I/O while world manages game state
+
 [^threejs1]: Three.js integration in libs/map/src/lib/map.tsx (Map component), libs/map/src/lib/StarMap.ts (Three.js scene), libs/map/src/lib/MapObjectActor.ts (ship rendering)
+
 [^threejs2]: libs/map/src/lib/map.tsx lines 15-60 implement React wrapper; StarMap.ts lines 20-100 manage Three.js scene; MapObjectActor.ts lines 30-80 render ships
+
 [^threejs3]: libs/compass/src/compass.tsx implements same pattern with Paper.js for 2D canvas rendering
+
 [^nx1]: Nx configuration in nx.json, workspace.json; module boundaries enforced via .eslintrc.json @nrwl/nx/enforce-module-boundaries rule
+
 [^nx2]: nx.json lines 16-36 define target defaults; workspace.json lines 3-14 define projects; tsconfig.base.json lines 17-24 define path mappings
+
 [^nx3]: Monorepo structure defined in workspace.json; apps/ contains deployable applications, libs/ contains reusable libraries
+
 [^nx4]: Module boundaries enforced by .eslintrc.json @nrwl/nx/enforce-module-boundaries rule; violations fail CI build

@@ -5,10 +5,12 @@
 This section documents identified technical risks and technical debt in the StarshipMayflower system, ordered by priority and impact. All items are supported by concrete code evidence.
 
 **Risk vs Technical Debt**:
+
 - **Risk**: Future problem that might occur (probability × impact)
 - **Technical Debt**: Existing suboptimal solution (cost to fix vs cost of living with it)
 
 **Relationship to Other Sections**:
+
 - **Section 1.2**: Quality goals that risks/debt threaten
 - **Section 9**: Architecture decisions documenting known trade-offs (ADR-003, ADR-004, ADR-006)
 - **Section 10**: Quality requirements gaps (SEC-2, REL-1, TEST-3, MAINT-3)
@@ -32,11 +34,12 @@ Risks ordered by priority (probability × impact), with mitigation strategies.
 **Impact**: Critical - Complete service outage, all players disconnected, all game state lost (in-memory only per ADR-004)
 
 **Evidence**: No try/catch blocks in tick cycle[^1]:
+
 ```typescript
 // apps/game-server/src/app/src/timer.ts lines 11-15
 function tick() {
-  gameActionManager.update();  // No error handling
-  moveShips();                  // Exception crashes server
+  gameActionManager.update(); // No error handling
+  moveShips(); // Exception crashes server
   sendUpdates();
 }
 ```
@@ -44,6 +47,7 @@ function tick() {
 **Affected Building Blocks**: World Server (5.1.2), Physics System (5.1.5), Action Queue (8.3)
 
 **Mitigation Strategies**:
+
 1. **Immediate (Week 1)**: Wrap tick cycle in try/catch with error logging
    ```typescript
    function tick() {
@@ -76,6 +80,7 @@ function tick() {
 **Impact**: High - Full administrative access to game server, ability to manipulate game state, access player data, execute admin commands
 
 **Evidence**: Plaintext credentials in configuration[^2]:
+
 ```json
 // apps/game-server/src/config/adminUser.json lines 1-22
 {
@@ -95,6 +100,7 @@ function tick() {
 **Affected Building Blocks**: Admin Console (5.1.4), Connector Server (5.1.2)
 
 **Mitigation Strategies**:
+
 1. **Immediate (Week 1)**:
    - Remove adminUser.json from repository (add to .gitignore)
    - Rotate all admin credentials immediately
@@ -125,14 +131,16 @@ function tick() {
 **Impact**: High - Credential theft, session hijacking, game state manipulation, privacy violation
 
 **Evidence**: Hardcoded plaintext WebSocket URL[^4]:
+
 ```typescript
 // apps/starship-mayflower-frontend/src/app/store/client.ts line 15
-this.client = new WebSocket('ws://localhost:10000');  // Unencrypted!
+this.client = new WebSocket('ws://localhost:10000'); // Unencrypted!
 ```
 
 **Affected Building Blocks**: WebSocket Client (5.1.7), Connector Server (5.1.2)
 
 **Mitigation Strategies**:
+
 1. **Immediate (Week 1)**:
    - Document that current system is **prototype only** - not production-ready
    - Add warning in README about security limitations
@@ -162,6 +170,7 @@ this.client = new WebSocket('ws://localhost:10000');  // Unencrypted!
 **Impact**: Medium - Gameplay exploits, physics simulation errors, potential denial-of-service
 
 **Evidence**: No bounds checking on user input[^5]:
+
 ```typescript
 // apps/game-server/src/app/servers/world/handler/navigation.ts
 
@@ -183,6 +192,7 @@ setHeading(msg, session, next) {
 **Affected Building Blocks**: Navigation Handler (5.2), Ship Domain Model (5.1.8)
 
 **Mitigation Strategies**:
+
 1. **Immediate (Week 1)**: Add validation to all navigation handlers:
    ```typescript
    setImpulseSpeed(msg, session, next) {
@@ -221,6 +231,7 @@ setHeading(msg, session, next) {
 **Affected Building Blocks**: Connector Server (5.1.2), World Server (5.1.2), RPC Layer (5.1.6)
 
 **Mitigation Strategies**:
+
 1. **Short-term (Month 1)**:
    - Add health check RPC calls between Connector and World (every 5 seconds)
    - Disconnect clients if World server unreachable
@@ -247,6 +258,7 @@ setHeading(msg, session, next) {
 **Impact**: High - Server crash, service interruption, requires manual restart
 
 **Evidence**: No automatic entity cleanup[^8]:
+
 ```typescript
 // apps/game-server/src/app/src/world/ShipRegistry.ts
 registerShip(ship: Ship): void {
@@ -261,6 +273,7 @@ registerShip(ship: Ship): void {
 **Affected Building Blocks**: ShipRegistry (5.1.5), World Server (5.1.2)
 
 **Mitigation Strategies**:
+
 1. **Short-term (Month 1)**:
    - Add memory usage monitoring and alerting (Node.js heap size)
    - Implement manual cleanup command for admins
@@ -287,6 +300,7 @@ registerShip(ship: Ship): void {
 **Impact**: Medium - Player commands ignored, poor user experience, difficult to debug
 
 **Evidence**: Queue overflow not handled by callers[^9]:
+
 ```typescript
 // apps/game-server/src/app/src/action/ActionQueue.ts lines 8-14
 push(val: Action): boolean {
@@ -304,6 +318,7 @@ actionQueue.push(new AccelerateAction(ship, speed));  // Return value ignored
 **Affected Building Blocks**: Action Queue (8.3), World Server (5.1.2)
 
 **Mitigation Strategies**:
+
 1. **Immediate (Week 1)**:
    - Log warnings when queue rejects actions
    - Add queue size monitoring and alerting
@@ -333,6 +348,7 @@ actionQueue.push(new AccelerateAction(ship, speed));  // Return value ignored
 **Affected Building Blocks**: Physics System (5.1.5), Domain Models (5.1.8)
 
 **Mitigation Strategies**:
+
 1. **Short-term (Month 1)**: Monitor Sylvester-ES6 npm package for updates/deprecation notices
 2. **Medium-term (Quarter 1)**: Evaluate migration to gl-matrix (industry standard, better maintained)
 3. **Long-term (Quarter 2)**: If scaling to 1000+ entities, benchmark Sylvester vs gl-matrix performance
@@ -358,6 +374,7 @@ actionQueue.push(new AccelerateAction(ship, speed));  // Return value ignored
 **Affected Building Blocks**: World Server (5.1.2), All Registries (8.2)
 
 **Mitigation Strategies**:
+
 1. **If transitioning to production**:
    - Implement periodic state snapshots (save to S3/disk every 5 minutes)
    - Add event sourcing for game actions (replay from log)
@@ -384,6 +401,7 @@ Technical debts ordered by cost to fix vs cost of inaction.
 **Description**: Test coverage is only 9.9% (8 test files for 81 TypeScript source files). Critical paths completely untested: game loop, navigation handlers, lobby management, authentication[^12].
 
 **Cost of Inaction**:
+
 - **High regression risk**: Cannot refactor safely, changes may break production
 - **Slow feature development**: Developers fear breaking existing functionality
 - **Difficult debugging**: Bugs only discovered in production, not during development
@@ -392,6 +410,7 @@ Technical debts ordered by cost to fix vs cost of inaction.
 **Cost to Fix**: Medium (3-4 weeks to reach 50% coverage, focusing on critical paths)
 
 **Current State**:
+
 - **Total files**: 81 TypeScript files
 - **Files with tests**: 8 files (9.9% coverage)
 - **Critical gaps**:
@@ -403,6 +422,7 @@ Technical debts ordered by cost to fix vs cost of inaction.
 **Evidence**: Test files vs source files ratio analysis[^12]. Section 10.2.8 documents handler testing gap (TEST-3).
 
 **Suggested Actions** (Prioritized by Risk):
+
 1. **Week 1**: Add tests for tick cycle (timer.ts) - most critical path
 2. **Week 2**: Add tests for navigation handlers (setImpulseSpeed, setWarpLevel, setHeading)
 3. **Week 3**: Add tests for lobby handlers (joinShip, createShip, registerPlayer)
@@ -411,6 +431,7 @@ Technical debts ordered by cost to fix vs cost of inaction.
 6. **Ongoing**: Enforce coverage gates in CI (require 50% minimum, block PRs below threshold)
 
 **Testing Strategy**:
+
 ```typescript
 // Example: timer.ts test
 describe('Game Tick Cycle', () => {
@@ -437,16 +458,19 @@ describe('Game Tick Cycle', () => {
 **Description**: Binary protocol dictionaries enabled in configuration but all dictionary files are empty. System falls back to JSON encoding while maintaining scaffolding for unused binary protocol[^13].
 
 **Cost of Inaction**:
+
 - **Wasted bandwidth**: JSON ~40-60% larger than binary protobuf (estimated)
 - **Maintenance overhead**: Must maintain empty dictionary files and unused configuration
 - **Developer confusion**: Misleading configuration suggests feature is implemented
 - **Missed performance opportunity**: Binary protocol would reduce network costs
 
 **Cost to Fix**:
+
 - **Option A (Remove)**: Low (1-2 days to remove scaffolding, set `useDict: false`)
 - **Option B (Implement)**: High (2-3 weeks to populate dictionaries, test encoding/decoding)
 
 **Current State**:
+
 - `dictionary.json`: Empty `{}`
 - `clientProtos.json`: Empty `{}`
 - `serverProtos.json`: Empty `{}`
@@ -460,6 +484,7 @@ describe('Game Tick Cycle', () => {
 **Evidence**: Empty dictionaries documented in ADR-003[^13]
 
 **Suggested Actions**:
+
 1. **Decision Point**: Choose implementation strategy:
    - **If network bandwidth is NOT a concern**: Remove scaffolding, simplify to JSON-only
    - **If network bandwidth IS a concern**: Fully implement binary protocol
@@ -490,6 +515,7 @@ describe('Game Tick Cycle', () => {
 **Description**: 35 npm packages have available updates. Most critical: `three` library 47 versions behind (0.135.0 → 0.182.0), missing security patches and bug fixes[^14].
 
 **Cost of Inaction**:
+
 - **Security vulnerabilities**: Known CVEs remain unpatched
 - **Missing bug fixes**: Stability issues already fixed in newer versions
 - **Incompatibility**: Future dependencies may require newer versions
@@ -509,6 +535,7 @@ describe('Game Tick Cycle', () => {
 **Evidence**: npm outdated analysis[^14]. Special concern: `web-server/package.json` uses `"latest"` for all dependencies (anti-pattern).
 
 **Suggested Actions**:
+
 1. **Immediate (Week 1)**:
    - Fix anti-pattern: Replace `"latest"` with specific versions in web-server/package.json
    - Run `npm audit` to identify security vulnerabilities
@@ -523,6 +550,7 @@ describe('Game Tick Cycle', () => {
    - Set up automated testing for dependency updates
 
 **Anti-Pattern Found**:
+
 ```json
 // web-server/package.json (BAD)
 "dependencies": {
@@ -549,6 +577,7 @@ describe('Game Tick Cycle', () => {
 **Description**: Server URLs, ports, credentials, and log levels are hardcoded in source files. Cannot deploy to staging/production without modifying code[^15].
 
 **Cost of Inaction**:
+
 - **Cannot deploy to cloud**: Requires code changes for each environment
 - **Security risk**: Production credentials in source control
 - **Slow deployments**: Must rebuild application for configuration changes
@@ -557,6 +586,7 @@ describe('Game Tick Cycle', () => {
 **Cost to Fix**: Low (1 week to implement environment variables for all config)
 
 **Missing Configuration**:
+
 - WebSocket URL: `ws://localhost:10000` hardcoded in client.ts
 - Admin credentials: Hardcoded in adminUser.json (see R-2)
 - Server ports: Hardcoded in servers.json (3010, 3150, 3151)
@@ -567,6 +597,7 @@ describe('Game Tick Cycle', () => {
 **Evidence**: Search for `process.env` found only 2 usages (devTools in store.ts and one other)[^15].
 
 **Suggested Actions**:
+
 1. **Week 1**: Create environment variable schema
    ```typescript
    // config.ts
@@ -581,6 +612,7 @@ describe('Game Tick Cycle', () => {
 4. **Week 4**: Add config validation on startup (fail fast if required vars missing)
 
 **Environment Files Needed**:
+
 - `.env.development` - Local development (ws://localhost)
 - `.env.staging` - Staging environment (wss://staging.example.com)
 - `.env.production` - Production environment (wss://game.example.com)
@@ -598,6 +630,7 @@ describe('Game Tick Cycle', () => {
 **Description**: Navigation and lobby handlers assume all objects exist without null checks. Causes runtime crashes when players disconnect during command processing[^16].
 
 **Cost of Inaction**:
+
 - **Frequent crashes**: Null reference errors when players disconnect
 - **Poor user experience**: Other players disconnected by crashes
 - **Difficult debugging**: Stack traces don't indicate root cause
@@ -605,10 +638,12 @@ describe('Game Tick Cycle', () => {
 **Cost to Fix**: Low (2-3 days to add defensive checks to 13 locations)
 
 **Locations**:
+
 - `navigation.ts` lines 22-23, 46-47, 68-69, 83-84, 99-100 (5 handlers × 2 calls = 10 instances)
 - `lobby.ts` lines 16-19, 32-34, 116-120 (3 instances)
 
 **Evidence**: Missing null checks before dereferencing[^16]:
+
 ```typescript
 // navigation.ts - 5 handlers with same pattern
 const player = shipRegistry.getPlayer(playerId);
@@ -620,7 +655,9 @@ const ship = shipRegistry.getShip(player.getShip().getId());
 ```
 
 **Suggested Actions**:
+
 1. **Week 1**: Add defensive checks to all 13 locations:
+
    ```typescript
    const player = shipRegistry.getPlayer(playerId);
    if (!player) {
@@ -640,6 +677,7 @@ const ship = shipRegistry.getShip(player.getShip().getId());
      return;
    }
    ```
+
 2. **Week 2**: Add tests for null/undefined scenarios
 3. **Week 3**: Add TypeScript strict null checks (`strictNullChecks: true` in tsconfig)
 
@@ -656,6 +694,7 @@ const ship = shipRegistry.getShip(player.getShip().getId());
 **Description**: No `/health`, `/readiness`, or `/metrics` endpoints for monitoring. Cannot detect server degradation before complete failure[^17].
 
 **Cost of Inaction**:
+
 - **No proactive monitoring**: Issues discovered only after user complaints
 - **Long MTTR (Mean Time To Recovery)**: Cannot quickly identify root cause
 - **No capacity planning**: Cannot forecast when to scale resources
@@ -664,6 +703,7 @@ const ship = shipRegistry.getShip(player.getShip().getId());
 **Cost to Fix**: Low (1-2 days to add basic endpoints)
 
 **Missing Endpoints**:
+
 - `/health` - Basic health check (200 OK if server responsive)
 - `/readiness` - Ready to serve traffic (DB connected, dependencies available)
 - `/metrics` - Prometheus-format metrics (request count, latency, error rate)
@@ -671,6 +711,7 @@ const ship = shipRegistry.getShip(player.getShip().getId());
 **Evidence**: Searched entire codebase, no health check routes found[^17].
 
 **Suggested Actions**:
+
 1. **Week 1**: Add basic health check endpoint
    ```typescript
    app.get('/health', (req, res) => {
@@ -681,7 +722,7 @@ const ship = shipRegistry.getShip(player.getShip().getId());
    ```typescript
    app.get('/readiness', async (req, res) => {
      try {
-       await worldServer.ping();  // RPC health check
+       await worldServer.ping(); // RPC health check
        res.status(200).json({ status: 'ready' });
      } catch (error) {
        res.status(503).json({ status: 'not_ready', error: error.message });
@@ -689,12 +730,13 @@ const ship = shipRegistry.getShip(player.getShip().getId());
    });
    ```
 3. **Week 3**: Add Prometheus metrics endpoint
+
    ```typescript
    const register = new promClient.Registry();
    const requestCount = new promClient.Counter({
      name: 'http_requests_total',
      help: 'Total HTTP requests',
-     labelNames: ['method', 'route', 'status']
+     labelNames: ['method', 'route', 'status'],
    });
    register.registerMetric(requestCount);
 
@@ -703,9 +745,11 @@ const ship = shipRegistry.getShip(player.getShip().getId());
      res.end(register.metrics());
    });
    ```
+
 4. **Week 4**: Integrate with monitoring platform (Prometheus, Grafana, Datadog)
 
 **Key Metrics to Track**:
+
 - Request rate (requests/second)
 - Request latency (95th percentile)
 - Error rate (errors/total requests)
@@ -727,6 +771,7 @@ const ship = shipRegistry.getShip(player.getShip().getId());
 **Description**: Server has no SIGTERM/SIGINT handlers. Kubernetes/Docker stop commands immediately kill process, dumping in-flight game state and disconnecting players abruptly[^18].
 
 **Cost of Inaction**:
+
 - **Poor user experience**: Players lose in-flight commands during deployments
 - **Data loss**: In-memory state lost without cleanup opportunity
 - **Connection leaks**: WebSocket connections not properly closed
@@ -737,7 +782,9 @@ const ship = shipRegistry.getShip(player.getShip().getId());
 **Evidence**: No `process.on('SIGTERM')` or `process.on('SIGINT')` handlers found[^18].
 
 **Suggested Actions**:
+
 1. **Week 1**: Implement graceful shutdown
+
    ```typescript
    // main.ts
    process.on('SIGTERM', async () => {
@@ -749,11 +796,11 @@ const ship = shipRegistry.getShip(player.getShip().getId());
      // Notify all connected players
      channel.pushToGlobal({
        event: 'serverShutdown',
-       message: 'Server restarting, please reconnect in 30 seconds'
+       message: 'Server restarting, please reconnect in 30 seconds',
      });
 
      // Allow time for in-flight requests to complete
-     await new Promise(resolve => setTimeout(resolve, 5000));
+     await new Promise((resolve) => setTimeout(resolve, 5000));
 
      // Optional: Save game state snapshot
      if (process.env.SAVE_STATE_ON_SHUTDOWN === 'true') {
@@ -769,22 +816,24 @@ const ship = shipRegistry.getShip(player.getShip().getId());
      process.exit(0);
    });
    ```
+
 2. **Week 2**: Add shutdown timeout (force kill after 30 seconds)
 3. **Week 3**: Test graceful shutdown in Kubernetes (terminationGracePeriodSeconds: 30)
 
 **Kubernetes Configuration**:
+
 ```yaml
 # deployment.yaml
 spec:
   template:
     spec:
-      terminationGracePeriodSeconds: 30  # Give server time to shut down
+      terminationGracePeriodSeconds: 30 # Give server time to shut down
       containers:
-      - name: game-server
-        lifecycle:
-          preStop:
-            exec:
-              command: ["/bin/sh", "-c", "sleep 5"]  # Allow load balancer to deregister
+        - name: game-server
+          lifecycle:
+            preStop:
+              exec:
+                command: ['/bin/sh', '-c', 'sleep 5'] # Allow load balancer to deregister
 ```
 
 **Affected Quality Goals**: Reliability, User Experience
@@ -800,6 +849,7 @@ spec:
 **Description**: Repository contains `.travis.yml` configured for Node.js 0.10 (EOL 2016). CI builds cannot run, no automated testing[^19].
 
 **Cost of Inaction**:
+
 - **No automated testing**: Changes not validated before merge
 - **High regression risk**: Manual testing insufficient
 - **Slow code review**: Reviewers must manually verify tests pass
@@ -807,14 +857,16 @@ spec:
 **Cost to Fix**: Low (1 day to migrate to GitHub Actions or update Travis config)
 
 **Evidence**: Outdated Travis configuration[^19]:
+
 ```yaml
 # .travis.yml lines 1-7
 language: node_js
 node_js:
-- '0.10'  # Node.js 0.10 EOL'd in October 2016
+  - '0.10' # Node.js 0.10 EOL'd in October 2016
 ```
 
 **Suggested Actions**:
+
 1. **Option A**: Migrate to GitHub Actions (recommended if using GitHub)
    ```yaml
    # .github/workflows/ci.yml
@@ -836,7 +888,7 @@ node_js:
    ```yaml
    language: node_js
    node_js:
-     - '18'  # LTS version
+     - '18' # LTS version
    script:
      - npm test
      - npm run lint
@@ -855,6 +907,7 @@ node_js:
 **Description**: Navigation and lobby handlers have no JSDoc comments. New developers cannot understand API contracts without reading implementation[^20].
 
 **Cost of Inaction**:
+
 - **Slow onboarding**: New developers must reverse-engineer API from code
 - **Misuse of APIs**: Incorrect parameter types or missing required fields
 - **Difficult maintenance**: Cannot understand intent without reading implementation
@@ -864,6 +917,7 @@ node_js:
 **Evidence**: 0 JSDoc comments in navigation.ts (107 lines)[^20].
 
 **Suggested Actions**:
+
 1. **Week 1**: Document handler interfaces
    ```typescript
    /**
@@ -893,6 +947,7 @@ node_js:
 ## 11.3 Risk and Debt Summary
 
 ### Immediate Action Required (Week 1)
+
 1. **R-1**: Add try/catch to tick cycle (prevent crashes)
 2. **R-2**: Move admin credentials to environment variables (security)
 3. **TD-1**: Add tests for critical paths (tick cycle, navigation, lobby)
@@ -900,18 +955,21 @@ node_js:
 5. **TD-5**: Add null checks to all handlers (13 locations)
 
 ### High Priority (Month 1)
+
 6. **R-3**: Implement TLS/SSL (wss://)
 7. **R-4**: Add input validation to navigation commands
 8. **TD-6**: Add health check and metrics endpoints
 9. **TD-7**: Implement graceful shutdown
 
 ### Medium Priority (Quarter 1)
+
 10. **R-5**: Add Connector/World health checks (split-brain prevention)
 11. **R-6**: Implement entity TTL/eviction policy
 12. **TD-2**: Decide fate of binary protocol (implement or remove)
 13. **TD-3**: Update outdated dependencies (35 packages)
 
 ### Low Priority (Technical Improvements)
+
 14. **R-7**: Handle action queue overflow gracefully
 15. **R-8**: Monitor Sylvester.js for maintenance issues
 16. **R-9**: Document disaster recovery plan (if transitioning to production)
@@ -919,6 +977,7 @@ node_js:
 18. **TD-9**: Add JSDoc API documentation
 
 ### Positive Findings (What's Working Well)
+
 - ✅ **Clean codebase**: Only 2 TODO comments found (minimal technical debt markers)
 - ✅ **Modern stack**: React 19, TypeScript 5.7, Redux Toolkit (recent versions)
 - ✅ **Good architecture**: Nx monorepo with clear separation of concerns
@@ -955,17 +1014,17 @@ Low      │    R-9 (No DR Plan)
 
 Prioritization based on cost to fix vs cost of inaction:
 
-| Item | Cost to Fix | Cost of Inaction | Priority | Timeframe |
-|------|-------------|------------------|----------|-----------|
-| TD-1 | Medium | Very High | 🔴 HIGH | Week 1-4 |
-| TD-4 | Low | High | 🔴 HIGH | Week 1 |
-| TD-5 | Low | High | 🔴 HIGH | Week 1 |
-| TD-6 | Low | Medium | 🟡 MEDIUM | Month 1 |
-| TD-7 | Low | Medium | 🟡 MEDIUM | Month 1 |
-| TD-2 | Low (remove) / High (implement) | Medium | 🟡 MEDIUM | Quarter 1 |
-| TD-3 | Medium | Medium | 🟡 MEDIUM | Quarter 1 |
-| TD-8 | Low | Low | 🟢 LOW | Quarter 2 |
-| TD-9 | Low | Low | 🟢 LOW | Quarter 2 |
+| Item | Cost to Fix                     | Cost of Inaction | Priority  | Timeframe |
+| ---- | ------------------------------- | ---------------- | --------- | --------- |
+| TD-1 | Medium                          | Very High        | 🔴 HIGH   | Week 1-4  |
+| TD-4 | Low                             | High             | 🔴 HIGH   | Week 1    |
+| TD-5 | Low                             | High             | 🔴 HIGH   | Week 1    |
+| TD-6 | Low                             | Medium           | 🟡 MEDIUM | Month 1   |
+| TD-7 | Low                             | Medium           | 🟡 MEDIUM | Month 1   |
+| TD-2 | Low (remove) / High (implement) | Medium           | 🟡 MEDIUM | Quarter 1 |
+| TD-3 | Medium                          | Medium           | 🟡 MEDIUM | Quarter 1 |
+| TD-8 | Low                             | Low              | 🟢 LOW    | Quarter 2 |
+| TD-9 | Low                             | Low              | 🟢 LOW    | Quarter 2 |
 
 ---
 
@@ -979,22 +1038,41 @@ Prioritization based on cost to fix vs cost of inaction:
 - **Section 10**: Quality requirements gaps mapped to risks/debt (SEC-2, REL-1, TEST-3, MAINT-3, OBS-3)
 
 [^1]: apps/game-server/src/app/src/timer.ts lines 11-15 - No try/catch blocks in tick cycle; Section 6 Runtime View line 262 documents crash risk
+
 [^2]: apps/game-server/src/config/adminUser.json contains plaintext credentials (admin/admin, monitor/monitor, test/test)
+
 [^3]: apps/game-server/src/config/adminServer.json line 4 contains hardcoded token: "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl29w4rxn"
+
 [^4]: apps/starship-mayflower-frontend/src/app/store/client.ts line 15 - WebSocket uses ws:// (plaintext) not wss:// (TLS)
+
 [^5]: apps/game-server/src/app/servers/world/handler/navigation.ts lines 25, 49, 71, 86, 102 - No input validation on targetSpeed, radian parameters
+
 [^6]: Missing null checks at navigation.ts lines 22-23, 46-47, 68-69, 83-84, 99-100; lobby.ts lines 16-19, 32-34, 116-120
+
 [^7]: Section 9 ADR-001 documents split-brain scenario in Consequences section; no health checks between Connector/World servers
+
 [^8]: apps/game-server/src/app/src/world/ShipRegistry.ts - Ships added via registerShip() but only removed manually via removePlayer()
+
 [^9]: apps/game-server/src/app/src/action/ActionQueue.ts lines 8-14 - push() returns false when full; timer.ts lines 21, 34 ignore return value
+
 [^10]: Section 9 ADR-006 documents Sylvester.js dependency; libs/util/src/lib/model/ObjectInSpace.ts uses sylvester-es6 for Vector/Matrix operations
+
 [^11]: Section 9 ADR-004 documents in-memory ephemeral state design decision; no backup configuration in codebase
+
 [^12]: Codebase analysis found 8 test files (6 unit/spec tests + 2 E2E test files) vs 81 TypeScript source files = 9.9% coverage
+
 [^13]: Section 9 ADR-003 documents empty dictionary files; apps/game-server/src/config/dictionary.json, clientProtos.json, serverProtos.json all contain empty {}
+
 [^14]: npm outdated analysis showed 35 packages with updates available; package.json shows three@0.135.0 (latest: 0.182.0), uuid@8.3.2 (latest: 13.0.0)
+
 [^15]: apps/starship-mayflower-frontend/src/app/store/client.ts line 15 hardcodes ws://localhost:10000; apps/game-server/src/config/servers.json hardcodes ports 3010, 3150, 3151
+
 [^16]: apps/game-server/src/app/servers/world/handler/navigation.ts - All 5 handlers call shipRegistry.getPlayer(playerId) and player.getShip().getId() without null checks
+
 [^17]: Searched entire codebase for /health, /readiness, /metrics endpoints - none found; no Prometheus or health check integration
+
 [^18]: Searched for process.on('SIGTERM') and process.on('SIGINT') - no graceful shutdown handlers found in apps/game-server/src/main.ts
+
 [^19]: .travis.yml lines 1-7 specify Node.js 0.10 (EOL October 2016); current Node.js LTS is 18.x/20.x
+
 [^20]: apps/game-server/src/app/servers/world/handler/navigation.ts (107 lines) has 0 JSDoc comments; apps/game-server/src/app/servers/world/handler/lobby.ts (187 lines) has 0 JSDoc comments

@@ -9,6 +9,7 @@ This section documents the most architecturally significant runtime scenarios th
 **Purpose**: Demonstrates the complete flow from player authentication through game joining, illustrating the distributed architecture (connector + world servers), session management, and the channel-based broadcasting pattern. This scenario addresses the **real-time responsiveness** and **maintainability** quality goals from section 1.2 by showing how the system maintains low-latency connections while supporting multiplayer coordination.
 
 **Participants**:
+
 - Frontend SPA (section 5.1, detailed in 5.3)
 - Game Server - Connector Server (section 5.2: Connector Server, Entry Handler)
 - Game Server - World Server (section 5.2: Lobby Handler)
@@ -78,6 +79,7 @@ sequenceDiagram
 **Purpose**: Illustrates the **action queue pattern** (section 4) that enables time-based command execution in the physics simulation. This scenario is critical to understanding how the system achieves the **real-time responsiveness quality goal** (100ms tick cycle, sub-second command response) from section 1.2 while maintaining synchronized game state across all clients.
 
 **Participants**:
+
 - Frontend SPA (section 5.3: GameServerClient, WebSocket Middleware)
 - Game Server - Navigation Handler (section 5.2)
 - Action System (section 5.2: ActionManager, ActionQueue)
@@ -159,6 +161,7 @@ sequenceDiagram
 **Purpose**: Documents the **heartbeat of the game server** that directly implements the 100ms tick cycle requirement from the **real-time responsiveness quality goal** (section 1.2). This scenario shows how the Timer component orchestrates action processing, physics simulation, and state broadcasting to maintain synchronized game state across all connected clients. Understanding this tick cycle is critical for comprehending the system's real-time behavior.
 
 **Participants**:
+
 - Timer/Tick (section 5.2)
 - Action System (section 5.2: ActionManager)
 - Physics Engine (section 5.2)
@@ -266,6 +269,7 @@ flowchart TD
 **Purpose**: Documents the system initialization sequence from process startup to ready-for-connections state, showing how the Pinus distributed framework bootstraps the connector and world servers. This scenario addresses the **technical debt** constraint from section 2 by making the initialization process explicit and maintainable.
 
 **Participants**:
+
 - Node.js Process
 - Pinus Framework
 - Connector Server (section 5.2)
@@ -361,11 +365,11 @@ flowchart TD
    - Enable protobuf serialization (useProtobuf) for binary efficiency[^23]
 
 4. **Handler and Remote Loading** (~200ms):
-   - Pinus scans servers/*/handler/ directories for RPC handlers
+   - Pinus scans servers/\*/handler/ directories for RPC handlers
    - Entry handler registered: connector.entry.entry(), connector.entry.view()
-   - Lobby handler registered: world.lobby.* methods (joinShip, takeStation, etc.)
-   - Navigation handler registered: world.navigation.* methods (setImpulseSpeed, turn, etc.)
-   - Game handler registered: world.game.* methods (start, getWorld)
+   - Lobby handler registered: world.lobby.\* methods (joinShip, takeStation, etc.)
+   - Navigation handler registered: world.navigation.\* methods (setImpulseSpeed, turn, etc.)
+   - Game handler registered: world.game.\* methods (start, getWorld)
    - Player remote registered: world.player.playerLeave() RPC[^24]
 
 5. **Channel Service Initialization** (~10ms):
@@ -385,6 +389,7 @@ flowchart TD
    - Note: Timer NOT started until game.start() called from lobby[^27]
 
 **Deferred Initialization**:
+
 - 10 Hz tick cycle only begins when lobby.startGame() is called
 - Allows players to join, create ships, assign stations before simulation starts
 - Prevents unnecessary CPU usage when server is idle
@@ -404,6 +409,7 @@ flowchart TD
 **Purpose**: Documents critical error handling scenarios for connection failures, demonstrating the system's resilience and graceful degradation behavior. This scenario addresses the **operational reliability** implied by the real-time responsiveness quality goal from section 1.2, showing how the system prevents state corruption when clients disconnect unexpectedly.
 
 **Participants**:
+
 - Frontend SPA (section 5.3: GameServerClient, WebSocket Middleware)
 - Connector Server (section 5.2)
 - Entry Handler (section 5.2)
@@ -556,55 +562,107 @@ sequenceDiagram
 > **Note**: This section documents architecturally significant scenarios only. Additional operational scenarios (ship combat, station management, warp transitions) follow similar patterns documented here. For complete operational procedures, see game design documentation and user guides.
 
 [^1]: Entry handler in apps/game-server/src/app/servers/connector/handler/entry.ts:13-35; lobby handler in apps/game-server/src/app/servers/world/handler/lobby.ts:8-175; Pinus RPC routing documented in section 4 solution strategy
+
 [^2]: PlayerId generation in entry.ts:14-15 uses format `${app.getServerId()}-${playerId++}`; minimal authentication noted in section 5.3 Frontend SPA decomposition
+
 [^3]: Channel broadcasting in apps/game-server/src/app/src/channel.ts:11-36; pushToShip() line 11, pushToLobby() line 28
+
 [^4]: Session closed handler in entry.ts:19-27 triggers app.rpc.world.player.playerLeave() RPC call
+
 [^5]: Session binding in entry.ts:16-18; subsequent handlers access playerId via session.get('playerId')
+
 [^6]: Station assignment validation in lobby.ts:128-133; ship.takeStation() returns boolean, error response on failure
+
 [^7]: Navigation handler in apps/game-server/src/app/servers/world/handler/navigation.ts:13-35 returns immediately after queuing action
+
 [^8]: Singleton action handling in apps/game-server/src/app/src/action/actionManager.ts:19-20 calls abortAction() before adding
+
 [^9]: Action update with time delta in actionManager.ts:64 passes elapsed time to action.update(seconds); accelerate action in apps/game-server/src/app/src/action/accelerate.ts:36-48 uses this for physics
+
 [^10]: Fuel burning in accelerate.ts:40 calculates fuel consumption based on elapsed time
+
 [^11]: Tick cycle in apps/game-server/src/app/src/timer.ts:11-15 calls sendUpdates() every 100ms regardless of activity
+
 [^12]: Warp energy depletion in apps/game-server/src/app/src/physics.ts:127-138 clamps timeslice when energy insufficient
+
 [^13]: ActionQueue capacity check in apps/game-server/src/app/src/action/ActionQueue.ts:8-14; actionManager.ts:26 doesn't validate return value
+
 [^14]: Timer initialization in timer.ts:6-9 uses setInterval(tick, 100) with no error handling
+
 [^15]: Tick function in timer.ts:11-15 executes three steps in fixed order: actionManager.update(), moveShips(), sendUpdates()
+
 [^16]: Physics calculations in physics.ts:140 use actual elapsed seconds: `position = position.add(velocity.x(seconds))`
+
 [^17]: Matrix orthonormalization in physics.ts:14-31 corrects floating-point errors in rotation matrices
+
 [^18]: Energy management in physics.ts:131-136 sets energy to 0 and clamps timeslice when energy depleted
+
 [^19]: Broadcasting in apps/game-server/src/app/src/game.ts:76 uses pushToShip for targeted updates; global broadcast in channel.ts:33-36
+
 [^20]: No try/catch blocks in timer.ts or tick-related code; exceptions would crash Node.js process
-[^21]: Pinus initialization in apps/game-server/src/main.ts:7 calls pinus.createApp({ base: __dirname })
+
+[^21]: Pinus initialization in apps/game-server/src/main.ts:7 calls pinus.createApp({ base: \_\_dirname })
+
 [^22]: Server topology in apps/game-server/src/config/servers.json lines 1-26; connector definition lines 3-10, world definition line 12
+
 [^23]: Connector configuration in main.ts:11-18; hybrid connector, heartbeat 3s, useDict and useProtobuf enabled
-[^24]: Handler loading automatic via Pinus framework; handlers in apps/game-server/src/app/servers/*/handler/*.ts; remote in servers/world/remote/player.ts
+
+[^24]: Handler loading automatic via Pinus framework; handlers in apps/game-server/src/app/servers/_/handler/_.ts; remote in servers/world/remote/player.ts
+
 [^25]: Channel service built into Pinus framework; usage in channel.ts:11-36
+
 [^26]: Port binding configured in servers.json; connector clientPort 3010 line 6, internal port 3150 line 7; world port 3151 line 12
+
 [^27]: Game initialization in apps/game-server/src/app/src/game.ts:12-38; timer.run() not called until game.start() invoked from lobby
+
 [^28]: Configuration files in apps/game-server/src/config/servers.json (topology), clientProtos.json (protobuf schemas), serverProtos.json (RPC schemas)
-[^29]: Pinus auto-discovery documented in framework documentation; handlers registered by scanning servers/*/handler/ directories
+
+[^29]: Pinus auto-discovery documented in framework documentation; handlers registered by scanning servers/\*/handler/ directories
+
 [^30]: Binary protocol configuration in main.ts:15-16; useProtobuf and useDict enable efficient serialization per section 4 solution strategy
+
 [^31]: Lazy timer initialization in game.ts:49-54; timer.run(actionManager) only called when game.start() invoked
+
 [^32]: Single-process distribution enabled by Pinus framework; servers.json configures topology per environment
+
 [^33]: No health check endpoint found in codebase; would require explicit implementation in handlers
+
 [^34]: No signal handlers in main.ts; process exits without cleanup on SIGTERM/SIGINT
+
 [^35]: Session closed event in entry.ts:19-27; Pinus session emits 'closed' when connection drops
+
 [^36]: Player removal RPC in entry.ts:21-25 calls app.rpc.world.player.playerLeave(); implementation in apps/game-server/src/app/servers/world/remote/player.ts:3-7
+
 [^37]: No action abort on disconnect; queued actions continue in actionManager until finished
+
 [^38]: Client-side error handling in apps/starship-mayflower-frontend/src/app/store/client.ts:23-25; emits 'connectionError' event
+
 [^39]: Middleware handling in apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts:11-12 dispatches connectionError() action
+
 [^40]: Reconnection requires new authentication in entry.ts:13-35; no session persistence or resume capability
+
 [^41]: Unauthenticated access check in lobby.ts:16-18, 32-34, 56-57; returns {code: 'ERR', msg: 'User not logged in'}
+
 [^42]: Ship not found error in lobby.ts:42-45; calls next(new Error('Unknown ship'), ...)
+
 [^43]: Station occupied error in lobby.ts:128-133; calls next(new Error('Position already taken'), ...)
+
 [^44]: Energy depletion handling in physics.ts:131-136; clamps timeslice when energy insufficient
+
 [^45]: Position clipping in physics.ts:50-60 and 142; constrains coordinates to [0, PlayingFieldLength]
+
 [^46]: Queue overflow in ActionQueue.ts:8-14 returns false; actionManager.ts:26 doesn't check return value
+
 [^47]: Session closed handler in entry.ts:19-27 ensures cleanup; prevents ghost players
+
 [^48]: No automatic reconnection logic in client.ts; requires manual user action
+
 [^49]: New playerId assigned on reconnection in entry.ts:14-15; no session persistence
+
 [^50]: No disconnect detection in action processing; actions continue executing after player disconnect
+
 [^51]: Action queue overflow returns false but not propagated to client; silent command drop
+
 [^52]: No retry logic in websocketMiddleware.ts or client.ts; errors require manual reconnection
+
 [^53]: Heartbeat configured in main.ts:14 with 3-second interval; disconnections detected within 3-6 seconds
