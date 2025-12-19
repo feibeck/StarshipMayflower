@@ -4,6 +4,8 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
 
 export default tseslint.config(
   js.configs.recommended,
@@ -83,6 +85,16 @@ export default tseslint.config(
       // General Rules
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
+    },
+  },
+  prettierConfig,
+  {
+    files: ['**/*.{ts,tsx,js,jsx}'],
+    plugins: {
+      prettier: prettierPlugin,
+    },
+    rules: {
+      'prettier/prettier': 'error',
     },
   },
   {

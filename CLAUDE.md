@@ -56,7 +56,9 @@ nx dep-graph         # Dependency-Graph anzeigen
 
   ```bash
   yarn type-check    # TypeScript-Prüfung
-  yarn lint          # Linting
+  yarn lint          # Linting + Prettier
+  yarn format:check  # Nur Prettier-Check
+  yarn format        # Code formatieren
   yarn test          # Unit Tests
   ```
 
@@ -64,6 +66,7 @@ nx dep-graph         # Dependency-Graph anzeigen
   - **VOR jedem Commit**: Alle QA-Tools laufen lassen
   - **VOR jeder Erfolgsmeldung**: Alle QA-Tools testen
   - Niemals Code committen oder als "fertig" melden ohne vorherige QA-Prüfung
+  - Code automatisch formatieren mit `yarn format`
 
 - **Clean Code Prinzipien**:
   - Kleine Methoden (Single Responsibility)

@@ -1,4 +1,16 @@
-# Add files here to ignore them from prettier formatting
+# Build outputs
+dist
+build
+coverage
+.nx
 
-/dist
-/coverage
+# Dependencies
+node_modules
+
+# Legacy code
+web-server
+game-server
+
+# Generated files
+*.min.js
+*.bundle.js
