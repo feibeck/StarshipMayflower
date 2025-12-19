@@ -52,7 +52,7 @@ export class Compass {
 
     if (this.xyGroup) {
       this.xyGroup.position = this.xyGroup.position.subtract(
-        this.currentPitchVector
+        this.currentPitchVector,
       );
       this.xyGroup.position = this.xyGroup.position.add(moveVector);
     }
@@ -120,7 +120,7 @@ export class Compass {
             ],
           ],
           strokeColor: color,
-        })
+        }),
       );
 
       if (i % 20 === 0) {
@@ -133,7 +133,7 @@ export class Compass {
             content: -i + '°',
             fillColor: color,
             fontSize: 9,
-          })
+          }),
         );
       }
     }
@@ -145,7 +145,7 @@ export class Compass {
           [this.scope.view.center.x + 100, this.scope.view.center.y],
         ],
         strokeColor: '#c0c0c0',
-      })
+      }),
     );
 
     this.xyGroup = new paper.Group({
@@ -163,7 +163,7 @@ export class Compass {
       new Point(this.scope.view.center.x - 5, this.scope.view.center.y),
       new Point(this.scope.view.center.x, this.scope.view.center.y + 5),
       new Point(this.scope.view.center.x + 5, this.scope.view.center.y),
-      new Point(this.scope.view.center.x + 15, this.scope.view.center.y)
+      new Point(this.scope.view.center.x + 15, this.scope.view.center.y),
     );
   }
 
@@ -197,7 +197,7 @@ export class Compass {
             [px2, py2],
           ],
           strokeColor: color,
-        })
+        }),
       );
 
       if (i % 20 === 0) {

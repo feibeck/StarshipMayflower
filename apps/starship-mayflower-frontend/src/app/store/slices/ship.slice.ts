@@ -124,7 +124,7 @@ export const shipSlice = createSlice({
         position: [number, number, number];
         orientation: number[][];
         velocity?: [number, number, number];
-      }>
+      }>,
     ) => {
       state.position = action.payload.position;
       state.orientation = action.payload.orientation;
@@ -145,7 +145,7 @@ export const shipSlice = createSlice({
         warpLevel?: number;
         warp?: boolean;
         slowImpulse?: boolean;
-      }>
+      }>,
     ) => {
       Object.assign(state, action.payload);
       state.lastUpdate = Date.now();
@@ -170,7 +170,7 @@ export const shipSlice = createSlice({
     // Rotation (for optimistic updates)
     rotate: (
       state,
-      action: PayloadAction<{ axis: 'yaw' | 'pitch' | 'roll'; arc: number }>
+      action: PayloadAction<{ axis: 'yaw' | 'pitch' | 'roll'; arc: number }>,
     ) => {
       // This is for optimistic UI updates
       // Actual rotation is calculated by server
@@ -186,7 +186,7 @@ export const shipSlice = createSlice({
     // Damage
     takeDamage: (
       state,
-      action: PayloadAction<{ shields?: number; hull?: number }>
+      action: PayloadAction<{ shields?: number; hull?: number }>,
     ) => {
       if (action.payload.shields !== undefined) {
         state.shields = Math.max(0, state.shields - action.payload.shields);
@@ -200,22 +200,28 @@ export const shipSlice = createSlice({
     // Systems
     updateSystemPower: (
       state,
-      action: PayloadAction<{ system: keyof ShipState['systemsPower']; power: number }>
+      action: PayloadAction<{
+        system: keyof ShipState['systemsPower'];
+        power: number;
+      }>,
     ) => {
       state.systemsPower[action.payload.system] = Math.max(
         0,
-        Math.min(100, action.payload.power)
+        Math.min(100, action.payload.power),
       );
       state.lastUpdate = Date.now();
     },
 
     updateSystemHealth: (
       state,
-      action: PayloadAction<{ system: keyof ShipState['systemsHealth']; health: number }>
+      action: PayloadAction<{
+        system: keyof ShipState['systemsHealth'];
+        health: number;
+      }>,
     ) => {
       state.systemsHealth[action.payload.system] = Math.max(
         0,
-        Math.min(100, action.payload.health)
+        Math.min(100, action.payload.health),
       );
       state.lastUpdate = Date.now();
     },
@@ -223,12 +229,15 @@ export const shipSlice = createSlice({
     // Repair
     repairSystem: (
       state,
-      action: PayloadAction<{ system: keyof ShipState['systemsHealth']; amount: number }>
+      action: PayloadAction<{
+        system: keyof ShipState['systemsHealth'];
+        amount: number;
+      }>,
     ) => {
       const current = state.systemsHealth[action.payload.system];
       state.systemsHealth[action.payload.system] = Math.min(
         100,
-        current + action.payload.amount
+        current + action.payload.amount,
       );
       state.lastUpdate = Date.now();
     },
@@ -261,29 +270,26 @@ export const {
 export const getShipState = (rootState: RootState): ShipState =>
   rootState[SHIP_FEATURE_KEY];
 
-export const selectShipId = createSelector(
-  getShipState,
-  (state) => state.id
-);
+export const selectShipId = createSelector(getShipState, (state) => state.id);
 
 export const selectShipName = createSelector(
   getShipState,
-  (state) => state.name
+  (state) => state.name,
 );
 
 export const selectPosition = createSelector(
   getShipState,
-  (state) => state.position
+  (state) => state.position,
 );
 
 export const selectOrientation = createSelector(
   getShipState,
-  (state) => state.orientation
+  (state) => state.orientation,
 );
 
 export const selectVelocity = createSelector(
   getShipState,
-  (state) => state.velocity
+  (state) => state.velocity,
 );
 
 export const selectNavigationState = createSelector(getShipState, (state) => ({
@@ -298,42 +304,39 @@ export const selectNavigationState = createSelector(getShipState, (state) => ({
 
 export const selectEnergy = createSelector(
   getShipState,
-  (state) => state.energy
+  (state) => state.energy,
 );
 
 export const selectEnergyPercent = createSelector(
   getShipState,
-  (state) => (state.energy / state.maxEnergy) * 100
+  (state) => (state.energy / state.maxEnergy) * 100,
 );
 
 export const selectShields = createSelector(
   getShipState,
-  (state) => state.shields
+  (state) => state.shields,
 );
 
 export const selectShieldsPercent = createSelector(
   getShipState,
-  (state) => (state.shields / state.maxShields) * 100
+  (state) => (state.shields / state.maxShields) * 100,
 );
 
-export const selectHull = createSelector(
-  getShipState,
-  (state) => state.hull
-);
+export const selectHull = createSelector(getShipState, (state) => state.hull);
 
 export const selectHullPercent = createSelector(
   getShipState,
-  (state) => (state.hull / state.maxHull) * 100
+  (state) => (state.hull / state.maxHull) * 100,
 );
 
 export const selectSystemsPower = createSelector(
   getShipState,
-  (state) => state.systemsPower
+  (state) => state.systemsPower,
 );
 
 export const selectSystemsHealth = createSelector(
   getShipState,
-  (state) => state.systemsHealth
+  (state) => state.systemsHealth,
 );
 
 export const selectSystemPower = (system: keyof ShipState['systemsPower']) =>
@@ -344,12 +347,12 @@ export const selectSystemHealth = (system: keyof ShipState['systemsHealth']) =>
 
 export const selectIsDestroyed = createSelector(
   getShipState,
-  (state) => state.hull <= 0
+  (state) => state.hull <= 0,
 );
 
 export const selectIsCritical = createSelector(
   getShipState,
-  (state) => state.hull < 20 || state.energy < 100
+  (state) => state.hull < 20 || state.energy < 100,
 );
 
 export const selectSpeed = createSelector(getShipState, (state) => {
@@ -361,5 +364,5 @@ export const selectSpeed = createSelector(getShipState, (state) => {
 
 export const selectShipLastUpdate = createSelector(
   getShipState,
-  (state) => state.lastUpdate
+  (state) => state.lastUpdate,
 );

@@ -21,5 +21,5 @@ root.render(
         <App />
       </BrowserRouter>
     </StrictMode>
-  </Provider>
+  </Provider>,
 );

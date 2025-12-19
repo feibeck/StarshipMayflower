@@ -87,7 +87,10 @@ export const worldSlice = createSlice({
     },
 
     // World update (planets, stars, stations)
-    worldUpdate: (state, action: PayloadAction<{ objects: SpaceObjectData[] }>) => {
+    worldUpdate: (
+      state,
+      action: PayloadAction<{ objects: SpaceObjectData[] }>,
+    ) => {
       state.objects = action.payload.objects;
       state.lastUpdate = Date.now();
     },
@@ -132,9 +135,8 @@ export const {
 export const getWorldState = (rootState: RootState): WorldState =>
   rootState[WORLD_FEATURE_KEY];
 
-export const selectWorldShips = createSelector(
-  getWorldState,
-  (state) => Object.values(state.ships)
+export const selectWorldShips = createSelector(getWorldState, (state) =>
+  Object.values(state.ships),
 );
 
 export const selectShipById = (shipId: string) =>
@@ -142,17 +144,17 @@ export const selectShipById = (shipId: string) =>
 
 export const selectObjects = createSelector(
   getWorldState,
-  (state) => state.objects
+  (state) => state.objects,
 );
 
 export const selectObjectById = (objectId: string) =>
   createSelector(getWorldState, (state) =>
-    state.objects.find((obj) => obj.id === objectId)
+    state.objects.find((obj) => obj.id === objectId),
   );
 
 export const selectAllSpaceObjects = createSelector(
   [selectWorldShips, selectObjects],
-  (ships, objects) => [...ships, ...objects]
+  (ships, objects) => [...ships, ...objects],
 );
 
 export const selectTarget = createSelector(getWorldState, (state) => {
@@ -168,35 +170,35 @@ export const selectTarget = createSelector(getWorldState, (state) => {
 
 export const selectTargetId = createSelector(
   getWorldState,
-  (state) => state.targetId
+  (state) => state.targetId,
 );
 
 export const selectWorldLastUpdate = createSelector(
   getWorldState,
-  (state) => state.lastUpdate
+  (state) => state.lastUpdate,
 );
 
 // Helper selectors for specific object types
 export const selectPlanets = createSelector(selectObjects, (objects) =>
-  objects.filter((obj) => obj.type === 'planet')
+  objects.filter((obj) => obj.type === 'planet'),
 );
 
 export const selectStars = createSelector(selectObjects, (objects) =>
-  objects.filter((obj) => obj.type === 'star')
+  objects.filter((obj) => obj.type === 'star'),
 );
 
 export const selectStations = createSelector(selectObjects, (objects) =>
-  objects.filter((obj) => obj.type === 'station')
+  objects.filter((obj) => obj.type === 'station'),
 );
 
 export const selectAsteroids = createSelector(selectObjects, (objects) =>
-  objects.filter((obj) => obj.type === 'asteroid')
+  objects.filter((obj) => obj.type === 'asteroid'),
 );
 
 // Distance calculations
 export function calculateDistance(
   pos1: [number, number, number],
-  pos2: [number, number, number]
+  pos2: [number, number, number],
 ): number {
   const dx = pos1[0] - pos2[0];
   const dy = pos1[1] - pos2[1];
@@ -207,7 +209,7 @@ export function calculateDistance(
 // Selector for nearest objects to a position
 export const selectNearestObjects = (
   position: [number, number, number],
-  limit = 10
+  limit = 10,
 ) =>
   createSelector(selectAllSpaceObjects, (objects) => {
     return objects

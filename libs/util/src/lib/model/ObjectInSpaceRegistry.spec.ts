@@ -83,7 +83,7 @@ describe('Object registry', () => {
 
     assertObjectListIdentity(
       registry.getSurroundings(new Vector([0, 0, 0]), 1),
-      [registry.getObject('a') as ObjectInSpace]
+      [registry.getObject('a') as ObjectInSpace],
     );
 
     assertObjectListIdentity(
@@ -92,7 +92,7 @@ describe('Object registry', () => {
         registry.getObject('a') as ObjectInSpace,
         registry.getObject('b') as ObjectInSpace,
         registry.getObject('c') as ObjectInSpace,
-      ]
+      ],
     );
 
     assertObjectListIdentity(
@@ -101,12 +101,12 @@ describe('Object registry', () => {
         registry.getObject('c') as ObjectInSpace,
         registry.getObject('b') as ObjectInSpace,
         registry.getObject('d') as ObjectInSpace,
-      ]
+      ],
     );
 
     assertObjectListIdentity(
       registry.getSurroundings(new Vector([0, 2.5, 0]), 0.25),
-      []
+      [],
     );
   });
 });

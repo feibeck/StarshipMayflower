@@ -9,5 +9,5 @@ module.exports = composePlugins(
   (config) => {
     // Add any custom webpack configuration here
     return config;
-  }
+  },
 );

@@ -64,7 +64,7 @@ export function collides(o1: ObjectInSpace, o2: ObjectInSpace): boolean {
 export function collidesWithLine(
   o: ObjectInSpace,
   base: Vector,
-  direction: Vector
+  direction: Vector,
 ): boolean {
   switch (o.getVolume().type) {
     case 'POINT':
@@ -90,7 +90,7 @@ function collidesBoxPoint(_box: ObjectInSpace, _point: ObjectInSpace): boolean {
 
 function collidesBoxSphere(
   _box: ObjectInSpace,
-  _sphere: ObjectInSpace
+  _sphere: ObjectInSpace,
 ): boolean {
   throw new Error('box-sphere collisions not implemented');
 }
@@ -117,7 +117,7 @@ function collidesSphereSphere(sphere1: ObjectInSpace, sphere2: ObjectInSpace) {
 function sphereCollidesWithLine(
   sphere: ObjectInSpace,
   base: Vector,
-  direction: Vector
+  direction: Vector,
 ) {
   const pos = sphere.getPosition(),
     d = pos.subtract(base),
@@ -132,7 +132,7 @@ function sphereCollidesWithLine(
 function boxCollidesWithLine(
   _sphere: ObjectInSpace,
   _base: Vector,
-  _direction: Vector
+  _direction: Vector,
 ): boolean {
   throw new Error('collisions line - box not implemented');
 }

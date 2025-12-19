@@ -10,7 +10,7 @@ export class Timer {
   constructor(
     private actionManager: ActionManager,
     private moveShips: () => void,
-    private sendUpdates: () => void
+    private sendUpdates: () => void,
   ) {}
 
   /**

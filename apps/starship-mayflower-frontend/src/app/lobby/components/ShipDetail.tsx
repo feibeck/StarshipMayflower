@@ -121,7 +121,9 @@ export const ShipDetail: React.FC<ShipDetailProps> = ({
   onReleaseStation,
   onToggleReady,
 }) => {
-  const [loadingStations, setLoadingStations] = useState<Set<string>>(new Set());
+  const [loadingStations, setLoadingStations] = useState<Set<string>>(
+    new Set(),
+  );
   const [isTogglingReady, setIsTogglingReady] = useState(false);
 
   const getStationStatus = (stationName: string): StationStatus => {
@@ -173,7 +175,7 @@ export const ShipDetail: React.FC<ShipDetailProps> = ({
 
   const playerCount = ship.players?.length || 0;
   const takenStationsCount = STATIONS.filter(
-    (s) => ship.stations?.[s.name] !== null
+    (s) => ship.stations?.[s.name] !== null,
   ).length;
   const canBeReady = myStations.length > 0;
 
@@ -228,7 +230,9 @@ export const ShipDetail: React.FC<ShipDetailProps> = ({
               : 'Ready to Play'}
         </ReadyButton>
         {!canBeReady && (
-          <ReadyInfo>You must select at least one station to be ready</ReadyInfo>
+          <ReadyInfo>
+            You must select at least one station to be ready
+          </ReadyInfo>
         )}
         {canBeReady && !isReady && (
           <ReadyInfo>Click when you're ready to start the game</ReadyInfo>

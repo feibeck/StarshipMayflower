@@ -50,17 +50,25 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
     const username = selectUsername(state);
     const shipData = payload as unknown;
 
-    storeApi.dispatch(updateCurrentShip(shipData as Parameters<typeof updateCurrentShip>[0]));
+    storeApi.dispatch(
+      updateCurrentShip(shipData as Parameters<typeof updateCurrentShip>[0]),
+    );
 
     // Track which station the current user took
-    if (username && shipData && typeof shipData === 'object' && 'stations' in shipData) {
-      const stations = (shipData as { stations: Record<string, unknown> }).stations;
+    if (
+      username &&
+      shipData &&
+      typeof shipData === 'object' &&
+      'stations' in shipData
+    ) {
+      const stations = (shipData as { stations: Record<string, unknown> })
+        .stations;
       const takenStations = Object.entries(stations)
         .filter(([_, playerName]) => playerName === username)
         .map(([stationName]) => stationName);
 
       // Update local myStations for each one the user has
-      takenStations.forEach(stationName => {
+      takenStations.forEach((stationName) => {
         storeApi.dispatch(takeStation(stationName));
       });
     }
@@ -72,21 +80,29 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
     const currentMyStations = state.lobby.myStations;
     const shipData = payload as unknown;
 
-    storeApi.dispatch(updateCurrentShip(shipData as Parameters<typeof updateCurrentShip>[0]));
+    storeApi.dispatch(
+      updateCurrentShip(shipData as Parameters<typeof updateCurrentShip>[0]),
+    );
 
     // Track which station was released by checking what the user had before
-    if (username && shipData && typeof shipData === 'object' && 'stations' in shipData) {
-      const stations = (shipData as { stations: Record<string, unknown> }).stations;
+    if (
+      username &&
+      shipData &&
+      typeof shipData === 'object' &&
+      'stations' in shipData
+    ) {
+      const stations = (shipData as { stations: Record<string, unknown> })
+        .stations;
       const takenStations = Object.entries(stations)
         .filter(([_, playerName]) => playerName === username)
         .map(([stationName]) => stationName);
 
       // Find stations the user released (were in myStations but not anymore)
       const releasedStations = currentMyStations.filter(
-        station => !takenStations.includes(station)
+        (station) => !takenStations.includes(station),
       );
 
-      releasedStations.forEach(stationName => {
+      releasedStations.forEach((stationName) => {
         storeApi.dispatch(releaseStation(stationName));
       });
     }
@@ -100,12 +116,14 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
   // World events
   gameClient.on('GlobalUpdate', (payload: unknown) => {
     storeApi.dispatch(
-      globalUpdate(payload as Parameters<typeof globalUpdate>[0])
+      globalUpdate(payload as Parameters<typeof globalUpdate>[0]),
     );
   });
 
   gameClient.on('WorldUpdate', (payload: unknown) => {
-    storeApi.dispatch(worldUpdate(payload as Parameters<typeof worldUpdate>[0]));
+    storeApi.dispatch(
+      worldUpdate(payload as Parameters<typeof worldUpdate>[0]),
+    );
   });
 
   // Ship events
@@ -123,7 +141,7 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
           position: shipData.position,
           orientation: shipData.orientation,
           velocity: shipData.velocity,
-        })
+        }),
       );
       storeApi.dispatch(
         updateNavigation({
@@ -134,7 +152,7 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
           warpLevel: shipData.warpLevel,
           warp: shipData.warp,
           slowImpulse: shipData.slowImpulse,
-        })
+        }),
       );
     }
   });

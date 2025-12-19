@@ -11,7 +11,10 @@ export function IntegrationTest() {
   const [username, setUsername] = useState<string>('TestUser');
 
   const addEvent = (event: string) => {
-    setEvents((prev) => [...prev, `${new Date().toLocaleTimeString()}: ${event}`]);
+    setEvents((prev) => [
+      ...prev,
+      `${new Date().toLocaleTimeString()}: ${event}`,
+    ]);
   };
 
   useEffect(() => {
@@ -103,11 +106,28 @@ export function IntegrationTest() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'monospace', maxWidth: '1200px', margin: '0 auto' }}>
+    <div
+      style={{
+        padding: '20px',
+        fontFamily: 'monospace',
+        maxWidth: '1200px',
+        margin: '0 auto',
+      }}
+    >
       <h1>🧪 Integration Test</h1>
 
-      <div style={{ marginBottom: '20px', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '5px' }}>
-        <strong>Status:</strong> <span style={{ color: status === 'Connected' ? 'green' : 'red' }}>{status}</span>
+      <div
+        style={{
+          marginBottom: '20px',
+          padding: '10px',
+          backgroundColor: '#f0f0f0',
+          borderRadius: '5px',
+        }}
+      >
+        <strong>Status:</strong>{' '}
+        <span style={{ color: status === 'Connected' ? 'green' : 'red' }}>
+          {status}
+        </span>
       </div>
 
       <div style={{ marginBottom: '20px' }}>
@@ -124,7 +144,11 @@ export function IntegrationTest() {
           <button
             onClick={handleLogin}
             disabled={status !== 'Connected'}
-            style={{ padding: '8px 16px', marginRight: '10px', cursor: status === 'Connected' ? 'pointer' : 'not-allowed' }}
+            style={{
+              padding: '8px 16px',
+              marginRight: '10px',
+              cursor: status === 'Connected' ? 'pointer' : 'not-allowed',
+            }}
           >
             🔐 Login
           </button>
@@ -134,14 +158,21 @@ export function IntegrationTest() {
           <button
             onClick={handleListShips}
             disabled={status !== 'Connected'}
-            style={{ padding: '8px 16px', marginRight: '10px', cursor: status === 'Connected' ? 'pointer' : 'not-allowed' }}
+            style={{
+              padding: '8px 16px',
+              marginRight: '10px',
+              cursor: status === 'Connected' ? 'pointer' : 'not-allowed',
+            }}
           >
             📋 List Ships
           </button>
           <button
             onClick={handleCreateShip}
             disabled={status !== 'Connected'}
-            style={{ padding: '8px 16px', cursor: status === 'Connected' ? 'pointer' : 'not-allowed' }}
+            style={{
+              padding: '8px 16px',
+              cursor: status === 'Connected' ? 'pointer' : 'not-allowed',
+            }}
           >
             ➕ Create Ship
           </button>
@@ -150,7 +181,14 @@ export function IntegrationTest() {
         <div>
           <button
             onClick={clearEvents}
-            style={{ padding: '8px 16px', backgroundColor: '#ff6b6b', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#ff6b6b',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
           >
             🗑️ Clear Log
           </button>
@@ -176,7 +214,14 @@ export function IntegrationTest() {
             <div style={{ color: '#888' }}>No events yet...</div>
           ) : (
             events.map((event, index) => (
-              <div key={index} style={{ marginBottom: '8px', borderBottom: '1px solid #333', paddingBottom: '8px' }}>
+              <div
+                key={index}
+                style={{
+                  marginBottom: '8px',
+                  borderBottom: '1px solid #333',
+                  paddingBottom: '8px',
+                }}
+              >
                 {event}
               </div>
             ))
@@ -184,11 +229,24 @@ export function IntegrationTest() {
         </div>
       </div>
 
-      <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#e8f4f8', borderRadius: '5px' }}>
+      <div
+        style={{
+          marginTop: '30px',
+          padding: '15px',
+          backgroundColor: '#e8f4f8',
+          borderRadius: '5px',
+        }}
+      >
         <h3>ℹ️ Info</h3>
-        <p><strong>Server:</strong> ws://localhost:10000</p>
-        <p><strong>Handlers Available:</strong> auth, lobby, navigation, game</p>
-        <p><strong>Test Sequence:</strong></p>
+        <p>
+          <strong>Server:</strong> ws://localhost:10000
+        </p>
+        <p>
+          <strong>Handlers Available:</strong> auth, lobby, navigation, game
+        </p>
+        <p>
+          <strong>Test Sequence:</strong>
+        </p>
         <ol>
           <li>Wait for connection (should auto-connect)</li>
           <li>Click "Login" to authenticate</li>

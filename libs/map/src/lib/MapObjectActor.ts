@@ -21,7 +21,7 @@ export class MapObjectActor extends MapObjectBase {
 
     this.mesh = new THREE.Mesh(
       new THREE.BoxGeometry(5, 5, 5),
-      new THREE.MeshBasicMaterial({ color: color })
+      new THREE.MeshBasicMaterial({ color: color }),
     );
 
     if (this.options.orientation) {
@@ -29,21 +29,21 @@ export class MapObjectActor extends MapObjectBase {
         new THREE.Vector3(0, 0, 1),
         new THREE.Vector3(0, 0, 0),
         10,
-        'blue'
+        'blue',
       );
 
       this.shipArrowX = new THREE.ArrowHelper(
         new THREE.Vector3(1, 0, 0),
         new THREE.Vector3(0, 0, 0),
         10,
-        'red'
+        'red',
       );
 
       this.shipArrowY = new THREE.ArrowHelper(
         new THREE.Vector3(0, 1, 0),
         new THREE.Vector3(0, 0, 0),
         10,
-        'green'
+        'green',
       );
     }
 
@@ -55,7 +55,7 @@ export class MapObjectActor extends MapObjectBase {
 
     this.objectProjectionLine = new THREE.Line(
       geometry,
-      new THREE.LineBasicMaterial({ color: color })
+      new THREE.LineBasicMaterial({ color: color }),
     );
 
     // TODO: Old Code, check what id did and if it needs to be

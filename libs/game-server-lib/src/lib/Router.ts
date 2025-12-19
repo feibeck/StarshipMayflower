@@ -13,7 +13,7 @@ export class Router {
     return this.handler[message.handler as string].handle(
       session,
       message,
-      channel
+      channel,
     );
   }
 

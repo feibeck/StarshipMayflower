@@ -104,9 +104,13 @@ export const lobbySlice = createSlice({
     },
 
     // Station management
-    stationTaken: (state, action: PayloadAction<{ position: string; player: Player }>) => {
+    stationTaken: (
+      state,
+      action: PayloadAction<{ position: string; player: Player }>,
+    ) => {
       if (state.currentShip) {
-        state.currentShip.stations[action.payload.position] = action.payload.player;
+        state.currentShip.stations[action.payload.position] =
+          action.payload.player;
       }
     },
 
@@ -175,27 +179,27 @@ export const getLobbyState = (rootState: RootState): LobbyState =>
 
 export const selectLobbyShips = createSelector(
   getLobbyState,
-  (state) => state.ships
+  (state) => state.ships,
 );
 
 export const selectCurrentShip = createSelector(
   getLobbyState,
-  (state) => state.currentShip
+  (state) => state.currentShip,
 );
 
 export const selectPlayers = createSelector(
   getLobbyState,
-  (state) => state.players
+  (state) => state.players,
 );
 
 export const selectMyStations = createSelector(
   getLobbyState,
-  (state) => state.myStations
+  (state) => state.myStations,
 );
 
 export const selectIsReady = createSelector(
   getLobbyState,
-  (state) => state.isReady
+  (state) => state.isReady,
 );
 
 export const selectAvailableStations = createSelector(
@@ -205,25 +209,22 @@ export const selectAvailableStations = createSelector(
     return Object.entries(ship.stations)
       .filter(([, player]) => player === null)
       .map(([station]) => station);
-  }
+  },
 );
 
-export const selectTakenStations = createSelector(
-  selectCurrentShip,
-  (ship) => {
-    if (!ship) return [];
-    return Object.entries(ship.stations)
-      .filter(([, player]) => player !== null)
-      .map(([station, player]) => ({ station, player }));
-  }
-);
+export const selectTakenStations = createSelector(selectCurrentShip, (ship) => {
+  if (!ship) return [];
+  return Object.entries(ship.stations)
+    .filter(([, player]) => player !== null)
+    .map(([station, player]) => ({ station, player }));
+});
 
 export const selectLoadingStatus = createSelector(
   getLobbyState,
-  (state) => state.loadingStatus
+  (state) => state.loadingStatus,
 );
 
 export const selectError = createSelector(
   getLobbyState,
-  (state) => state.error
+  (state) => state.error,
 );

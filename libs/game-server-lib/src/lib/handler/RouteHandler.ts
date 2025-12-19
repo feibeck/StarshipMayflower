@@ -7,6 +7,6 @@ export abstract class RouteHandler {
   public abstract handle(
     session: Session,
     msg: Message,
-    channel: Channel
+    channel: Channel,
   ): ResponseMessage;
 }

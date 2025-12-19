@@ -13,7 +13,8 @@ const Card = styled.div<{ isSelected: boolean }>`
   background: ${({ isSelected }) =>
     isSelected ? theme.colors.surfaceHover : theme.colors.background};
   border: 2px solid
-    ${({ isSelected }) => (isSelected ? theme.colors.primary : theme.colors.border)};
+    ${({ isSelected }) =>
+      isSelected ? theme.colors.primary : theme.colors.border};
   border-radius: ${theme.borderRadius.md};
   padding: ${theme.spacing.md};
   cursor: pointer;
@@ -68,12 +69,17 @@ const StationBadge = styled.span<{ isTaken: boolean }>`
   border-radius: ${theme.borderRadius.sm};
   background: ${({ isTaken }) =>
     isTaken ? theme.colors.warning + '20' : theme.colors.success + '20'};
-  color: ${({ isTaken }) => (isTaken ? theme.colors.warning : theme.colors.success)};
+  color: ${({ isTaken }) =>
+    isTaken ? theme.colors.warning : theme.colors.success};
   border: 1px solid
     ${({ isTaken }) => (isTaken ? theme.colors.warning : theme.colors.success)};
 `;
 
-export const ShipCard: React.FC<ShipCardProps> = ({ ship, isSelected, onSelect }) => {
+export const ShipCard: React.FC<ShipCardProps> = ({
+  ship,
+  isSelected,
+  onSelect,
+}) => {
   const stations = ship.stations || {};
   const stationNames = ['helm', 'weapons', 'science', 'comm', 'engineering'];
   const takenStations = stationNames.filter((name) => stations[name] !== null);
@@ -89,14 +95,22 @@ export const ShipCard: React.FC<ShipCardProps> = ({ ship, isSelected, onSelect }
         <PlayerCount>
           {playerCount} {playerCount === 1 ? 'player' : 'players'}
         </PlayerCount>
-        <span style={{ color: theme.colors.textMuted, fontSize: theme.typography.fontSize.xs }}>
+        <span
+          style={{
+            color: theme.colors.textMuted,
+            fontSize: theme.typography.fontSize.xs,
+          }}
+        >
           {takenStations.length}/{stationNames.length} stations
         </span>
       </ShipInfo>
 
       <StationList>
         {stationNames.map((stationName) => (
-          <StationBadge key={stationName} isTaken={stations[stationName] !== null}>
+          <StationBadge
+            key={stationName}
+            isTaken={stations[stationName] !== null}
+          >
             {stationName}
           </StationBadge>
         ))}

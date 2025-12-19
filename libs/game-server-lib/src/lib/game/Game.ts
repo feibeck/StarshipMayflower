@@ -33,7 +33,7 @@ export class Game {
     this.timer = new Timer(
       this.actionManager,
       () => this.moveShips(),
-      () => this.sendUpdates()
+      () => this.sendUpdates(),
     );
 
     this.initializeWorld();
@@ -46,11 +46,9 @@ export class Game {
     // TODO: Create Space Stations and Sun
     // This requires porting Station and Planet classes or creating them in models/
     // For now, leaving placeholder comments
-
     // const spaceStationOne = new Station('Space Station One');
     // spaceStationOne.setPosition(getRandomPosition());
     // this.objectRegistry.addObject(spaceStationOne);
-
     // const sun = new Planet('Sun', { x: 1392684, y: 1392684, z: 1392684 }, 'Sun');
     // sun.setPosition(new Vector([AU, AU, AU]));
     // this.objectRegistry.addObject(sun);

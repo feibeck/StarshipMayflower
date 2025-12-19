@@ -166,12 +166,16 @@ export const StationCard: React.FC<StationCardProps> = ({
         {getStatusText()}
       </StatusBadge>
 
-      {playerName && status !== 'available' && <PlayerName>{playerName}</PlayerName>}
+      {playerName && status !== 'available' && (
+        <PlayerName>{playerName}</PlayerName>
+      )}
 
       {isLoading ? (
         <LoadingText>Processing...</LoadingText>
       ) : (
-        status !== 'taken-by-other' && <ActionText>{getActionText()}</ActionText>
+        status !== 'taken-by-other' && (
+          <ActionText>{getActionText()}</ActionText>
+        )
       )}
     </Card>
   );

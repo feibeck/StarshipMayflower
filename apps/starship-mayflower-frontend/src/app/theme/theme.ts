@@ -42,7 +42,8 @@ export const theme = {
     glow: '0 0 20px rgba(0, 217, 255, 0.3)',
   },
   typography: {
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
     fontSize: {
       xs: '12px',
       sm: '14px',

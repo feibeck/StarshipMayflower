@@ -18,7 +18,7 @@ export const drawGrid = (): THREE.Object3D => {
     z1: number,
     x2: number,
     y2: number,
-    z2: number
+    z2: number,
   ) => {
     const points = [];
     points.push(new THREE.Vector3(x1, y1, z1));

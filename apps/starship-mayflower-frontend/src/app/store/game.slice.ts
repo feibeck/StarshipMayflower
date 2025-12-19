@@ -39,10 +39,10 @@ export const getGameState = (rootState: Record<string, unknown>): GameState =>
 
 export const selectConnected = createSelector(
   (state: RootState) => getGameState(state).connected,
-  (connected) => connected
+  (connected) => connected,
 );
 
 export const selectConnectionError = createSelector(
   (state: RootState) => getGameState(state).connectionError,
-  (connectionError) => connectionError
+  (connectionError) => connectionError,
 );

@@ -79,11 +79,11 @@ describe('Collision detection', () => {
         .setPosition(new Vector([0, 0, 0]));
 
       expect(
-        collidesWithLine(o, new Vector([1, 0, 0]), new Vector([0, 0, 0]))
+        collidesWithLine(o, new Vector([1, 0, 0]), new Vector([0, 0, 0])),
       ).toBe(false);
 
       expect(
-        collidesWithLine(o, new Vector([1, 0, 0]), new Vector([0, 1, 0]))
+        collidesWithLine(o, new Vector([1, 0, 0]), new Vector([0, 1, 0])),
       ).toBe(false);
     });
 
@@ -98,16 +98,16 @@ describe('Collision detection', () => {
           collidesWithLine(
             o,
             new Vector([2, 0, 0]).add(delta),
-            new Vector([0, 1, 0])
-          )
+            new Vector([0, 1, 0]),
+          ),
         ).toBe(false);
 
         expect(
           collidesWithLine(
             o,
             new Vector([2, 0, 0]).add(delta),
-            new Vector([1 / sqrt2, 1 / sqrt2, 0])
-          )
+            new Vector([1 / sqrt2, 1 / sqrt2, 0]),
+          ),
         ).toBe(false);
       };
 
@@ -128,16 +128,16 @@ describe('Collision detection', () => {
           collidesWithLine(
             o,
             new Vector([0.5, 0, 0]).add(delta),
-            new Vector([0, 1, 0])
-          )
+            new Vector([0, 1, 0]),
+          ),
         ).toBe(true);
 
         expect(
           collidesWithLine(
             o,
             new Vector([0.5, 0, 0]).add(delta),
-            new Vector([1 / sqrt2, 0, 1 / sqrt2])
-          )
+            new Vector([1 / sqrt2, 0, 1 / sqrt2]),
+          ),
         ).toBe(true);
       };
 

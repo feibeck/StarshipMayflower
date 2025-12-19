@@ -157,7 +157,7 @@ export class ObjectInSpace {
   fromJson(json: MapData) {
     this.setOrientation(new Matrix(json.orientation));
     this.setPosition(
-      new Vector([json.position.x, json.position.y, json.position.z])
+      new Vector([json.position.x, json.position.y, json.position.z]),
     );
     this.setVelocity(json.velocity || 0);
   }

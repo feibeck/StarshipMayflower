@@ -110,7 +110,8 @@ const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
   color: ${({ variant }) =>
     variant === 'primary' ? theme.colors.background : theme.colors.text};
   border: 1px solid
-    ${({ variant }) => (variant === 'primary' ? theme.colors.primary : theme.colors.border)};
+    ${({ variant }) =>
+      variant === 'primary' ? theme.colors.primary : theme.colors.border};
   border-radius: ${theme.borderRadius.md};
   cursor: pointer;
   font-size: ${theme.typography.fontSize.md};
@@ -119,7 +120,9 @@ const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
 
   &:hover {
     background: ${({ variant }) =>
-      variant === 'primary' ? theme.colors.primary + 'dd' : theme.colors.surfaceHover};
+      variant === 'primary'
+        ? theme.colors.primary + 'dd'
+        : theme.colors.surfaceHover};
     border-color: ${({ variant }) =>
       variant === 'primary' ? theme.colors.primary : theme.colors.textMuted};
   }
@@ -163,7 +166,9 @@ export const ShipList: React.FC<ShipListProps> = ({
 
   return (
     <Container>
-      <CreateButton onClick={() => setIsModalOpen(true)}>+ Create New Ship</CreateButton>
+      <CreateButton onClick={() => setIsModalOpen(true)}>
+        + Create New Ship
+      </CreateButton>
 
       <ShipGrid>
         {ships.map((ship) => (
@@ -190,7 +195,10 @@ export const ShipList: React.FC<ShipListProps> = ({
               disabled={isCreating}
             />
             <ModalButtons>
-              <Button onClick={() => setIsModalOpen(false)} disabled={isCreating}>
+              <Button
+                onClick={() => setIsModalOpen(false)}
+                disabled={isCreating}
+              >
                 Cancel
               </Button>
               <Button

@@ -10,7 +10,7 @@ export class MapObjectPicker extends MapObjectBase {
 
     this.mesh = new THREE.Mesh(
       new THREE.BoxGeometry(5, 5, 5),
-      new THREE.MeshBasicMaterial({ color: new THREE.Color(id) })
+      new THREE.MeshBasicMaterial({ color: new THREE.Color(id) }),
     );
   }
 }

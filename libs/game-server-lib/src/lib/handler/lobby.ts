@@ -59,7 +59,7 @@ export class LobbyHandler extends RouteHandler {
   private joinShip(
     session: Session,
     msg: Message,
-    channel: Channel
+    channel: Channel,
   ): ResponseMessage {
     if (!session.playerName) {
       return {
@@ -98,7 +98,7 @@ export class LobbyHandler extends RouteHandler {
   private addNewShip(
     session: Session,
     msg: Message,
-    channel: Channel
+    channel: Channel,
   ): ResponseMessage {
     if (!session.playerName) {
       return {
@@ -150,7 +150,7 @@ export class LobbyHandler extends RouteHandler {
     const player = new Player(
       Date.now(), // Simple ID generation
       playerName,
-      session.id
+      session.id,
     );
 
     try {
@@ -171,7 +171,7 @@ export class LobbyHandler extends RouteHandler {
   private takeStation(
     session: Session,
     msg: Message,
-    channel: Channel
+    channel: Channel,
   ): ResponseMessage {
     if (!session.playerName) {
       return {
@@ -201,7 +201,7 @@ export class LobbyHandler extends RouteHandler {
     const success = shipRegistry.takeStation(
       ship,
       player,
-      msg.payload['position'] as Station
+      msg.payload['position'] as Station,
     );
 
     if (success) {
@@ -221,7 +221,7 @@ export class LobbyHandler extends RouteHandler {
   private releaseStation(
     session: Session,
     msg: Message,
-    channel: Channel
+    channel: Channel,
   ): ResponseMessage {
     if (!session.playerName) {
       return {
@@ -251,7 +251,7 @@ export class LobbyHandler extends RouteHandler {
     const success = shipRegistry.releaseStation(
       ship,
       player,
-      msg.payload['position'] as Station
+      msg.payload['position'] as Station,
     );
 
     if (success) {
@@ -271,7 +271,7 @@ export class LobbyHandler extends RouteHandler {
   private readyToPlay(
     session: Session,
     msg: Message,
-    channel: Channel
+    channel: Channel,
   ): ResponseMessage {
     if (!session.playerName) {
       return {
@@ -290,7 +290,9 @@ export class LobbyHandler extends RouteHandler {
       };
     }
 
-    const ready = (msg.payload['ready'] !== undefined ? msg.payload['ready'] : msg.payload) as boolean;
+    const ready = (
+      msg.payload['ready'] !== undefined ? msg.payload['ready'] : msg.payload
+    ) as boolean;
     player.setReadyToPlay(ready);
 
     // Check if all players are ready

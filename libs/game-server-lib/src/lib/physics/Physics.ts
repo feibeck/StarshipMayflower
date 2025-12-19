@@ -1,5 +1,10 @@
 import { Matrix, Vector } from 'sylvester-es6';
-import { PlayingFieldLength, TURN_YAW, TURN_PITCH, TURN_ROLL } from '../world/World';
+import {
+  PlayingFieldLength,
+  TURN_YAW,
+  TURN_PITCH,
+  TURN_ROLL,
+} from '../world/World';
 
 /**
  * Convert degrees to radians
@@ -67,7 +72,7 @@ export function turnRoll(ship: any, angle: number) {
   const rotation = Matrix.RotationZ(deg2rad(angle));
 
   return ship.setOrientation(
-    orthonormalizeMatrix(orientation.multiply(rotation))
+    orthonormalizeMatrix(orientation.multiply(rotation)),
   );
 }
 
@@ -79,7 +84,7 @@ export function turnYaw(ship: any, angle: number) {
   const rotation = Matrix.RotationY(deg2rad(angle));
 
   return ship.setOrientation(
-    orthonormalizeMatrix(orientation.multiply(rotation))
+    orthonormalizeMatrix(orientation.multiply(rotation)),
   );
 }
 
@@ -91,7 +96,7 @@ export function turnPitch(ship: any, angle: number) {
   const rotation = Matrix.RotationX(deg2rad(angle));
 
   return ship.setOrientation(
-    orthonormalizeMatrix(orientation.multiply(rotation))
+    orthonormalizeMatrix(orientation.multiply(rotation)),
   );
 }
 

@@ -101,7 +101,7 @@ export class StarMap {
         color: color,
         opacity: 0.4,
         transparent: true,
-      })
+      }),
     );
     sphere.position.set(149597870, 149597870, 149597870);
 
@@ -114,7 +114,7 @@ export class StarMap {
     this.hoverSphere.position.set(
       hoveredObject.position.x,
       hoveredObject.position.y,
-      hoveredObject.position.z
+      hoveredObject.position.z,
     );
 
     this.hoverSphere.visible = true;
@@ -140,7 +140,7 @@ export class StarMap {
     this.selectionSphere.position.set(
       selectedObject.position.x,
       selectedObject.position.y,
-      selectedObject.position.z
+      selectedObject.position.z,
     );
 
     this.selectionSphere.visible = true;
@@ -239,7 +239,7 @@ export class StarMap {
       1,
       gl.RGBA,
       gl.UNSIGNED_BYTE,
-      pixelBuffer
+      pixelBuffer,
     );
 
     const id = (pixelBuffer[0] << 16) | (pixelBuffer[1] << 8) | pixelBuffer[2];
@@ -274,12 +274,12 @@ export class StarMap {
     this.shipMapObject.setPosition(
       ship.position.x,
       ship.position.y,
-      ship.position.z
+      ship.position.z,
     );
     this.shipMapObject.setHeading(
       ship.heading.x,
       ship.heading.y,
-      ship.heading.z
+      ship.heading.z,
     );
     ship.shipX &&
       this.shipMapObject.setShipX(ship.shipX.x, ship.shipX.y, ship.shipX.z);
@@ -308,12 +308,12 @@ export class StarMap {
       this.otherShipMapObjects[ship.id].setPosition(
         ship.position.x,
         ship.position.y,
-        ship.position.z
+        ship.position.z,
       );
       this.otherShipMapObjects[ship.id].setHeading(
         ship.heading.x,
         ship.heading.y,
-        ship.heading.z
+        ship.heading.z,
       );
     });
   }
