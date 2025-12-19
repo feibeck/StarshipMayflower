@@ -6,6 +6,7 @@ export type Station = 'helm' | 'weapons' | 'comm' | 'science' | 'engineering';
 interface SerializedPlayer {
   id: number;
   name: string;
+  ready?: boolean;
 }
 
 interface Player {
@@ -291,9 +292,8 @@ export class Ship extends ObjectInSpace {
       creator = this.creator.serialize();
     }
 
-    const players = Object.values(this.players).map((player) =>
-      player.serialize(),
-    );
+    // Serialize all players on the ship
+    const players = this.getPlayers().map((player) => player.serialize());
 
     const shipX = this.orientation.multiply(new Vector([1, 0, 0]));
     const shipY = this.orientation.multiply(new Vector([0, 1, 0]));

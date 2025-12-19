@@ -7,6 +7,7 @@ import {
   shipUpdated,
   takeStation,
   releaseStation,
+  setReady,
 } from './slices/lobby.slice';
 import { selectUsername } from './auth.slice';
 import { globalUpdate, shipUpdate, worldUpdate } from './slices/world.slice';
@@ -44,9 +45,20 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
   });
 
   gameClient.on('ShipUpdated', (payload: unknown) => {
-    storeApi.dispatch(
-      shipUpdated(payload as Parameters<typeof shipUpdated>[0]),
-    );
+    const shipData = payload as Parameters<typeof shipUpdated>[0];
+    storeApi.dispatch(shipUpdated(shipData));
+
+    // Update ready status for current user
+    const state = storeApi.getState() as RootState;
+    const username = selectUsername(state);
+    if (username && shipData && shipData.players) {
+      const currentPlayer = shipData.players.find(
+        (p: { name: string; ready?: boolean }) => p.name === username,
+      );
+      if (currentPlayer && currentPlayer.ready !== undefined) {
+        storeApi.dispatch(setReady(currentPlayer.ready));
+      }
+    }
   });
 
   gameClient.on('StationTaken', (payload: unknown) => {
@@ -109,6 +121,21 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
       releasedStations.forEach((stationName) => {
         storeApi.dispatch(releaseStation(stationName));
       });
+    }
+  });
+
+  gameClient.on('PlayerReady', (payload: unknown) => {
+    const data = payload as {
+      playerId: number;
+      playerName: string;
+      ready: boolean;
+    };
+    const state = storeApi.getState() as RootState;
+    const username = selectUsername(state);
+
+    // If the ready event is for the current user, update their ready status
+    if (username === data.playerName) {
+      storeApi.dispatch(setReady(data.ready));
     }
   });
 
