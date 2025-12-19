@@ -40,7 +40,7 @@ export class SocketHandler {
     const message = JSON.parse(msg);
     const answer = this.router.routeMessage(session, message, this.channel);
     console.log('Server sending response', answer);
-    answer.requestId = message.requestId;
+    answer['requestId'] = message['requestId'];
     session.socket.send(JSON.stringify(answer));
   }
 }

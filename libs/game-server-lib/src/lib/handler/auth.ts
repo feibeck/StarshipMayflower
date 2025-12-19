@@ -10,7 +10,7 @@ export class AuthHandler extends RouteHandler {
     message: Message,
     channel: Channel
   ): ResponseMessage {
-    session.setPlayerName(message.payload.playerName as string);
+    session.setPlayerName(message.payload['playerName'] as string);
     channel.sendToAll({ event: 'playerJoined' });
     return {
       status: 'ok',

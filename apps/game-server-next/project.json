@@ -4,19 +4,21 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "target": "node",
+        "compiler": "tsc",
         "outputPath": "dist/apps/game-server-next",
         "main": "apps/game-server-next/src/main.ts",
         "tsConfig": "apps/game-server-next/tsconfig.app.json",
-        "assets": ["apps/game-server-next/src/assets"]
+        "assets": ["apps/game-server-next/src/assets"],
+        "webpackConfig": "apps/game-server-next/webpack.config.js"
       },
       "configurations": {
         "production": {
           "optimization": true,
           "extractLicenses": true,
-          "inspect": false,
           "fileReplacements": [
             {
               "replace": "apps/game-server-next/src/environments/environment.ts",
@@ -27,20 +29,21 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nx/js:node",
       "options": {
-        "buildTarget": "game-server-next:build"
+        "buildTarget": "game-server-next:build",
+        "watch": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/game-server-next/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["coverage/apps/game-server-next"],
       "options": {
         "jestConfig": "apps/game-server-next/jest.config.js",
