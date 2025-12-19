@@ -10,7 +10,7 @@ export class Box extends Volume {
    */
   protected extend: Vector;
 
-  type = 'BOX';
+  override type = 'BOX';
 
   constructor(extend: Vector) {
     super();

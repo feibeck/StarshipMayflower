@@ -335,7 +335,7 @@ export class Ship extends ObjectInSpace {
    *     heading: {x: *, y: *, z: *}
    * }}
    */
-  serializeMapData(): MapData {
+  override serializeMapData(): MapData {
     const heading = this.getHeading();
 
     return {

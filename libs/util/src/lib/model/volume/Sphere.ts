@@ -6,7 +6,7 @@ import { Volume } from './Volume';
 export class Sphere extends Volume {
   protected radius = 0;
 
-  type = 'SPHERE';
+  override type = 'SPHERE';
 
   constructor(radius: number) {
     super();

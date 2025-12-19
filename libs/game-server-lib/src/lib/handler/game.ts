@@ -80,16 +80,10 @@ export class GameHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
-    if (!ship) {
-      return {
-        status: 'error',
-        error: 'Player not on a ship',
-      };
-    }
-
+    // TypeScript needs explicit null assertion after the check above
     return {
       status: 'ok',
-      ship: ship.serialize(),
+      ship: ship!.serialize(),
       running: this.game.isRunning(),
     };
   }
