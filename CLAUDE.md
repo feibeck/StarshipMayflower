@@ -72,6 +72,12 @@ nx dep-graph         # Dependency-Graph anzeigen
 - Main Branch: `master`
 - Kommunikation Client ↔ Server funktioniert bereits (Proof of Concept)
 
+### Commit Message Guidelines
+
+- **Kurz und prägnant**: Commit-Nachrichten sollen knapp und auf den Punkt sein
+- **Keine AI-Erwähnung**: Keine Hinweise auf Claude, AI oder automatische Generierung
+- **Zusammenfassung statt Details**: Nicht alle kleinen Änderungen einzeln auflisten, nur die Kernänderung beschreiben
+
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
 
