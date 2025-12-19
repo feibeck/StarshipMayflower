@@ -3,7 +3,7 @@ import {
   createSelector,
   createSlice,
 } from '@reduxjs/toolkit';
-import { GameServerClient } from './client';
+import { gameClient } from '../services/GameClient';
 import { RootState } from './store';
 
 export const AUTH_FEATURE_KEY = 'auth';
@@ -13,9 +13,6 @@ export interface AuthState {
   name: string;
 }
 
-const gameServerClient = new GameServerClient();
-gameServerClient.connect();
-
 export const initialAuthState: AuthState = {
   authenticated: false,
   name: '',
@@ -24,13 +21,7 @@ export const initialAuthState: AuthState = {
 export const register = createAsyncThunk(
   'users/fetchByIdStatus',
   async (username: string) => {
-    await gameServerClient.call({
-      handler: 'auth',
-      method: 'login',
-      payload: {
-        playerName: username,
-      },
-    });
+    await gameClient.login(username);
     return { username };
   }
 );
