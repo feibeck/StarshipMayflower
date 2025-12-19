@@ -89,6 +89,9 @@ export class LobbyHandler extends RouteHandler {
     shipRegistry.addPlayerToShip(ship, player);
     channel.addSessionToShip(session, ship.getId());
 
+    // Broadcast ship update to all players in lobby
+    channel.pushToLobby('ShipUpdated', ship.serialize());
+
     return {
       status: 'ok',
       ship: ship.serialize(),
@@ -205,10 +208,14 @@ export class LobbyHandler extends RouteHandler {
     );
 
     if (success) {
-      channel.pushToShip(ship.getId(), 'StationTaken', ship.serialize());
+      const serializedShip = ship.serialize();
+      // Broadcast to ship members
+      channel.pushToShip(ship.getId(), 'StationTaken', serializedShip);
+      // Broadcast to all players in lobby for ship list updates
+      channel.pushToLobby('ShipUpdated', serializedShip);
       return {
         status: 'ok',
-        ship: ship.serialize(),
+        ship: serializedShip,
       };
     } else {
       return {
@@ -255,10 +262,14 @@ export class LobbyHandler extends RouteHandler {
     );
 
     if (success) {
-      channel.pushToShip(ship.getId(), 'StationReleased', ship.serialize());
+      const serializedShip = ship.serialize();
+      // Broadcast to ship members
+      channel.pushToShip(ship.getId(), 'StationReleased', serializedShip);
+      // Broadcast to all players in lobby for ship list updates
+      channel.pushToLobby('ShipUpdated', serializedShip);
       return {
         status: 'ok',
-        ship: ship.serialize(),
+        ship: serializedShip,
       };
     } else {
       return {

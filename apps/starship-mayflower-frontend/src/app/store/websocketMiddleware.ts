@@ -4,9 +4,7 @@ import { gameClient } from '../services/GameClient';
 import { connected, connectionError } from './game.slice';
 import {
   shipAdded,
-  stationTaken,
-  stationReleased,
-  updateCurrentShip,
+  shipUpdated,
   takeStation,
   releaseStation,
 } from './slices/lobby.slice';
@@ -45,14 +43,19 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
     storeApi.dispatch(shipAdded(payload as Parameters<typeof shipAdded>[0]));
   });
 
+  gameClient.on('ShipUpdated', (payload: unknown) => {
+    storeApi.dispatch(
+      shipUpdated(payload as Parameters<typeof shipUpdated>[0]),
+    );
+  });
+
   gameClient.on('StationTaken', (payload: unknown) => {
     const state = storeApi.getState() as RootState;
     const username = selectUsername(state);
-    const shipData = payload as unknown;
+    const shipData = payload as Parameters<typeof shipUpdated>[0];
 
-    storeApi.dispatch(
-      updateCurrentShip(shipData as Parameters<typeof updateCurrentShip>[0]),
-    );
+    // Update the ship in the ships list (for all players in lobby)
+    storeApi.dispatch(shipUpdated(shipData));
 
     // Track which station the current user took
     if (
@@ -79,11 +82,10 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
     const state = storeApi.getState() as RootState;
     const username = selectUsername(state);
     const currentMyStations = state.lobby.myStations;
-    const shipData = payload as unknown;
+    const shipData = payload as Parameters<typeof shipUpdated>[0];
 
-    storeApi.dispatch(
-      updateCurrentShip(shipData as Parameters<typeof updateCurrentShip>[0]),
-    );
+    // Update the ship in the ships list (for all players in lobby)
+    storeApi.dispatch(shipUpdated(shipData));
 
     // Track which station was released by checking what the user had before
     if (

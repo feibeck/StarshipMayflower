@@ -68,6 +68,19 @@ export const lobbySlice = createSlice({
       }
     },
 
+    shipUpdated: (state, action: PayloadAction<Ship>) => {
+      const index = state.ships.findIndex(
+        (ship) => ship.id === action.payload.id,
+      );
+      if (index !== -1) {
+        state.ships[index] = action.payload;
+      }
+      // Also update current ship if it's the same one
+      if (state.currentShipId === action.payload.id) {
+        state.currentShip = action.payload;
+      }
+    },
+
     // Current ship management
     setCurrentShip: (state, action: PayloadAction<Ship>) => {
       state.currentShip = action.payload;
@@ -157,6 +170,7 @@ export const {
   setShips,
   shipAdded,
   shipRemoved,
+  shipUpdated,
   setCurrentShip,
   updateCurrentShip,
   leaveShip,
