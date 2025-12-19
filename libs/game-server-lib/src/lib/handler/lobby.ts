@@ -70,7 +70,7 @@ export class LobbyHandler extends RouteHandler {
 
     const shipRegistry = this.game.getShipRegistry();
     const player = shipRegistry.getPlayerByName(session.playerName);
-    const ship = shipRegistry.getShip(msg.payload.shipId);
+    const ship = shipRegistry.getShip(msg.payload['shipId'] as string);
 
     if (!player) {
       return {
@@ -119,7 +119,8 @@ export class LobbyHandler extends RouteHandler {
     }
 
     try {
-      const ship = new Ship(msg.payload.name || msg.payload);
+      const shipName = (msg.payload['name'] || msg.payload) as string;
+      const ship = new Ship(shipName);
       const id = objectRegistry.createId();
       ship.setId(id);
       ship.setCreator(player);
@@ -145,9 +146,10 @@ export class LobbyHandler extends RouteHandler {
 
   private addPlayer(session: Session, msg: Message): ResponseMessage {
     const shipRegistry = this.game.getShipRegistry();
+    const playerName = msg.payload['name'] as string;
     const player = new Player(
       Date.now(), // Simple ID generation
-      msg.payload.name,
+      playerName,
       session.id
     );
 
@@ -189,10 +191,17 @@ export class LobbyHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
     const success = shipRegistry.takeStation(
       ship,
       player,
-      msg.payload.position as Station
+      msg.payload['position'] as Station
     );
 
     if (success) {
@@ -232,10 +241,17 @@ export class LobbyHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
     const success = shipRegistry.releaseStation(
       ship,
       player,
-      msg.payload.position as Station
+      msg.payload['position'] as Station
     );
 
     if (success) {
@@ -274,7 +290,8 @@ export class LobbyHandler extends RouteHandler {
       };
     }
 
-    player.setReadyToPlay(msg.payload.ready || msg.payload);
+    const ready = (msg.payload['ready'] !== undefined ? msg.payload['ready'] : msg.payload) as boolean;
+    player.setReadyToPlay(ready);
 
     // Check if all players are ready
     let allReady = true;

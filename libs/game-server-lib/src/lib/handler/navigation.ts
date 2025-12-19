@@ -54,7 +54,14 @@ export class NavigationHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
-    const targetSpeed = msg.payload.targetSpeed;
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
+    const targetSpeed = msg.payload['targetSpeed'] as number;
 
     ship.setTargetImpulse(targetSpeed);
 
@@ -89,7 +96,14 @@ export class NavigationHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
-    ship.setSlowImpulse(msg.payload.slowImpulse);
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
+    ship.setSlowImpulse(msg.payload['slowImpulse'] as boolean);
 
     const action = new Accelerate({
       ship: ship,
@@ -122,7 +136,14 @@ export class NavigationHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
-    ship.setWarp(msg.payload.warp);
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
+    ship.setWarp(msg.payload['warp'] as boolean);
 
     return {
       status: 'ok',
@@ -148,7 +169,14 @@ export class NavigationHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
-    const targetSpeed = msg.payload.targetSpeed;
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
+    const targetSpeed = msg.payload['targetSpeed'] as number;
 
     ship.setWarpLevel(targetSpeed);
     ship.setWarpSpeed(1 + 3 * (targetSpeed / 100));
@@ -177,8 +205,15 @@ export class NavigationHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
-    const arc = msg.payload.arc;
-    const axis = msg.payload.axis;
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
+    const arc = msg.payload['arc'] as number;
+    const axis = msg.payload['axis'] as string;
 
     const action = new Turn({ ship: ship, arc: arc, axis: axis });
     this.game.getActionManager().addAction(action);

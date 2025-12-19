@@ -1,17 +1,749 @@
-/Users/flo/work/StarshipMayflower/node_modules/webpack-dev-server/lib/Server.js:2638
-        throw error;
-        ^
+<i> [1m[32m[webpack-dev-server] Project is running at:[39m[22m
+<i> [1m[32m[webpack-dev-server] Loopback: [36mhttp://localhost:4200/[39m, [36mhttp://[::1]:4200/[39m[39m[22m
+<i> [1m[32m[webpack-dev-server] 404s will fallback to '[36m/index.html[39m'[39m[22m
 
-Error: listen EADDRINUSE: address already in use ::1:4200
-[90m    at Server.setupListenHandle [as _listen2] (node:net:1939:16)[39m
-[90m    at listenInCluster (node:net:1996:12)[39m
-[90m    at GetAddrInfoReqWrap.callback (node:net:2205:7)[39m
-[90m    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:134:8)[39m {
-  code: [32m'EADDRINUSE'[39m,
-  errno: [33m-48[39m,
-  syscall: [32m'listen'[39m,
-  address: [32m'::1'[39m,
-  port: [33m4200[39m
-}
+[7m[1m[36m NX [39m[22m[27m [1mWeb Development Server is listening at http://localhost:4200/[22m
 
-Node.js v22.15.1
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 662 KiB = [1m[32mruntime.a209cf02e47c94ac.js[39m[22m 13.5 KiB [1m[32mmain.3fbf6621addc2c93.js[39m[22m 648 KiB
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.a209cf02e47c94ac.js[39m[22m 13.5 KiB [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.3fbf6621addc2c93.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m [1m[32m[rendered][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m [1m[32m[rendered][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.a209cf02e47c94ac.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (e31cca558e5a2947)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/auth/auth.tsx[22m:[32m[1m6:55[22m[39m
+[90mTS2503: [39mCannot find namespace 'JSX'.
+  [0m [90m 4 |[39m [36mimport[39m { selectAuthenticated } [36mfrom[39m [32m'../store/auth.slice'[39m[33m;[39m
+   [90m 5 |[39m
+  [31m[1m>[22m[39m[90m 6 |[39m [36mexport[39m [36mfunction[39m [33mRequireAuth[39m({ children }[33m:[39m { children[33m:[39m [33mJSX[39m[33m.[39m[33mElement[39m }) {
+   [90m   |[39m                                                       [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 7 |[39m   [36mconst[39m authenticated [33m=[39m useSelector(selectAuthenticated)[33m;[39m
+   [90m 8 |[39m
+   [90m 9 |[39m   [36mconst[39m location [33m=[39m useLocation()[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m32:13[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 30 |[39m
+   [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+  [31m[1m>[22m[39m[90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m32:41[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 30 |[39m
+   [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+  [31m[1m>[22m[39m[90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m33:36[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+   [90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+  [31m[1m>[22m[39m[90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m    |[39m                                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m35:29[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+  [31m[1m>[22m[39m[90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m36:20[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+  [31m[1m>[22m[39m[90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {
+   [90m 39 |[39m       [36mthis[39m[33m.[39mhandleChannelMessage(msg)[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m36:49[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+  [31m[1m>[22m[39m[90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {
+   [90m 39 |[39m       [36mthis[39m[33m.[39mhandleChannelMessage(msg)[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m49:15[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 47 |[39m   call(message[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m)[33m:[39m [33mPromise[39m[33m<[39m[33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>>[39m {
+   [90m 48 |[39m     [36mconst[39m promise [33m=[39m [36mnew[39m [33mPromise[39m[33m<[39m[33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>>[39m((resolve[33m,[39m reject) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 49 |[39m       message[33m.[39mrequestId [33m=[39m uuidv4()[33m;[39m
+   [90m    |[39m               [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 50 |[39m       [36mif[39m ([33m![39m[36mthis[39m[33m.[39mconnected [33m||[39m [33m![39m[36mthis[39m[33m.[39mclient) {
+   [90m 51 |[39m         reject([32m'Not Connected'[39m)[33m;[39m
+   [90m 52 |[39m       }[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m55:26[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 53 |[39m       [90m// eslint-disable-next-line @typescript-eslint/no-non-null-assertion[39m
+   [90m 54 |[39m       [36mthis[39m[33m.[39mclient[33m![39m[33m.[39msend([33mJSON[39m[33m.[39mstringify(message))[33m;[39m
+  [31m[1m>[22m[39m[90m 55 |[39m       [36mthis[39m[33m.[39mcalls[message[33m.[39mrequestId [36mas[39m string] [33m=[39m {
+   [90m    |[39m                          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 56 |[39m         resolve[33m:[39m resolve[33m,[39m
+   [90m 57 |[39m         reject[33m:[39m reject[33m,[39m
+   [90m 58 |[39m       }[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m17:25[22m[39m
+[90mTS4111: [39mProperty 'NODE_ENV' comes from an index signature, so it must be accessed with ['NODE_ENV'].
+  [0m [90m 15 |[39m     [36mreturn[39m middleware[33m;[39m
+   [90m 16 |[39m   }[33m,[39m
+  [31m[1m>[22m[39m[90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m    |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+   [90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m 20 |[39m })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m19:3[22m[39m
+[90mTS2322: [39mType 'never[]' is not assignable to type '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>) => Tuple<...>'.
+  Type 'never[]' provides no match for the signature '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>): Tuple<...>'.
+  [0m [90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+  [31m[1m>[22m[39m[90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m    |[39m   [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 20 |[39m })[33m;[39m
+   [90m 21 |[39m
+   [90m 22 |[39m [36mexport[39m type [33mRootState[39m [33m=[39m [33mReturnType[39m[33m<[39m[36mtypeof[39m store[33m.[39mgetState[33m>[39m[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m28:29[22m[39m
+[90mTS7030: [39mNot all code paths return a value.
+  [0m [90m 26 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 27 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m29:11[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 27 |[39m   [33mRootState[39m
+   [90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m    |[39m           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {
+   [90m 32 |[39m         [90m//client.close();[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m51:40[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 49 |[39m       [36mbreak[39m[33m;[39m
+   [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+  [31m[1m>[22m[39m[90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+   [90m    |[39m                                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m52:20[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m
+   [90m 55 |[39m       [36mbreak[39m[33m;[39m[0m
+
+Found [31m[1m15 errors[22m[39m in 2509 ms.
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 662 KiB = [1m[32mruntime.a209cf02e47c94ac.js[39m[22m 13.5 KiB [1m[32mmain.3fbf6621addc2c93.js[39m[22m 648 KiB
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.a209cf02e47c94ac.js[39m[22m 13.5 KiB [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.3fbf6621addc2c93.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.a209cf02e47c94ac.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (e31cca558e5a2947)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/auth/auth.tsx[22m:[32m[1m6:55[22m[39m
+[90mTS2503: [39mCannot find namespace 'JSX'.
+  [0m [90m 4 |[39m [36mimport[39m { selectAuthenticated } [36mfrom[39m [32m'../store/auth.slice'[39m[33m;[39m
+   [90m 5 |[39m
+  [31m[1m>[22m[39m[90m 6 |[39m [36mexport[39m [36mfunction[39m [33mRequireAuth[39m({ children }[33m:[39m { children[33m:[39m [33mJSX[39m[33m.[39m[33mElement[39m }) {
+   [90m   |[39m                                                       [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 7 |[39m   [36mconst[39m authenticated [33m=[39m useSelector(selectAuthenticated)[33m;[39m
+   [90m 8 |[39m
+   [90m 9 |[39m   [36mconst[39m location [33m=[39m useLocation()[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m32:13[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 30 |[39m
+   [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+  [31m[1m>[22m[39m[90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m32:41[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 30 |[39m
+   [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+  [31m[1m>[22m[39m[90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m33:36[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+   [90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+  [31m[1m>[22m[39m[90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m    |[39m                                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m35:29[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+  [31m[1m>[22m[39m[90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m36:20[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+  [31m[1m>[22m[39m[90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {
+   [90m 39 |[39m       [36mthis[39m[33m.[39mhandleChannelMessage(msg)[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m36:49[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+  [31m[1m>[22m[39m[90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {
+   [90m 39 |[39m       [36mthis[39m[33m.[39mhandleChannelMessage(msg)[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m49:15[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 47 |[39m   call(message[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m)[33m:[39m [33mPromise[39m[33m<[39m[33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>>[39m {
+   [90m 48 |[39m     [36mconst[39m promise [33m=[39m [36mnew[39m [33mPromise[39m[33m<[39m[33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>>[39m((resolve[33m,[39m reject) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 49 |[39m       message[33m.[39mrequestId [33m=[39m uuidv4()[33m;[39m
+   [90m    |[39m               [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 50 |[39m       [36mif[39m ([33m![39m[36mthis[39m[33m.[39mconnected [33m||[39m [33m![39m[36mthis[39m[33m.[39mclient) {
+   [90m 51 |[39m         reject([32m'Not Connected'[39m)[33m;[39m
+   [90m 52 |[39m       }[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m55:26[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 53 |[39m       [90m// eslint-disable-next-line @typescript-eslint/no-non-null-assertion[39m
+   [90m 54 |[39m       [36mthis[39m[33m.[39mclient[33m![39m[33m.[39msend([33mJSON[39m[33m.[39mstringify(message))[33m;[39m
+  [31m[1m>[22m[39m[90m 55 |[39m       [36mthis[39m[33m.[39mcalls[message[33m.[39mrequestId [36mas[39m string] [33m=[39m {
+   [90m    |[39m                          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 56 |[39m         resolve[33m:[39m resolve[33m,[39m
+   [90m 57 |[39m         reject[33m:[39m reject[33m,[39m
+   [90m 58 |[39m       }[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m17:25[22m[39m
+[90mTS4111: [39mProperty 'NODE_ENV' comes from an index signature, so it must be accessed with ['NODE_ENV'].
+  [0m [90m 15 |[39m     [36mreturn[39m middleware[33m;[39m
+   [90m 16 |[39m   }[33m,[39m
+  [31m[1m>[22m[39m[90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m    |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+   [90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m 20 |[39m })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m19:3[22m[39m
+[90mTS2322: [39mType 'never[]' is not assignable to type '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>) => Tuple<...>'.
+  Type 'never[]' provides no match for the signature '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>): Tuple<...>'.
+  [0m [90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+  [31m[1m>[22m[39m[90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m    |[39m   [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 20 |[39m })[33m;[39m
+   [90m 21 |[39m
+   [90m 22 |[39m [36mexport[39m type [33mRootState[39m [33m=[39m [33mReturnType[39m[33m<[39m[36mtypeof[39m store[33m.[39mgetState[33m>[39m[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m28:29[22m[39m
+[90mTS7030: [39mNot all code paths return a value.
+  [0m [90m 26 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 27 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m29:11[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 27 |[39m   [33mRootState[39m
+   [90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m    |[39m           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {
+   [90m 32 |[39m         [90m//client.close();[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m51:40[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 49 |[39m       [36mbreak[39m[33m;[39m
+   [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+  [31m[1m>[22m[39m[90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+   [90m    |[39m                                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m52:20[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m
+   [90m 55 |[39m       [36mbreak[39m[33m;[39m[0m
+
+Found [31m[1m15 errors[22m[39m in 83 ms.
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 662 KiB = [1m[32mruntime.a209cf02e47c94ac.js[39m[22m 13.5 KiB [1m[32mmain.3fbf6621addc2c93.js[39m[22m 648 KiB
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.a209cf02e47c94ac.js[39m[22m 13.5 KiB [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.3fbf6621addc2c93.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.a209cf02e47c94ac.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (e31cca558e5a2947)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m32:13[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 30 |[39m
+   [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+  [31m[1m>[22m[39m[90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m32:41[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 30 |[39m
+   [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+  [31m[1m>[22m[39m[90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m33:36[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 31 |[39m   handleMessage(msg[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m) {
+   [90m 32 |[39m     [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+  [31m[1m>[22m[39m[90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m    |[39m                                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m35:29[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 33 |[39m       [36mconst[39m funcs [33m=[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+  [31m[1m>[22m[39m[90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m36:20[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+  [31m[1m>[22m[39m[90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {
+   [90m 39 |[39m       [36mthis[39m[33m.[39mhandleChannelMessage(msg)[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m36:49[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 34 |[39m       funcs[33m.[39mresolve(msg)[33m;[39m
+   [90m 35 |[39m       [36mdelete[39m [36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string][33m;[39m
+  [31m[1m>[22m[39m[90m 36 |[39m     } [36melse[39m [36mif[39m (msg[33m.[39mrequestId [33m&&[39m [33m![39m[36mthis[39m[33m.[39mcalls[msg[33m.[39mrequestId [36mas[39m string]) {
+   [90m    |[39m                                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 37 |[39m       [90m// answer to an unknown call? throw something?[39m
+   [90m 38 |[39m     } [36melse[39m {
+   [90m 39 |[39m       [36mthis[39m[33m.[39mhandleChannelMessage(msg)[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m49:15[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 47 |[39m   call(message[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m)[33m:[39m [33mPromise[39m[33m<[39m[33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>>[39m {
+   [90m 48 |[39m     [36mconst[39m promise [33m=[39m [36mnew[39m [33mPromise[39m[33m<[39m[33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>>[39m((resolve[33m,[39m reject) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 49 |[39m       message[33m.[39mrequestId [33m=[39m uuidv4()[33m;[39m
+   [90m    |[39m               [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 50 |[39m       [36mif[39m ([33m![39m[36mthis[39m[33m.[39mconnected [33m||[39m [33m![39m[36mthis[39m[33m.[39mclient) {
+   [90m 51 |[39m         reject([32m'Not Connected'[39m)[33m;[39m
+   [90m 52 |[39m       }[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m55:26[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 53 |[39m       [90m// eslint-disable-next-line @typescript-eslint/no-non-null-assertion[39m
+   [90m 54 |[39m       [36mthis[39m[33m.[39mclient[33m![39m[33m.[39msend([33mJSON[39m[33m.[39mstringify(message))[33m;[39m
+  [31m[1m>[22m[39m[90m 55 |[39m       [36mthis[39m[33m.[39mcalls[message[33m.[39mrequestId [36mas[39m string] [33m=[39m {
+   [90m    |[39m                          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 56 |[39m         resolve[33m:[39m resolve[33m,[39m
+   [90m 57 |[39m         reject[33m:[39m reject[33m,[39m
+   [90m 58 |[39m       }[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m17:25[22m[39m
+[90mTS4111: [39mProperty 'NODE_ENV' comes from an index signature, so it must be accessed with ['NODE_ENV'].
+  [0m [90m 15 |[39m     [36mreturn[39m middleware[33m;[39m
+   [90m 16 |[39m   }[33m,[39m
+  [31m[1m>[22m[39m[90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m    |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+   [90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m 20 |[39m })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m19:3[22m[39m
+[90mTS2322: [39mType 'never[]' is not assignable to type '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>) => Tuple<...>'.
+  Type 'never[]' provides no match for the signature '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>): Tuple<...>'.
+  [0m [90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+  [31m[1m>[22m[39m[90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m    |[39m   [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 20 |[39m })[33m;[39m
+   [90m 21 |[39m
+   [90m 22 |[39m [36mexport[39m type [33mRootState[39m [33m=[39m [33mReturnType[39m[33m<[39m[36mtypeof[39m store[33m.[39mgetState[33m>[39m[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m28:29[22m[39m
+[90mTS7030: [39mNot all code paths return a value.
+  [0m [90m 26 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 27 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m29:11[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 27 |[39m   [33mRootState[39m
+   [90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m    |[39m           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {
+   [90m 32 |[39m         [90m//client.close();[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m51:40[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 49 |[39m       [36mbreak[39m[33m;[39m
+   [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+  [31m[1m>[22m[39m[90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+   [90m    |[39m                                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m52:20[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m
+   [90m 55 |[39m       [36mbreak[39m[33m;[39m[0m
+
+Found [31m[1m14 errors[22m[39m in 260 ms.
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 663 KiB = [1m[32mruntime.e1e13a427d0288f2.js[39m[22m 13.5 KiB [1m[32mruntime.e31cca558e5a2947.hot-update.js[39m[22m 89 bytes [1m[32mmain.d248b91ca65a4476.js[39m[22m 648 KiB [1m[32mmain.e31cca558e5a2947.hot-update.js[39m[22m 1.34 KiB
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.e1e13a427d0288f2.js[39m[22m 13.5 KiB [1m[32mruntime.e31cca558e5a2947.hot-update.js[39m[22m 89 bytes [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.d248b91ca65a4476.js[39m[22m, [1m[32mmain.e31cca558e5a2947.hot-update.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m [1m[32m[rendered][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.e1e13a427d0288f2.js[39m[22m, [1m[32mruntime.e31cca558e5a2947.hot-update.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (055a23089e11c416)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m49:15[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 47 |[39m   call(message[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>[39m)[33m:[39m [33mPromise[39m[33m<[39m[33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>>[39m {
+   [90m 48 |[39m     [36mconst[39m promise [33m=[39m [36mnew[39m [33mPromise[39m[33m<[39m[33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m unknown[33m>>[39m((resolve[33m,[39m reject) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 49 |[39m       message[33m.[39mrequestId [33m=[39m uuidv4()[33m;[39m
+   [90m    |[39m               [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 50 |[39m       [36mif[39m ([33m![39m[36mthis[39m[33m.[39mconnected [33m||[39m [33m![39m[36mthis[39m[33m.[39mclient) {
+   [90m 51 |[39m         reject([32m'Not Connected'[39m)[33m;[39m
+   [90m 52 |[39m       }[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/client.ts[22m:[32m[1m55:26[22m[39m
+[90mTS4111: [39mProperty 'requestId' comes from an index signature, so it must be accessed with ['requestId'].
+  [0m [90m 53 |[39m       [90m// eslint-disable-next-line @typescript-eslint/no-non-null-assertion[39m
+   [90m 54 |[39m       [36mthis[39m[33m.[39mclient[33m![39m[33m.[39msend([33mJSON[39m[33m.[39mstringify(message))[33m;[39m
+  [31m[1m>[22m[39m[90m 55 |[39m       [36mthis[39m[33m.[39mcalls[message[33m.[39mrequestId [36mas[39m string] [33m=[39m {
+   [90m    |[39m                          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 56 |[39m         resolve[33m:[39m resolve[33m,[39m
+   [90m 57 |[39m         reject[33m:[39m reject[33m,[39m
+   [90m 58 |[39m       }[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m17:25[22m[39m
+[90mTS4111: [39mProperty 'NODE_ENV' comes from an index signature, so it must be accessed with ['NODE_ENV'].
+  [0m [90m 15 |[39m     [36mreturn[39m middleware[33m;[39m
+   [90m 16 |[39m   }[33m,[39m
+  [31m[1m>[22m[39m[90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m    |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+   [90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m 20 |[39m })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m19:3[22m[39m
+[90mTS2322: [39mType 'never[]' is not assignable to type '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>) => Tuple<...>'.
+  Type 'never[]' provides no match for the signature '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>): Tuple<...>'.
+  [0m [90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+  [31m[1m>[22m[39m[90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m    |[39m   [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 20 |[39m })[33m;[39m
+   [90m 21 |[39m
+   [90m 22 |[39m [36mexport[39m type [33mRootState[39m [33m=[39m [33mReturnType[39m[33m<[39m[36mtypeof[39m store[33m.[39mgetState[33m>[39m[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m28:29[22m[39m
+[90mTS7030: [39mNot all code paths return a value.
+  [0m [90m 26 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 27 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m29:11[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 27 |[39m   [33mRootState[39m
+   [90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m    |[39m           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {
+   [90m 32 |[39m         [90m//client.close();[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m51:40[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 49 |[39m       [36mbreak[39m[33m;[39m
+   [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+  [31m[1m>[22m[39m[90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+   [90m    |[39m                                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m52:20[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m
+   [90m 55 |[39m       [36mbreak[39m[33m;[39m[0m
+
+Found [31m[1m8 errors[22m[39m in 1748 ms.
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 663 KiB = [1m[32mruntime.3544ecd6576b5f86.js[39m[22m 13.5 KiB [1m[32mruntime.055a23089e11c416.hot-update.js[39m[22m 89 bytes [1m[32mmain.216354d976de2e8f.js[39m[22m 648 KiB [1m[32mmain.055a23089e11c416.hot-update.js[39m[22m 1.34 KiB
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.3544ecd6576b5f86.js[39m[22m 13.5 KiB [1m[32mruntime.055a23089e11c416.hot-update.js[39m[22m 89 bytes [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.216354d976de2e8f.js[39m[22m, [1m[32mmain.055a23089e11c416.hot-update.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m [1m[32m[rendered][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.3544ecd6576b5f86.js[39m[22m, [1m[32mruntime.055a23089e11c416.hot-update.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (eea13f43c766fca7)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m17:25[22m[39m
+[90mTS4111: [39mProperty 'NODE_ENV' comes from an index signature, so it must be accessed with ['NODE_ENV'].
+  [0m [90m 15 |[39m     [36mreturn[39m middleware[33m;[39m
+   [90m 16 |[39m   }[33m,[39m
+  [31m[1m>[22m[39m[90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m    |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+   [90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m 20 |[39m })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/store.ts[22m:[32m[1m19:3[22m[39m
+[90mTS2322: [39mType 'never[]' is not assignable to type '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>) => Tuple<...>'.
+  Type 'never[]' provides no match for the signature '(getDefaultEnhancers: GetDefaultEnhancers<Tuple<[ThunkMiddleware<{ game: GameState; auth: AuthState; }, UnknownAction>]>>): Tuple<...>'.
+  [0m [90m 17 |[39m   devTools[33m:[39m process[33m.[39menv[33m.[39m[33mNODE_ENV[39m [33m!==[39m [32m'production'[39m[33m,[39m
+   [90m 18 |[39m   [90m// Optional Redux store enhancers[39m
+  [31m[1m>[22m[39m[90m 19 |[39m   enhancers[33m:[39m [][33m,[39m
+   [90m    |[39m   [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 20 |[39m })[33m;[39m
+   [90m 21 |[39m
+   [90m 22 |[39m [36mexport[39m type [33mRootState[39m [33m=[39m [33mReturnType[39m[33m<[39m[36mtypeof[39m store[33m.[39mgetState[33m>[39m[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m28:29[22m[39m
+[90mTS7030: [39mNot all code paths return a value.
+  [0m [90m 26 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 27 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m29:11[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 27 |[39m   [33mRootState[39m
+   [90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m    |[39m           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {
+   [90m 32 |[39m         [90m//client.close();[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m51:40[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 49 |[39m       [36mbreak[39m[33m;[39m
+   [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+  [31m[1m>[22m[39m[90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+   [90m    |[39m                                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m52:20[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m
+   [90m 55 |[39m       [36mbreak[39m[33m;[39m[0m
+
+Found [31m[1m6 errors[22m[39m in 1713 ms.
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 663 KiB = [1m[32mruntime.23f4860b4349683e.js[39m[22m 13.5 KiB [1m[32mruntime.eea13f43c766fca7.hot-update.js[39m[22m 89 bytes [1m[32mmain.da831118669615b4.js[39m[22m 648 KiB [1m[32mmain.eea13f43c766fca7.hot-update.js[39m[22m 611 bytes
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.23f4860b4349683e.js[39m[22m 13.5 KiB [1m[32mruntime.eea13f43c766fca7.hot-update.js[39m[22m 89 bytes [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.da831118669615b4.js[39m[22m, [1m[32mmain.eea13f43c766fca7.hot-update.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m [1m[32m[rendered][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.23f4860b4349683e.js[39m[22m, [1m[32mruntime.eea13f43c766fca7.hot-update.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (8fe1017ff2308799)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m28:29[22m[39m
+[90mTS7030: [39mNot all code paths return a value.
+  [0m [90m 26 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 27 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m29:11[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 27 |[39m   [33mRootState[39m
+   [90m 28 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 29 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m    |[39m           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 30 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 31 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {
+   [90m 32 |[39m         [90m//client.close();[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m51:40[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 49 |[39m       [36mbreak[39m[33m;[39m
+   [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+  [31m[1m>[22m[39m[90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+   [90m    |[39m                                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m52:20[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 50 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 51 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 52 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 53 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 54 |[39m       })[33m;[39m
+   [90m 55 |[39m       [36mbreak[39m[33m;[39m[0m
+
+Found [31m[1m4 errors[22m[39m in 1717 ms.
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 662 KiB = [1m[32mruntime.23f4860b4349683e.js[39m[22m 13.5 KiB [1m[32mmain.da831118669615b4.js[39m[22m 648 KiB
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.23f4860b4349683e.js[39m[22m 13.5 KiB [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.da831118669615b4.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.23f4860b4349683e.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (8fe1017ff2308799)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m43:29[22m[39m
+[90mTS7030: [39mNot all code paths return a value.
+  [0m [90m 41 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 42 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 43 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 44 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 45 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 46 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m44:11[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 42 |[39m   [33mRootState[39m
+   [90m 43 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action) [33m=>[39m {
+  [31m[1m>[22m[39m[90m 44 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m    |[39m           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 45 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 46 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {
+   [90m 47 |[39m         [90m//client.close();[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m66:40[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 64 |[39m       [36mbreak[39m[33m;[39m
+   [90m 65 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+  [31m[1m>[22m[39m[90m 66 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+   [90m    |[39m                                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 67 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m 68 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 69 |[39m       })[33m;[39m[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m67:20[22m[39m
+[90mTS18046: [39m'action' is of type 'unknown'.
+  [0m [90m 65 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 66 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 67 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 68 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 69 |[39m       })[33m;[39m
+   [90m 70 |[39m       [36mbreak[39m[33m;[39m[0m
+
+Found [31m[1m4 errors[22m[39m in 113 ms.
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 663 KiB = [1m[32mruntime.74d4b5f1ab2b1afd.js[39m[22m 13.5 KiB [1m[32mruntime.8fe1017ff2308799.hot-update.js[39m[22m 89 bytes [1m[32mmain.eda04debe3b7d91c.js[39m[22m 648 KiB [1m[32mmain.8fe1017ff2308799.hot-update.js[39m[22m 956 bytes
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.74d4b5f1ab2b1afd.js[39m[22m 13.5 KiB [1m[32mruntime.8fe1017ff2308799.hot-update.js[39m[22m 89 bytes [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.eda04debe3b7d91c.js[39m[22m, [1m[32mmain.8fe1017ff2308799.hot-update.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m [1m[32m[rendered][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.74d4b5f1ab2b1afd.js[39m[22m, [1m[32mruntime.8fe1017ff2308799.hot-update.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (3f390da09eab84ee)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m43:29[22m[39m
+[90mTS2322: [39mType '(action: WebSocketAction) => unknown' is not assignable to type '(action: unknown) => unknown'.
+  Types of parameters 'action' and 'action' are incompatible.
+    Type 'unknown' is not assignable to type 'WebSocketAction'.
+  [0m [90m 41 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 42 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 43 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action[33m:[39m [33mWebSocketAction[39m) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 44 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 45 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 46 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m67:20[22m[39m
+[90mTS2345: [39mArgument of type 'unknown' is not assignable to parameter of type 'Record<string, unknown>'.
+  [0m [90m 65 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 66 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 67 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 68 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 69 |[39m       })[33m;[39m
+   [90m 70 |[39m       [36mreturn[39m[33m;[39m[0m
+
+Found [31m[1m2 errors[22m[39m in 1709 ms.

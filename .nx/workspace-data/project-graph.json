@@ -14,7 +14,7 @@
         ],
         "targets": {
           "e2e": {
-            "executor": "@nrwl/cypress:cypress",
+            "executor": "@nx/cypress:cypress",
             "options": {
               "cypressConfig": "apps/starship-mayflower-frontend-e2e/cypress.json",
               "devServerTarget": "starship-mayflower-frontend:serve"
@@ -28,7 +28,7 @@
             "cache": true
           },
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -173,23 +173,25 @@
         "tags": [],
         "targets": {
           "build": {
-            "executor": "@nrwl/node:build",
+            "executor": "@nx/webpack:webpack",
             "outputs": [
               "{options.outputPath}"
             ],
             "options": {
+              "target": "node",
+              "compiler": "tsc",
               "outputPath": "dist/apps/game-server-next",
               "main": "apps/game-server-next/src/main.ts",
               "tsConfig": "apps/game-server-next/tsconfig.app.json",
               "assets": [
                 "apps/game-server-next/src/assets"
-              ]
+              ],
+              "webpackConfig": "apps/game-server-next/webpack.config.js"
             },
             "configurations": {
               "production": {
                 "optimization": true,
                 "extractLicenses": true,
-                "inspect": false,
                 "fileReplacements": [
                   {
                     "replace": "apps/game-server-next/src/environments/environment.ts",
@@ -209,15 +211,16 @@
             "cache": true
           },
           "serve": {
-            "executor": "@nrwl/node:execute",
+            "executor": "@nx/js:node",
             "options": {
-              "buildTarget": "game-server-next:build"
+              "buildTarget": "game-server-next:build",
+              "watch": true
             },
             "configurations": {},
             "parallelism": true
           },
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/eslint:lint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -236,7 +239,7 @@
             "cache": true
           },
           "test": {
-            "executor": "@nrwl/jest:jest",
+            "executor": "@nx/jest:jest",
             "outputs": [
               "coverage/apps/game-server-next"
             ],
@@ -268,7 +271,7 @@
         "tags": [],
         "targets": {
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -287,7 +290,7 @@
             "cache": true
           },
           "test": {
-            "executor": "@nrwl/jest:jest",
+            "executor": "@nx/jest:jest",
             "outputs": [
               "coverage/libs/game-server-lib"
             ],
@@ -322,7 +325,7 @@
         ],
         "targets": {
           "e2e": {
-            "executor": "@nrwl/cypress:cypress",
+            "executor": "@nx/cypress:cypress",
             "options": {
               "cypressConfig": "apps/compass-e2e/cypress.json",
               "devServerTarget": "compass:storybook"
@@ -336,7 +339,7 @@
             "cache": true
           },
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -368,7 +371,7 @@
         "tags": [],
         "targets": {
           "build": {
-            "executor": "@nrwl/node:build",
+            "executor": "@nx/node:build",
             "outputs": [
               "{options.outputPath}"
             ],
@@ -404,7 +407,7 @@
             "cache": true
           },
           "serve": {
-            "executor": "@nrwl/node:execute",
+            "executor": "@nx/node:execute",
             "options": {
               "buildTarget": "game-server:build"
             },
@@ -412,7 +415,7 @@
             "parallelism": true
           },
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -431,7 +434,7 @@
             "cache": true
           },
           "test": {
-            "executor": "@nrwl/jest:jest",
+            "executor": "@nx/jest:jest",
             "outputs": [
               "coverage/apps/game-server"
             ],
@@ -463,7 +466,7 @@
         "tags": [],
         "targets": {
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -482,7 +485,7 @@
             "cache": true
           },
           "test": {
-            "executor": "@nrwl/jest:jest",
+            "executor": "@nx/jest:jest",
             "outputs": [
               "coverage/libs/compass"
             ],
@@ -500,7 +503,7 @@
             "cache": true
           },
           "storybook": {
-            "executor": "@nrwl/storybook:storybook",
+            "executor": "@nx/storybook:storybook",
             "options": {
               "uiFramework": "@storybook/react",
               "port": 4400,
@@ -516,7 +519,7 @@
             "parallelism": true
           },
           "build-storybook": {
-            "executor": "@nrwl/storybook:build",
+            "executor": "@nx/storybook:build",
             "outputs": [
               "{options.outputPath}"
             ],
@@ -553,7 +556,7 @@
         ],
         "targets": {
           "e2e": {
-            "executor": "@nrwl/cypress:cypress",
+            "executor": "@nx/cypress:cypress",
             "options": {
               "cypressConfig": "apps/map-e2e/cypress.json",
               "devServerTarget": "map:storybook"
@@ -567,7 +570,7 @@
             "cache": true
           },
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -599,7 +602,7 @@
         "tags": [],
         "targets": {
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -618,7 +621,7 @@
             "cache": true
           },
           "test": {
-            "executor": "@nrwl/jest:jest",
+            "executor": "@nx/jest:jest",
             "outputs": [
               "coverage/libs/util"
             ],
@@ -650,7 +653,7 @@
         "tags": [],
         "targets": {
           "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "outputs": [
               "{options.outputFile}"
             ],
@@ -669,7 +672,7 @@
             "cache": true
           },
           "test": {
-            "executor": "@nrwl/jest:jest",
+            "executor": "@nx/jest:jest",
             "outputs": [
               "coverage/libs/map"
             ],
@@ -687,7 +690,7 @@
             "cache": true
           },
           "storybook": {
-            "executor": "@nrwl/storybook:storybook",
+            "executor": "@nx/storybook:storybook",
             "options": {
               "uiFramework": "@storybook/react",
               "port": 4400,
@@ -703,7 +706,7 @@
             "parallelism": true
           },
           "build-storybook": {
-            "executor": "@nrwl/storybook:build",
+            "executor": "@nx/storybook:build",
             "outputs": [
               "{options.outputPath}"
             ],
@@ -14299,6 +14302,11 @@
         "source": "game-server-next",
         "target": "game-server-lib",
         "type": "static"
+      },
+      {
+        "source": "game-server-next",
+        "target": "npm:@nx/webpack",
+        "type": "static"
       }
     ],
     "game-server-lib": [
@@ -14310,6 +14318,16 @@
       {
         "source": "game-server-lib",
         "target": "npm:ws",
+        "type": "static"
+      },
+      {
+        "source": "game-server-lib",
+        "target": "util",
+        "type": "static"
+      },
+      {
+        "source": "game-server-lib",
+        "target": "npm:sylvester-es6",
         "type": "static"
       }
     ],

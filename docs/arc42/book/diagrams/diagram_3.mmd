@@ -1,0 +1,23 @@
+C4Component
+
+    Component(app, "App Component", "React Router", "Root component with routing: /login, /lobby")
+    Component(login, "Login Page", "React Component", "Username entry and authentication")
+    Component(lobby, "Lobby Page", "React Component", "Ship selection, station assignment, game start")
+
+    Component(store, "Redux Store", "Redux Toolkit", "Centralized state: auth state, game state, connection status")
+    Component(ws_middleware, "WebSocket Middleware", "Redux Middleware", "Manages WebSocket lifecycle, dispatches connection events")
+    Component(ws_client, "GameServerClient", "WebSocket Client", "Binary protocol client connecting to port 3010, handles message routing")
+
+    Component(auth_slice, "Auth Slice", "Redux Slice", "Authentication state and reducers")
+    Component(game_slice, "Game Slice", "Redux Slice", "Game state and connection status reducers")
+
+    Rel(app, login, "Routes to /login")
+    Rel(app, lobby, "Routes to /lobby")
+    Rel(app, store, "Dispatches WS_CONNECT on mount")
+    Rel(login, store, "Dispatches auth actions")
+    Rel(lobby, store, "Dispatches game actions")
+    Rel(store, ws_middleware, "Middleware chain")
+    Rel(ws_middleware, ws_client, "Manages client lifecycle")
+    Rel(ws_client, app, "Connection state updates")
+    Rel(store, auth_slice, "Contains")
+    Rel(store, game_slice, "Contains")

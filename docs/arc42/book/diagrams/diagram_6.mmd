@@ -1,0 +1,53 @@
+flowchart TD
+    Start([Timer.run called]) --> Init[Store ActionManager reference]
+    Init --> SetInterval[setInterval tick, 100ms]
+    SetInterval --> WaitTick[Wait for next 100ms interval]
+
+    WaitTick --> TickStart[tick function executes]
+
+    TickStart --> Phase1[Phase 1: Action Processing]
+    Phase1 --> UpdateActions[actionManager.update]
+    UpdateActions --> ForEachAction{For each<br/>queued action}
+    ForEachAction -->|Has actions| ExecAction[action.update<br/>deltaTime]
+    ExecAction --> BurnFuel[Burn fuel for acceleration]
+    BurnFuel --> UpdateVelocity[Update ship velocity/rotation]
+    UpdateVelocity --> CheckFinished{Action<br/>finished?}
+    CheckFinished -->|Yes| RemoveAction[Remove from queue]
+    CheckFinished -->|No| KeepAction[Keep in queue]
+    RemoveAction --> ForEachAction
+    KeepAction --> ForEachAction
+    ForEachAction -->|No more| Phase2[Phase 2: Physics Simulation]
+
+    Phase2 --> MoveShips[moveShips]
+    MoveShips --> ForEachShip{For each ship<br/>in registry}
+    ForEachShip -->|Has ships| CalcDelta[Calculate deltaTime<br/>since lastMove]
+    CalcDelta --> MovePhysics[moveShipPhysics<br/>ship, seconds]
+    MovePhysics --> CalcPosition[position += velocity * deltaTime]
+    CalcPosition --> WarpCheck{Warp<br/>active?}
+    WarpCheck -->|Yes| BurnWarp[Deplete warp energy<br/>burnRate = 3 × warpSpeed]
+    BurnWarp --> CheckEnergy{Energy<br/>remaining?}
+    CheckEnergy -->|No| DisableWarp[Set energy = 0<br/>Clamp timeslice]
+    CheckEnergy -->|Yes| KeepWarp[Continue warp]
+    DisableWarp --> ClipPos[clipPosition<br/>bounds check]
+    KeepWarp --> ClipPos
+    WarpCheck -->|No| ClipPos
+    ClipPos --> UpdateTimestamp[Update ship.lastMove]
+    UpdateTimestamp --> ForEachShip
+    ForEachShip -->|No more| Phase3[Phase 3: State Broadcasting]
+
+    Phase3 --> SendUpdates[sendUpdates]
+    SendUpdates --> ForEachShipBcast{For each ship}
+    ForEachShipBcast -->|Has ships| SendKnown[sendKnownWorld<br/>ship]
+    SendKnown --> PushShipUpdate[pushToShip<br/>ShipUpdate: own state]
+    PushShipUpdate --> PushWorldUpdate[pushToShip<br/>WorldUpdate: visible objects]
+    PushWorldUpdate --> ForEachShipBcast
+    ForEachShipBcast -->|No more| SendGlobal[pushToGlobal<br/>GlobalUpdate: all map data]
+
+    SendGlobal --> TickEnd[Tick complete]
+    TickEnd --> WaitTick
+
+    style Phase1 fill:#e1f5ff
+    style Phase2 fill:#fff4e1
+    style Phase3 fill:#f0ffe1
+    style TickStart fill:#ff9999
+    style TickEnd fill:#99ff99

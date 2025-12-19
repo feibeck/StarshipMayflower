@@ -1,0 +1,39 @@
+graph TB
+    subgraph "Developer Machine / Single Host"
+        subgraph "Node.js Runtime (v16+)"
+            Master[Master Server<br/>port 3005]
+            Connector[Connector Server<br/>port 3150 internal<br/>port 3010 client]
+            World[World Server<br/>port 3151]
+            WebSrv[Web Server<br/>Express.js<br/>port 3001]
+        end
+
+        subgraph "Frontend Build Output"
+            Frontend[Static Files<br/>React SPA<br/>dist/apps/starship-mayflower-frontend/]
+        end
+
+        Files[(Config Files<br/>servers.json<br/>master.json<br/>adminUser.json)]
+        Logs[(Log Files<br/>logs/*.log)]
+    end
+
+    Browser[Web Browser<br/>Players] -->|HTTP/WS port 3001| WebSrv
+    Browser -->|WS port 3010| Connector
+
+    WebSrv -.->|serves| Frontend
+
+    Connector <-->|RPC<br/>port 3150| Master
+    World <-->|RPC<br/>port 3151| Master
+    Connector <-->|RPC| World
+
+    Master -.->|reads| Files
+    Connector -.->|reads| Files
+    World -.->|reads| Files
+
+    Master -.->|writes| Logs
+    Connector -.->|writes| Logs
+    World -.->|writes| Logs
+
+    style Master fill:#e1f5ff
+    style Connector fill:#ffe1e1
+    style World fill:#e1ffe1
+    style WebSrv fill:#fff4e1
+    style Frontend fill:#f0ffe1

@@ -1,6 +1,19 @@
 # 8. Crosscutting Concepts
 
-This section describes crosscutting concepts, patterns, and principles that affect multiple building blocks and form the basis for conceptual integrity of the Starship Mayflower architecture. These concepts are documented centrally to avoid repetition across building block descriptions.
+This section documents **8 key crosscutting patterns** that affect multiple building blocks and form the basis for conceptual integrity of the Starship Mayflower architecture. These concepts are documented centrally to avoid repetition across building block descriptions.
+
+**Selection Criteria**: The patterns documented here were selected based on:
+- **Crosscutting Nature**: Each pattern is used by at least 3 building blocks (section 5), ensuring system-wide consistency
+- **Quality Goal Support**: All patterns directly support quality goals from section 1.2 (real-time responsiveness, maintainability, developer experience)
+- **Architectural Significance**: Patterns are critical to achieving conceptual integrity and maintaining system coherence
+- **Implementation Consistency**: Patterns require uniform implementation across modules to prevent architectural erosion
+
+**Pattern Organization**: Patterns are organized from domain layer (models, registries) through business logic (actions, state management) to infrastructure (communication, rendering, build system).
+
+**Additional Patterns**: Other important patterns specific to individual building blocks are documented in section 5 (Building Block View). Examples include:
+- Pinus framework handlers pattern (section 5.2)
+- React Router navigation pattern (section 5.3)
+- Storybook component isolation pattern (section 5.5)
 
 ## 8.1 Isomorphic Domain Model with Dual Serialization
 
@@ -121,6 +134,11 @@ export class Ship extends ObjectInSpace {
 - **Single Source of Truth**: Domain models defined once, eliminating client-server deserialization bugs
 - **Multiple Views of Same Data**: Dual serialization enables efficient map rendering (lightweight) vs full state sync (complete)
 - **Fluent Builder Pattern**: Method chaining enables clean object configuration code
+
+**Anti-Patterns to Avoid**:
+- ❌ **Separate Client/Server Models**: Duplicating domain models leads to deserialization bugs and type mismatches
+- ❌ **Single Serialization Method**: Forces unnecessary data transfer (sending full state for map rendering wastes bandwidth)
+- ❌ **Direct Property Access**: Bypassing setters breaks fluent interface and prevents validation
 
 ## 8.2 Registry Pattern for Entity Management
 
@@ -244,6 +262,11 @@ export class ShipRegistry {
 - **Lazy Caching**: Only rebuilds array when dirty flag set; avoids repeated conversions
 - **Event-Driven Updates**: Registry emits events enabling observers to react to entity changes
 - **Centralized Entity Lifecycle**: Single point for entity creation, lookup, and destruction
+
+**Anti-Patterns to Avoid**:
+- ❌ **Array-Only Storage**: Using only arrays forces O(n) lookup; unacceptable for real-time 10 Hz tick cycle
+- ❌ **Eager List Rebuilding**: Rebuilding list on every insertion destroys performance; lazy caching essential
+- ❌ **Distributed Entity Management**: Multiple entity storage locations creates synchronization bugs and inconsistent state
 
 ## 8.3 Action Queue with State Machine Pattern
 
@@ -435,6 +458,11 @@ export function run() {
 - **Cancelable Operations**: Actions can be aborted mid-execution (e.g., emergency stop)
 - **Resource Management**: Built-in energy/fuel burn tracking for game balance
 - **Time-Based Simulation**: Supports realistic physics (acceleration takes time, not instant)
+
+**Anti-Patterns to Avoid**:
+- ❌ **Immediate Execution**: Executing commands synchronously blocks game loop; must queue for deferred execution
+- ❌ **Allowing Duplicate Actions**: Multiple conflicting accelerations create undefined behavior; singleton pattern required
+- ❌ **No Abort Mechanism**: Actions must be cancelable for responsive gameplay (emergency stops, collisions)
 
 ## 8.4 Redux Middleware with WebSocket Integration
 
@@ -630,6 +658,11 @@ export const App: FC = () => {
 - **Decoupled from Transport**: Easy to swap WebSocket for other protocols without changing components
 - **Time-Travel Debugging**: Redux DevTools provides visibility into all state changes
 
+**Anti-Patterns to Avoid**:
+- ❌ **Component-Level WebSocket**: Managing WebSocket in components creates inconsistent connection state; middleware centralizes lifecycle
+- ❌ **Callback Hell**: Without promise-based correlation, async calls become nested callback chains
+- ❌ **Direct State Mutation**: Mutating Redux state directly breaks time-travel debugging; use reducers
+
 ## 8.5 Channel-Based Broadcasting Pattern
 
 The system uses **hierarchical channel abstraction** for efficient multi-client message broadcasting, with channels at global, lobby, and ship-specific scopes[^channel1].
@@ -772,10 +805,15 @@ export function moveShip(ship: Ship) {
 - **Game Server - Game Handler** (section 5.2): Broadcasts world updates via `pushToGlobal()`
 
 **Why This Matters**:
-- **Efficient Broadcast**: Only sends to relevant clients; ship updates don't spam entire server
-- **Hierarchical Scoping**: Global/lobby/ship channels match game domain model
-- **Automatic Subscription**: Channels auto-create and manage membership
-- **Decouples State Changes from Delivery**: Handlers don't need to know about connected clients
+- **Efficient Broadcast**: Only sends to relevant clients; ship updates don't spam entire server (supports network efficiency quality goal from section 1.2)
+- **Hierarchical Scoping**: Global/lobby/ship channels match game domain model, preventing inappropriate information leakage
+- **Automatic Subscription**: Channels auto-create and manage membership, simplifying client lifecycle
+- **Decouples State Changes from Delivery**: Handlers don't need to know about connected clients, enabling independent evolution
+
+**Anti-Patterns to Avoid**:
+- ❌ **Broadcast Everything to Everyone**: Sending all updates to all clients wastes bandwidth and leaks game state (e.g., enemy positions)
+- ❌ **Manual Client Tracking**: Tracking which clients need which updates creates complex, error-prone code; channels automate this
+- ❌ **Tight Coupling to Clients**: Handlers knowing about specific clients prevents independent scaling of connector and world servers
 
 ## 8.6 Pinus RPC for Inter-Server Communication
 
@@ -917,11 +955,16 @@ export function turn(args, callback) {
 - **Game Server - Navigation Handler** (section 5.2): RPC calls for ship commands
 
 **Why This Matters**:
-- **Transparent RPC**: Remote calls look like local function calls; framework handles serialization/transport
-- **Session-Based Routing**: RPC calls automatically route through client's session
+- **Transparent RPC**: Remote calls look like local function calls; framework handles serialization/transport, reducing distributed systems complexity
+- **Session-Based Routing**: RPC calls automatically route through client's session, maintaining context across server boundaries
 - **Binary Protocol**: Dictionary + protobuf compression reduces bandwidth by ~70% vs JSON (supports network efficiency quality goal from section 1.2)
-- **Server Separation**: Connector handles I/O (scalable), world manages state (consistent)
-- **Environment Configuration**: Easy switching between dev/prod server topologies
+- **Server Separation**: Connector handles I/O (horizontally scalable), world manages state (vertically scalable), enabling independent scaling strategies
+- **Environment Configuration**: Easy switching between dev/prod server topologies via JSON configuration
+
+**Anti-Patterns to Avoid**:
+- ❌ **REST APIs Between Servers**: HTTP overhead unnecessary for internal RPC; binary protocol 70% more efficient
+- ❌ **Monolithic Server**: Combining connector and world prevents independent scaling; I/O-bound and CPU-bound needs differ
+- ❌ **Manual Serialization**: Hand-coding serialization creates bugs; Pinus handles protobuf automatically
 
 ## 8.7 Component Composition with Three.js Rendering
 
@@ -1118,11 +1161,16 @@ export const Compass: FC<CompassProps> = ({ pitch, yaw }) => {
 - **Frontend SPA** (section 5.3): Consumes Map and Compass components
 
 **Why This Matters**:
-- **React/Three.js Boundary**: Clean separation between React declarative state and Three.js imperative rendering
-- **Imperative DOM from React**: Three.js scene imperatively managed inside React lifecycle hooks
-- **Ref-Based Lifecycle**: `useRef` manages DOM mounting point, avoiding duplicate renders
-- **Prop-Driven Updates**: Three.js objects updated when props change (reactive visualization)
+- **React/Three.js Boundary**: Clean separation between React declarative state and Three.js imperative rendering prevents framework conflicts
+- **Imperative DOM from React**: Three.js scene imperatively managed inside React lifecycle hooks, enabling complex 3D without React DOM
+- **Ref-Based Lifecycle**: `useRef` manages DOM mounting point, avoiding duplicate renders and memory leaks
+- **Prop-Driven Updates**: Three.js objects updated when props change, enabling reactive visualization without Redux integration
 - **Reusable Visualization Components**: Map and Compass are library-level abstractions (supports maintainability quality goal from section 1.2)
+
+**Anti-Patterns to Avoid**:
+- ❌ **React-Managed Three.js**: Trying to manage Three.js objects as React state causes performance issues; use refs
+- ❌ **Missing Cleanup**: Not removing Three.js DOM elements on unmount creates memory leaks
+- ❌ **Prop Changes Without Updates**: Ignoring prop changes leaves Three.js scene stale; useEffect ensures synchronization
 
 ## 8.8 Nx Monorepo with Module Boundary Enforcement
 
@@ -1241,11 +1289,21 @@ import { Map } from '@starship-mayflower/map';
 - **Libraries** (section 5.4, 5.5): Self-contained with minimal dependencies
 
 **Why This Matters**:
-- **Architectural Discipline**: Compile-time enforcement prevents architectural erosion (addresses technical debt constraint from section 2)
-- **Clean Imports**: Path mappings eliminate brittle relative paths (`../../../libs/util`)
-- **Build Caching**: Nx caches task results; rebuild only affected projects (supports developer experience quality goal from section 1.2)
-- **Dependency Graph**: Nx visualizes project dependencies; easy to understand architecture
-- **Refactoring Safety**: Path mappings enable safe refactoring without updating import paths
+- **Architectural Discipline**: Compile-time enforcement prevents architectural erosion (addresses technical debt constraint from section 2); violations fail build
+- **Clean Imports**: Path mappings eliminate brittle relative paths (`../../../libs/util`), making code relocatable
+- **Build Caching**: Nx caches task results; rebuild only affected projects (supports developer experience quality goal from section 1.2), improving build time by 5-10x
+- **Dependency Graph**: Nx visualizes project dependencies (`nx graph`); makes architecture visible to all developers
+- **Refactoring Safety**: Path mappings enable safe refactoring without updating import paths across hundreds of files
+
+**Anti-Patterns to Avoid**:
+- ❌ **Application Importing Application**: Apps importing from other apps creates tight coupling; use shared libraries
+- ❌ **Library Importing Application**: Makes libraries non-reusable; libraries must only depend on other libraries
+- ❌ **Relative Path Imports**: `../../../libs/util` is brittle; use `@starship-mayflower/util` path mappings
+- ❌ **Disabling Boundary Checks**: Bypassing ESLint rules defeats architectural enforcement; fix violations instead
+
+**Pattern Alternatives Considered**:
+- **Polyrepo**: Each library in separate repository would eliminate module boundary issues but create versioning and coordination overhead
+- **No Enforcement**: Relying on code review alone allows architectural erosion; compile-time enforcement is superior
 
 > **Cross-references:**
 > - **Section 1.2** (Quality Goals) defines quality goals supported by these patterns (real-time responsiveness, maintainability, developer experience)

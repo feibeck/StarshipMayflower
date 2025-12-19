@@ -1,0 +1,64 @@
+<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: [36mhttp://localhost:4200/[39m, [36mhttp://[::1]:4200/[39m
+<i> [webpack-dev-server] 404s will fallback to '[36m/index.html[39m'
+
+[7m[1m[36m NX [39m[22m[27m [1mWeb Development Server is listening at http://localhost:4200/[22m
+
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 662 KiB = [1m[32mruntime.6043100be4b55d17.js[39m[22m 13.5 KiB [1m[32mmain.eda04debe3b7d91c.js[39m[22m 648 KiB
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.6043100be4b55d17.js[39m[22m 13.5 KiB [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.eda04debe3b7d91c.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m [1m[32m[rendered][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m [1m[32m[rendered][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.6043100be4b55d17.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (8ef89f5c5ae71bb9)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m43:29[22m[39m
+[90mTS2322: [39mType '(action: WebSocketAction) => unknown' is not assignable to type '(action: unknown) => unknown'.
+  Types of parameters 'action' and 'action' are incompatible.
+    Type 'unknown' is not assignable to type 'WebSocketAction'.
+  [0m [90m 41 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 42 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 43 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action[33m:[39m [33mWebSocketAction[39m) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 44 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 45 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 46 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m67:20[22m[39m
+[90mTS2345: [39mArgument of type 'unknown' is not assignable to parameter of type 'Record<string, unknown>'.
+  [0m [90m 65 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 66 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 67 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 68 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 69 |[39m       })[33m;[39m
+   [90m 70 |[39m       [36mreturn[39m[33m;[39m[0m
+
+Found [31m[1m2 errors[22m[39m in 2561 ms.
+Entrypoint [1mmain[39m[22m [1m[33m[big][39m[22m 662 KiB = [1m[32mruntime.6043100be4b55d17.js[39m[22m 13.5 KiB [1m[32mmain.eda04debe3b7d91c.js[39m[22m 648 KiB
+Entrypoint [1mpolyfills[39m[22m [1m[33m[big][39m[22m 250 KiB = [1m[32mruntime.6043100be4b55d17.js[39m[22m 13.5 KiB [1m[32mpolyfills.15ed076246121ea7.js[39m[22m 236 KiB
+chunk (runtime: runtime) [1m[32mmain.eda04debe3b7d91c.js[39m[22m (main) 1.87 MiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mpolyfills.15ed076246121ea7.js[39m[22m (polyfills) 726 KiB [1m[33m[initial][39m[22m
+chunk (runtime: runtime) [1m[32mruntime.6043100be4b55d17.js[39m[22m (runtime) 34.7 KiB [1m[33m[entry][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (8ef89f5c5ae71bb9)
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m43:29[22m[39m
+[90mTS2322: [39mType '(action: WebSocketAction) => unknown' is not assignable to type '(action: unknown) => unknown'.
+  Types of parameters 'action' and 'action' are incompatible.
+    Type 'unknown' is not assignable to type 'WebSocketAction'.
+  [0m [90m 41 |[39m   {}[33m,[39m [90m// Most middleware do not modify the dispatch return value[39m
+   [90m 42 |[39m   [33mRootState[39m
+  [31m[1m>[22m[39m[90m 43 |[39m [33m>[39m [33m=[39m (storeApi) [33m=>[39m (next) [33m=>[39m (action[33m:[39m [33mWebSocketAction[39m) [33m=>[39m {
+   [90m    |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 44 |[39m   [36mswitch[39m (action[33m.[39mtype) {
+   [90m 45 |[39m     [36mcase[39m [32m'WS_CONNECT'[39m[33m:[39m
+   [90m 46 |[39m       [36mif[39m (client [33m!==[39m [36mnull[39m) {[0m
+
+[31m[1mERROR[22m[39m in [1m./apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts[22m:[32m[1m67:20[22m[39m
+[90mTS2345: [39mArgument of type 'unknown' is not assignable to parameter of type 'Record<string, unknown>'.
+  [0m [90m 65 |[39m     [36mcase[39m [32m'NEW_MESSAGE'[39m[33m:[39m
+   [90m 66 |[39m       console[33m.[39mlog([32m'sending a message'[39m[33m,[39m action[33m.[39mmsg)[33m;[39m
+  [31m[1m>[22m[39m[90m 67 |[39m       client[33m?[39m[33m.[39mcall(action[33m.[39mmsg)[33m.[39mthen((response) [33m=>[39m {
+   [90m    |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   [90m 68 |[39m         storeApi[33m.[39mdispatch({ type[33m:[39m [32m'foo'[39m[33m,[39m payload[33m:[39m response })[33m;[39m
+   [90m 69 |[39m       })[33m;[39m
+   [90m 70 |[39m       [36mreturn[39m[33m;[39m[0m
+
+Found [31m[1m2 errors[22m[39m in 90 ms.

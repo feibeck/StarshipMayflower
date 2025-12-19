@@ -46,6 +46,13 @@ export class GameHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
+
     const stations = ship.stationsForPlayer(player);
 
     return {
@@ -73,6 +80,12 @@ export class GameHandler extends RouteHandler {
     }
 
     const ship = player.getShip();
+    if (!ship) {
+      return {
+        status: 'error',
+        error: 'Player not on a ship',
+      };
+    }
 
     return {
       status: 'ok',

@@ -1,0 +1,53 @@
+sequenceDiagram
+    participant Client as Frontend SPA
+    participant Nav as Navigation Handler
+    participant ActionMgr as ActionManager
+    participant Queue as ActionQueue
+    participant Timer as Timer (10 Hz)
+    participant Physics as Physics Engine
+    participant Registry as ShipRegistry
+    participant Channel as Channel Service
+
+    Note over Client,Nav: Command Submission Phase
+    Client->>Nav: RPC: navigation.setImpulseSpeed({targetSpeed: 0.5})
+    Nav->>Nav: Validate session playerId
+    Nav->>Registry: getShip(playerId)
+    Registry-->>Nav: Ship object
+    Nav->>Nav: ship.setTargetImpulse(targetSpeed)
+    Nav->>Nav: Create Accelerate action
+    Nav->>ActionMgr: addAction(action)
+    ActionMgr->>ActionMgr: Abort previous Accelerate (singleton)
+    ActionMgr->>Queue: push(action)
+    Queue-->>ActionMgr: true (queued)
+    Nav-->>Client: {code: OK}
+
+    Note over Timer,Channel: 10 Hz Tick Cycle (every 100ms)
+    loop Every 100ms
+        Timer->>ActionMgr: update()
+        ActionMgr->>Queue: getAll()
+        Queue-->>ActionMgr: [action1, action2, ...]
+
+        loop For each queued action
+            ActionMgr->>Physics: action.update()
+            Note over Physics: Accelerate.update():<br/>1. Calculate speed delta<br/>2. Burn fuel<br/>3. Update ship velocity
+            Physics->>Registry: ship.setVelocity(newVelocity)
+            Physics-->>ActionMgr: {finished: true/false}
+            alt Action finished
+                ActionMgr->>Queue: remove(action)
+            end
+        end
+
+        Timer->>Physics: moveShips()
+        loop For each ship
+            Physics->>Registry: Get ship
+            Physics->>Physics: Calculate new position<br/>(position + velocity * deltaTime)
+            Physics->>Physics: Apply warp energy depletion
+            Physics->>Physics: Clip position to world bounds
+            Physics->>Registry: Update ship position
+            Physics->>Channel: pushToShip("ShipUpdate", shipState)
+        end
+
+        Timer->>Channel: sendUpdates()
+        Channel-->>Client: Broadcast: ShipUpdate (own ship)
+        Channel-->>Client: Broadcast: WorldUpdate (visible objects)
+    end
