@@ -14,9 +14,7 @@ export const store = configureStore({
     middleware.push(GameMiddleware);
     return middleware;
   },
-  devTools: process.env.NODE_ENV !== 'production',
-  // Optional Redux store enhancers
-  enhancers: [],
+  devTools: process.env['NODE_ENV'] !== 'production',
 });
 
 export type RootState = ReturnType<typeof store.getState>;

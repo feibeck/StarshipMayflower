@@ -29,11 +29,11 @@ export class GameServerClient extends EventEmitter {
   }
 
   handleMessage(msg: Record<string, unknown>) {
-    if (msg.requestId && this.calls[msg.requestId as string]) {
-      const funcs = this.calls[msg.requestId as string];
+    if (msg['requestId'] && this.calls[msg['requestId'] as string]) {
+      const funcs = this.calls[msg['requestId'] as string];
       funcs.resolve(msg);
-      delete this.calls[msg.requestId as string];
-    } else if (msg.requestId && !this.calls[msg.requestId as string]) {
+      delete this.calls[msg['requestId'] as string];
+    } else if (msg['requestId'] && !this.calls[msg['requestId'] as string]) {
       // answer to an unknown call? throw something?
     } else {
       this.handleChannelMessage(msg);
@@ -46,13 +46,13 @@ export class GameServerClient extends EventEmitter {
 
   call(message: Record<string, unknown>): Promise<Record<string, unknown>> {
     const promise = new Promise<Record<string, unknown>>((resolve, reject) => {
-      message.requestId = uuidv4();
+      message['requestId'] = uuidv4();
       if (!this.connected || !this.client) {
         reject('Not Connected');
       }
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.client!.send(JSON.stringify(message));
-      this.calls[message.requestId as string] = {
+      this.calls[message['requestId'] as string] = {
         resolve: resolve,
         reject: reject,
       };
