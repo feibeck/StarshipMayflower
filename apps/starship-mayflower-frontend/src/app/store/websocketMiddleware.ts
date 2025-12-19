@@ -61,10 +61,11 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
       typeof shipData === 'object' &&
       'stations' in shipData
     ) {
-      const stations = (shipData as { stations: Record<string, unknown> })
-        .stations;
+      const stations = (
+        shipData as { stations: Record<string, { name: string } | null> }
+      ).stations;
       const takenStations = Object.entries(stations)
-        .filter(([_, playerName]) => playerName === username)
+        .filter(([_, player]) => player && player.name === username)
         .map(([stationName]) => stationName);
 
       // Update local myStations for each one the user has
@@ -91,10 +92,11 @@ const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
       typeof shipData === 'object' &&
       'stations' in shipData
     ) {
-      const stations = (shipData as { stations: Record<string, unknown> })
-        .stations;
+      const stations = (
+        shipData as { stations: Record<string, { name: string } | null> }
+      ).stations;
       const takenStations = Object.entries(stations)
-        .filter(([_, playerName]) => playerName === username)
+        .filter(([_, player]) => player && player.name === username)
         .map(([stationName]) => stationName);
 
       // Find stations the user released (were in myStations but not anymore)

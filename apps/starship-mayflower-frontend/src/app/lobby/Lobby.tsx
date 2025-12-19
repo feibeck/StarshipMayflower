@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { selectUsername, selectAuthenticated, logout } from '../store/auth.slice';
+import {
+  selectUsername,
+  selectAuthenticated,
+  logout,
+} from '../store/auth.slice';
 import {
   selectLobbyShips,
   selectCurrentShip,

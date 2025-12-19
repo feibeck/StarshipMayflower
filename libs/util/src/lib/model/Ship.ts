@@ -3,15 +3,22 @@ import { Vector } from 'sylvester-es6';
 
 export type Station = 'helm' | 'weapons' | 'comm' | 'science' | 'engineering';
 
+interface SerializedPlayer {
+  id: number;
+  name: string;
+}
+
 interface Player {
   getId: () => number;
+  getName: () => string;
+  serialize: () => SerializedPlayer;
 }
 
 interface SerializedShip {
   name: string;
   id: number;
-  creator: Player;
-  stations: Record<Station, string>;
+  creator: SerializedPlayer | undefined;
+  stations: Record<Station, SerializedPlayer | null>;
   position: Size;
   speed: number;
   heading: Size;
@@ -34,10 +41,10 @@ interface SerializedShip {
  */
 export class Ship extends ObjectInSpace {
   protected name: string;
-  protected creator: any = null;
-  protected players: Record<number, any> = [];
+  protected creator: Player | null = null;
+  protected players: Record<number, Player> = {};
 
-  protected stations: Record<Station, any> = {
+  protected stations: Record<Station, Player | null> = {
     helm: null,
     weapons: null,
     comm: null,
@@ -76,14 +83,14 @@ export class Ship extends ObjectInSpace {
   /**
    * Registeres a player with the ship
    */
-  addPlayer(player: any) {
+  addPlayer(player: Player) {
     this.players[player.getId()] = player;
   }
 
   /**
    * Removes a player from the ship
    */
-  removePlayer(player: any) {
+  removePlayer(player: Player) {
     delete this.players[player.getId()];
 
     this.releaseStation('helm', player);
@@ -96,7 +103,7 @@ export class Ship extends ObjectInSpace {
   /**
    * Sets the creator of the ship
    */
-  setCreator(player: any): Ship {
+  setCreator(player: Player): Ship {
     this.creator = player;
     return this;
   }
@@ -171,7 +178,7 @@ export class Ship extends ObjectInSpace {
   /**
    * Register a player with a station
    */
-  takeStation(station: Station, player: any) {
+  takeStation(station: Station, player: Player) {
     if (this.stations[station]) {
       return false;
     }
@@ -182,7 +189,7 @@ export class Ship extends ObjectInSpace {
   /**
    * Releases a station from a player
    */
-  releaseStation(station: Station, player: any) {
+  releaseStation(station: Station, player: Player) {
     if (this.stations[station] != player) {
       return false;
     }
@@ -193,10 +200,11 @@ export class Ship extends ObjectInSpace {
   /**
    * Returns all stations a player is stationed on
    */
-  stationsForPlayer(player: any) {
+  stationsForPlayer(player: Player) {
     const stations: Station[] = [];
     Object.keys(this.stations).forEach((key: string) => {
-      if (this.stations[key as Station].getId() === player.getId()) {
+      const stationPlayer = this.stations[key as Station];
+      if (stationPlayer && stationPlayer.getId() === player.getId()) {
         stations.push(key as Station);
       }
     });
@@ -269,7 +277,7 @@ export class Ship extends ObjectInSpace {
   serialize(): SerializedShip {
     const heading = this.getHeading();
 
-    let creator;
+    let creator: SerializedPlayer | undefined;
     if (this.creator) {
       creator = this.creator.serialize();
     }
@@ -280,15 +288,38 @@ export class Ship extends ObjectInSpace {
     return {
       name: this.getName(),
       id: Number.parseInt(this.getId()),
-      creator: creator,
+      creator,
       stations: {
-        helm: this.stations.helm ? this.stations.helm.getName() : '',
-        weapons: this.stations.weapons ? this.stations.weapons.getName() : '',
-        science: this.stations.science ? this.stations.science.getName() : '',
+        helm: this.stations.helm
+          ? {
+              id: this.stations.helm.getId(),
+              name: this.stations.helm.getName(),
+            }
+          : null,
+        weapons: this.stations.weapons
+          ? {
+              id: this.stations.weapons.getId(),
+              name: this.stations.weapons.getName(),
+            }
+          : null,
+        science: this.stations.science
+          ? {
+              id: this.stations.science.getId(),
+              name: this.stations.science.getName(),
+            }
+          : null,
         engineering: this.stations.engineering
-          ? this.stations.engineering.getName()
-          : '',
-        comm: this.stations.comm ? this.stations.comm.getName() : null,
+          ? {
+              id: this.stations.engineering.getId(),
+              name: this.stations.engineering.getName(),
+            }
+          : null,
+        comm: this.stations.comm
+          ? {
+              id: this.stations.comm.getId(),
+              name: this.stations.comm.getName(),
+            }
+          : null,
       },
       position: {
         x: this.position.e(1),
