@@ -9,7 +9,8 @@ import {
   selectMyStations,
   selectIsReady,
   setCurrentShip,
-  setShips
+  setShips,
+  Ship
 } from '../store/slices/lobby.slice';
 import { gameClient } from '../services/GameClient';
 import { theme } from '../theme';
@@ -164,7 +165,7 @@ export const Lobby = () => {
       if (response.status === 'ok') {
         // Update ships in Redux store
         if (response['ships']) {
-          dispatch(setShips(response['ships']));
+          dispatch(setShips(response['ships'] as Ship[]));
         }
         console.log('Ships loaded successfully');
       } else {
@@ -189,7 +190,7 @@ export const Lobby = () => {
       if (response.status === 'ok') {
         // Set current ship from response
         if (response['ship']) {
-          dispatch(setCurrentShip(response['ship']));
+          dispatch(setCurrentShip(response['ship'] as Ship));
         }
         console.log('Joined ship successfully');
       } else {
