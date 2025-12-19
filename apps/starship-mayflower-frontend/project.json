@@ -60,7 +60,8 @@
       "options": {
         "lintFilePatterns": [
           "apps/starship-mayflower-frontend/**/*.{ts,tsx,js,jsx}"
-        ]
+        ],
+        "eslintConfig": "{workspaceRoot}/eslint.config.mjs"
       }
     },
     "test": {

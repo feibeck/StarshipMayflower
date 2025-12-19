@@ -145,10 +145,13 @@ export const GameMiddleware: Middleware<
       switch (typedAction.type) {
         case 'WS_CONNECT':
           if (!gameClient.isConnected()) {
+            // Setup listeners BEFORE connecting so they catch the 'connected' event
+            setupEventListeners(storeApi);
+
             gameClient
               .connect()
               .then(() => {
-                setupEventListeners(storeApi);
+                console.log('WebSocket connected successfully');
               })
               .catch((error) => {
                 console.error('WebSocket connection failed:', error);

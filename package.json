@@ -12,7 +12,7 @@
     "start": "nx serve starship-mayflower-frontend",
     "build": "nx build starship-mayflower-frontend",
     "test": "nx test starship-mayflower-frontend",
-    "lint": "nx lint starship-mayflower-frontend",
+    "lint": "eslint . --max-warnings=0",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

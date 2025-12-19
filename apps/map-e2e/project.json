@@ -19,7 +19,8 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/map-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/map-e2e/**/*.{js,ts}"],
+        "eslintConfig": "{workspaceRoot}/eslint.config.mjs"
       }
     }
   },
