@@ -173,7 +173,14 @@ export const ShipDetail: React.FC<ShipDetailProps> = ({
     }
   };
 
-  const playerCount = ship.players?.length || 0;
+  // Count unique players on stations
+  const uniquePlayerIds = new Set(
+    Object.values(ship.stations || {})
+      .filter((player) => player !== null)
+      .map((player) => player!.id),
+  );
+  const playerCount = uniquePlayerIds.size;
+
   const takenStationsCount = STATIONS.filter(
     (s) => ship.stations?.[s.name] !== null,
   ).length;

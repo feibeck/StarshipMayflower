@@ -83,7 +83,14 @@ export const ShipCard: React.FC<ShipCardProps> = ({
   const stations = ship.stations || {};
   const stationNames = ['helm', 'weapons', 'science', 'comm', 'engineering'];
   const takenStations = stationNames.filter((name) => stations[name] !== null);
-  const playerCount = ship.players?.length || 0;
+
+  // Count unique players on stations
+  const uniquePlayerIds = new Set(
+    Object.values(stations)
+      .filter((player) => player !== null)
+      .map((player) => player!.id),
+  );
+  const playerCount = uniquePlayerIds.size;
 
   return (
     <Card isSelected={isSelected} onClick={() => onSelect(ship.id)}>
