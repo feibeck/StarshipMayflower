@@ -1,0 +1,1452 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.3.0",
+  "pathMappings": {
+    "@starship-mayflower/compass": [
+      "libs/compass/src/index.ts"
+    ],
+    "@starship-mayflower/game-server-lib": [
+      "libs/game-server-lib/src/index.ts"
+    ],
+    "@starship-mayflower/map": [
+      "libs/map/src/index.ts"
+    ],
+    "@starship-mayflower/util": [
+      "libs/util/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": "web-server/public/js/application/Game/controllers/PlayCtrl.js",
+        "hash": "6188498008984584637"
+      },
+      {
+        "file": "docs/ROLLBACK.md",
+        "hash": "5304722120617233604"
+      },
+      {
+        "file": "web-server/app.js",
+        "hash": "6243907762159859825"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/view/ship.html",
+        "hash": "3552874243039591267"
+      },
+      {
+        "file": "AGENTS.md",
+        "hash": "5238701747125998364"
+      },
+      {
+        "file": "web-server/public/js/application/bootstrap.js",
+        "hash": "12569614763977244486"
+      },
+      {
+        "file": "CLAUDE.md",
+        "hash": "10589885990583689863"
+      },
+      {
+        "file": "web-server/public/image/background_layer1.png",
+        "hash": "1874716506453298587"
+      },
+      {
+        "file": "package.json",
+        "hash": "5505807546414035420"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/EngineeringCtrl.js",
+        "hash": "8891700349434424620"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/index.js",
+        "hash": "8392627855610973737"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/lib/slider.js",
+        "hash": "211168271725975182"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/weapons.html",
+        "hash": "17729718297392132046"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/Player.js",
+        "hash": "16398152399343815267"
+      },
+      {
+        "file": "web-server/public/js/Scanner/ScannerObject.js",
+        "hash": "2811902678428258202"
+      },
+      {
+        "file": "web-server/public/js/Util/course.js",
+        "hash": "14358612683766841509"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/comm.html",
+        "hash": "8509259778527454945"
+      },
+      {
+        "file": "eslint.config.mjs",
+        "hash": "6097517507985626189"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/Three.js",
+        "hash": "4938528068770780240"
+      },
+      {
+        "file": "web-server/public/less/slider.less",
+        "hash": "7166041986307831196"
+      },
+      {
+        "file": "web-server/public/js/application/Game/services/Target.js",
+        "hash": "15928352871236871950"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/MainScreenCtrl.js",
+        "hash": "10357477158588977329"
+      },
+      {
+        "file": ".editorconfig",
+        "hash": "5443105041930014821"
+      },
+      {
+        "file": "web-server/public/js/Scanner/test.html",
+        "hash": "7065550966351221948"
+      },
+      {
+        "file": "web-server/public/js/application/Game/module.js",
+        "hash": "8497417882182287587"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/SpaceView.js",
+        "hash": "11540097360704276220"
+      },
+      {
+        "file": "web-server/public/less/Map.less",
+        "hash": "5464112308757038392"
+      },
+      {
+        "file": "workspace.json",
+        "hash": "1107753255799753482"
+      },
+      {
+        "file": "web-server/public/js/Util/angle.js",
+        "hash": "9646019460887863297"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/debug.html",
+        "hash": "14987416989014169916"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/Compass.js",
+        "hash": "8107239939301352596"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/module.js",
+        "hash": "8628700756021552992"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/Pomelo.js",
+        "hash": "3048412976491667202"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": "web-server/public/js/application/Game/index.js",
+        "hash": "6068410160391677432"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "3516528951273486892"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/view/login.html",
+        "hash": "6017741738785787412"
+      },
+      {
+        "file": "web-server/public/js/application/routes.js",
+        "hash": "9341542388044646315"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/view/shipList.html",
+        "hash": "13217836958271803287"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/view3d.html",
+        "hash": "17446754758305089900"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/SpeedSlider.js",
+        "hash": "6713790134060644281"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "17733650430415207254"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/mainscreen.html",
+        "hash": "10286911636114623268"
+      },
+      {
+        "file": "docs/arc42/03-context-and-scope.md",
+        "hash": "11886406465222403180"
+      },
+      {
+        "file": "docs/arc42/07-deployment-view.md",
+        "hash": "466295455070610024"
+      },
+      {
+        "file": ".storybook/tsconfig.json",
+        "hash": "3128062056361165723"
+      },
+      {
+        "file": "web-server/public/image/background.jpg",
+        "hash": "7291277106939142243"
+      },
+      {
+        "file": "web-server/public/js/Rotation/rotation.js",
+        "hash": "15519601402395953997"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/view/lobby.html",
+        "hash": "14712448946117141614"
+      },
+      {
+        "file": "web-server/public/js/lib/pomeloclient.js",
+        "hash": "8324635892308936841"
+      },
+      {
+        "file": "docs/arc42/01-introduction-and-goals.md",
+        "hash": "14993346702149095949"
+      },
+      {
+        "file": "web-server/public/models/SpaceStation01/SpaceStation01/Metal_Rough.jpg",
+        "hash": "12837149802793816466"
+      },
+      {
+        "file": "yarn.lock",
+        "hash": "1625790518469911004"
+      },
+      {
+        "file": "docs/arc42/06-runtime-view.md",
+        "hash": "8470342596277159456"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/module.js",
+        "hash": "10275324472329894410"
+      },
+      {
+        "file": "web-server/public/js/application/main.js",
+        "hash": "1934760473640068468"
+      },
+      {
+        "file": "docs/arc42/08-crosscutting-concepts.md",
+        "hash": "14111039019827873317"
+      },
+      {
+        "file": "web-server/public/js/lib/SpaceObjectsRenderer.js",
+        "hash": "12768203222822162906"
+      },
+      {
+        "file": "libs/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "web-server/package.json",
+        "hash": "13008732623123628774"
+      },
+      {
+        "file": "web-server/public/js/lib/ModelLoader.js",
+        "hash": "7461214079238677585"
+      },
+      {
+        "file": "scripts/install.sh",
+        "hash": "7776241134586185387"
+      },
+      {
+        "file": "web-server/bin/component.sh",
+        "hash": "10136909550407881867"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/controllers/LoginCtrl.js",
+        "hash": "792348171091150353"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/WeaponsCtrl.js",
+        "hash": "5208109340513070479"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/View3dCtrl.js",
+        "hash": "9686463332750022518"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/HelmCtrl.js",
+        "hash": "5030796942447325427"
+      },
+      {
+        "file": "npm-install.sh",
+        "hash": "7201348351717408632"
+      },
+      {
+        "file": "web-server/public/js/Scanner/scanner.js",
+        "hash": "18203763066568729261"
+      },
+      {
+        "file": "web-server/bower.json",
+        "hash": "11068513521682515913"
+      },
+      {
+        "file": "web-server/.bowerrc",
+        "hash": "10513915309424085491"
+      },
+      {
+        "file": "docs/arc42/05-building-block-view.md",
+        "hash": "11615434374299711283"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/view/map.html",
+        "hash": "1411331758450126501"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/Scanner.js",
+        "hash": "12850322435313228297"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/MapCtrl.js",
+        "hash": "6787446183737077185"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/play.html",
+        "hash": "11031971041158797772"
+      },
+      {
+        "file": "web-server/public/index.html",
+        "hash": "9744927209306902412"
+      },
+      {
+        "file": "web-server/bin/component.bat",
+        "hash": "10136909550407881867"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/science.html",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "docs/arc42/_analysis/repo-survey.md",
+        "hash": "10445674947216842570"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/Rotation.js",
+        "hash": "13423232248171732685"
+      },
+      {
+        "file": "web-server/public/image/background_layer2.png",
+        "hash": "11122139821647257462"
+      },
+      {
+        "file": "web-server/public/models/SpaceStation01/SpaceStation01.skp",
+        "hash": "13809567864781814235"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/MapLabel.js",
+        "hash": "13074124145146981572"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/DebugCtrl.js",
+        "hash": "17480254080250941005"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/index.js",
+        "hash": "11186717356549503630"
+      },
+      {
+        "file": "web-server/public/js/application/app.js",
+        "hash": "1812229406413666294"
+      },
+      {
+        "file": "nx.json",
+        "hash": "8885133190190807533"
+      },
+      {
+        "file": "web-server/gruntfile.js",
+        "hash": "4758146315649265639"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/Scenes.js",
+        "hash": "9851650199037407605"
+      },
+      {
+        "file": "Gruntfile.js",
+        "hash": "9729780904553099300"
+      },
+      {
+        "file": "web-server/public/css/frontend.css",
+        "hash": "188740080981701672"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/filters/Ucfirst.js",
+        "hash": "11989183974711874079"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "5137147997102054031"
+      },
+      {
+        "file": "pre-upgrade-dependencies.txt",
+        "hash": "5681729677676785668"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/engineering.html",
+        "hash": "3149563928271576136"
+      },
+      {
+        "file": "pre-upgrade-nx-report.txt",
+        "hash": "13993683240781486684"
+      },
+      {
+        "file": "tools/tsconfig.tools.json",
+        "hash": "16088922570277978783"
+      },
+      {
+        "file": "web-server/public/js/lib/FpsMeter.js",
+        "hash": "16037031069437524378"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/Map.js",
+        "hash": "7378097478157860892"
+      },
+      {
+        "file": "npm-install.bat",
+        "hash": "18169077053074201317"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/map.html",
+        "hash": "6673812168673254065"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/WorldRegistry.js",
+        "hash": "18063576295677610419"
+      },
+      {
+        "file": "web-server/public/less/StarshipMayflower.less",
+        "hash": "11045685990515217732"
+      },
+      {
+        "file": "docs/arc42/04-solution-strategy.md",
+        "hash": "16877112747889691892"
+      },
+      {
+        "file": "README.md",
+        "hash": "13562710066561060196"
+      },
+      {
+        "file": "web-server/public/js/SpaceViewer/test.html",
+        "hash": "5577008101376006092"
+      },
+      {
+        "file": "web-server/public/models/SpaceStation01/SpaceStation01.mtl",
+        "hash": "13356569714458513630"
+      },
+      {
+        "file": "scripts/gameserver-stop.sh",
+        "hash": "17317438096375753030"
+      },
+      {
+        "file": "tools/generators/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/helm.html",
+        "hash": "13047600631410027331"
+      },
+      {
+        "file": "web-server/public/js/SpaceViewer/viewer.js",
+        "hash": "3081013484559837579"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/controllers/ShipListCtrl.js",
+        "hash": "10808406366789406106"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/CommCtrl.js",
+        "hash": "3668388432938253853"
+      },
+      {
+        "file": "web-server/public/models/SpaceStation01/SpaceStation01.obj",
+        "hash": "3932641464320794409"
+      },
+      {
+        "file": ".storybook/main.js",
+        "hash": "16327388015911810737"
+      },
+      {
+        "file": ".mcp.json",
+        "hash": "363150899393853157"
+      },
+      {
+        "file": "web-server/public/css/parallax.css",
+        "hash": "6228631591489660038"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "9670278276223233238"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "4637156562308165301"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/index.js",
+        "hash": "12977066117506628720"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/controllers/ShipCtrl.js",
+        "hash": "7291731264087168909"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/module.js",
+        "hash": "18392117406064584931"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/ScienceCtrl.js",
+        "hash": "5501079380782994792"
+      },
+      {
+        "file": "docs/arc42/02-architecture-constraints.md",
+        "hash": "6226786293566760549"
+      },
+      {
+        "file": "docs/MODERNIZATION.md",
+        "hash": "10916464646589737325"
+      },
+      {
+        "file": "jest.config.js",
+        "hash": "8280827210074712746"
+      },
+      {
+        "file": ".travis.yml",
+        "hash": "15038135640399167456"
+      },
+      {
+        "file": "apps/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "babel.config.json",
+        "hash": "5546405625092116747"
+      },
+      {
+        "file": "scripts/gameserver-start.sh",
+        "hash": "1508063161716763207"
+      }
+    ],
+    "projectFileMap": {
+      "game-server-lib": [
+        {
+          "file": "libs/game-server-lib/.babelrc",
+          "hash": "2685020516260856122"
+        },
+        {
+          "file": "libs/game-server-lib/.eslintrc.json",
+          "hash": "13800677001662881425"
+        },
+        {
+          "file": "libs/game-server-lib/README.md",
+          "hash": "9060946220441235166"
+        },
+        {
+          "file": "libs/game-server-lib/jest.config.js",
+          "hash": "15193245972240916104"
+        },
+        {
+          "file": "libs/game-server-lib/project.json",
+          "hash": "4726143812806151458"
+        },
+        {
+          "file": "libs/game-server-lib/src/index.ts",
+          "hash": "14428353282588746736"
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/Channel.ts",
+          "hash": "558643270110095152"
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/Message.ts",
+          "hash": "1604889085285492648"
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/Router.ts",
+          "hash": "5848765323873866930"
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/Session.ts",
+          "hash": "6847364500384208371",
+          "deps": [
+            "npm:uuid",
+            "npm:ws"
+          ]
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/SocketHandler.ts",
+          "hash": "18373604309821342399",
+          "deps": [
+            "npm:ws"
+          ]
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/handler/RouteHandler.ts",
+          "hash": "8354313629446634355"
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/handler/auth.ts",
+          "hash": "10881858465907767246"
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/handler/index.ts",
+          "hash": "10214815683995001193"
+        },
+        {
+          "file": "libs/game-server-lib/src/lib/index.ts",
+          "hash": "12299897882179503030"
+        },
+        {
+          "file": "libs/game-server-lib/tsconfig.json",
+          "hash": "12834038490315927699"
+        },
+        {
+          "file": "libs/game-server-lib/tsconfig.lib.json",
+          "hash": "6101871960198761206"
+        },
+        {
+          "file": "libs/game-server-lib/tsconfig.spec.json",
+          "hash": "163997633145879976"
+        }
+      ],
+      "game-server": [
+        {
+          "file": "apps/game-server/.eslintrc.json",
+          "hash": "13800677001662881425"
+        },
+        {
+          "file": "apps/game-server/jest.config.js",
+          "hash": "599161249818787837"
+        },
+        {
+          "file": "apps/game-server/project.json",
+          "hash": "15439220550842071706"
+        },
+        {
+          "file": "apps/game-server/src/app/servers/connector/handler/entry.ts",
+          "hash": "14795023867608692762"
+        },
+        {
+          "file": "apps/game-server/src/app/servers/world/handler/game.ts",
+          "hash": "9931293814281549165"
+        },
+        {
+          "file": "apps/game-server/src/app/servers/world/handler/lobby.ts",
+          "hash": "2909265666350239779",
+          "deps": [
+            "util"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/servers/world/handler/navigation.ts",
+          "hash": "2096833112501420386"
+        },
+        {
+          "file": "apps/game-server/src/app/servers/world/remote/player.ts",
+          "hash": "16379118030844294085"
+        },
+        {
+          "file": "apps/game-server/src/app/src/action/ActionQueue.ts",
+          "hash": "11882843276406575710"
+        },
+        {
+          "file": "apps/game-server/src/app/src/action/accelerate.ts",
+          "hash": "9361685123987949247"
+        },
+        {
+          "file": "apps/game-server/src/app/src/action/action.ts",
+          "hash": "2364709855118104837"
+        },
+        {
+          "file": "apps/game-server/src/app/src/action/actionManager.ts",
+          "hash": "18302381413604947777"
+        },
+        {
+          "file": "apps/game-server/src/app/src/action/turn.ts",
+          "hash": "8814991527711329258"
+        },
+        {
+          "file": "apps/game-server/src/app/src/channel.ts",
+          "hash": "2837327445707277585",
+          "deps": [
+            "util"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/src/customError.ts",
+          "hash": "6771573917642615241"
+        },
+        {
+          "file": "apps/game-server/src/app/src/game.ts",
+          "hash": "14336316013570582904",
+          "deps": [
+            "util"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/src/models/Planet.ts",
+          "hash": "1125873534599665511",
+          "deps": [
+            "util"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/src/models/Player.spec.ts",
+          "hash": "2342559329205891883"
+        },
+        {
+          "file": "apps/game-server/src/app/src/models/Player.ts",
+          "hash": "676585546820170022",
+          "deps": [
+            "util"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/src/models/Station.ts",
+          "hash": "7615021188712985534",
+          "deps": [
+            "util"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/src/physics.spec.ts",
+          "hash": "10308435368365224232",
+          "deps": [
+            "util"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/src/physics.ts",
+          "hash": "1085271294484164091",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/src/timer.ts",
+          "hash": "15393938376610690905"
+        },
+        {
+          "file": "apps/game-server/src/app/src/world.ts",
+          "hash": "7003205664706009847",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/app/src/world/ShipRegistry.ts",
+          "hash": "17133352828875328721",
+          "deps": [
+            "util"
+          ]
+        },
+        {
+          "file": "apps/game-server/src/config/adminServer.json",
+          "hash": "7226218191590816627"
+        },
+        {
+          "file": "apps/game-server/src/config/adminUser.json",
+          "hash": "9659239534210555844"
+        },
+        {
+          "file": "apps/game-server/src/config/clientProtos.json",
+          "hash": "1389868326933519382"
+        },
+        {
+          "file": "apps/game-server/src/config/dictionary.json",
+          "hash": "1389868326933519382"
+        },
+        {
+          "file": "apps/game-server/src/config/log4js.json",
+          "hash": "17416332571797692550"
+        },
+        {
+          "file": "apps/game-server/src/config/master.json",
+          "hash": "14941591001509329534"
+        },
+        {
+          "file": "apps/game-server/src/config/serverProtos.json",
+          "hash": "1389868326933519382"
+        },
+        {
+          "file": "apps/game-server/src/config/servers.json",
+          "hash": "13422036373993929324"
+        },
+        {
+          "file": "apps/game-server/src/main.ts",
+          "hash": "5120010951102206053",
+          "deps": [
+            "npm:pinus",
+            "npm:reflect-metadata"
+          ]
+        },
+        {
+          "file": "apps/game-server/tsconfig.app.json",
+          "hash": "12111364265930000175"
+        },
+        {
+          "file": "apps/game-server/tsconfig.json",
+          "hash": "9214820933160915425"
+        },
+        {
+          "file": "apps/game-server/tsconfig.spec.json",
+          "hash": "9890306705623532975"
+        }
+      ],
+      "game-server-next": [
+        {
+          "file": "apps/game-server-next/.eslintrc.json",
+          "hash": "13800677001662881425"
+        },
+        {
+          "file": "apps/game-server-next/jest.config.js",
+          "hash": "13000690377676167756"
+        },
+        {
+          "file": "apps/game-server-next/project.json",
+          "hash": "12534812300470692480"
+        },
+        {
+          "file": "apps/game-server-next/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/game-server-next/src/environments/environment.prod.ts",
+          "hash": "10220522844224226756"
+        },
+        {
+          "file": "apps/game-server-next/src/environments/environment.ts",
+          "hash": "1135292433917692033"
+        },
+        {
+          "file": "apps/game-server-next/src/main.ts",
+          "hash": "3479175386214847707",
+          "deps": [
+            "game-server-lib"
+          ]
+        },
+        {
+          "file": "apps/game-server-next/tsconfig.app.json",
+          "hash": "12111364265930000175"
+        },
+        {
+          "file": "apps/game-server-next/tsconfig.json",
+          "hash": "9214820933160915425"
+        },
+        {
+          "file": "apps/game-server-next/tsconfig.spec.json",
+          "hash": "9890306705623532975"
+        }
+      ],
+      "util": [
+        {
+          "file": "libs/util/.babelrc",
+          "hash": "2685020516260856122"
+        },
+        {
+          "file": "libs/util/.eslintrc.json",
+          "hash": "13800677001662881425"
+        },
+        {
+          "file": "libs/util/README.md",
+          "hash": "13454022595501832428"
+        },
+        {
+          "file": "libs/util/jest.config.js",
+          "hash": "14525938614744524409"
+        },
+        {
+          "file": "libs/util/project.json",
+          "hash": "6030461405213616937"
+        },
+        {
+          "file": "libs/util/src/index.ts",
+          "hash": "14428353282588746736"
+        },
+        {
+          "file": "libs/util/src/lib/geometry/collision.spec.ts",
+          "hash": "5872233988002038303",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "libs/util/src/lib/geometry/collision.ts",
+          "hash": "14493281228170959610",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "libs/util/src/lib/geometry/index.ts",
+          "hash": "13978749421069318564"
+        },
+        {
+          "file": "libs/util/src/lib/index.ts",
+          "hash": "13493127769351876858"
+        },
+        {
+          "file": "libs/util/src/lib/model/ObjectInSpace.ts",
+          "hash": "6252393825861171886",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "libs/util/src/lib/model/ObjectInSpaceRegistry.spec.ts",
+          "hash": "9492362072526660685",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "libs/util/src/lib/model/ObjectInSpaceRegistry.ts",
+          "hash": "13675553736589447914",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "libs/util/src/lib/model/Ship.spec.ts",
+          "hash": "1979900402138112812",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "libs/util/src/lib/model/Ship.ts",
+          "hash": "8995010784822189325",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "libs/util/src/lib/model/index.ts",
+          "hash": "17250434513548624331"
+        },
+        {
+          "file": "libs/util/src/lib/model/volume/Box.ts",
+          "hash": "8092243150627189656",
+          "deps": [
+            "npm:sylvester-es6"
+          ]
+        },
+        {
+          "file": "libs/util/src/lib/model/volume/Point.ts",
+          "hash": "4193498760693980931"
+        },
+        {
+          "file": "libs/util/src/lib/model/volume/Sphere.ts",
+          "hash": "392687791889637494"
+        },
+        {
+          "file": "libs/util/src/lib/model/volume/Volume.ts",
+          "hash": "5511807700466087878"
+        },
+        {
+          "file": "libs/util/src/lib/model/volume/index.ts",
+          "hash": "12624457029701018946"
+        },
+        {
+          "file": "libs/util/tsconfig.json",
+          "hash": "17079550796797979564"
+        },
+        {
+          "file": "libs/util/tsconfig.lib.json",
+          "hash": "3185372664353199514"
+        },
+        {
+          "file": "libs/util/tsconfig.spec.json",
+          "hash": "163997633145879976"
+        }
+      ],
+      "starship-mayflower-frontend-e2e": [
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/.eslintrc.json",
+          "hash": "15523834149352881398"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/cypress.json",
+          "hash": "4892902396984125706"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/project.json",
+          "hash": "10969927949410949725"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/src/fixtures/example.json",
+          "hash": "11614668686582597233"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/src/integration/app.spec.ts",
+          "hash": "6922400335384250185"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/src/support/app.po.ts",
+          "hash": "11157016311132186162"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/src/support/commands.ts",
+          "hash": "7314691991044890572"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/src/support/index.ts",
+          "hash": "3666078656922506009"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend-e2e/tsconfig.json",
+          "hash": "15074946957254721334"
+        }
+      ],
+      "compass-e2e": [
+        {
+          "file": "apps/compass-e2e/.eslintrc.json",
+          "hash": "14060216369337943343"
+        },
+        {
+          "file": "apps/compass-e2e/cypress.json",
+          "hash": "736431503733467568"
+        },
+        {
+          "file": "apps/compass-e2e/project.json",
+          "hash": "9200787964068513622"
+        },
+        {
+          "file": "apps/compass-e2e/src/fixtures/example.json",
+          "hash": "11614668686582597233"
+        },
+        {
+          "file": "apps/compass-e2e/src/integration/compass/compass.spec.ts",
+          "hash": "12215352931655116784"
+        },
+        {
+          "file": "apps/compass-e2e/src/support/commands.ts",
+          "hash": "7314691991044890572"
+        },
+        {
+          "file": "apps/compass-e2e/src/support/index.ts",
+          "hash": "3666078656922506009"
+        },
+        {
+          "file": "apps/compass-e2e/tsconfig.json",
+          "hash": "15074946957254721334"
+        }
+      ],
+      "map": [
+        {
+          "file": "libs/map/.babelrc",
+          "hash": "6680964783330969614"
+        },
+        {
+          "file": "libs/map/.eslintrc.json",
+          "hash": "10075191527724852300"
+        },
+        {
+          "file": "libs/map/.storybook/main.js",
+          "hash": "9890635147922672177"
+        },
+        {
+          "file": "libs/map/.storybook/preview.js",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/map/.storybook/tsconfig.json",
+          "hash": "17995243541691932975"
+        },
+        {
+          "file": "libs/map/README.md",
+          "hash": "9954373348872924165"
+        },
+        {
+          "file": "libs/map/jest.config.js",
+          "hash": "7729710163281738824"
+        },
+        {
+          "file": "libs/map/project.json",
+          "hash": "11978173883726932262"
+        },
+        {
+          "file": "libs/map/src/index.ts",
+          "hash": "444568741873572691"
+        },
+        {
+          "file": "libs/map/src/lib/Grid.ts",
+          "hash": "17693520151117209426",
+          "deps": [
+            "npm:three"
+          ]
+        },
+        {
+          "file": "libs/map/src/lib/MapObject.ts",
+          "hash": "12748258145176953114"
+        },
+        {
+          "file": "libs/map/src/lib/MapObjectActor.ts",
+          "hash": "9457259540994950686",
+          "deps": [
+            "npm:three"
+          ]
+        },
+        {
+          "file": "libs/map/src/lib/MapObjectBase.ts",
+          "hash": "9319693303135765167"
+        },
+        {
+          "file": "libs/map/src/lib/MapObjectPicker.ts",
+          "hash": "14616450495248892736",
+          "deps": [
+            "npm:three"
+          ]
+        },
+        {
+          "file": "libs/map/src/lib/MapObjectTable.ts",
+          "hash": "2532271103834078965"
+        },
+        {
+          "file": "libs/map/src/lib/StarMap.ts",
+          "hash": "5714556027770587669",
+          "deps": [
+            "npm:three"
+          ]
+        },
+        {
+          "file": "libs/map/src/lib/map.spec.tsx",
+          "hash": "9986922141555409007",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "libs/map/src/lib/map.stories.tsx",
+          "hash": "10760703563510510071",
+          "deps": [
+            "npm:@storybook/react"
+          ]
+        },
+        {
+          "file": "libs/map/src/lib/map.tsx",
+          "hash": "5561618054776545094",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/map/src/lib/threetest.stories.tsx",
+          "hash": "3738528689492568929",
+          "deps": [
+            "npm:@storybook/react"
+          ]
+        },
+        {
+          "file": "libs/map/src/lib/threetest.tsx",
+          "hash": "509307108050570405",
+          "deps": [
+            "npm:react",
+            "npm:three"
+          ]
+        },
+        {
+          "file": "libs/map/tsconfig.json",
+          "hash": "14012470123300239028"
+        },
+        {
+          "file": "libs/map/tsconfig.lib.json",
+          "hash": "3980005691357501039"
+        },
+        {
+          "file": "libs/map/tsconfig.spec.json",
+          "hash": "163997633145879976"
+        }
+      ],
+      "map-e2e": [
+        {
+          "file": "apps/map-e2e/.eslintrc.json",
+          "hash": "14060216369337943343"
+        },
+        {
+          "file": "apps/map-e2e/cypress.json",
+          "hash": "9976604111379800958"
+        },
+        {
+          "file": "apps/map-e2e/project.json",
+          "hash": "14261172214438600621"
+        },
+        {
+          "file": "apps/map-e2e/src/fixtures/example.json",
+          "hash": "11614668686582597233"
+        },
+        {
+          "file": "apps/map-e2e/src/integration/map/map.spec.ts",
+          "hash": "11321568870619843929"
+        },
+        {
+          "file": "apps/map-e2e/src/support/commands.ts",
+          "hash": "7314691991044890572"
+        },
+        {
+          "file": "apps/map-e2e/src/support/index.ts",
+          "hash": "3666078656922506009"
+        },
+        {
+          "file": "apps/map-e2e/tsconfig.json",
+          "hash": "15074946957254721334"
+        }
+      ],
+      "compass": [
+        {
+          "file": "libs/compass/.babelrc",
+          "hash": "6680964783330969614"
+        },
+        {
+          "file": "libs/compass/.eslintrc.json",
+          "hash": "10075191527724852300"
+        },
+        {
+          "file": "libs/compass/.storybook/main.js",
+          "hash": "11255797066393469307"
+        },
+        {
+          "file": "libs/compass/.storybook/preview.js",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/compass/.storybook/tsconfig.json",
+          "hash": "17995243541691932975"
+        },
+        {
+          "file": "libs/compass/README.md",
+          "hash": "6932779833580332266"
+        },
+        {
+          "file": "libs/compass/jest.config.js",
+          "hash": "5229116039367240080"
+        },
+        {
+          "file": "libs/compass/project.json",
+          "hash": "11436820293393082373"
+        },
+        {
+          "file": "libs/compass/src/compass.spec.tsx",
+          "hash": "6374123315606655341",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "libs/compass/src/compass.stories.tsx",
+          "hash": "4445808834842906781",
+          "deps": [
+            "npm:@storybook/react"
+          ]
+        },
+        {
+          "file": "libs/compass/src/compass.tsx",
+          "hash": "10829189133860599808",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/compass/src/index.ts",
+          "hash": "3805618459531683174"
+        },
+        {
+          "file": "libs/compass/src/lib/Compass.ts",
+          "hash": "9811652894298870091",
+          "deps": [
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/compass/tsconfig.json",
+          "hash": "14012470123300239028"
+        },
+        {
+          "file": "libs/compass/tsconfig.lib.json",
+          "hash": "3980005691357501039"
+        },
+        {
+          "file": "libs/compass/tsconfig.spec.json",
+          "hash": "163997633145879976"
+        }
+      ],
+      "starship-mayflower-frontend": [
+        {
+          "file": "apps/starship-mayflower-frontend/.babelrc",
+          "hash": "3309448101048490971"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/.browserslistrc",
+          "hash": "2888533144288818662"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/.eslintrc.json",
+          "hash": "10075191527724852300"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/jest.config.js",
+          "hash": "3325661553755667452"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/project.json",
+          "hash": "12409431880220616785"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/Login.tsx",
+          "hash": "16814572843838116108",
+          "deps": [
+            "npm:react",
+            "npm:react-redux",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/app.tsx",
+          "hash": "2182409940429731543",
+          "deps": [
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/auth/auth.tsx",
+          "hash": "139218320464399855",
+          "deps": [
+            "npm:react",
+            "npm:react-redux",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/lobby/Lobby.tsx",
+          "hash": "1377774136723117288",
+          "deps": [
+            "npm:react",
+            "npm:react-redux",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/store/auth.slice.ts",
+          "hash": "6857765331606614289",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/store/client.ts",
+          "hash": "3362513445535419458",
+          "deps": [
+            "npm:uuid"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/store/game.slice.ts",
+          "hash": "11119336141092247850",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/store/hooks.ts",
+          "hash": "7433671037444157627",
+          "deps": [
+            "npm:react-redux"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/store/store.ts",
+          "hash": "13854391312093366389",
+          "deps": [
+            "npm:@reduxjs/toolkit"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/app/store/websocketMiddleware.ts",
+          "hash": "5846624085658150128",
+          "deps": [
+            "npm:redux"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/environments/environment.prod.ts",
+          "hash": "10220522844224226756"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/environments/environment.ts",
+          "hash": "11309522437153898482"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/index.html",
+          "hash": "9273425778998618410"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/main.tsx",
+          "hash": "8675822865090030608",
+          "deps": [
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-router-dom",
+            "npm:react-redux"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/src/polyfills.ts",
+          "hash": "12959605551678143287",
+          "deps": [
+            "npm:core-js",
+            "npm:regenerator-runtime"
+          ]
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/tsconfig.app.json",
+          "hash": "1667563348598554373"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/tsconfig.json",
+          "hash": "4580989119055023517"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/tsconfig.spec.json",
+          "hash": "9313102155572740219"
+        },
+        {
+          "file": "apps/starship-mayflower-frontend/webpack.config.js",
+          "hash": "4763540678878024866",
+          "deps": [
+            "npm:@nx/webpack",
+            "npm:@nx/react"
+          ]
+        }
+      ]
+    }
+  }
+}

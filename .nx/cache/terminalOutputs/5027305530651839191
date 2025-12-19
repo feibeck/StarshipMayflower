@@ -1,0 +1,17 @@
+/Users/flo/work/StarshipMayflower/node_modules/webpack-dev-server/lib/Server.js:2638
+        throw error;
+        ^
+
+Error: listen EADDRINUSE: address already in use ::1:4200
+[90m    at Server.setupListenHandle [as _listen2] (node:net:1939:16)[39m
+[90m    at listenInCluster (node:net:1996:12)[39m
+[90m    at GetAddrInfoReqWrap.callback (node:net:2205:7)[39m
+[90m    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:134:8)[39m {
+  code: [32m'EADDRINUSE'[39m,
+  errno: [33m-48[39m,
+  syscall: [32m'listen'[39m,
+  address: [32m'::1'[39m,
+  port: [33m4200[39m
+}
+
+Node.js v22.15.1
