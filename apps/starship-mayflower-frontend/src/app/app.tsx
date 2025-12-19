@@ -6,15 +6,14 @@ import { LoginPage } from './Login';
 import { IntegrationTest } from './pages/IntegrationTest';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { selectConnected, selectConnectionError } from './store/game.slice';
-import { selectAuthenticated, selectUsername, restoreSession } from './store/auth.slice';
+import { restoreSession, getAuthState } from './store/auth.slice';
 import { GlobalStyles } from './theme';
 
 export function App() {
   const dispatch = useAppDispatch();
   const isConnected = useAppSelector(selectConnected);
   const isConnectionError = useAppSelector(selectConnectionError);
-  const isAuthenticated = useAppSelector(selectAuthenticated);
-  const username = useAppSelector(selectUsername);
+  const authState = useAppSelector((state) => getAuthState(state));
 
   useEffect(() => {
     dispatch({ type: 'WS_CONNECT' });
@@ -22,30 +21,35 @@ export function App() {
 
   // Restore session on mount if user was previously authenticated
   useEffect(() => {
-    console.log('Checking session restore:', { isAuthenticated, username });
-    if (isAuthenticated && username) {
-      console.log('Restoring session for:', username);
-      dispatch(restoreSession(username));
+    console.log('Checking session restore:', authState);
+    if (authState.authenticated && authState.name && authState.sessionId) {
+      console.log('Restoring session for:', authState.name);
+      dispatch(
+        restoreSession({
+          username: authState.name,
+          sessionId: authState.sessionId,
+        }),
+      );
     }
-  }, [isAuthenticated, username, dispatch]); // Run when auth state changes
+  }, [authState.authenticated, authState.name, authState.sessionId, dispatch]);
 
   return (
     <>
       <GlobalStyles />
       {isConnected ? (
-    <Routes>
-      <Route path="/" element={<Navigate replace to="/lobby" />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/test" element={<IntegrationTest />} />
-      <Route
-        path="/lobby"
-        element={
-          <RequireAuth>
-            <Lobby />
-          </RequireAuth>
-        }
-      />
-    </Routes>
+        <Routes>
+          <Route path="/" element={<Navigate replace to="/lobby" />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/test" element={<IntegrationTest />} />
+          <Route
+            path="/lobby"
+            element={
+              <RequireAuth>
+                <Lobby />
+              </RequireAuth>
+            }
+          />
+        </Routes>
       ) : isConnectionError ? (
         <div>Connection Error - Unable to connect to game server</div>
       ) : (

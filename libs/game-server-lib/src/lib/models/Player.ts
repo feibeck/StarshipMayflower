@@ -6,15 +6,25 @@ import { Ship } from '@starship-mayflower/util';
 export class Player {
   protected _ship: Ship | null = null;
   protected _readyToPlay = false;
+  public sessionId: string;
 
   constructor(
     protected _id: number,
     protected _name: string,
-    protected _serverId: string
-  ) {}
+    sessionId: string,
+  ) {
+    this.sessionId = sessionId;
+  }
 
   /**
    * Returns the player's id
+   */
+  get id(): number {
+    return this._id;
+  }
+
+  /**
+   * Returns the player's id (legacy method)
    */
   getId(): number {
     return this._id;
@@ -28,10 +38,11 @@ export class Player {
   }
 
   /**
-   * Returns the server id the player is registered with
+   * Returns the server id the player is registered with (legacy)
+   * @deprecated Use sessionId property instead
    */
   getServerId(): string {
-    return this._serverId;
+    return this.sessionId;
   }
 
   /**

@@ -242,6 +242,25 @@ export class GameClient extends EventEmitter {
     });
   }
 
+  async restoreSession(
+    username: string,
+    sessionId: string,
+  ): Promise<ResponseMessage> {
+    return this.call({
+      handler: 'auth',
+      method: 'restore',
+      payload: { username, sessionId },
+    });
+  }
+
+  async logout(): Promise<ResponseMessage> {
+    return this.call({
+      handler: 'auth',
+      method: 'logout',
+      payload: {},
+    });
+  }
+
   // Lobby
   async listAvailableShips(): Promise<ResponseMessage> {
     return this.call({
@@ -332,7 +351,10 @@ export class GameClient extends EventEmitter {
     });
   }
 
-  async turn(axis: 'yaw' | 'pitch' | 'roll', arc: number): Promise<ResponseMessage> {
+  async turn(
+    axis: 'yaw' | 'pitch' | 'roll',
+    arc: number,
+  ): Promise<ResponseMessage> {
     return this.call({
       handler: 'navigation',
       method: 'turn',
