@@ -1,18 +1,18 @@
 {
   "run": {
-    "command": "nx build starship-mayflower-frontend",
-    "startTime": "2025-12-19T11:23:42.441Z",
-    "endTime": "2025-12-19T11:23:45.688Z",
+    "command": "nx build game-server-next",
+    "startTime": "2025-12-19T12:25:31.595Z",
+    "endTime": "2025-12-19T12:25:33.193Z",
     "inner": false
   },
   "tasks": [
     {
-      "taskId": "starship-mayflower-frontend:build:production",
+      "taskId": "game-server-next:build",
       "target": "build",
-      "projectName": "starship-mayflower-frontend",
-      "hash": "6808400044708348845",
-      "startTime": "2025-12-19T11:23:42.447Z",
-      "endTime": "2025-12-19T11:23:45.687Z",
+      "projectName": "game-server-next",
+      "hash": "5884868549568105802",
+      "startTime": "2025-12-19T12:25:31.601Z",
+      "endTime": "2025-12-19T12:25:33.192Z",
       "params": "",
       "cacheStatus": "cache-miss",
       "status": 0

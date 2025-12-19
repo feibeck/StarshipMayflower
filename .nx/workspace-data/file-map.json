@@ -19,607 +19,175 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": "web-server/public/models/SpaceStation01/SpaceStation01.mtl",
-        "hash": "13356569714458513630"
-      },
-      {
-        "file": "scripts/install.sh",
-        "hash": "7776241134586185387"
-      },
-      {
-        "file": "npm-install.sh",
-        "hash": "7201348351717408632"
-      },
-      {
-        "file": "web-server/public/js/application/Game/view/stations/helm.html",
-        "hash": "13047600631410027331"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_3.svg",
-        "hash": "3502535934337629810"
-      },
-      {
-        "file": "web-server/public/js/application/Game/view/stations/view3d.html",
-        "hash": "17446754758305089900"
-      },
-      {
-        "file": "docs/arc42/07-deployment-view.md",
-        "hash": "466295455070610024"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/directives/Map.js",
-        "hash": "7378097478157860892"
-      },
-      {
-        "file": "web-server/public/js/Rotation/rotation.js",
-        "hash": "15519601402395953997"
-      },
-      {
-        "file": "web-server/public/less/StarshipMayflower.less",
-        "hash": "11045685990515217732"
-      },
-      {
-        "file": "web-server/public/js/Scanner/test.html",
-        "hash": "7065550966351221948"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_9.mmd",
-        "hash": "8597035398893391131"
-      },
-      {
-        "file": "web-server/bin/component.sh",
-        "hash": "10136909550407881867"
-      },
-      {
-        "file": "docs/arc42/02-architecture-constraints.md",
-        "hash": "6226786293566760549"
-      },
-      {
-        "file": "web-server/gruntfile.js",
-        "hash": "4758146315649265639"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_9.svg",
-        "hash": "3962227259613927769"
-      },
-      {
-        "file": "web-server/public/js/application/Lobby/view/lobby.html",
-        "hash": "14712448946117141614"
-      },
-      {
-        "file": "docs/arc42/book/.puppeteer.json",
-        "hash": "6925352718525213022"
-      },
-      {
-        "file": "pre-upgrade-dependencies.txt",
-        "hash": "5681729677676785668"
-      },
-      {
-        "file": "docs/arc42/book/arc42.html",
-        "hash": "2361705004058208252"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/directives/MapLabel.js",
-        "hash": "13074124145146981572"
-      },
-      {
-        "file": "libs/.gitkeep",
-        "hash": "3244421341483603138"
-      },
-      {
-        "file": "web-server/public/models/SpaceStation01/SpaceStation01.obj",
-        "hash": "3932641464320794409"
-      },
-      {
-        "file": "web-server/public/js/application/Game/view/stations/debug.html",
-        "hash": "14987416989014169916"
-      },
-      {
-        "file": "web-server/public/index.html",
-        "hash": "9744927209306902412"
-      },
-      {
-        "file": "pre-upgrade-nx-report.txt",
-        "hash": "13993683240781486684"
-      },
-      {
-        "file": "docs/arc42/06-runtime-view.md",
-        "hash": "8470342596277159456"
-      },
-      {
-        "file": "docs/MODERNIZATION.md",
-        "hash": "10916464646589737325"
-      },
-      {
-        "file": "web-server/bower.json",
-        "hash": "11068513521682515913"
-      },
-      {
-        "file": "README.md",
-        "hash": "13562710066561060196"
-      },
-      {
-        "file": "web-server/public/js/application/Game/controllers/CommCtrl.js",
-        "hash": "3668388432938253853"
-      },
-      {
-        "file": "docs/arc42/book/arc42.epub",
-        "hash": "8575238371917703048"
-      },
-      {
-        "file": "web-server/public/js/application/Utils/services/Pomelo.js",
-        "hash": "3048412976491667202"
-      },
-      {
-        "file": "web-server/public/js/application/Lobby/view/shipList.html",
-        "hash": "13217836958271803287"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_8.svg",
-        "hash": "3637420625804493560"
-      },
-      {
-        "file": "web-server/public/js/application/app.js",
-        "hash": "1812229406413666294"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_5.mmd",
-        "hash": "16720210343300489522"
-      },
-      {
-        "file": "web-server/public/css/parallax.css",
-        "hash": "6228631591489660038"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/filters/Ucfirst.js",
-        "hash": "11989183974711874079"
-      },
-      {
-        "file": "eslint.config.mjs",
-        "hash": "6097517507985626189"
-      },
-      {
-        "file": "web-server/public/js/application/Utils/services/WorldRegistry.js",
-        "hash": "18063576295677610419"
-      },
-      {
-        "file": "web-server/public/js/lib/SpaceObjectsRenderer.js",
-        "hash": "12768203222822162906"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_0.mmd",
-        "hash": "16808429133165496831"
-      },
-      {
-        "file": "docs/arc42/_analysis/repo-survey.md",
-        "hash": "10445674947216842570"
-      },
-      {
-        "file": "web-server/.bowerrc",
-        "hash": "10513915309424085491"
-      },
-      {
-        "file": "nx.json",
-        "hash": "8885133190190807533"
-      },
-      {
-        "file": "web-server/public/js/application/Game/index.js",
-        "hash": "6068410160391677432"
-      },
-      {
-        "file": "tsconfig.base.json",
-        "hash": "9670278276223233238"
-      },
-      {
-        "file": "web-server/public/js/application/Game/view/stations/comm.html",
-        "hash": "8509259778527454945"
-      },
-      {
-        "file": "docs/ROLLBACK.md",
-        "hash": "5304722120617233604"
-      },
-      {
-        "file": "web-server/public/image/background.jpg",
-        "hash": "7291277106939142243"
-      },
-      {
-        "file": "web-server/public/js/application/Lobby/controllers/ShipListCtrl.js",
-        "hash": "10808406366789406106"
-      },
-      {
-        "file": "web-server/public/js/Scanner/scanner.js",
-        "hash": "18203763066568729261"
-      },
-      {
-        "file": "web-server/public/js/application/Game/services/Target.js",
-        "hash": "15928352871236871950"
-      },
-      {
-        "file": "jest.config.js",
-        "hash": "8280827210074712746"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_6.svg",
-        "hash": "16505562454718942142"
-      },
-      {
-        "file": "web-server/public/js/application/routes.js",
-        "hash": "9341542388044646315"
-      },
-      {
-        "file": "docs/arc42/04-solution-strategy.md",
-        "hash": "16877112747889691892"
-      },
-      {
-        "file": "web-server/public/js/application/Game/controllers/DebugCtrl.js",
-        "hash": "17480254080250941005"
-      },
-      {
-        "file": "web-server/package.json",
-        "hash": "13008732623123628774"
-      },
-      {
-        "file": "Gruntfile.js",
-        "hash": "9729780904553099300"
-      },
-      {
-        "file": "web-server/public/less/Map.less",
-        "hash": "5464112308757038392"
-      },
-      {
-        "file": "docs/arc42/11-risks-and-technical-debt.md",
-        "hash": "11976289310006419981"
-      },
-      {
-        "file": "AGENTS.md",
-        "hash": "5238701747125998364"
-      },
-      {
-        "file": "docs/arc42/arc42.md",
-        "hash": "11301210599124899819"
-      },
-      {
-        "file": "web-server/public/js/application/Lobby/view/login.html",
-        "hash": "6017741738785787412"
-      },
-      {
         "file": "web-server/public/js/application/Game/view/stations/weapons.html",
         "hash": "17729718297392132046"
-      },
-      {
-        "file": "web-server/public/js/application/Game/view/stations/engineering.html",
-        "hash": "3149563928271576136"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_8.mmd",
-        "hash": "18375763368850585241"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/view/map.html",
-        "hash": "1411331758450126501"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_5.svg",
-        "hash": "7367209753843530936"
-      },
-      {
-        "file": "web-server/public/js/application/Lobby/index.js",
-        "hash": "11186717356549503630"
-      },
-      {
-        "file": "web-server/public/js/application/Game/controllers/EngineeringCtrl.js",
-        "hash": "8891700349434424620"
-      },
-      {
-        "file": "scripts/gameserver-start.sh",
-        "hash": "1508063161716763207"
-      },
-      {
-        "file": "web-server/bin/component.bat",
-        "hash": "10136909550407881867"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_7.mmd",
-        "hash": "7041172624817405681"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/module.js",
-        "hash": "18392117406064584931"
-      },
-      {
-        "file": "web-server/public/js/application/Game/view/stations/mainscreen.html",
-        "hash": "10286911636114623268"
-      },
-      {
-        "file": "web-server/public/image/background_layer1.png",
-        "hash": "1874716506453298587"
-      },
-      {
-        "file": "npm-install.bat",
-        "hash": "18169077053074201317"
-      },
-      {
-        "file": "web-server/public/js/application/Game/view/stations/map.html",
-        "hash": "6673812168673254065"
-      },
-      {
-        "file": "web-server/public/image/background_layer2.png",
-        "hash": "11122139821647257462"
-      },
-      {
-        "file": "tools/tsconfig.tools.json",
-        "hash": "16088922570277978783"
       },
       {
         "file": "web-server/public/js/application/main.js",
         "hash": "1934760473640068468"
       },
       {
-        "file": "docs/arc42/book/arc42_with_svgs.md",
-        "hash": "3518832684264437604"
+        "file": "web-server/public/models/SpaceStation01/SpaceStation01.mtl",
+        "hash": "13356569714458513630"
       },
       {
-        "file": "web-server/public/js/application/Lobby/module.js",
-        "hash": "8628700756021552992"
-      },
-      {
-        "file": "docs/arc42/10-quality-requirements.md",
-        "hash": "9733190853645119022"
-      },
-      {
-        "file": "web-server/public/js/application/Game/module.js",
-        "hash": "8497417882182287587"
-      },
-      {
-        "file": "web-server/public/js/SpaceViewer/viewer.js",
-        "hash": "3081013484559837579"
-      },
-      {
-        "file": "web-server/public/js/application/Game/controllers/MainScreenCtrl.js",
-        "hash": "10357477158588977329"
-      },
-      {
-        "file": "web-server/public/js/application/Utils/services/Player.js",
-        "hash": "16398152399343815267"
-      },
-      {
-        "file": "docs/arc42/09-architecture-decisions.md",
-        "hash": "16892755978804156838"
-      },
-      {
-        "file": "web-server/public/js/application/Lobby/controllers/ShipCtrl.js",
-        "hash": "7291731264087168909"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/index.js",
-        "hash": "12977066117506628720"
-      },
-      {
-        "file": "web-server/public/js/application/Lobby/controllers/LoginCtrl.js",
-        "hash": "792348171091150353"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_2.svg",
-        "hash": "8939007745343467922"
-      },
-      {
-        "file": "docs/arc42/08-crosscutting-concepts.md",
-        "hash": "16087936946695141661"
-      },
-      {
-        "file": "package.json",
-        "hash": "5505807546414035420"
-      },
-      {
-        "file": "yarn.lock",
-        "hash": "1625790518469911004"
-      },
-      {
-        "file": "web-server/public/js/Util/course.js",
-        "hash": "14358612683766841509"
-      },
-      {
-        "file": "web-server/public/js/application/Game/controllers/WeaponsCtrl.js",
-        "hash": "5208109340513070479"
-      },
-      {
-        "file": "babel.config.json",
-        "hash": "5546405625092116747"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/directives/SpeedSlider.js",
-        "hash": "6713790134060644281"
-      },
-      {
-        "file": "web-server/public/models/SpaceStation01/SpaceStation01/Metal_Rough.jpg",
-        "hash": "12837149802793816466"
-      },
-      {
-        "file": "jest.preset.js",
-        "hash": "5137147997102054031"
-      },
-      {
-        "file": "web-server/public/js/lib/ModelLoader.js",
-        "hash": "7461214079238677585"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_6.mmd",
-        "hash": "13257366450319523577"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/directives/Compass.js",
-        "hash": "8107239939301352596"
-      },
-      {
-        "file": ".editorconfig",
-        "hash": "5443105041930014821"
-      },
-      {
-        "file": "docs/arc42/05-building-block-view.md",
-        "hash": "11615434374299711283"
-      },
-      {
-        "file": ".claude/settings.local.json",
-        "hash": "14636963350817227541"
-      },
-      {
-        "file": "docs/arc42/book/mermaid-config.json",
-        "hash": "14155512514728677708"
-      },
-      {
-        "file": "web-server/public/js/Scanner/ScannerObject.js",
-        "hash": "2811902678428258202"
-      },
-      {
-        "file": "web-server/public/js/application/Game/controllers/ScienceCtrl.js",
-        "hash": "5501079380782994792"
-      },
-      {
-        "file": "web-server/public/js/application/Utils/index.js",
-        "hash": "8392627855610973737"
-      },
-      {
-        "file": "web-server/public/js/application/Game/controllers/View3dCtrl.js",
-        "hash": "9686463332750022518"
-      },
-      {
-        "file": ".travis.yml",
-        "hash": "15038135640399167456"
-      },
-      {
-        "file": "web-server/public/js/application/Ui/lib/slider.js",
-        "hash": "211168271725975182"
-      },
-      {
-        "file": "docs/arc42/12-glossary.md",
-        "hash": "5898214855796404824"
-      },
-      {
-        "file": ".storybook/tsconfig.json",
-        "hash": "3128062056361165723"
-      },
-      {
-        "file": "web-server/public/js/application/Game/view/play.html",
-        "hash": "11031971041158797772"
-      },
-      {
-        "file": "web-server/public/js/application/bootstrap.js",
-        "hash": "12569614763977244486"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_4.mmd",
-        "hash": "17336657192568984957"
-      },
-      {
-        "file": "web-server/public/css/frontend.css",
-        "hash": "188740080981701672"
-      },
-      {
-        "file": "CLAUDE.md",
-        "hash": "10589885990583689863"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_4.svg",
-        "hash": "5926515567704293179"
-      },
-      {
-        "file": "docs/arc42/book/diagrams/diagram_1.svg",
-        "hash": "17310220786672004061"
+        "file": "docs/arc42/book/diagrams/diagram_6.svg",
+        "hash": "16505562454718942142"
       },
       {
         "file": "web-server/public/js/application/Ui/directives/Rotation.js",
         "hash": "13423232248171732685"
       },
       {
-        "file": ".prettierrc",
-        "hash": "16267754514737964994"
+        "file": "web-server/public/js/application/Game/module.js",
+        "hash": "8497417882182287587"
       },
       {
-        "file": "web-server/public/models/SpaceStation01/SpaceStation01.skp",
-        "hash": "13809567864781814235"
+        "file": "docs/arc42/11-risks-and-technical-debt.md",
+        "hash": "11976289310006419981"
       },
       {
-        "file": "web-server/public/js/lib/pomeloclient.js",
-        "hash": "8324635892308936841"
+        "file": "web-server/public/models/SpaceStation01/SpaceStation01.obj",
+        "hash": "3932641464320794409"
       },
       {
-        "file": "docs/arc42/book/diagrams/diagram_0.svg",
-        "hash": "2196414588129074998"
+        "file": "docs/arc42/book/diagrams/diagram_7.mmd",
+        "hash": "7041172624817405681"
       },
       {
-        "file": ".mcp.json",
-        "hash": "363150899393853157"
+        "file": "docs/arc42/book/diagrams/diagram_5.svg",
+        "hash": "7367209753843530936"
       },
       {
-        "file": ".vscode/extensions.json",
-        "hash": "4637156562308165301"
+        "file": "web-server/public/js/Rotation/rotation.js",
+        "hash": "15519601402395953997"
       },
       {
-        "file": "docs/arc42/book/arc42.pdf",
-        "hash": "3038418038236123541"
+        "file": "web-server/public/js/application/Ui/index.js",
+        "hash": "12977066117506628720"
       },
       {
-        "file": "web-server/public/js/Util/angle.js",
-        "hash": "9646019460887863297"
+        "file": "docs/arc42/02-architecture-constraints.md",
+        "hash": "6226786293566760549"
       },
       {
-        "file": "tools/generators/.gitkeep",
+        "file": "web-server/public/js/application/Ui/module.js",
+        "hash": "18392117406064584931"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/view/lobby.html",
+        "hash": "14712448946117141614"
+      },
+      {
+        "file": "tools/tsconfig.tools.json",
+        "hash": "16088922570277978783"
+      },
+      {
+        "file": "web-server/public/js/Scanner/scanner.js",
+        "hash": "18203763066568729261"
+      },
+      {
+        "file": "docs/MODERNIZATION.md",
+        "hash": "10916464646589737325"
+      },
+      {
+        "file": "libs/.gitkeep",
         "hash": "3244421341483603138"
       },
       {
-        "file": "web-server/public/less/slider.less",
-        "hash": "7166041986307831196"
+        "file": "web-server/.bowerrc",
+        "hash": "10513915309424085491"
       },
       {
-        "file": "web-server/app.js",
-        "hash": "6243907762159859825"
+        "file": "docs/arc42/book/diagrams/diagram_6.mmd",
+        "hash": "13257366450319523577"
       },
       {
-        "file": "workspace.json",
-        "hash": "1107753255799753482"
+        "file": "web-server/public/less/StarshipMayflower.less",
+        "hash": "11045685990515217732"
+      },
+      {
+        "file": "web-server/public/js/lib/ModelLoader.js",
+        "hash": "7461214079238677585"
       },
       {
         "file": ".storybook/main.js",
         "hash": "16327388015911810737"
       },
       {
-        "file": "web-server/public/js/application/Game/controllers/HelmCtrl.js",
-        "hash": "5030796942447325427"
+        "file": "web-server/public/js/application/Game/controllers/View3dCtrl.js",
+        "hash": "9686463332750022518"
       },
       {
-        "file": "web-server/public/js/application/Ui/directives/Scanner.js",
-        "hash": "12850322435313228297"
+        "file": "web-server/public/js/application/Game/controllers/DebugCtrl.js",
+        "hash": "17480254080250941005"
       },
       {
-        "file": "docs/arc42/book/arc42.docx",
-        "hash": "7323824991515031589"
+        "file": "npm-install.sh",
+        "hash": "7201348351717408632"
       },
       {
-        "file": "web-server/public/js/application/Lobby/view/ship.html",
-        "hash": "3552874243039591267"
+        "file": "scripts/gameserver-stop.sh",
+        "hash": "17317438096375753030"
       },
       {
-        "file": "web-server/public/js/application/Utils/module.js",
-        "hash": "10275324472329894410"
+        "file": "web-server/public/js/application/Lobby/module.js",
+        "hash": "8628700756021552992"
       },
       {
-        "file": "web-server/public/js/application/Utils/services/Three.js",
-        "hash": "4938528068770780240"
+        "file": "docs/arc42/09-architecture-decisions.md",
+        "hash": "16892755978804156838"
       },
       {
-        "file": "web-server/public/js/application/Ui/directives/SpaceView.js",
-        "hash": "11540097360704276220"
+        "file": "web-server/public/js/application/Lobby/controllers/LoginCtrl.js",
+        "hash": "792348171091150353"
       },
       {
-        "file": "docs/arc42/book/diagrams/diagram_7.svg",
-        "hash": "15331335440403511868"
+        "file": "web-server/public/js/application/Lobby/view/login.html",
+        "hash": "6017741738785787412"
       },
       {
-        "file": "web-server/public/js/application/Game/controllers/MapCtrl.js",
-        "hash": "6787446183737077185"
+        "file": "apps/.gitkeep",
+        "hash": "3244421341483603138"
       },
       {
-        "file": "web-server/public/js/application/Game/view/stations/science.html",
+        "file": "jest.config.js",
+        "hash": "8280827210074712746"
+      },
+      {
+        "file": "web-server/public/js/application/bootstrap.js",
+        "hash": "12569614763977244486"
+      },
+      {
+        "file": "web-server/public/less/Map.less",
+        "hash": "5464112308757038392"
+      },
+      {
+        "file": "web-server/public/image/background.jpg",
+        "hash": "7291277106939142243"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "9670278276223233238"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "5137147997102054031"
+      },
+      {
+        "file": "docs/arc42/06-runtime-view.md",
+        "hash": "8470342596277159456"
+      },
+      {
+        "file": "yarn.lock",
+        "hash": "1625790518469911004"
+      },
+      {
+        "file": "README.md",
+        "hash": "13562710066561060196"
+      },
+      {
+        "file": "tools/generators/.gitkeep",
         "hash": "3244421341483603138"
       },
       {
@@ -627,52 +195,484 @@
         "hash": "6188498008984584637"
       },
       {
-        "file": ".prettierignore",
-        "hash": "17733650430415207254"
+        "file": "web-server/public/js/application/Utils/module.js",
+        "hash": "10275324472329894410"
       },
       {
-        "file": "web-server/public/js/SpaceViewer/test.html",
-        "hash": "5577008101376006092"
+        "file": "docs/arc42/10-quality-requirements.md",
+        "hash": "9733190853645119022"
       },
       {
-        "file": "web-server/public/js/application/Utils/services/Scenes.js",
-        "hash": "9851650199037407605"
+        "file": "web-server/public/js/Scanner/ScannerObject.js",
+        "hash": "2811902678428258202"
       },
       {
-        "file": "web-server/public/js/lib/FpsMeter.js",
-        "hash": "16037031069437524378"
+        "file": "docs/arc42/book/arc42.html",
+        "hash": "2361705004058208252"
+      },
+      {
+        "file": "web-server/bin/component.sh",
+        "hash": "10136909550407881867"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/helm.html",
+        "hash": "13047600631410027331"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_0.svg",
+        "hash": "2196414588129074998"
+      },
+      {
+        "file": "pre-upgrade-nx-report.txt",
+        "hash": "13993683240781486684"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/MapLabel.js",
+        "hash": "13074124145146981572"
+      },
+      {
+        "file": "docs/arc42/book/arc42.epub",
+        "hash": "8575238371917703048"
+      },
+      {
+        "file": "docs/arc42/arc42.md",
+        "hash": "11301210599124899819"
+      },
+      {
+        "file": "web-server/public/models/SpaceStation01/SpaceStation01.skp",
+        "hash": "13809567864781814235"
       },
       {
         "file": ".gitignore",
         "hash": "3516528951273486892"
       },
       {
-        "file": "docs/arc42/03-context-and-scope.md",
-        "hash": "11886406465222403180"
+        "file": "web-server/public/js/lib/pomeloclient.js",
+        "hash": "8324635892308936841"
       },
       {
-        "file": "docs/arc42/book/diagrams/diagram_2.mmd",
-        "hash": "16804723329797501110"
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
       },
       {
-        "file": "scripts/gameserver-stop.sh",
-        "hash": "17317438096375753030"
+        "file": "web-server/public/js/application/Game/view/stations/map.html",
+        "hash": "6673812168673254065"
       },
       {
-        "file": "docs/arc42/book/diagrams/diagram_3.mmd",
-        "hash": "4115235517571354889"
+        "file": "docs/arc42/book/diagrams/diagram_1.svg",
+        "hash": "17310220786672004061"
       },
       {
-        "file": "docs/arc42/book/diagrams/diagram_1.mmd",
-        "hash": "11895507366101088207"
+        "file": "docs/arc42/book/arc42_with_svgs.md",
+        "hash": "3518832684264437604"
+      },
+      {
+        "file": "npm-install.bat",
+        "hash": "18169077053074201317"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/SpeedSlider.js",
+        "hash": "6713790134060644281"
+      },
+      {
+        "file": "web-server/bin/component.bat",
+        "hash": "10136909550407881867"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/CommCtrl.js",
+        "hash": "3668388432938253853"
+      },
+      {
+        "file": "web-server/public/js/Scanner/test.html",
+        "hash": "7065550966351221948"
+      },
+      {
+        "file": "web-server/public/image/background_layer1.png",
+        "hash": "1874716506453298587"
+      },
+      {
+        "file": "docs/arc42/04-solution-strategy.md",
+        "hash": "16877112747889691892"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/debug.html",
+        "hash": "14987416989014169916"
+      },
+      {
+        "file": "CLAUDE.md",
+        "hash": "10589885990583689863"
+      },
+      {
+        "file": "web-server/public/js/Util/course.js",
+        "hash": "14358612683766841509"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/MapCtrl.js",
+        "hash": "6787446183737077185"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/index.js",
+        "hash": "8392627855610973737"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/controllers/ShipCtrl.js",
+        "hash": "7291731264087168909"
+      },
+      {
+        "file": "package.json",
+        "hash": "5505807546414035420"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "17733650430415207254"
       },
       {
         "file": "docs/arc42/01-introduction-and-goals.md",
         "hash": "14993346702149095949"
       },
       {
-        "file": "apps/.gitkeep",
+        "file": "scripts/gameserver-start.sh",
+        "hash": "1508063161716763207"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/view/ship.html",
+        "hash": "3552874243039591267"
+      },
+      {
+        "file": "web-server/public/image/background_layer2.png",
+        "hash": "11122139821647257462"
+      },
+      {
+        "file": "web-server/public/js/SpaceViewer/test.html",
+        "hash": "5577008101376006092"
+      },
+      {
+        "file": "web-server/public/js/Util/angle.js",
+        "hash": "9646019460887863297"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/EngineeringCtrl.js",
+        "hash": "8891700349434424620"
+      },
+      {
+        "file": "scripts/install.sh",
+        "hash": "7776241134586185387"
+      },
+      {
+        "file": "web-server/public/css/parallax.css",
+        "hash": "6228631591489660038"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/mainscreen.html",
+        "hash": "10286911636114623268"
+      },
+      {
+        "file": "babel.config.json",
+        "hash": "5546405625092116747"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_3.svg",
+        "hash": "3502535934337629810"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_5.mmd",
+        "hash": "16720210343300489522"
+      },
+      {
+        "file": "AGENTS.md",
+        "hash": "5238701747125998364"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_4.svg",
+        "hash": "5926515567704293179"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/controllers/ShipListCtrl.js",
+        "hash": "10808406366789406106"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/view3d.html",
+        "hash": "17446754758305089900"
+      },
+      {
+        "file": "docs/arc42/book/arc42.pdf",
+        "hash": "3038418038236123541"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/comm.html",
+        "hash": "8509259778527454945"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/Map.js",
+        "hash": "7378097478157860892"
+      },
+      {
+        "file": "web-server/public/js/application/Game/index.js",
+        "hash": "6068410160391677432"
+      },
+      {
+        "file": ".mcp.json",
+        "hash": "363150899393853157"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/WorldRegistry.js",
+        "hash": "18063576295677610419"
+      },
+      {
+        "file": "docs/arc42/book/mermaid-config.json",
+        "hash": "14155512514728677708"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_4.mmd",
+        "hash": "17336657192568984957"
+      },
+      {
+        "file": "docs/arc42/05-building-block-view.md",
+        "hash": "11615434374299711283"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/lib/slider.js",
+        "hash": "211168271725975182"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_9.mmd",
+        "hash": "8597035398893391131"
+      },
+      {
+        "file": ".travis.yml",
+        "hash": "15038135640399167456"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/ScienceCtrl.js",
+        "hash": "5501079380782994792"
+      },
+      {
+        "file": "docs/arc42/book/.puppeteer.json",
+        "hash": "6925352718525213022"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_8.mmd",
+        "hash": "18375763368850585241"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_1.mmd",
+        "hash": "11895507366101088207"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/Pomelo.js",
+        "hash": "3048412976491667202"
+      },
+      {
+        "file": "web-server/public/js/lib/SpaceObjectsRenderer.js",
+        "hash": "12768203222822162906"
+      },
+      {
+        "file": "web-server/public/js/application/app.js",
+        "hash": "1812229406413666294"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/SpaceView.js",
+        "hash": "11540097360704276220"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/Scenes.js",
+        "hash": "9851650199037407605"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/Compass.js",
+        "hash": "8107239939301352596"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/view/shipList.html",
+        "hash": "13217836958271803287"
+      },
+      {
+        "file": "eslint.config.mjs",
+        "hash": "6097517507985626189"
+      },
+      {
+        "file": "docs/arc42/_analysis/repo-survey.md",
+        "hash": "10445674947216842570"
+      },
+      {
+        "file": "web-server/public/js/lib/FpsMeter.js",
+        "hash": "16037031069437524378"
+      },
+      {
+        "file": "web-server/package.json",
+        "hash": "13008732623123628774"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/science.html",
         "hash": "3244421341483603138"
+      },
+      {
+        "file": "docs/arc42/12-glossary.md",
+        "hash": "5898214855796404824"
+      },
+      {
+        "file": "web-server/bower.json",
+        "hash": "11068513521682515913"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/view/map.html",
+        "hash": "1411331758450126501"
+      },
+      {
+        "file": "docs/arc42/book/arc42.docx",
+        "hash": "7323824991515031589"
+      },
+      {
+        "file": "docs/arc42/07-deployment-view.md",
+        "hash": "466295455070610024"
+      },
+      {
+        "file": "web-server/public/js/SpaceViewer/viewer.js",
+        "hash": "3081013484559837579"
+      },
+      {
+        "file": "web-server/gruntfile.js",
+        "hash": "4758146315649265639"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_7.svg",
+        "hash": "15331335440403511868"
+      },
+      {
+        "file": "web-server/public/js/application/routes.js",
+        "hash": "9341542388044646315"
+      },
+      {
+        "file": "workspace.json",
+        "hash": "1107753255799753482"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_3.mmd",
+        "hash": "4115235517571354889"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/stations/engineering.html",
+        "hash": "3149563928271576136"
+      },
+      {
+        "file": "web-server/app.js",
+        "hash": "6243907762159859825"
+      },
+      {
+        "file": "web-server/public/js/application/Game/services/Target.js",
+        "hash": "15928352871236871950"
+      },
+      {
+        "file": "web-server/public/models/SpaceStation01/SpaceStation01/Metal_Rough.jpg",
+        "hash": "12837149802793816466"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/WeaponsCtrl.js",
+        "hash": "5208109340513070479"
+      },
+      {
+        "file": ".editorconfig",
+        "hash": "5443105041930014821"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/HelmCtrl.js",
+        "hash": "5030796942447325427"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "4637156562308165301"
+      },
+      {
+        "file": "docs/ROLLBACK.md",
+        "hash": "5304722120617233604"
+      },
+      {
+        "file": "web-server/public/less/slider.less",
+        "hash": "7166041986307831196"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/directives/Scanner.js",
+        "hash": "12850322435313228297"
+      },
+      {
+        "file": "web-server/public/js/application/Game/controllers/MainScreenCtrl.js",
+        "hash": "10357477158588977329"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_2.svg",
+        "hash": "8939007745343467922"
+      },
+      {
+        "file": "web-server/public/css/frontend.css",
+        "hash": "188740080981701672"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_8.svg",
+        "hash": "3637420625804493560"
+      },
+      {
+        "file": "docs/arc42/08-crosscutting-concepts.md",
+        "hash": "16087936946695141661"
+      },
+      {
+        "file": "docs/arc42/03-context-and-scope.md",
+        "hash": "11886406465222403180"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/Three.js",
+        "hash": "4938528068770780240"
+      },
+      {
+        "file": "web-server/public/index.html",
+        "hash": "9744927209306902412"
+      },
+      {
+        "file": "web-server/public/js/application/Game/view/play.html",
+        "hash": "11031971041158797772"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_2.mmd",
+        "hash": "16804723329797501110"
+      },
+      {
+        "file": ".claude/settings.local.json",
+        "hash": "12339949199278787256"
+      },
+      {
+        "file": ".storybook/tsconfig.json",
+        "hash": "3128062056361165723"
+      },
+      {
+        "file": "web-server/public/js/application/Utils/services/Player.js",
+        "hash": "16398152399343815267"
+      },
+      {
+        "file": "web-server/public/js/application/Ui/filters/Ucfirst.js",
+        "hash": "11989183974711874079"
+      },
+      {
+        "file": "web-server/public/js/application/Lobby/index.js",
+        "hash": "11186717356549503630"
+      },
+      {
+        "file": "pre-upgrade-dependencies.txt",
+        "hash": "5681729677676785668"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_9.svg",
+        "hash": "3962227259613927769"
+      },
+      {
+        "file": "nx.json",
+        "hash": "8885133190190807533"
+      },
+      {
+        "file": "Gruntfile.js",
+        "hash": "9729780904553099300"
+      },
+      {
+        "file": "docs/arc42/book/diagrams/diagram_0.mmd",
+        "hash": "16808429133165496831"
       }
     ],
     "projectFileMap": {
@@ -948,7 +948,7 @@
         },
         {
           "file": "libs/util/src/lib/model/Ship.ts",
-          "hash": "8995010784822189325",
+          "hash": "6597020330975538098",
           "deps": [
             "npm:sylvester-es6"
           ]
@@ -959,18 +959,18 @@
         },
         {
           "file": "libs/util/src/lib/model/volume/Box.ts",
-          "hash": "8092243150627189656",
+          "hash": "240908237022656400",
           "deps": [
             "npm:sylvester-es6"
           ]
         },
         {
           "file": "libs/util/src/lib/model/volume/Point.ts",
-          "hash": "4193498760693980931"
+          "hash": "8176297912801439981"
         },
         {
           "file": "libs/util/src/lib/model/volume/Sphere.ts",
-          "hash": "392687791889637494"
+          "hash": "6369305338246972954"
         },
         {
           "file": "libs/util/src/lib/model/volume/Volume.ts",
@@ -1091,7 +1091,7 @@
         },
         {
           "file": "libs/game-server-lib/src/lib/handler/game.ts",
-          "hash": "3014418554119923766"
+          "hash": "11182507718397291198"
         },
         {
           "file": "libs/game-server-lib/src/lib/handler/index.ts",
