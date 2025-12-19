@@ -16,7 +16,10 @@ export interface Player {
 export interface Ship {
   id: string;
   name: string;
-  creator: unknown;
+  creator?: {
+    id?: number;
+    name?: string;
+  };
   players: Player[];
   stations: Record<string, Player | null>;
 }

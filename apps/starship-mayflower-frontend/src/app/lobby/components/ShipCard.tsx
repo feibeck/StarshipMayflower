@@ -1,16 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from '../../theme';
-
-interface Ship {
-  id: string;
-  name: string;
-  creator?: {
-    name?: string;
-  };
-  players?: unknown[];
-  stations?: Record<string, string | null>;
-}
+import { Ship } from '../../store/slices/lobby.slice';
 
 interface ShipCardProps {
   ship: Ship;

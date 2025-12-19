@@ -8,7 +8,8 @@ import {
   selectCurrentShip,
   selectMyStations,
   selectIsReady,
-  setCurrentShip
+  setCurrentShip,
+  setShips
 } from '../store/slices/lobby.slice';
 import { gameClient } from '../services/GameClient';
 import { theme } from '../theme';
@@ -154,9 +155,17 @@ export const Lobby = () => {
     setIsLoadingShips(true);
     setError(null);
     try {
+      // Ensure connection is established
+      if (!gameClient.isConnected()) {
+        await gameClient.connect();
+      }
+
       const response = await gameClient.listAvailableShips();
       if (response.status === 'ok') {
-        // Ships will be updated via WebSocket events
+        // Update ships in Redux store
+        if (response['ships']) {
+          dispatch(setShips(response['ships']));
+        }
         console.log('Ships loaded successfully');
       } else {
         setError(response.error || 'Failed to load ships');
@@ -179,8 +188,8 @@ export const Lobby = () => {
       const response = await gameClient.joinShip(shipId);
       if (response.status === 'ok') {
         // Set current ship from response
-        if (response.ship) {
-          dispatch(setCurrentShip(response.ship));
+        if (response['ship']) {
+          dispatch(setCurrentShip(response['ship']));
         }
         console.log('Joined ship successfully');
       } else {
@@ -196,8 +205,9 @@ export const Lobby = () => {
     try {
       const response = await gameClient.addNewShip(shipName);
       if (response.status === 'ok') {
-        // New ship will be added via WebSocket event
         console.log('Ship created successfully');
+        // Reload ships to show the newly created ship
+        await loadShips();
       } else {
         setError(response.error || 'Failed to create ship');
       }

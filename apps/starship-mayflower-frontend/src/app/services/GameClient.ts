@@ -22,6 +22,7 @@ interface Callbacks {
 export class GameClient extends EventEmitter {
   private client: WebSocket | null = null;
   private connected = false;
+  private connecting: Promise<void> | null = null;
   private calls: Record<string, Callbacks> = {};
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 5;
@@ -31,12 +32,24 @@ export class GameClient extends EventEmitter {
    * Connect to WebSocket server
    */
   connect(url = 'ws://localhost:10000'): Promise<void> {
-    return new Promise((resolve, reject) => {
+    // Return existing connection if already connected
+    if (this.connected) {
+      return Promise.resolve();
+    }
+
+    // Return pending connection promise if already connecting
+    if (this.connecting) {
+      return this.connecting;
+    }
+
+    // Create new connection
+    this.connecting = new Promise((resolve, reject) => {
       this.client = new WebSocket(url);
 
       this.client.addEventListener('open', () => {
         this.connected = true;
         this.reconnectAttempts = 0;
+        this.connecting = null;
         this.emit('open');
         this.emit('connected');
         resolve();
@@ -49,17 +62,21 @@ export class GameClient extends EventEmitter {
       this.client.addEventListener('error', (event) => {
         this.emit('connectionError', event);
         if (!this.connected) {
+          this.connecting = null;
           reject(new Error('Connection failed'));
         }
       });
 
       this.client.addEventListener('close', () => {
         this.connected = false;
+        this.connecting = null;
         this.emit('close');
         this.emit('disconnected');
         this.handleReconnect(url);
       });
     });
+
+    return this.connecting;
   }
 
   /**
@@ -70,6 +87,7 @@ export class GameClient extends EventEmitter {
       this.client.close();
       this.client = null;
       this.connected = false;
+      this.connecting = null;
     }
   }
 

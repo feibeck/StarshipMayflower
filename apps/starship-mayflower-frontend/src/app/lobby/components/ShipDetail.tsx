@@ -2,16 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { StationCard, StationStatus } from './StationCard';
 import { theme } from '../../theme';
-
-interface Ship {
-  id: string;
-  name: string;
-  creator?: {
-    name?: string;
-  };
-  players?: unknown[];
-  stations?: Record<string, string | null>;
-}
+import { Ship } from '../../store/slices/lobby.slice';
 
 interface ShipDetailProps {
   ship: Ship;
@@ -136,13 +127,13 @@ export const ShipDetail: React.FC<ShipDetailProps> = ({
   const getStationStatus = (stationName: string): StationStatus => {
     const assignedPlayer = ship.stations?.[stationName];
     if (!assignedPlayer) return 'available';
-    if (assignedPlayer === username) return 'taken-by-me';
+    if (assignedPlayer.name === username) return 'taken-by-me';
     return 'taken-by-other';
   };
 
   const getStationPlayerName = (stationName: string): string | undefined => {
     const assignedPlayer = ship.stations?.[stationName];
-    return assignedPlayer || undefined;
+    return assignedPlayer?.name || undefined;
   };
 
   const handleTakeStation = async (stationName: string) => {

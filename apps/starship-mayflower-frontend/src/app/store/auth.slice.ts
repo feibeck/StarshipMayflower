@@ -21,6 +21,10 @@ export const initialAuthState: AuthState = {
 export const register = createAsyncThunk(
   'users/fetchByIdStatus',
   async (username: string) => {
+    // Connect to WebSocket server if not already connected
+    if (!gameClient.isConnected()) {
+      await gameClient.connect();
+    }
     await gameClient.login(username);
     return { username };
   }
