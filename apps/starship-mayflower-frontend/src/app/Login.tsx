@@ -1,15 +1,23 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { register } from './store/auth.slice';
+import { register, selectAuthenticated } from './store/auth.slice';
 import { AppDispatch } from './store/store';
 
 export function LoginPage() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const location = useLocation();
+  const isAuthenticated = useSelector(selectAuthenticated);
 
   const from = location.state?.from?.pathname || '/';
+
+  // Redirect to lobby if already authenticated (e.g., after session restore)
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, from, navigate]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

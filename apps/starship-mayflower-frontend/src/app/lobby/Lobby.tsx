@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { selectUsername, logout } from '../store/auth.slice';
+import { selectUsername, selectAuthenticated, logout } from '../store/auth.slice';
 import {
   selectLobbyShips,
   selectCurrentShip,
@@ -10,7 +10,7 @@ import {
   selectIsReady,
   setCurrentShip,
   setShips,
-  Ship
+  Ship,
 } from '../store/slices/lobby.slice';
 import { gameClient } from '../services/GameClient';
 import { theme } from '../theme';
@@ -140,6 +140,7 @@ export const Lobby = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const username = useAppSelector(selectUsername);
+  const isAuthenticated = useAppSelector(selectAuthenticated);
   const ships = useAppSelector(selectLobbyShips);
   const currentShip = useAppSelector(selectCurrentShip);
   const myStations = useAppSelector(selectMyStations);
@@ -149,8 +150,13 @@ export const Lobby = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    loadShips();
-  }, []);
+    // Only load ships if user is authenticated
+    console.log('Lobby useEffect triggered:', { isAuthenticated, username });
+    if (isAuthenticated && username) {
+      console.log('Loading ships after authentication');
+      loadShips();
+    }
+  }, [isAuthenticated, username]);
 
   const loadShips = async () => {
     setIsLoadingShips(true);

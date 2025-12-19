@@ -15,13 +15,15 @@ export interface AuthState {
 }
 
 // Load initial state from localStorage
+// Note: We set authenticated=false initially to prevent race conditions
+// The restoreSession thunk will set it to true after successful validation
 const loadAuthFromStorage = (): AuthState => {
   try {
     const stored = localStorage.getItem('auth');
     if (stored) {
       const parsed = JSON.parse(stored);
       return {
-        authenticated: parsed.authenticated || false,
+        authenticated: false, // Start as false, will be set to true after restoreSession
         name: parsed.name || '',
         sessionId: parsed.sessionId || null,
       };

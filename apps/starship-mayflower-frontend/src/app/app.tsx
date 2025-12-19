@@ -21,8 +21,8 @@ export function App() {
 
   // Restore session on mount if user was previously authenticated
   useEffect(() => {
-    console.log('Checking session restore:', authState);
-    if (authState.authenticated && authState.name && authState.sessionId) {
+    console.log('Checking session restore on mount:', authState);
+    if (authState.name && authState.sessionId) {
       console.log('Restoring session for:', authState.name);
       dispatch(
         restoreSession({
@@ -31,7 +31,8 @@ export function App() {
         }),
       );
     }
-  }, [authState.authenticated, authState.name, authState.sessionId, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
 
   return (
     <>
