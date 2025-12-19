@@ -1,4 +1,4 @@
-import { Middleware, MiddlewareAPI, UnknownAction } from 'redux';
+import { Middleware, MiddlewareAPI, Dispatch, UnknownAction } from 'redux';
 import { RootState } from './store';
 import { gameClient } from '../services/GameClient';
 import { connected, connectionError } from './game.slice';
@@ -27,7 +27,7 @@ interface WsDisconnectAction extends UnknownAction {
 type WebSocketAction = WsConnectAction | WsDisconnectAction | UnknownAction;
 
 // Setup server event listeners
-const setupEventListeners = (storeApi: MiddlewareAPI<unknown, RootState>) => {
+const setupEventListeners = (storeApi: MiddlewareAPI<Dispatch, RootState>) => {
   // Connection events
   gameClient.on('connected', () => {
     storeApi.dispatch(connected());
@@ -77,7 +77,7 @@ const setupEventListeners = (storeApi: MiddlewareAPI<unknown, RootState>) => {
 
     // Also update own ship state if it's the player's ship
     const state = storeApi.getState() as RootState;
-    if (state.ship.id === shipData.id) {
+    if (state.ship.id === shipData.id && shipData.orientation) {
       storeApi.dispatch(
         updatePosition({
           position: shipData.position,
@@ -138,7 +138,7 @@ export const GameMiddleware: Middleware<
 > =
   (storeApi) =>
   (next) =>
-  (action: UnknownAction): unknown => {
+  (action: unknown): unknown => {
     if (typeof action === 'object' && action !== null && 'type' in action) {
       const typedAction = action as WebSocketAction;
 

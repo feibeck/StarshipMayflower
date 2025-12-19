@@ -52,13 +52,18 @@ nx dep-graph         # Dependency-Graph anzeigen
 
 **Qualität hat höchste Priorität!**
 
-- **QA Tools nach jedem Schritt ausführen**:
+- **QA Tools IMMER ausführen**:
 
   ```bash
   yarn type-check    # TypeScript-Prüfung
   yarn lint          # Linting
   yarn test          # Unit Tests
   ```
+
+  **WICHTIG**:
+  - **VOR jedem Commit**: Alle QA-Tools laufen lassen
+  - **VOR jeder Erfolgsmeldung**: Alle QA-Tools testen
+  - Niemals Code committen oder als "fertig" melden ohne vorherige QA-Prüfung
 
 - **Clean Code Prinzipien**:
   - Kleine Methoden (Single Responsibility)

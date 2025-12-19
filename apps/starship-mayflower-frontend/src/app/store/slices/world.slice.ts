@@ -132,7 +132,7 @@ export const {
 export const getWorldState = (rootState: RootState): WorldState =>
   rootState[WORLD_FEATURE_KEY];
 
-export const selectShips = createSelector(
+export const selectWorldShips = createSelector(
   getWorldState,
   (state) => Object.values(state.ships)
 );
@@ -151,7 +151,7 @@ export const selectObjectById = (objectId: string) =>
   );
 
 export const selectAllSpaceObjects = createSelector(
-  [selectShips, selectObjects],
+  [selectWorldShips, selectObjects],
   (ships, objects) => [...ships, ...objects]
 );
 
@@ -171,7 +171,7 @@ export const selectTargetId = createSelector(
   (state) => state.targetId
 );
 
-export const selectLastUpdate = createSelector(
+export const selectWorldLastUpdate = createSelector(
   getWorldState,
   (state) => state.lastUpdate
 );

@@ -26,6 +26,7 @@ export const register = createAsyncThunk(
   async (username: string) => {
     await gameServerClient.call({
       handler: 'auth',
+      method: 'login',
       payload: {
         playerName: username,
       },

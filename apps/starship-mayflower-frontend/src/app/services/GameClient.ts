@@ -186,21 +186,21 @@ export class GameClient extends EventEmitter {
    *   console.log('Ship updated:', payload);
    * });
    */
-  on(event: string, listener: (...args: unknown[]) => void): this {
+  override on(event: string, listener: (...args: unknown[]) => void): this {
     return super.on(event, listener);
   }
 
   /**
    * Unsubscribe from server event
    */
-  off(event: string, listener: (...args: unknown[]) => void): this {
+  override off(event: string, listener: (...args: unknown[]) => void): this {
     return super.off(event, listener);
   }
 
   /**
    * Subscribe to event once
    */
-  once(event: string, listener: (...args: unknown[]) => void): this {
+  override once(event: string, listener: (...args: unknown[]) => void): this {
     return super.once(event, listener);
   }
 

@@ -170,7 +170,7 @@ export const {
 export const getLobbyState = (rootState: RootState): LobbyState =>
   rootState[LOBBY_FEATURE_KEY];
 
-export const selectShips = createSelector(
+export const selectLobbyShips = createSelector(
   getLobbyState,
   (state) => state.ships
 );

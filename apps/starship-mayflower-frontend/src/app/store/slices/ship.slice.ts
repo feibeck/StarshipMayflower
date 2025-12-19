@@ -359,7 +359,7 @@ export const selectSpeed = createSelector(getShipState, (state) => {
   return state.currentImpulse;
 });
 
-export const selectLastUpdate = createSelector(
+export const selectShipLastUpdate = createSelector(
   getShipState,
   (state) => state.lastUpdate
 );
