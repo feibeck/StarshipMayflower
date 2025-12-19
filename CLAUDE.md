@@ -46,6 +46,24 @@ nx dep-graph         # Dependency-Graph anzeigen
 - **Backend**: Pinus (Game Server), WebSocket (ws 8.x)
 - **Tools**: Nx 20.3.0, TypeScript 5.7.2, Jest, Cypress
 
+## Code-Qualität & Best Practices
+
+**Qualität hat höchste Priorität!**
+
+- **QA Tools nach jedem Schritt ausführen**:
+  ```bash
+  yarn type-check    # TypeScript-Prüfung
+  yarn lint          # Linting
+  yarn test          # Unit Tests
+  ```
+
+- **Clean Code Prinzipien**:
+  - Kleine Methoden (Single Responsibility)
+  - Kleine Klassen
+  - SOLID-Prinzipien befolgen
+  - Lesbarer, selbsterklärender Code
+  - Keine Code-Duplikation (DRY)
+
 ## Git
 
 - Main Branch: `master`
